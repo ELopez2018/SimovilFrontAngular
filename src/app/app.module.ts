@@ -6,6 +6,31 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TextMaskModule } from 'angular2-text-mask';
 
+// Componentes PrimeNG
+import { CheckboxModule } from 'primeng/checkbox';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ToastModule } from 'primeng/toast';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { TableModule } from 'primeng/table';
+import { CalendarModule } from 'primeng/calendar';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { MessageService } from 'primeng/api';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenubarModule } from 'primeng/menubar';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TabViewModule } from 'primeng/tabview';
+import { FieldsetModule } from 'primeng/fieldset';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ButtonModule } from 'primeng/button';
+import { ChartModule } from 'primeng/chart';
+import { InputTextModule } from 'primeng/inputtext';
+import { CardModule } from 'primeng/card';
+import { AccordionModule } from 'primeng/accordion';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+
 // Servicios
 import { AuthenticationService } from './services/authentication.service';
 import { NominaService } from './services/nomina.service';
@@ -31,30 +56,6 @@ import { CupoComponent } from './cartera/cupo/cupo.component';
 import { ClientComponent } from './cartera/client/client.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
-// Componentes PrimeNG
-import { CheckboxModule } from 'primeng/checkbox';
-import { DropdownModule } from 'primeng/dropdown';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { ToastModule } from 'primeng/toast';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { TableModule } from 'primeng/table';
-import { CalendarModule } from 'primeng/calendar';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { MessageService } from 'primeng/api';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { MenubarModule } from 'primeng/menubar';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { TabViewModule } from 'primeng/tabview';
-import { FieldsetModule } from 'primeng/fieldset';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { ButtonModule } from 'primeng/button';
-import { ChartModule } from 'primeng/chart';
-import { InputTextModule } from 'primeng/inputtext';
-import { CardModule } from 'primeng/card';
-import { AccordionModule } from 'primeng/accordion';
-import { MessagesModule } from 'primeng/messages';
-import { MessageModule } from 'primeng/message';
 
 import { CustomdropdownDirective } from './directives/customdropdown.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
@@ -145,9 +146,9 @@ import { EmployeeDisabilityComponent } from './employee/components/employee-disa
 import { PermissionComponent } from './administrator/permission/permission.component';
 import { RolePerfilComponent } from './administrator/role/role-perfil/role-perfil.component';
 import { StationAdminComponent } from './station-admin/station-admin.component';
-import { StationAdminSheetDailyComponent } from './station-admin/station-admin-sheet-daily/station-admin-sheet-daily.component';
-import { SheetDailyAddComponent } from './station-admin/station-admin-sheet-daily/sheet-daily-add/sheet-daily-add.component';
-import { SheetDailySearchComponent } from './station-admin/station-admin-sheet-daily/sheet-daily-search/sheet-daily-search.component';
+// import { StationAdminSheetDailyComponent } from './station-admin/station-admin-sheet-daily/station-admin-sheet-daily.component';
+// import { SheetDailyAddComponent } from './station-admin/station-admin-sheet-daily/sheet-daily-add/sheet-daily-add.component';
+// import { SheetDailySearchComponent } from './station-admin/station-admin-sheet-daily/sheet-daily-search/sheet-daily-search.component';
 import { FieldsetComponent } from './util/fieldset/fieldset.component';
 import { CompSearchProviderComponent } from './contabilidad/components/comp-search-provider/comp-search-provider.component';
 import { NumericDirective } from './directives/numeric.directive';
@@ -158,14 +159,14 @@ import { CheckboxComponent } from './util/checkbox/checkbox.component';
 import { BsEditComponent } from './basic/basic-station/bs-edit/bs-edit.component';
 import { BsArtComponent } from './basic/basic-station/bs-art/bs-art.component';
 import { BsConfigComponent } from './basic/basic-station/bs-config/bs-config.component';
-import { SheetDailyEditComponent } from './station-admin/station-admin-sheet-daily/sheet-daily-edit/sheet-daily-edit.component';
+// import { SheetDailyEditComponent } from './station-admin/station-admin-sheet-daily/sheet-daily-edit/sheet-daily-edit.component';
 import { LatestFocusDirective } from './directives/latest-focus.directive';
-import { DsCarteraComponent } from './station-admin/components/ds-cartera/ds-cartera.component';
-import { StationAdminConsumptionComponent } from './station-admin/station-admin-consumption/station-admin-consumption.component';
-import { StationConsumptionAddComponent } from './station-admin/station-admin-consumption/station-consumption-add/station-consumption-add.component';
-import { StationConsumptionEditComponent } from './station-admin/station-admin-consumption/station-consumption-edit/station-consumption-edit.component';
-import { StationConsumptionSearchComponent } from './station-admin/station-admin-consumption/station-consumption-search/station-consumption-search.component';
-import { StationAdminReceivableComponent } from './station-admin/station-admin-receivable/station-admin-receivable.component';
+// import { DsCarteraComponent } from './station-admin/components/ds-cartera/ds-cartera.component';
+// import { StationAdminConsumptionComponent } from './station-admin/station-admin-consumption/station-admin-consumption.component';
+// import { StationConsumptionAddComponent } from './station-admin/station-admin-consumption/station-consumption-add/station-consumption-add.component';
+// import { StationConsumptionEditComponent } from './station-admin/station-admin-consumption/station-consumption-edit/station-consumption-edit.component';
+// import { StationConsumptionSearchComponent } from './station-admin/station-admin-consumption/station-consumption-search/station-consumption-search.component';
+// import { StationAdminReceivableComponent } from './station-admin/station-admin-receivable/station-admin-receivable.component';
 import { CarteraPlanillaComponent } from './report/cartera/cartera-planilla/cartera-planilla.component';
 import { CarteraComponent } from './report/cartera/cartera.component';
 import { TableConfigComponent } from './util/table-config/table-config.component';
@@ -174,7 +175,7 @@ import { PaymentAddComponent } from './cartera/payment/payment-add/payment-add.c
 import { PaymentAssignComponent } from './cartera/payment/payment-assign/payment-assign.component';
 import { InvoicePaymentComponent } from './contabilidad/invoice/invoice-payment/invoice-payment.component';
 import { WholesalerInvoicesComponent } from './contabilidad/invoice/wholesaler-invoices/wholesaler-invoices.component';
-import { StationAdminCalibrationComponent } from './station-admin/station-admin-calibration/station-admin-calibration.component';
+// import { StationAdminCalibrationComponent } from './station-admin/station-admin-calibration/station-admin-calibration.component';
 import { OtherComponent } from './report/other/other.component';
 import { ReportSSRSComponent } from './common/report-ssrs/report-ssrs.component';
 import { InventoryComponent } from './inventory/inventory.component';
@@ -185,53 +186,54 @@ import { ReturnedComponent } from './inventory/returned/returned.component';
 import { OtherWholesalerComponent } from './report/other/other-wholesaler/other-wholesaler.component';
 import { FuelTransferComponent } from './inventory/fuel-transfer/fuel-transfer.component';
 import { RosterComponent } from './employee/roster/roster.component';
-import { CanastillaComponent } from './station-admin/canastilla/canastilla.component';
-import { ProductAddComponent } from './station-admin/canastilla/productos/product-add/product-add.component';
-import { PpalCanastillaComponent } from './station-admin/canastilla/ppal-canastilla/ppal-canastilla.component';
+// import { CanastillaComponent } from './station-admin/canastilla/canastilla.component';
+// import { ProductAddComponent } from './station-admin/canastilla/productos/product-add/product-add.component';
+// import { PpalCanastillaComponent } from './station-admin/canastilla/ppal-canastilla/ppal-canastilla.component';
 
 
 
-import { HomeCanatillaComponent } from './station-admin/canastilla/home-canatilla/home-canatilla.component';
-import { EditProductosComponent } from './station-admin/canastilla/productos/edit-productos/edit-productos.component';
-import { ProductInventarioComponent } from './station-admin/canastilla/productos/product-inventario/product-inventario.component';
+// import { HomeCanatillaComponent } from './station-admin/canastilla/home-canatilla/home-canatilla.component';
+// import { EditProductosComponent } from './station-admin/canastilla/productos/edit-productos/edit-productos.component';
+// import { ProductInventarioComponent } from './station-admin/canastilla/productos/product-inventario/product-inventario.component';
 
-import { InventarioMenuComponent } from './station-admin/canastilla/productos/inventario-menu/inventario-menu.component';
-import { IngresoNuevaExistenciaComponent } from './station-admin/canastilla/productos/ingreso-nueva-existencia/ingreso-nueva-existencia.component';
-import { DesincorporacionesExitenciaComponent } from './station-admin/canastilla/productos/desincorporaciones-exitencia/desincorporaciones-exitencia.component';
-import { SolicitudBajaProductosComponent } from './station-admin/canastilla/productos/solicitud-baja-productos/solicitud-baja-productos.component';
-import { ReportesCanastillaComponent } from './station-admin/canastilla/productos/reportes-canastilla/reportes-canastilla.component';
-import { ConsolidadoComponent } from './station-admin/canastilla/productos/consolidado/consolidado.component';
-import { EstadisticasComponent } from './station-admin/canastilla/productos/consolidado/estadisticas/estadisticas.component';
-import { ListProductosComponent } from './station-admin/canastilla/productos/list-productos/list-productos.component';
-import { ListaClientesComponent } from './station-admin/canastilla/productos/lista-clientes/lista-clientes.component';
-import { TrasladosComponent } from './station-admin/canastilla/productos/traslados/traslados.component';
+// import { InventarioMenuComponent } from './station-admin/canastilla/productos/inventario-menu/inventario-menu.component';
+// import { IngresoNuevaExistenciaComponent } from './station-admin/canastilla/productos/ingreso-nueva-existencia/ingreso-nueva-existencia.component';
+// import { DesincorporacionesExitenciaComponent } from './station-admin/canastilla/productos/desincorporaciones-exitencia/desincorporaciones-exitencia.component';
+// import { SolicitudBajaProductosComponent } from './station-admin/canastilla/productos/solicitud-baja-productos/solicitud-baja-productos.component';
+// import { ReportesCanastillaComponent } from './station-admin/canastilla/productos/reportes-canastilla/reportes-canastilla.component';
+// import { ConsolidadoComponent } from './station-admin/canastilla/productos/consolidado/consolidado.component';
+// import { EstadisticasComponent } from './station-admin/canastilla/productos/consolidado/estadisticas/estadisticas.component';
+// import { ListProductosComponent } from './station-admin/canastilla/productos/list-productos/list-productos.component';
+// import { ListaClientesComponent } from './station-admin/canastilla/productos/lista-clientes/lista-clientes.component';
+// import { TrasladosComponent } from './station-admin/canastilla/productos/traslados/traslados.component';
 import { InvoiceImportComponent } from './contabilidad/invoice/invoice-import/invoice-import.component';
-import { IntrasladosComponent } from './station-admin/canastilla/productos/traslados/intraslados/intraslados.component';
-import { OuttrasladosComponent } from './station-admin/canastilla/productos/traslados/outtraslados/outtraslados.component';
-import { CplComponent } from './station-admin/cpl/cpl.component';
-import { IngresoLecturasComponent } from './station-admin/cpl/ingreso-lecturas/ingreso-lecturas.component';
-import { HomeCPLComponent } from './station-admin/cpl/home-cpl/home-cpl.component';
-import { EditLecturasComponent } from './station-admin/cpl/edit-lecturas/edit-lecturas.component';
-import { ReportLecturasComponent } from './station-admin/cpl/report-lecturas/report-lecturas.component';
-import { ConfigMangerasComponent } from './station-admin/cpl/config-mangeras/config-mangeras.component';
-import { PreciosProductosComponent } from './station-admin/canastilla/productos/precios-productos/precios-productos.component';
-import { ProductoDstoComponent } from './station-admin/canastilla/productos/producto-dsto/producto-dsto.component';
+// import { IntrasladosComponent } from './station-admin/canastilla/productos/traslados/intraslados/intraslados.component';
+// import { OuttrasladosComponent } from './station-admin/canastilla/productos/traslados/outtraslados/outtraslados.component';
+// import { CplComponent } from './station-admin/cpl/cpl.component';
+// import { IngresoLecturasComponent } from './station-admin/cpl/ingreso-lecturas/ingreso-lecturas.component';
+// import { HomeCPLComponent } from './station-admin/cpl/home-cpl/home-cpl.component';
+// import { EditLecturasComponent } from './station-admin/cpl/edit-lecturas/edit-lecturas.component';
+// import { ReportLecturasComponent } from './station-admin/cpl/report-lecturas/report-lecturas.component';
+// import { ConfigMangerasComponent } from './station-admin/cpl/config-mangeras/config-mangeras.component';
+// import { PreciosProductosComponent } from './station-admin/canastilla/productos/precios-productos/precios-productos.component';
+// import { ProductoDstoComponent } from './station-admin/canastilla/productos/producto-dsto/producto-dsto.component';
 import { HomeCanastillaAdvaComponent } from './administrative/canastilla/home-canastilla-adva/home-canastilla-adva.component';
-import { VentasUpdateComponent } from './station-admin/canastilla/ventas-update/ventas-update.component';
+// import { VentasUpdateComponent } from './station-admin/canastilla/ventas-update/ventas-update.component';
 import { DisabilityPaymentEditComponent } from './disability2/disability-payment/disability-payment-edit/disability-payment-edit.component';
 import { CplAdmonComponent } from './administrative/cpl-admon/cpl-admon.component';
-import { ListaTodosProductosComponent } from './station-admin/canastilla/productos/listaTodosProductos/listaTodosProductos.component';
-import { StationConsumptionFormapagoComponent } from './station-admin/station-admin-consumption/stationConsumptionFormapago/stationConsumptionFormapago.component';
-import { StationConsumptionReportsComponent } from './station-admin/station-admin-consumption/station-consumption-reports/station-consumption-reports.component';
-import { OtrasVentasAddComponent } from './station-admin/station-admin-consumption/otras-ventas-add/otras-ventas-add.component';
-import { AnticipoAProveedoresComponent } from './station-admin/station-admin-sheet-daily/anticipo-a-proveedores/anticipo-a-proveedores.component';
-import { ProductAddMenuComponent } from './station-admin/canastilla/productos/product-add-menu/product-add-menu.component';
-import { ProductoCrearCodigosComponent } from './station-admin/canastilla/productos/product-add/producto-crear-codigos/producto-crear-codigos.component';
+// import { ListaTodosProductosComponent } from './station-admin/canastilla/productos/listaTodosProductos/listaTodosProductos.component';
+// import { StationConsumptionFormapagoComponent } from './station-admin/station-admin-consumption/stationConsumptionFormapago/stationConsumptionFormapago.component';
+// import { StationConsumptionReportsComponent } from './station-admin/station-admin-consumption/station-consumption-reports/station-consumption-reports.component';
+// import { OtrasVentasAddComponent } from './station-admin/station-admin-consumption/otras-ventas-add/otras-ventas-add.component';
+// import { AnticipoAProveedoresComponent } from './station-admin/station-admin-sheet-daily/anticipo-a-proveedores/anticipo-a-proveedores.component';
+// import { ProductAddMenuComponent } from './station-admin/canastilla/productos/product-add-menu/product-add-menu.component';
+// import { ProductoCrearCodigosComponent } from './station-admin/canastilla/productos/product-add/producto-crear-codigos/producto-crear-codigos.component';
 import { ClientConfiguracionComponent } from './cartera/client/client-Configuracion/client-Configuracion.component';
 import { ClientSaldosIncialesComponent } from './cartera/client/client-saldosInciales/client-saldosInciales.component';
 import { ClientInfoComponent } from './cartera/client/client-info/client-info.component';
 import { ClientEstadoCuentasComponent } from './cartera/client/client-estado-cuentas/client-estado-cuentas.component';
 import { ClientBalanceGeneralComponent } from './cartera/client/client-estado-cuentas/client-Balance-General/client-Balance-General.component';
+import { StationAdminModule } from './station-admin/station-admin.module';
 
 
 
@@ -329,9 +331,9 @@ import { ClientBalanceGeneralComponent } from './cartera/client/client-estado-cu
         EmployeeDisabilityComponent,
         RolePerfilComponent,
         StationAdminComponent,
-        StationAdminSheetDailyComponent,
-        SheetDailyAddComponent,
-        SheetDailySearchComponent,
+        // StationAdminSheetDailyComponent,
+        // SheetDailyAddComponent,
+        // SheetDailySearchComponent,
         FieldsetComponent,
         CompSearchProviderComponent,
         NumericDirective,
@@ -342,14 +344,14 @@ import { ClientBalanceGeneralComponent } from './cartera/client/client-estado-cu
         BsEditComponent,
         BsArtComponent,
         BsConfigComponent,
-        SheetDailyEditComponent,
+        // SheetDailyEditComponent,
         LatestFocusDirective,
-        DsCarteraComponent,
-        StationAdminConsumptionComponent,
-        StationConsumptionAddComponent,
-        StationConsumptionEditComponent,
-        StationConsumptionSearchComponent,
-        StationAdminReceivableComponent,
+        // DsCarteraComponent,
+        // StationAdminConsumptionComponent,
+        // StationConsumptionAddComponent,
+        // StationConsumptionEditComponent,
+        // StationConsumptionSearchComponent,
+        // StationAdminReceivableComponent,
         CarteraPlanillaComponent,
         CarteraComponent,
         TableConfigComponent,
@@ -358,9 +360,9 @@ import { ClientBalanceGeneralComponent } from './cartera/client/client-estado-cu
         PaymentAssignComponent,
         InvoicePaymentComponent,
         WholesalerInvoicesComponent,
-        StationAdminCalibrationComponent,
+        // StationAdminCalibrationComponent,
         OtherComponent,
-        ReportSSRSComponent,
+        // ReportSSRSComponent,
         InventoryComponent,
         TankRadingComponent,
         FuelUnloadComponent,
@@ -369,44 +371,44 @@ import { ClientBalanceGeneralComponent } from './cartera/client/client-estado-cu
         OtherWholesalerComponent,
         FuelTransferComponent,
         RosterComponent,
-        CanastillaComponent,
-        ProductAddComponent,
-        PpalCanastillaComponent,
-        HomeCanatillaComponent,
-        EditProductosComponent,
-        ProductInventarioComponent,
-        InventarioMenuComponent,
-        IngresoNuevaExistenciaComponent,
-        DesincorporacionesExitenciaComponent,
-        SolicitudBajaProductosComponent,
-        ReportesCanastillaComponent,
-        ConsolidadoComponent,
-        EstadisticasComponent,
-        ListProductosComponent,
-        ListaClientesComponent,
-        TrasladosComponent,
+        // CanastillaComponent,
+        // ProductAddComponent,
+        // PpalCanastillaComponent,
+        // HomeCanatillaComponent,
+        // EditProductosComponent,
+        // ProductInventarioComponent,
+        // InventarioMenuComponent,
+        // IngresoNuevaExistenciaComponent,
+        // DesincorporacionesExitenciaComponent,
+        // SolicitudBajaProductosComponent,
+        // ReportesCanastillaComponent,
+        // ConsolidadoComponent,
+        // EstadisticasComponent,
+        // ListProductosComponent,
+        // ListaClientesComponent,
+        // TrasladosComponent,
         InvoiceImportComponent,
-        IntrasladosComponent,
-        OuttrasladosComponent,
-        CplComponent,
-        IngresoLecturasComponent,
-        HomeCPLComponent,
-        EditLecturasComponent,
-        ReportLecturasComponent,
-        ConfigMangerasComponent,
-        PreciosProductosComponent,
-        ProductoDstoComponent,
+        // IntrasladosComponent,
+        // OuttrasladosComponent,
+        // CplComponent,
+        // IngresoLecturasComponent,
+        // HomeCPLComponent,
+        // EditLecturasComponent,
+        // ReportLecturasComponent,
+        // ConfigMangerasComponent,
+        // PreciosProductosComponent,
+        // ProductoDstoComponent,
         HomeCanastillaAdvaComponent,
-        VentasUpdateComponent,
+        // VentasUpdateComponent,
         DisabilityPaymentEditComponent,
         CplAdmonComponent,
-        ListaTodosProductosComponent,
-        StationConsumptionFormapagoComponent,
-        StationConsumptionReportsComponent,
-        OtrasVentasAddComponent,
-        AnticipoAProveedoresComponent,
-        ProductAddMenuComponent,
-        ProductoCrearCodigosComponent,
+        // ListaTodosProductosComponent,
+        // StationConsumptionFormapagoComponent,
+        // StationConsumptionReportsComponent,
+        // OtrasVentasAddComponent,
+        // AnticipoAProveedoresComponent,
+        // ProductAddMenuComponent,
+        // ProductoCrearCodigosComponent,
         ClientConfiguracionComponent,
         ClientSaldosIncialesComponent,
         ClientInfoComponent,
@@ -448,7 +450,8 @@ import { ClientBalanceGeneralComponent } from './cartera/client/client-estado-cu
         MultiSelectModule,
         AccordionModule,
         MessagesModule,
-        MessageModule
+        MessageModule,
+        StationAdminModule
     ],
     providers: [
         AuthenticationService,

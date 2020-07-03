@@ -4,21 +4,21 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SsrsService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
+    constructor(
+        private http: HttpClient
+    ) { }
 
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'text/html', 'Authorization': 'Basic ' + 'YWRtaW5pc3RyYWNpb246TW92aWxnYXM0NTY=', 'Allow-Control-Allow-Origin': '*', responseType: 'text' })
-  };
+    private httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'text/html', 'Authorization': 'Basic ' + 'YWRtaW5pc3RyYWNpb246TW92aWxnYXM0NTY=', 'Allow-Control-Allow-Origin': '*', responseType: 'text' })
+    };
 
-  public getReport(url: string): Observable<any> {
-    return this.http.get(url, { responseType: 'text', headers: this.httpOptions.headers }).pipe(
-      tap(res => console.log("Report solicitado correctamente."))
-    );
-  }
+    public getReport(url: string): Observable<any> {
+        return this.http.get(url, { responseType: 'text', headers: this.httpOptions.headers }).pipe(
+            tap(res => console.log('Report solicitado correctamente.'))
+        );
+    }
 }
