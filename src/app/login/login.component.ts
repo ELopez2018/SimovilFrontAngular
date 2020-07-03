@@ -144,7 +144,7 @@ export class LoginComponent implements OnInit {
                 this.nominaService.setHttpOption();
                 this.basicDataService.getBasicData();
                 this.basicDataService.SetMenuItem(_ => {
-                    // this.principal.getMenuItem();
+                    this.principal.getMenuItem();
                     this.correctLogin2();
                 });
             });
