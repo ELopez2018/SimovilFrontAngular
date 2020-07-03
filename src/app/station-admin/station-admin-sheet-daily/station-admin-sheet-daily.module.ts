@@ -11,11 +11,11 @@ import { SheetDailySearchComponent } from './sheet-daily-search/sheet-daily-sear
         CommonModule
     ],
     declarations: [
-        StationAdminSheetDailyComponent,
-        AnticipoAProveedoresComponent,
-        SheetDailyAddComponent,
-        SheetDailyEditComponent,
-        SheetDailySearchComponent
+        // StationAdminSheetDailyComponent,
+        // AnticipoAProveedoresComponent,
+        // SheetDailyAddComponent,
+        // SheetDailyEditComponent,
+        // SheetDailySearchComponent
     ]
 })
 export class StationAdminSheetDailyModule { }

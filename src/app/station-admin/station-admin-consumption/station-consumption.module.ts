@@ -15,13 +15,13 @@ import { StationConsumptionFormapagoComponent } from './stationConsumptionFormap
 
     ],
     declarations: [
-        StationAdminConsumptionComponent,
-        OtrasVentasAddComponent,
-        StationConsumptionAddComponent,
-        StationConsumptionEditComponent,
-        StationConsumptionReportsComponent,
-        StationConsumptionSearchComponent,
-        StationConsumptionFormapagoComponent
+        // StationAdminConsumptionComponent,
+        // OtrasVentasAddComponent,
+        // StationConsumptionAddComponent,
+        // StationConsumptionEditComponent,
+        // StationConsumptionReportsComponent,
+        // StationConsumptionSearchComponent,
+        // StationConsumptionFormapagoComponent
     ]
 })
 export class StationConsumptionModule { }

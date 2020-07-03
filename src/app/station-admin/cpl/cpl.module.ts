@@ -13,12 +13,12 @@ import { CplComponent } from './cpl.component';
         CommonModule
     ],
     declarations: [
-        CplComponent,
-        ConfigMangerasComponent,
-        EditLecturasComponent,
-        HomeCPLComponent,
-        IngresoLecturasComponent,
-        ReportLecturasComponent
+        // CplComponent,
+        // ConfigMangerasComponent,
+        // EditLecturasComponent,
+        // HomeCPLComponent,
+        // IngresoLecturasComponent,
+        // ReportLecturasComponent
     ]
 })
 export class CplModule { }

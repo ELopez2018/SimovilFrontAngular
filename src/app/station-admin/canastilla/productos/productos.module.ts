@@ -31,35 +31,35 @@ import { ReportSSRSComponent } from '../../../common/report-ssrs/report-ssrs.com
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    CalendarModule
+    // FormsModule,
+    // CalendarModule
   ],
   declarations: [
-      EstadisticasComponent,
-      ConsolidadoComponent,
-      DesincorporacionesExitenciaComponent,
-      EditProductosComponent,
-      IngresoNuevaExistenciaComponent,
-      InventarioMenuComponent,
-      ListProductosComponent,
-      ListaClientesComponent,
-      ListaTodosProductosComponent,
-      PreciosProductosComponent,
-      ProductoCrearCodigosComponent,
-      ProductAddComponent,
-      ProductAddMenuComponent,
-      ProductInventarioComponent,
-      ProductoDstoComponent,
-      ReportesCanastillaComponent,
-      SolicitudBajaProductosComponent,
-      TrasladosComponent,
-      IntrasladosComponent,
-      OuttrasladosComponent,
-      ReportSSRSComponent
+    //   EstadisticasComponent,
+    //   ConsolidadoComponent,
+    //   DesincorporacionesExitenciaComponent,
+    //   EditProductosComponent,
+    //   IngresoNuevaExistenciaComponent,
+    //   InventarioMenuComponent,
+    //   ListProductosComponent,
+    //   ListaClientesComponent,
+    //   ListaTodosProductosComponent,
+    //   PreciosProductosComponent,
+    //   ProductoCrearCodigosComponent,
+    //   ProductAddComponent,
+    //   ProductAddMenuComponent,
+    //   ProductInventarioComponent,
+    //   ProductoDstoComponent,
+    //   ReportesCanastillaComponent,
+    //   SolicitudBajaProductosComponent,
+    //   TrasladosComponent,
+    //   IntrasladosComponent,
+    //   OuttrasladosComponent,
+    //   ReportSSRSComponent
     //   ModalDialogComponent
   ],
   exports: [
-    ReportSSRSComponent
+    // ReportSSRSComponent
   ]
 })
 export class ProductosModule { }

@@ -150,7 +150,7 @@ import { StationAdminComponent } from './station-admin/station-admin.component';
 // import { SheetDailyAddComponent } from './station-admin/station-admin-sheet-daily/sheet-daily-add/sheet-daily-add.component';
 // import { SheetDailySearchComponent } from './station-admin/station-admin-sheet-daily/sheet-daily-search/sheet-daily-search.component';
 import { FieldsetComponent } from './util/fieldset/fieldset.component';
-import { CompSearchProviderComponent } from './contabilidad/components/comp-search-provider/comp-search-provider.component';
+// import { CompSearchProviderComponent } from './contabilidad/components/comp-search-provider/comp-search-provider.component';
 import { NumericDirective } from './directives/numeric.directive';
 import { BasicStationComponent } from './basic/basic-station/basic-station.component';
 import { BsSearchComponent } from './basic/basic-station/bs-search/bs-search.component';
@@ -255,7 +255,7 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         ReportComponent,
         PaymentComponent,
         AuditComponent,
-        ReceivableComponent,
+        // ReceivableComponent,
         ClientSelfComponent,
         UpdatePassComponent,
         UserComponent,
@@ -264,10 +264,10 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         StationComponent,
         StationHomeComponent,
         StationClientComponent,
-        StationConsumptionComponent,
+        // StationConsumptionComponent,
         StationPaymentComponent,
         StationOrderComponent,
-        StationReceivableComponent,
+        // StationReceivableComponent,
         UserEditComponent,
         EmployeeEditComponent,
         EmployeeAddComponent,
@@ -281,7 +281,7 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         InvoiceAddComponent,
         InvoiceSearchComponent,
         InvoiceNoveltyComponent,
-        ModalDialogComponent,
+        // ModalDialogComponent,
         PendingInvoiceComponent,
         AdministrativeComponent,
         ProviderComponent,
@@ -314,7 +314,7 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         FiledSearchComponent,
         DisabilityPaymentAddComponent,
         DisabilityPaymentSearchComponent,
-        CompSearchClientComponent,
+        // CompSearchClientComponent,
         ProfileComponent,
         RoleComponent,
         OptionComponent,
@@ -334,8 +334,8 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         // StationAdminSheetDailyComponent,
         // SheetDailyAddComponent,
         // SheetDailySearchComponent,
-        FieldsetComponent,
-        CompSearchProviderComponent,
+        // FieldsetComponent,
+        // CompSearchProviderComponent,
         NumericDirective,
         BasicStationComponent,
         BsSearchComponent,
@@ -352,14 +352,14 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         // StationConsumptionEditComponent,
         // StationConsumptionSearchComponent,
         // StationAdminReceivableComponent,
-        CarteraPlanillaComponent,
+        // CarteraPlanillaComponent,
         CarteraComponent,
         TableConfigComponent,
         PaymentSearchComponent,
         PaymentAddComponent,
         PaymentAssignComponent,
         InvoicePaymentComponent,
-        WholesalerInvoicesComponent,
+        // WholesalerInvoicesComponent,
         // StationAdminCalibrationComponent,
         OtherComponent,
         // ReportSSRSComponent,
@@ -465,6 +465,9 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         BasicDataService,
         UtilService,
         SubirArchivoService
+    ],
+    exports: [
+        // ReportSSRSComponent
     ],
     bootstrap: [AppComponent]
 })
