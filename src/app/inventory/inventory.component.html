@@ -1,0 +1,46 @@
+<ul class="nav nav-tabs mb-1" id="myTab" role="tablist">
+  <li class="nav-item text-center" title="Lecturas de combustible">
+    <a routerLink="./tankReading" routerLinkActive="active" class="nav-link" id="tankReading-tab" data-toggle="tab"
+      role="tab" aria-controls="Lecturas Manuales" aria-selected="false">
+      <span class="fas fa-pencil-ruler fa-fw"></span>&nbsp;
+      <span class="nameTab">Lecturas de combustible</span>
+    </a>
+  </li>
+  <li class="nav-item text-center" title="Calibración">
+    <a routerLink="./calibration" routerLinkActive="active" class="nav-link" id="calibration-tab" data-toggle="tab"
+      role="tab" aria-controls="calibration" aria-selected="false">
+      <span class="fas fa-balance-scale fa-fw"></span>&nbsp;
+      <span class="nameTab">Calibración</span>
+    </a>
+  </li>
+  <li class="nav-item text-center" title="Descargar combustible">
+    <a routerLink="./fuelUnload" routerLinkActive="active" class="nav-link" id="fuelUnload-tab" data-toggle="tab"
+      role="tab" aria-controls="fuelUnload" aria-selected="false">
+      <span class="fa-stack fa-fw">
+        <i class="fas fa-gas-pump fa-stack-1x"></i>
+        <i class="fas fa-arrow-down fa-stack-1x item2"></i>
+      </span>&nbsp;
+      <span class="nameTab">Descargar combustible</span>
+    </a>
+  </li>
+  <li class="nav-item text-center" title="Devolución">
+    <a routerLink="./returned" routerLinkActive="active" class="nav-link" id="calibration-tab" data-toggle="tab"
+      role="tab" aria-controls="return" aria-selected="false">
+      <span class="fas fa-undo fa-fw"></span>&nbsp;
+      <span class="nameTab">Devolución</span>
+    </a>
+  </li>
+  <li class="nav-item text-center" title="Traslado">
+    <a routerLink="./fuelTransfer" routerLinkActive="active" class="nav-link" id="fuelTransfer-tab" data-toggle="tab"
+      role="tab" aria-controls="fuelTransfer" aria-selected="false">
+      <span class="fa-stack fa-fw">
+        <i class="fas fa-gas-pump fa-stack-1x"></i>
+        <i class="fas fa-exchange-alt fa-stack-1x item2"></i>
+      </span>&nbsp;
+      <span class="nameTab">Traslado</span>
+    </a>
+  </li>
+</ul>
+<main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+  <router-outlet #o="outlet"></router-outlet>
+</main>

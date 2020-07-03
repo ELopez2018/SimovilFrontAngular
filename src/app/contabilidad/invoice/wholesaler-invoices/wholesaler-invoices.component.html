@@ -1,0 +1,32 @@
+<div class="table-wrapper" id="table-Search">
+  <div class="align-self-center no-more-tables">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Numero</th>
+          <th scope="col">Proveedor</th>
+          <th scope="col">Creado</th>
+          <th scope="col">Vence</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Saldo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of invoices" (dblclick)="selectInvoice(invoice)" class="sel-not">
+          <td data-title="Numero" class="text-center">{{invoice.numero}}</td>
+          <td data-title="Proveedor" class="text-center">{{invoice.nombre}}</td>
+          <td data-title="Creado" class="text-center">{{invoice.fecha | date:'dd/MM/yy' : '+0000'}}</td>
+          <td data-title="Vence" class="text-center">{{invoice.fechaVen | date: 'dd/MM/yy' : '+0000'}}</td>
+          <td data-title="Valor" class="text-right">{{invoice.valor | currency}}</td>
+          <td data-title="Saldo" class="text-right">{{invoice.saldo | currency}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr class="text-center">
+            <th scope="col"  colspan="5" >Total</th>
+            <th scope="col">{{ saldoProvee | currency }}</th>
+          </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

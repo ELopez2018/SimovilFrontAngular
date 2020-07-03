@@ -1,0 +1,22 @@
+<div class="table-wrapper" id="table-Search" *ngIf="advance">
+  <div class="align-self-center no-more-tables">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Tipo</th>
+          <th scope="col">Area</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let novedad of advance.novedadAnticipo">
+          <td data-title="Tipo" class="text-center">{{getNameNovelty(novedad.tipoNovedad)}}</td>
+          <td data-title="Area" class="text-center">{{novedad.perfil}}</td>
+          <td data-title="Fecha" class="text-center">{{novedad.fecha | date: 'dd/MM/yyyy hh:mm:ss a' : '-0500'}}</td>
+          <td data-title="Detalle" class="text-center">{{novedad.detalle}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

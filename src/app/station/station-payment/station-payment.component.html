@@ -1,0 +1,95 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-0 justify-content-center">
+  <div class="row col-sm-12 pb-1">
+    <div class="input-group col-sm-3">
+      <div class="input-group-prepend">
+        <button id="btnClient" class="btn btn-outline-secondary left" type="button" (click)="openModCli()">
+          <span class="far fa-hand-pointer fa-fw"></span>
+        </button>
+      </div>
+      <input [(ngModel)]="client.codCliente" (keyup.enter)="searchClient()" [disabled]="id!=null" required class="form-control"
+        type="number" name="codclient" id="codclient">
+    </div>
+    <div class="input-group col-sm-6">
+      <span class="input-group-addon">
+        <i class="fas fa-user fa-fw"></i>
+      </span>
+      <input [(ngModel)]="client.nombre" disabled class="form-control" type="text" name="nameclient" id="nameclient">
+    </div>
+    <div *ngIf="id!=null" class="col-sm-2">
+      <button class="btn btn-danger btn-block" (click)="back()">
+        <span class="fas fa-undo fa-fw"></span>&nbsp;Atras</button>
+    </div>
+    <div *ngIf="id==null" class="col-sm-2">
+      <button class="btn btn-info btn-block" (click)="searchClient()" [disabled]="client.codCliente==null">
+        <span class="fas fa-search fa-fw"></span>&nbsp;Consultar</button>
+    </div>
+  </div>
+  <div class="row col-sm-12 pb-1">
+    <label class="control-label col-sm-1 m-0">Desde:</label>
+    <div class="input-group col-sm-3">
+      <span class="input-group-addon">
+        <i class="fas fa-calendar fa-fw"></i>
+      </span>
+      <input [(ngModel)]="searchPagoFechaIni" required class="form-control" type="date" name="searchPagoFechaIni" id="searchPagoFechaIni">
+    </div>
+    <label class="control-label col-sm-1 m-0">Hasta:</label>
+    <div class="input-group col-sm-3">
+      <span class="input-group-addon">
+        <i class="fas fa-calendar fa-fw"></i>
+      </span>
+      <input [(ngModel)]="searchPagoFechaFin" required class="form-control" type="date" name="searchPagoFechaFin" id="searchPagoFechaFin">
+    </div>
+    <div class="col-sm-3 btn-group justify-content-center" role="group">
+      <button id="btnSearch" class="btn btn-info" (click)="getPaymentsSearch()">
+        <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+      <button class="btn btn-warning" (click)="cleanConsumptionSearch()">
+        <span class="fas fa-eraser fa-fw"></span>
+      </button>
+      <button class="btn btn-success" (click)="printConsumptionSearch()" [disabled]="searchPayments == null || searchPayments.length == 0">
+        <span class="fa fa-print fa-fw"></span>
+      </button>
+      <button class="btn btn-secondary" (click)="csvPaymentSearch()" [disabled]="searchPayments == null || searchPayments.length == 0">
+        <span class="fas fa-file-download fa-fw"></span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="table-wrapper container" id="table-Consumption-Search">
+  <div class="align-self-center no-more-tables" id="table-Consumption-Search">
+    <div id="print-payments">
+      <table class="table table-hover table-sm table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Id</th>
+            <th scope="col">Registrado</th>
+            <th scope="col">Fecha de pago</th>
+            <th scope="col">Forma de pago</th>
+            <th scope="col">Valor</th>
+            <th scope="col">usuario</th>
+            <th scope="col">Cuenta de cobro</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of searchPayments">
+            <td class="text-center" data-title="Id">{{payment.idPago}}</td>
+            <td class="text-center" data-title="Registrado">{{payment.fecha | date: 'dd/MM/yyyy hh:mm:ss a' : '+0000'}}</td>
+            <td class="text-center" data-title="Fecha de pago">{{payment.fechaPago | date: 'dd/MM/yyyy' : '+0000'}}</td>
+            <td class="text-center" data-title="Forma de pago">{{getFormaPago(payment.formaPago)}}</td>
+            <td class="text-right" data-title="Valor">{{payment.valor | currency }}</td>
+            <td class="text-center" data-title="Usuario">{{payment.usuario}}</td>
+            <td class="text-center" data-title="Cuenta de cobro">{{payment.numCuentaCobro}}</td>
+            <td class="text-center" data-title="Estado">{{payment.estado == true ? 'Activo' : 'Inactivo'}}</td>
+          </tr>
+          <tr *ngIf="searchPayments != null">
+            <td colspan="7"></td>
+            <td data-title="Total">Total = {{sumPayments() | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-modal-dialog [visible]="booleanClient" (hide)="booleanClient=false">
+  <app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
+</app-modal-dialog>

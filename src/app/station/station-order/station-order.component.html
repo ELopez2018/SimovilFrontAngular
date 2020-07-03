@@ -1,0 +1,132 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-0 justify-content-center">
+  <div class="row col-sm-12 pb-1">
+    <div class="input-group col-sm-3">
+      <div class="input-group-prepend">
+        <button id="btnClient" class="btn btn-outline-secondary left" type="button" (click)="openModCli()">
+          <span class="far fa-hand-pointer fa-fw"></span>
+        </button>
+      </div>
+      <input [(ngModel)]="client.codCliente" (keyup.enter)="searchClient()" [disabled]="id!=null" required class="form-control"
+        type="number" name="codclient" id="codclient">
+    </div>
+    <div class="input-group col-sm-6">
+      <span class="input-group-addon">
+        <i class="fas fa-user fa-fw"></i>
+      </span>
+      <input [(ngModel)]="client.nombre" disabled class="form-control" type="text" name="nameclient" id="nameclient">
+    </div>
+    <div *ngIf="id!=null" class="col-sm-2">
+      <button class="btn btn-danger btn-block" (click)="back()">
+        <span class="fas fa-undo fa-fw"></span>&nbsp;Atras</button>
+    </div>
+    <div *ngIf="id==null" class="col-sm-2">
+      <button class="btn btn-info btn-block" (click)="searchClient()" [disabled]="client.codCliente==null">
+        <span class="fas fa-search fa-fw"></span>&nbsp;Consultar</button>
+    </div>
+  </div>
+  <div class="row col-sm-12 pb-1">
+    <label class="control-label col-sm-1 m-0">Desde:</label>
+    <div class="input-group col-sm-3">
+      <span class="input-group-addon">
+        <i class="fas fa-calendar fa-fw"></i>
+      </span>
+      <input [(ngModel)]="searchPedidoFechaIni" required class="form-control" type="date" name="searchPedidoFechaIni"
+        id="searchPedidoFechaIni">
+    </div>
+    <label class="control-label col-sm-1 m-0">Hasta:</label>
+    <div class="input-group col-sm-3">
+      <span class="input-group-addon">
+        <i class="fas fa-calendar fa-fw"></i>
+      </span>
+      <input [(ngModel)]="searchPedidoFechaFin" required class="form-control" type="date" name="searchPedidoFechaFin"
+        id="searchPedidoFechaFin">
+    </div>
+    <div class="form-check col-sm-1 p-0 input-check">
+      <input [(ngModel)]="searchStatus" class="mr-2" type="checkbox" value="" id="defaultCheck1">
+      <label class="form-check-label m-0 text-truncate" for="defaultCheck1">
+        Activo
+      </label>
+    </div>
+    <div class="col-sm-3 btn-group justify-content-center" role="group">
+      <button id="btnSearch" class="btn btn-info" (click)="getOrderSearch()">
+        <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+      <button class="btn btn-warning" (click)="cleanConsumptionSearch()">
+        <span class="fas fa-eraser fa-fw"></span>
+      </button>
+      <button class="btn btn-success" (click)="printConsumptionSearch()" [disabled]="searchOrders == null || searchOrders.length == 0">
+        <span class="fa fa-print fa-fw"></span>
+      </button>
+      <button class="btn btn-secondary" (click)="csvOrderSearch()" [disabled]="searchOrders == null || searchOrders.length == 0">
+        <span class="fas fa-file-download fa-fw"></span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="table-wrapper container" id="table-Consumption-Search">
+  <div id="print-orders">
+    <table class="table table-hover table-sm table-striped">
+      <thead>
+        <tr class="text-center">
+          <th scope="col"></th>
+          <th scope="col">Id</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Estaciones</th>
+          <th scope="col">Vehículos</th>
+          <th scope="col">Vigencia</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Saldo</th>
+          <th scope="col">Consumo</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let order of searchOrders; let i = index;">
+          <tr>
+            <div *ngIf="(order.PedidoDetalleAuto == null && order.PedidoDetalleEstacion == null) 
+          || (order.PedidoDetalleAuto.length == 0 && order.PedidoDetalleEstacion.length == 0); 
+          then content else other"></div>
+            <ng-template #content>
+              <td></td>
+            </ng-template>
+            <ng-template #other>
+              <td>
+                <span *ngIf="controlSearchOrder[i] != null" (click)="controlSearchOrder[i] = null" class="badge badge-pill badge-secondary">
+                  <span class="fas fa-minus fa-fw"></span>
+                </span>
+                <span *ngIf="controlSearchOrder[i] == null" (click)="controlSearchOrder[i] = true" class="badge badge-pill badge-primary">
+                  <span class="fas fa-plus fa-fw"></span>
+                </span>
+              </td>
+            </ng-template>
+            <td data-title="Id">{{order.idPedido}}</td>
+            <td data-title="Tipo">{{order.controlado == true ? 'Controlado' : 'No Controlado'}}</td>
+            <td data-title="Estaciones">{{order.todaEstacion == true || order.controlado == false ? 'Todas' :
+              'Algunas'}}</td>
+            <td data-title="Vehículos">{{order.todoVehiculo == true || order.controlado == false ? 'Todos' :
+              'Algunos'}}</td>
+            <td class="text-center" data-title="Vigencia">{{order.vigencia}}</td>
+            <td class="text-right" data-title="Valor">{{order.valor | currency}}</td>
+            <td class="text-right" data-title="Saldo">{{order.saldo | currency}}</td>
+            <td class="text-right" data-title="Consumido">{{order.consumido | currency}}</td>
+            <td data-title="Estado">{{order.estado == true ? 'Activo' : 'Inactivo'}}</td>
+            <td class="text-center" data-title="Fecha">{{order.fechaCreacion | date:'dd/MM/yyyy' : '+0000'}}</td>
+          </tr>
+          <ng-container *ngIf="controlSearchOrder[i] != null">
+            <tr *ngFor="let item of arrayOrderAutoStation[i][0]; let j = index;">
+              <td colspan="3"></td>
+              <td data-title="Estacion">{{getNameStation(arrayOrderAutoStation[i][0][j])}}</td>
+              <td data-title="Vehículo">{{arrayOrderAutoStation[i][1][j]}}</td>
+              <td class="text-center" data-title="Vigencia">{{arrayOrderAutoStation[i][2][j]}}</td>
+              <td class="text-right" data-title="Valor">{{arrayOrderAutoStation[i][3][j] | currency}}</td>
+              <td colspan="3"></td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-modal-dialog [visible]="booleanClient" (hide)="booleanClient=false">
+  <app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
+</app-modal-dialog>

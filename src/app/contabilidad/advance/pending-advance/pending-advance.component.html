@@ -1,0 +1,57 @@
+<div class="col-sm-12">
+  <button (click)="getAdvances()" id="refresh" class="btn btn-sm btn-secondary">
+    <span class="fas fa-refresh fa-fw"></span>&nbsp;Refrescar
+  </button>
+  <button (click)="configTb()" id="configTable" class="btn btn-sm btn-outline-info">
+    <span class="fas fa-cogs fa-fw"></span>
+  </button>
+  <legend class="text-center">Anticipos Pendientes
+  </legend>
+  <div class="table-wrapper">
+    <div class="align-self-center no-more-tables" id="table-advances">
+      <table class="table table-hover table-dark table-sm table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col" *ngIf="exits('Número')">Número</th>
+            <th scope="col" *ngIf="exits('Proveedor')">Proveedor</th>
+            <th scope="col" *ngIf="exits('Nombre')">Nombre</th>
+            <th scope="col" *ngIf="exits('Fecha')">Fecha</th>
+            <th scope="col" *ngIf="exits('Estado')">Estado</th>
+            <th scope="col" *ngIf="exits('Valor')">Valor</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let advance of advances" [ngClass]="porCobrar(advance.estado)" [@fade]="'in'">
+            <td *ngIf="exits('Número')" data-title="Número" class="text-center">{{advance.idAnticipo}}</td>
+            <td *ngIf="exits('Proveedor')" data-title="Proveedor" class="text-center" [title]="getNameProvider(advance.proveedor)">{{advance.proveedor}}</td>
+            <td *ngIf="exits('Nombre')" data-title="Nombre" class="text-center">{{getNameProvider(advance.proveedor)}}</td>
+            <td *ngIf="exits('Fecha')" data-title="Fecha" class="text-center">{{advance.fecha | date: 'dd/MM/yy' :
+              '+0000'}}</td>
+            <td *ngIf="exits('Estado')" data-title="Estado" class="text-center">{{getStatusName(advance.estado)}}</td>
+            <td *ngIf="exits('Valor')" data-title="Valor" class="text-right">{{advance.valor | currency }}</td>
+            <td data-title="Acciones" class="text-center">
+              <div id="btns">
+                <button class="btn btn-info btn-sm" (click)="addNovelty(advance)" title="Novedad">
+                  <span class="fas fa-plus fa-fw"></span>
+                </button>
+                <button (click)="searchHistory(advance)" class="btn btn-success btn-sm" title="Historial">
+                  <span class="fas fa-history fa-fw"></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-modal-dialog [visible]="boolHistory" (hide)="boolHistory = false">
+  <app-advance-history [advance]="advanceSel"></app-advance-history>
+</app-modal-dialog>
+<app-modal-dialog [visible]="boolNovelty" (hide)="boolNovelty = false">
+  <app-advance-novelty [advance]="advanceSel" (submiter)="resultNovelty($event)"></app-advance-novelty>
+</app-modal-dialog>
+<app-modal-dialog (hide)="booleanTableConfig = false" [visible]="booleanTableConfig" width="4">
+  <app-table-config [tableName]="nameTAbleConfig" (submiter)="resultTableConfig()"></app-table-config>
+</app-modal-dialog>

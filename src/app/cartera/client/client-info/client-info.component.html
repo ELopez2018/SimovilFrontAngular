@@ -1,0 +1,131 @@
+<form [formGroup]="clientForm" novalidate class="form-horizontal">
+    <fieldset>
+        <legend class="text-center">INFORMACIÓN DEL CLIENTE</legend>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Tipo</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <button (click)="boolClient=true" class="input-group-text " id="basic-addon1"><i class="fa fa-id-card fa-fw"></i></button>
+                </div>
+                <input type="text" readonly name="searchTipoDocumento" class="form-control form-control-sm col-2"
+                    formControlName="searchTipoDocumento">
+
+                <input readonly appAutofocus id="identify" type="number" class="form-control form-control-sm" placeholder="Número"
+                    name="searchIdentificacion" formControlName="searchIdentificacion">
+            </div>
+
+            <label class="control-label col-sm-2">Nombre:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user fa-fw"></i></span>
+                </div>
+                <input readonly type="text" class="form-control form-control-sm" placeholder="Nombre" name="searchNombre"
+                    formControlName="searchNombre">
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Departamento:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-globe fa-fw"></i></span>
+                </div>
+                <input readonly type="text" name="searchDepartamento" class="form-control form-control-sm"
+                    formControlName="searchDepartamento">
+            </div>
+            <label class="control-label col-sm-2">Ciudad:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> <i class="fa fa-map-marker fa-fw"></i></span>
+                </div>
+                <input type="text" readonly name="searchCiudad" class="form-control form-control-sm" formControlName="searchCiudad">
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Dirección:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> <i class="fa fa-map-marker fa-fw"></i></span>
+                </div>
+                <input type="text" readonly class="form-control form-control-sm" placeholder="Dirección" name="searchDireccion"
+                    formControlName="searchDireccion">
+            </div>
+            <label class="control-label col-sm-2">Teléfono:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> <i class="fa fa-mobile fa-fw"></i></span>
+                </div>
+                <input readonly type="text" class="form-control form-control-sm" placeholder="Teléfono" name="searchTelefono"
+                    formControlName="searchTelefono">
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Correo:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> <i class="fa fa-envelope fa-fw"></i></span>
+                </div>
+                <input readonly type="text" class="form-control form-control-sm" placeholder="Correo electrónico" name="searchCorreo"
+                    formControlName="searchCorreo">
+            </div>
+            <label class="control-label col-sm-2">Estación Origen:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> <i class="fas fa-gas-pump fa-fw"></i></span>
+                </div>
+                <input readonly name="searchEstacion" class="form-control form-control-sm" formControlName="searchEstacion">
+            </div>
+        </div>
+    </fieldset>
+    <br>
+</form>
+<form [formGroup]="formCupo">
+    <fieldset>
+        <legend class="text-center">INFORMACIÓN DEL CUPO</legend>
+
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Tipo : </label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> <i class="fas fa-gas-pump fa-fw"></i></span>
+                </div>
+                <input readonly name="detalleTipoCupo" class="form-control form-control-sm" formControlName="detalleTipoCupo">
+            </div>
+            <label class="control-label col-sm-2">Estado : </label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> <i class="fas fa-gas-pump fa-fw"></i></span>
+                </div>
+                <input readonly name="estadoCupo" class="form-control form-control-sm" formControlName="estadoCupo">
+            </div>
+
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Cupo : </label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> <i class="fas fa-gas-pump fa-fw"></i></span>
+                </div>
+                <input currencyMask readonly name="cupoAsignado" class="form-control form-control-sm" formControlName="cupoAsignado">
+            </div>
+            <label class="control-label col-sm-2">Disponible : </label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> <i class="fas fa-gas-pump fa-fw"></i></span>
+                </div>
+                <input currencyMask readonly name="cupoDisponible" class="form-control  form-control-sm"
+                    formControlName="cupoDisponible">
+            </div>
+
+        </div>
+
+
+
+
+    </fieldset>
+</form>
+<app-modal-dialog (hide)="boolClient = false" [visible]="boolClient">
+    <app-comp-search-client (submiter)="getClientSearch($event.codCliente)"></app-comp-search-client>
+</app-modal-dialog>

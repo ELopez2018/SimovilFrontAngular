@@ -1,0 +1,164 @@
+<form [formGroup]="plantilla">
+    <fieldset class="pt-0">
+        <legend>Plantilla de consumo</legend>
+        <div class="form-row">
+            <div class="form-group mb-0 col-sm">
+                <label for="fecha" class="control-label">Fecha</label>
+                <input type="date" id="fecha" class="form-control" formControlName="fecha" />
+            </div>
+            <div class="form-group mb-0 col-sm">
+                <label for="cliente" class="control-label">Cliente</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button id="btnClient" class="btn btn-outline-secondary left" (click)="boolClientF(null)">
+                            <span class="far fa-hand-pointer fa-fw"></span>
+                        </button>
+                    </div>
+                    <input id="cliente" type="text" class="form-control" placeholder="Cliente" formControlName="cliente" />
+                </div>
+            </div>
+            <div class="form-group mb-0 col-sm">
+                <label for="placa" class="control-label">Artículo</label>
+                <select id="articulo" class="form-control" formControlName="articulo">
+                    <option
+                        *ngFor="let article of articles"
+                        [ngValue]="article"
+                        >{{ article.DESCRIPCION }}</option
+                    >
+                </select>
+            </div>
+            <div class="form-group mb-0 col-sm-2">
+                <button class="btn btn-block btn-sm btn-success text-truncate" (click)="add()">
+                    <span class="fa fa-arrow-down fa-fw"></span>&nbsp;Agregar
+                </button>
+                <button class="btn btn-block btn-sm btn-danger text-truncate mt-0" (click)="clear()">
+                    <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<form>
+    <fieldset *ngIf="visibleArray" [@fade]="'in'" [formGroup]="consumption">
+        <div [@fade]="'in'" class="form-row" formArrayName="lista" *ngFor="
+                let item of consumption.get('lista')['controls'];
+                let i = index
+            ">
+            <div [formGroupName]="i" class="item mb-1 w-100">
+                <div class="form-row">
+                    <div class="form-group mb-1 col-sm-4">
+                        <label class="control-label">Nombre</label>
+                        <button class="btn btn-outline-secondary btn-block text-truncate" (click)="boolClientF(i)" [disabled]="!lock(i)">
+                            {{ item.get("clienteNom").value || "Sin Cliente" }}
+                        </button>
+                    </div>
+                    <div class="form-group mb-1 col-sm">
+                        <label class="control-label">Fecha</label>
+                        <input [id]="'fecha_item' + i" type="date" class="form-control" formControlName="fecha" />
+                    </div>
+                    <div class="form-group mb-1 col-sm">
+                        <label class="control-label">Hora</label>
+                        <input type="time" class="form-control" formControlName="hora" />
+                    </div>
+                    <div class="form-group mb-1 col-sm">
+                        <label class="control-label">Tiquete</label>
+
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <button id="btnTicket" class="btn btn-outline-secondary" (click)="Autocompletar(i)">
+                                            <span class="fas fa-search fa-fw"></span>
+                                </button>
+                            </div>
+                            <input type="number" class="form-control" placeholder="Tiquete" formControlName="tiquete" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group mb-1 col-sm">
+                        <label class="control-label">Placa</label>
+                        <input type="text" class="form-control" placeholder="Placa" formControlName="placa" />
+                    </div>
+                    <div class="form-group mb-1 col-sm">
+                        <label class="control-label">Artículo</label>
+                        <select class="form-control" formControlName="articulo">
+                            <option
+                                *ngFor="let article of articles"
+                                [ngValue]="article"
+                                >{{ article.DESCRIPCION }}</option
+                            >
+                        </select>
+                    </div>
+                    <div class="form-group mb-1 col-sm">
+                        <label class="control-label">Cantidad</label>
+                        <input type="number" class="form-control" formControlName="cantidad" />
+                    </div>
+                    <div class="form-group mb-1 col-sm">
+                        <label class="control-label">Total</label>
+                        <input type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus formControlName="total" />
+                    </div>
+                    <div class="form-group mb-1 col-sm">
+                        <button class="btn btn-sm btn-block btn-primary" (click)="lockItem(i)">
+                            <span
+                                [class]="
+                                    lock(i)
+                                        ? 'fas fa-lock fa-fw'
+                                        : 'fas fa-unlock-alt fa-fw'
+                                "
+                            ></span
+                            >&nbsp;
+                            {{ lock(i) ? "Validar" : "Editar" }}
+                        </button>
+                        <button class="btn btn-sm btn-block btn-danger mt-0" (click)="delItem(i)">
+                            <span class="fas fa-trash fa-fw"></span
+                            >&nbsp;Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row justify-content-around">
+            <div class="col-sm-4">
+                <button (click)="save()" class="btn btn-block btn-success">
+                    <span class="fas fa-save fa-fw"></span>&nbsp;Guardar
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button (click)="cancel()" class="btn btn-block btn-danger">
+                    <span class="fas fa-trash-alt fa-fw"></span>&nbsp;Cancelar
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<app-modal-dialog (hide)="boolClient = false" [visible]="boolClient">
+    <app-comp-search-client (submiter)="assignClient($event)"></app-comp-search-client>
+</app-modal-dialog>
+
+
+<app-modal-dialog (hide)="closeAdw()" [visible]="boolWarn" width="6">
+    <div class="p-2">
+        <div id="header">
+            <h5><span class="fas fa-warning fa-fw"></span>&nbsp;Advertencia</h5>
+        </div>
+        <div id="body">
+            <p class="m-0">
+                Los consumos ingresados por este medio seran reportados automáticamente al cliente.
+            </p>
+            <p class="m-0">Antes de enviar asegurese de los siguiente:</p>
+            <ul class="mb-1">
+                <li>El cliente sea el correcto al guardar el consumo.</li>
+                <li>
+                    El valor corresponde al valor total del tanqueo sin descuentos.
+                </li>
+            </ul>
+        </div>
+        <div id="footer">
+            <div class="text-right mt-1">
+                <button id="closeWarn" class="btn btn-outline-secondary" (click)="closeAdw()">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</app-modal-dialog>

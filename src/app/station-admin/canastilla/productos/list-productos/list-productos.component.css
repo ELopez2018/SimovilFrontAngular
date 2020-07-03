@@ -1,0 +1,7 @@
+table {
+    font-size: small;
+}
+
+table:hover {
+    cursor: pointer ;
+}

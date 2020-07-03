@@ -1,0 +1,34 @@
+<div class="table-wrapper" id="table-users-Search">
+  <div class="align-self-center no-more-tables" id="table-Users">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Id</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Seleccionado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let val of profiles">
+          <td data-title="Id" class="text-center">{{val.ID}}</td>
+          <td data-title="Nombre" class="text-center">{{val.NOMBRE}}</td>
+          <td data-title="Descripción" class="text-center">{{val.DESCRIPCION}}</td>
+          <td data-title="Descripción" class="text-center" (dblclick)="val['sel'] = !val['sel']">
+            <span [class]="val['sel'] ? 'fa fa-check-circle fa-fw text-success' : 'fa fa-times-circle fa-fw text-danger'"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="form-inline">
+  <div class="col-sm-6">
+    <button (click)="save()" class="btn btn-primary btn-block">
+      <i class="fa fa-floppy-o fa-fw"></i>&nbsp;Guardar</button>
+  </div>
+  <div class="col-sm-6">
+    <button (click)="cancel()" class="btn btn-danger btn-block">
+      <i class="fas fa-undo fa-fw"></i>&nbsp;Cancelar</button>
+  </div>
+</div>

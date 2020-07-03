@@ -1,0 +1,207 @@
+<form [formGroup]="clientForm" novalidate class="form-horizontal mb-4 pb-2">
+    <fieldset>
+        <legend class="text-center">Ingresar Cliente</legend>
+        <div class="form-group form-inline ">
+
+            <label class="control-label col-sm-2">Identificación:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text " id="basic-addon1"><i class="fa fa-id-card fa-fw"></i></span>
+                </div>
+                <select name="tipoDocumento" class="form-control col-sm-2" formControlName="tipoDocumento" id="tipoDocumento">
+                    <option *ngFor="let documentType of documentTypes" [ngValue]="documentType">{{documentType.detalle}}
+                    </option>
+                </select>
+
+                <input appAutofocus id="identify" type="number" class="form-control" #identificacion (blur)="validarCedula(identificacion.value)" placeholder="Número de Identificación" formControlName="identificacion">
+            </div>
+            <!-- <label class="control-label col-sm-2">Identificación:</label> -->
+            <!-- <div class="input-group col-sm-3">
+                <input appAutofocus id="identify" type="number" class="form-control" #identificacion (blur)="validarCedula(identificacion.value)" placeholder="Identificación" formControlName="identificacion">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-address-card fa-fw"></i></span>
+                </div>
+            </div> -->
+            <label class="control-label col-sm-2">Nombre:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user fa-fw"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Nombre" name="nombre" formControlName="nombre">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+
+            <label class="control-label col-sm-2">Departamento:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-globe fa-fw"></i></span>
+                </div>
+                <select name="departamento" class="form-control" formControlName="departamento" (ngModelChange)="updateArrayCity($event)" (blur)="assignCity()">
+                    <option *ngFor="let departament of departaments" [ngValue]="departament">
+                        {{departament.nombreDepartamento}}
+                    </option>
+                </select>
+            </div>
+            <label class="control-label col-sm-2">Ciudad:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-map-marker fa-fw"></i></span>
+                </div>
+                <select name="ciudad" class="form-control" formControlName="ciudad">
+                    <option *ngFor="let city of filteredCities" [ngValue]="city">{{city.nombreCiudad}}</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-group form-inline">
+
+            <label class="control-label col-sm-2">Dirección:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-map-marker fa-fw"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Dirección" name="direccion" formControlName="direccion">
+            </div>
+
+            <label class="control-label col-sm-2">Teléfono:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-mobile fa-fw"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Teléfono" name="telefono" formControlName="telefono">
+            </div>
+
+        </div>
+        <div class="form-group form-inline">
+
+            <label class="control-label col-sm-2">Correo:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope fa-fw"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Correo electrónico" name="correo" formControlName="correo">
+            </div>
+
+            <label class="control-label col-sm-2">Estación:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-gas-pump fa-fw"></i></span>
+                </div>
+                <select name="estacion" class="form-control" formControlName="estacion">
+                    <option *ngFor="let station of stations" [ngValue]="station">{{station.nombreEstacion}}</option>
+                </select>
+            </div>
+
+        </div>
+        <!-- <div class="form-group form-inline">
+
+            <label class="control-label col-sm-2" for="retenedor">Retenedor:</label>
+            <div class="form-check col-sm-4">
+                <input class="form-check-input" type="checkbox" id="retenedor" name="retenedor" formControlName="retenedor">
+            </div>
+
+        </div> -->
+
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Modo Cuenta Cobro:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-hand-holding-usd fa-fw"></i></span>
+                </div>
+                <select name="modoCuentaCobro" class="form-control" formControlName="modoCuentaCobro" (ngModelChange)="onChange($event)">
+                    <option *ngFor="let item of modoCuentaCobro" [ngValue]="item">{{item.text}}</option>
+                </select>
+            </div>
+            <label class="control-label col-sm-2" [@fade]="'in'">Periodo en días:</label>
+            <div class="input-group col-sm-4" [@fade]="'in'">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw">#</i></span>
+                </div>
+                <input type="number" [readonly]="!controlShow" class="form-control" placeholder="Periodo en días" formControlName="PeriodoEnDias">
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Nit alterno:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-address-card fa-fw"></i></span>
+                </div>
+                <input type="number" class="form-control" placeholder="Nit alterno" formControlName="nitAlt">
+            </div>
+            <label class="control-label col-sm-2">Nombre alterno:</label>
+            <div class="input-group col-sm-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user fa-fw"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Nombre alterno" formControlName="nombreAlt">
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-3" for="notificar">Enviar usuario por email:</label>
+            <div class="form-check col-sm-3">
+                <input class="form-check-input" type="checkbox" id="notificar" formControlName="notificar">
+            </div>
+            <label class="control-label col-sm-3" for="sistema">Sistema por chip:</label>
+            <div class="form-check col-sm-3">
+                <input class="form-check-input" type="checkbox" id="sistema" formControlName="sistema">
+            </div>
+        </div>
+
+
+
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-3" for="notificar">Cobro por estación:</label>
+            <div class="form-check col-sm-3">
+                <input class="form-check-input" type="checkbox" id="todasEstaciones" formControlName="todasEstaciones">
+            </div>
+        </div>
+
+        <fieldset>
+            <legend class="text-center">Retenciones</legend>
+            <div class="form-group form-inline">
+                <label class="control-label col-sm-3" for="notificar">Tipo de Retenciones </label>
+                <div class="col-sm-5">
+                    <p-multiSelect id="select" formControlName="retenciones" defaultLabel="Elija las Retenciones" [options]="retenciones" [(ngModel)]="retencionesSel"></p-multiSelect>
+                </div>
+            </div>
+
+            <p-table [(value)]="retencionesSel">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>id</th>
+                        <th>Tipo</th>
+                        <th>Descripcion</th>
+                        <th>Valor</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-retencion>
+                    <tr>
+                        <td>{{ retencion.id }}</td>
+                        <td>{{ retencion.name }}</td>
+                        <td>{{ retencion.descripcion }}</td>
+                        <td>{{ retencion.valor }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </fieldset>
+        <div class="form-inline justify-content-center py-4">
+            <div class="col-sm-2">
+                <button (click)="submit()" class="btn btn-primary btn-block" [disabled]="!clientForm.valid"><span class="fa fa-floppy-o fa-fw"></span>&nbsp;Guardar</button>
+            </div>
+            <div class="col-sm-2">
+                <button (click)="reset()" class="btn btn-danger btn-block"><span
+                        class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar</button>
+            </div>
+        </div>
+
+
+
+    </fieldset>
+    <br>
+</form>

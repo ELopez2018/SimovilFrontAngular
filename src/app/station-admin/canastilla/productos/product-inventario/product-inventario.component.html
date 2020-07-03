@@ -1,0 +1,92 @@
+<!-- INVENTARIO INICIAL -->
+<div class="row text-center">
+    <div class="col-sm-12 "> <span class="h2 text-center">INVENTARIO  INICIAL</span></div>
+</div>
+
+<!-- <span class="mb-2 float-right"><input type="text" #Query placeholder="buscar " class="from-control" >
+    <button type="button" class="btn btn-light " (click)="filterItems (Query.value)">
+        <i class="fas fa-search"></i>
+    </button>
+</span> -->
+<div class="col-sm-2 float-right">
+    <div class="input-group mb-1">
+        <input type="text" #Query class="form-control" placeholder="Búsqueda" (keyup.enter)="filterItems (Query.value)" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secundary" (click)="filterItems (Query.value)" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+</div>
+<div class="col-sm-6 titulo">
+    <p-calendar [(ngModel)]="fecha" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy"
+        class="float-left">
+    </p-calendar>
+</div>
+<!-- <form  (ngSubmit)="GuardarVenta(forma)" #forma="ngForm"novalidate="novalidate"> -->
+<table class="table table-sm table-responsive-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col"class="text-center">Id</th>
+            <th scope="col" class="text-center">Código</th>
+            <th scope="col" class="text-center">Descripción</th>
+            <th scope="col" class="text-center">Presentación</th>
+            <th scope="col" class="text-center">Un.</th>
+            <th scope="col" class="text-center">Cant.</th>
+            <th scope="col" class="text-center"> P/Costo </th>
+            <th scope="col" class="text-center"> P/Venta </th>
+            <th scope="col" class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let producto of productos;">
+            <th scope="row" class="text-center">
+            {{ producto.id }}
+        </th>
+            <td class="text-center">{{ producto.codContable }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td class="text-center"> {{ producto.UnMedida }}</td>
+            <td class="text-center"> {{ producto.tamano | number:'.2-2' }}</td>
+            <td class="text-center">
+                <!-- <span *ngIf="producto.existencia>0" > {{ producto.existencia | number:'.2-2'  }} </span> -->
+                <input type="number" class="form-control text-center tamano" placeholder="0" [(ngModel)]="producto.existencia">
+            </td>
+            <td class="text-center">
+
+                <input type="number" class="form-control text-center tamano" placeholder=0 [(ngModel)]="producto.PrecioCompra" (click)="Evaluar(producto)" (change)='producto.PrecioVenta = producto.PrecioCompra * 1.20' #InputCompra>
+
+            </td>
+            <td class="text-center">
+
+                <input type="number" class="form-control text-center tamano" placeholder="0" [(ngModel)]="producto.PrecioVenta" (click)="Evaluar(producto)">
+            </td>
+            <td class="text-center botones">
+                <button type="button" class="btn btn-primary mr-1" (click)="AgregarInventario(producto)">
+                        <i class="fas fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-warning mr-1">
+                    <i class="far fa-edit"></i>
+                </button>
+                <button type="button" class="btn btn-danger  " (click)="BorrarProdInve (producto.id)">
+                    <i class="far fa-trash-alt"></i>
+                </button>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="!cargando && productos.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+    <h4 class="alert-heading">No hay registros</h4>
+    <p>
+        <i class="fa fa-exclamation fa-2x"></i>
+    </p>
+</div>
+<div *ngIf="cargando" class="alert alert-info text-center mt-3 animated fadeIbn faster">
+    <h4 class="alert-heading">Cargando</h4>
+    <p>
+        <!-- <i class="fas fa-spinner"></i> -->
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
+    </p>
+    <p class="mb-0">
+        Espere por favor
+    </p>
+</div>

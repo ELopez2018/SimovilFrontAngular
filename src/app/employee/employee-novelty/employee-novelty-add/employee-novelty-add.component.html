@@ -1,0 +1,53 @@
+<div [@fade]="'in'">
+  <form [formGroup]="employeeForm" novalidate class="form-horizontal">
+    <fieldset class="pt-0">
+      <legend class="text-center">Datos Empleado</legend>
+      <div class="form-inline">
+        <label class="control-label col-sm-2">Identificación:</label>
+        <div class="input-group col-sm-4">
+          <input type="number" class="form-control" id="numDocumento" #identificacion (keyup.enter)="validarCedula(identificacion.value)"
+            placeholder="Identificación" name="numDocumento" formControlName="numDocumento">
+        </div>
+        <label class="control-label col-sm-2">Estación:</label>
+        <div class="input-group col-sm-4">
+          <select name="estacion" id="estacion" class="form-control" formControlName="estacion">
+            <option *ngFor="let estacion of estaciones" [ngValue]="estacion">{{estacion.nombreEstacion}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-inline">
+        <label class="control-label col-sm-2">Nombre:</label>
+        <div class="input-group col-sm-10">
+          <input type="text" class="form-control" id="primerNombre" placeholder="nombre" name="nombre" formControlName="nombre">
+        </div>
+      </div>
+      <div class="form-inline">
+        <label class="control-label col-sm-2">Tipo novedad:</label>
+        <div class="input-group col-sm-4">
+          <span class="input-group-addon">
+            <i class="fas fa-exclamation-circle fa-fw"></i>
+          </span>
+          <select (ngModelChange)="validForm()" #noveltyType class="form-control" formControlName="tipoNovedad">
+            <option *ngFor="let noveltyT of employeeNoveltyTypes" [ngValue]="noveltyT">{{noveltyT.detalleTipoNovedad}}</option>
+          </select>
+        </div>
+        <div class="col-sm-6 m-auto" *ngIf="param==null">
+          <button (click)="reset()" [disabled]="!boolNovelty" class="btn btn-danger btn-block">
+            <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar</button>
+        </div>
+        <div class="col-sm-6 m-auto" *ngIf="param!=null">
+          <button (click)="cancel()" class="btn btn-danger btn-block">
+            <span class="fas fa-undo fa-fw"></span>&nbsp;Cancelar</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="mt-1 transition_conten">
+  <app-employee-disability class="transition_item" (submitDisability)="addNovelty($event)" [administradoras]="administrators" *ngIf="SelectedNoveltyType() && SelectedNoveltyType().idTipoNovedad == 1"
+    [@fade]="'in'"></app-employee-disability>
+  <app-vacation class="transition_item" (submitVacation)="addNovelty($event)" *ngIf="SelectedNoveltyType() && SelectedNoveltyType().idTipoNovedad == 2"
+    [@fade]="'in'"></app-vacation>
+  <app-employee-permission class="transition_item" (submitPermission)="addNovelty($event)" *ngIf="SelectedNoveltyType() && (SelectedNoveltyType().idTipoNovedad == 3 || SelectedNoveltyType().idTipoNovedad == 4)"
+    [@fade]="'in'"></app-employee-permission>
+</div>

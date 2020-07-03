@@ -1,0 +1,14 @@
+.Grafico {
+  width: 80vW;
+  margin-left : auto ;
+  margin-right: auto;
+  margin-top: auto;
+}
+@media (max-width: 600px) {
+  .Grafico {
+    width: 100vW;
+    margin-left : auto ;
+    margin-right: auto;
+    margin-top: auto;
+  }
+}

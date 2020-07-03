@@ -1,0 +1,252 @@
+<form [formGroup]="invoiceForm" novalidate class="form-horizontal">
+  <fieldset>
+    <legend class="text-center">Editar Factura</legend>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Nit proveedor:</label>
+      <div class="input-group col-sm-4">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-secondary left" [disabled]="providerSel != null" type="button" (click)="showBoolProvider()">
+            <span class="far fa-hand-pointer fa-fw"></span>
+          </button>
+        </div>
+        <input id="codPro" type="number" class="form-control" placeholder="Proveedor" formControlName="proveedor">
+      </div>
+      <label class="control-label col-sm-2">Nombre proveedor:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-user fa-fw"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="Nombre del proveedor" formControlName="nombreProveedor">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Número:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-address-card fa-fw"></i>
+        </span>
+        <input id="numInvoice" type="number" class="form-control" placeholder="Número de factura" formControlName="numero">
+      </div>
+      <div class="col-sm-3">
+        <button [disabled]="validFirt()" class="btn btn-block btn-primary" (click)="getprovider()">
+          <span class="fa fa-check fa-fw"></span>&nbsp;Validar</button>
+      </div>
+      <div class="col-sm-3">
+        <button class="btn btn-block btn-secondary" (click)="reset()">
+          <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar</button>
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Subtotal:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-usd fa-fw"></i>
+        </span>
+        <input id="subtotal" (blur)="calcularValor()" currencyMask [options]="notdecimal" appLatestFocus type="text"
+          class="form-control" placeholder="$ 0" formControlName="subtotal">
+      </div>
+      <label class="control-label col-sm-2">IVA:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-usd fa-fw"></i>
+        </span>
+        <input (blur)="calcularValor()" currencyMask [options]="notdecimal" appLatestFocus type="text" class="form-control"
+          placeholder="$ 0" formControlName="iva">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Descuento:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-usd fa-fw"></i>
+        </span>
+        <input (blur)="calcularValor()" currencyMask [options]="notdecimal" appLatestFocus type="text" class="form-control"
+          placeholder="$ 0" formControlName="descuento">
+      </div>
+      <label class="control-label col-sm-2">Retención:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-usd fa-fw"></i>
+        </span>
+        <input (blur)="calcularValor()" currencyMask [options]="notdecimal" appLatestFocus type="text" class="form-control"
+          placeholder="$ 0" formControlName="retencion">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Anticipo:</label>
+      <div class="input-group col-sm-4">
+        <div class="input-group-prepend">
+          <button (click)="getAdvances()" class="btn btn-info" type="button" id="btn-input" [disabled]="!boolAdvanceBtn">Agregar</button>
+        </div>
+        <input (blur)="calcularValor()" currencyMask [options]="notdecimal" appLatestFocus type="text" class="form-control"
+          placeholder="$ 0" formControlName="anticipo">
+      </div>
+      <div *ngIf="providerSel && providerSel.tipo == 1 then pagaEstacion else pagoPlanilla"></div>
+      <ng-template #pagoPlanilla>
+        <label class="control-label col-sm-2">Pago por planilla:</label>
+        <div class="input-group col-sm-4">
+          <span class="input-group-addon">
+            <i class="fa fa-usd fa-fw"></i>
+          </span>
+          <input (blur)="calcularValor()" currencyMask [options]="notdecimal" appLatestFocus type="text" class="form-control"
+            placeholder="$ 0" formControlName="pagoPlanilla">
+        </div>
+      </ng-template>
+      <ng-template #pagaEstacion>
+        <label class="control-label col-sm-2" for="pagaEstacion">Pagado por estación:</label>
+        <div class="form-check col-sm-4">
+          <input id="pagaEstacion" class="form-check-input" type="checkbox" formControlName="pagaEstacion">
+        </div>
+      </ng-template>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Total:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-usd fa-fw"></i>
+        </span>
+        <input readonly currencyMask [options]="notdecimal" appLatestFocus type="text" class="form-control" placeholder="$ 0"
+          formControlName="valor">
+      </div>
+      <label class="control-label col-sm-2">Fecha Factura:</label>
+      <div class="input-group col-sm-4">
+        <input type="date" class="form-control" formControlName="fecha">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Fecha Recibido:</label>
+      <div class="input-group col-sm-4">
+        <input type="date" class="form-control" formControlName="fechaRec">
+      </div>
+      <label class="control-label col-sm-2">Fecha Vencimiento:</label>
+      <div class="input-group col-sm-4">
+        <input type="date" class="form-control" formControlName="fechaVen">
+      </div>
+    </div>
+    <div class="form-group form-inline" *ngIf="stationCode==null">
+      <label class="control-label col-sm-2">Estación:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fas fa-gas-pump fa-fw"></i>
+        </span>
+        <select #noveltyType class="form-control" formControlName="estacion">
+          <option *ngFor="let stationItem of stationsAll" [ngValue]="stationItem">{{stationItem.nombreEstacion}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group form-inline align-items-start" *ngIf="providerSel && providerSel.tipo == 1 && providerSel.tipoMayorista == 'L'"
+      [@fade]="'in'">
+      <label class="control-label col-sm-2">Guía:</label>
+      <div class="input-group col-sm-4">
+        <input type="tel" class="form-control" formControlName="guia">
+      </div>
+      <label class="control-label col-sm-2">Planta Origen:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fas fa-industry fa-fw"></i>
+        </span>
+        <select #noveltyType class="form-control" formControlName="planta">
+          <option *ngFor="let plant of plants" [ngValue]="plant">{{plant.DESCRIPCION}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group form-inline align-items-start" *ngIf="providerSel && providerSel.tipo == 1" [@fade]="'in'">
+      <ng-container *ngIf="providerSel.tipoMayorista == 'L'">
+        <label class="control-label col-sm-2">Cargado por:</label>
+        <div class="input-group col-sm-4">
+          <span class="input-group-addon">
+            <i class="fas fa-gas-pump fa-fw"></i>
+          </span>
+          <select #noveltyType class="form-control" formControlName="cargado">
+            <option *ngFor="let stationIt of stationFilter" [ngValue]="stationIt">{{stationIt.nombreEstacion}}</option>
+          </select>
+        </div>
+      </ng-container>
+      <label class="control-label col-sm-2">Distribución</label>
+      <div class="col-sm-4">
+        <div class="form-group pb-1" formArrayName="listCantArt" *ngFor="let item of invoiceForm.get('listCantArt')['controls']; let i = index;">
+          <div [formGroupName]="i" class="form-row w-100">
+            <label class="control-label col-sm-6">{{item.get('descripcion').value | titlecase }}</label>
+            <div class="col-sm-6 input-group">
+              <input type="number" class="form-control text-right" formControlName="cantidad">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-4">Detalle:</label>
+      <div class="input-group col-sm-8">
+        <textarea formControlName="detalle" class="form-control" cols="200" rows="3"></textarea>
+      </div>
+    </div>
+    <div class="form-inline">
+      <div class="col-sm-6">
+        <button (click)="submit()" class="btn btn-primary btn-block" [disabled]="!invoiceForm.valid">
+          <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Guardar</button>
+      </div>
+      <div class="col-sm-6">
+        <button *ngIf="!idReturnedInvoice" (click)="reset()" class="btn btn-danger btn-block">
+          <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar</button>
+        <button *ngIf="idReturnedInvoice" (click)="return()" class="btn btn-danger btn-block">
+          <span class="fas fa-undo fa-fw"></span>&nbsp;Cancelar</button>
+      </div>
+    </div>
+  </fieldset>
+  <br>
+</form>
+
+<div *ngIf="boolAdvanceForm==true" id="overlay" [@fade]="'in'">
+  <div id="addAdvance" (click)="boolAdvanceForm=false">
+  </div>
+  <div id="formAddAdvance" class="col-md-7">
+    <div class="container p-3" id="login" [@fade]="'in'">
+      <table class="table table-hover table-sm table-striped table-bordered">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Numero</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Seleccionar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let advance of advances" [@fade]="'in'">
+            <td data-title="Numero" class="text-center">{{advance.idAnticipo}}</td>
+            <td data-title="Fecha" class="text-center">{{advance.fecha | date:'dd/MM/yy' : '+0000'}}</td>
+            <td data-title="Valor" class="text-right">{{advance.valor | currency}}</td>
+            <td class="text-center">
+              <div id="btns">
+                <button *ngIf="advance['Sel'] != true" (click)="addAdvance(advance)" class="btn btn-success btn-sm"
+                  title="Seleccionar">
+                  <span class="fas fa-plus fa-fw"></span>
+                </button>
+                <button *ngIf="advance['Sel'] == true" (click)="removeAdvance(advance)" class="btn btn-danger btn-sm"
+                  title="Seleccionar">
+                  <span class="fas fa-minus fa-fw"></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="form-inline text-right">
+        <label class="control-label col-sm-6">Valor Anticipo:</label>
+        <div class="input-group col-sm-6 pr-0">
+          <span class="input-group-addon">
+            <i class="fa fa-usd fa-fw"></i>
+          </span>
+          <input currencyMask [options]="notdecimal" appLatestFocus type="text" class="form-control" [(ngModel)]="valorAnticipo">
+        </div>
+      </div>
+      <div class="form-inline justify-content-end">
+        <button (click)="selectedAdvances()" class="btn btn-sm btn-success float-right">
+          <span class="fas fa-check fa-fw"></span>&nbsp;Seleccionar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal-dialog (hide)="boolProvider = false" [visible]="boolProvider">
+  <app-comp-search-provider (submiter)="assignProvider($event)"></app-comp-search-provider>
+</app-modal-dialog>

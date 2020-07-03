@@ -1,0 +1,109 @@
+<div class="form-group p-0 form-inline mb-1 justify-content-center">
+  <!-- <label class="control-label col-sm-1 m-0">Radicado</label> -->
+  <div class="input-group col-sm-2">
+    <input [(ngModel)]="searchNum" (keyup.enter)="getFiled()" class="form-control" type="text" name="searchid" id="searchid"
+      placeholder="# Radicado">
+  </div>
+  <label class="control-label col-sm-1">Estado:</label>
+  <div class="input-group col-sm-2">
+    <select class="form-control" [(ngModel)]="noveltyTypeSelected">
+      <option *ngFor="let noveltyTy of noveltyTypes" [ngValue]="noveltyTy">{{noveltyTy.name}}</option>
+    </select>
+  </div>
+  <label class="control-label col-sm-2">Responsable:</label>
+  <div class="input-group col-sm-2">
+    <select class="form-control" [(ngModel)]="searchAdministrator">
+      <option *ngFor="let admin of administrator" [ngValue]="admin">{{admin.nombreAdministradora}}</option>
+    </select>
+  </div>
+  <div class="col-sm-2" role="group">
+    <div class="btn-group btn-block justify-content-center" role="group">
+      <button class="btn btn-info col" (click)="getFiled()">
+        <span class="fa fa-search fa-fw"></span>&nbsp;Buscar</button>
+      <button title="Limpiar" class="btn btn-warning col" (click)="clearFiled()">
+        <span class="fas fa-eraser fa-fw"></span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="table-wrapper" id="table-Search">
+  <div class="align-self-center no-more-tables">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Numero</th>
+          <th scope="col">Responsable</th>
+          <th scope="col">Creado</th>
+          <th scope="col">Radicado</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Medio</th>
+          <th scope="col">Empresa</th>
+          <!-- <th scope="col">Valor</th> -->
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filed" [@fade]="'in'">
+          <td data-title="Numero" class="text-center">{{item.idRadicado}}</td>
+          <td data-title="Resposable" class="text-center">{{getNameAdminsitrator(item.administradora)}}</td>
+          <td data-title="Creado" class="text-center">{{item.creado | date:'dd/MM/yy' : '+0000'}}</td>
+          <td data-title="Radicado" class="text-center">{{item.fecha | date:'dd/MM/yy' : '+0000'}}</td>
+          <td data-title="Estado" class="text-center">{{nameNoveltyType(item.estado)}}</td>
+          <td data-title="Medio" class="text-center">{{nameSendType(item.tipoEnvio)}}</td>
+          <td data-title="Empresa" class="text-center">{{item.empresa}}</td>
+          <!-- <td data-title="Valor" class="text-right">{{invoice.valor | currency}}</td> -->
+          <td class="text-center">
+            <div id="btns">
+              <button (click)="visibleRad(item)" class="btn btn-info btn-sm" title="Radicar" [disabled]="item.estado == 1">
+                <span class="fas fa-check-circle fa-fw"></span>
+              </button>
+              <button (click)="searchDisability(item.idRadicado)" class="btn btn-success btn-sm" title="Incapacidades">
+                <span class="fas fa-search fa-fw"></span>
+              </button>
+              <!-- <button class="btn btn-success btn-sm" title="Descargar">
+                <span class="fas fa-file-download fa-fw"></span>
+              </button> -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-modal-dialog [visible]="boolRadicar" (hide)="boolRadicar = false">
+  <app-filed-update [filed]="filedSel" [administrator]="administrator" (submiter)="updateFiled($event)"></app-filed-update>
+</app-modal-dialog>
+<app-modal-dialog [visible]="boolDisabilities" (hide)="boolDisabilities = false">
+  <div class="col-sm-12">
+    <div class="table-wrapper">
+      <div class="align-self-center no-more-tables" id="table-Vehicles">
+        <table class="table table-hover table-sm table-striped">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">Id</th>
+              <th scope="col">Empleado</th>
+              <th scope="col">Desde</th>
+              <th scope="col">Hasta</th>
+              <th scope="col">Días</th>
+              <th scope="col">Radicado</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Saldo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let disability of disabilities">
+              <td data-title="Número" class="text-center">{{disability.id}}</td>
+              <td data-title="Empleado" class="text-center">{{disability.primerNombre + ' ' + disability.primerApellido}}</td>
+              <td data-title="Desde" class="text-center">{{disability.fechaIni | date: 'dd/MM/yy' : '+0000'}}</td>
+              <td data-title="Hasta" class="text-center">{{disability.fechaFin | date: 'dd/MM/yy' : '+0000'}}</td>
+              <td data-title="Días" class="text-center">{{disability.dias}}</td>
+              <td data-title="Radicado" class="text-center">{{disability.radicado}}</td>
+              <td data-title="Valor" class="text-right">{{disability.valor | currency }}</td>
+              <td data-title="Saldo" class="text-right">{{disability.saldo | currency }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-modal-dialog>

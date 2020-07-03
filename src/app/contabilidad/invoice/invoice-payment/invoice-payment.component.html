@@ -1,0 +1,120 @@
+<form [formGroup]="invoiceForm" novalidate class="form-horizontal px-1">
+    <fieldset>
+        <legend class="text-center">Pagar a Mayoristas</legend>
+        <div class="form-row pb-2">
+            <div class="col-3">
+                <button (click)="boolShow = true" class="btn btn-info">
+                    <span class="fas fa-hand-point-up fa-fw"></span
+                    >&nbsp;Agregar factura
+                </button>
+            </div>
+            <label class="col-sm-1 control-label text-right">Fecha</label>
+            <input
+                type="date"
+                class="form-control col-sm-3"
+                formControlName="fecha"
+            />
+            <label class="col-sm-2 control-label text-center">Total</label>
+            <label class="col-sm-3 control-label text-center">{{
+                sumList | number
+            }}</label>
+        </div>
+
+        <ng-container *ngIf="Lista && Lista.length > 0">
+            <div class="form-row justify-content-end">
+                <label class="col-sm-3 control-label text-center">Nombre</label>
+                <label class="col-sm-2 control-label text-center">Número</label>
+                <label class="col-sm-2 control-label text-center">Detálles</label>
+                <label class="col-sm-2 control-label text-center">Saldo</label>
+                <label class="col-sm-2 control-label text-center"
+                    >Valor a pagar</label
+                >
+            </div>
+            <div
+                class="pb-1"
+                formArrayName="list"
+                *ngFor="let item of Lista.controls; let i = index"
+                [@fade]="'in'"
+            >
+                <div [formGroupName]="i" class="form-row">
+                    <button
+                        class="btn btn-danger col-sm-1"
+                        (click)="removeItem(item.value)"
+                    >
+                        <i class="fas fa-trash-alt fa-fw"></i>
+                    </button>
+
+                    <div class="col-sm-3">
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="nombre"
+                        />
+                    </div>
+                    <div class="col-sm-2">
+                        <input
+                            type="number"
+                            class="form-control text-center"
+                            formControlName="numero"
+                        />
+                    </div>
+                    <div class="col-sm-2">
+                        <input
+                            type="text"
+                            appLatestFocus
+                            placeholder="Descripción"
+                            class="form-control"
+                            formControlName="detalles"
+                        />
+                    </div>
+                    <div class="col-sm-2">
+                        <input
+                            type="text"
+                            currencyMask
+                            [options]="notdecimal"
+                            appLatestFocus
+                            class="form-control text-right"
+                            placeholder="0.00"
+                            formControlName="saldo"
+                        />
+                    </div>
+                    <div class="col-sm-2">
+                        <input
+                            [id]="'val-' + i"
+                            type="text"
+                            currencyMask
+                            [options]="notdecimal"
+                            appLatestFocus
+                            class="form-control text-right"
+                            formControlName="valor"
+                        />
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="form-inline">
+            <div class="col-sm-6">
+                <button
+                    (click)="submiter()"
+                    class="btn btn-primary btn-block"
+                    [disabled]="Lista.length == 0 || !invoiceForm.valid"
+                >
+                    <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Guardar
+                </button>
+            </div>
+            <div class="col-sm-6">
+                <button (click)="reset()" class="btn btn-danger btn-block">
+                    <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+                </button>
+            </div>
+        </div>
+    </fieldset>
+    <br />
+</form>
+<app-modal-dialog [visible]="boolShow" (hide)="boolShow = false">
+    <app-wholesaler-invoices
+        [search]="boolShow"
+        (submiter)="addItem($event)"
+    ></app-wholesaler-invoices>
+</app-modal-dialog>

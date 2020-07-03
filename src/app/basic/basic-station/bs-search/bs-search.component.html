@@ -1,0 +1,110 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-1 justify-content-center">
+  <label class="control-label col-sm-1 m-0">Estación</label>
+  <div class="input-group col-sm-4">
+    <span class="input-group-addon">
+      <i class="fas fa-user fa-fw"></i>
+    </span>
+    <input appAutofocus [(ngModel)]="searchid" (keyup.enter)="getStation()" class="form-control" type="text" id="searchUserid">
+  </div>
+  <div class="col-sm-3 btn-group justify-content-center" role="group">
+    <button class="btn btn-info" (click)="getStation()">
+      <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+    <button class="btn btn-warning" (click)="clear()">
+      <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar</button>
+  </div>
+</div>
+<div class="table-wrapper" id="table-station-Search">
+  <div class="align-self-center no-more-tables" id="table-Users">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+         <th scope="col">Cód</th>
+          <th scope="col">Nombres</th>
+          <th scope="col">Administrador</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Simovil</th>
+          <th scope="col">Gas</th>
+          <th scope="col">Liq</th>
+          <th scope="col">Manual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let station of stations" (dblclick)="editStation(station)" [class]="station == stationSel ? 'sel': ''">
+          <td data-title="Nombres" class="text-center">{{station.idEstacion}}</td>
+          <td data-title="Nombres" class="text-center">{{station.nombreEstacion}}</td>
+          <td data-title="Admin" class="text-center">{{station.administrador}}</td>
+          <td data-title="Tipo" class="text-center">{{getType(station)}}</td>
+          <td data-title="Simovil" class="text-center">
+            <span [class]="classStatus(station.listoSimovil)"></span>
+          </td>
+          <td data-title="Gas" class="text-center">
+            <span [class]="classStatus(station.sisGas)"></span>
+          </td>
+          <td data-title="Liq" class="text-center">
+            <span [class]="classStatus(station.sisLiq)"></span>
+          </td>
+          <td data-title="Manual" class="text-center">
+            <span [class]="classStatus(station.manual)"></span>
+          </td>
+          <td data-title="Acciones" class="text-center">
+            <div id="btns">
+              <button (click)="artStation(station)" class="btn btn-info btn-sm" title="Articulos">
+                <span class="fas fa-usd fa-fw"></span>
+              </button>
+              <button (click)="confStation(station)" class="btn btn-success btn-sm" title="Infraestructura">
+                <span class="fas fa-gas-pump fa-fw"></span>
+              </button>
+              <button (click)="dailyStation(station)" class="btn btn-secondary btn-sm" title="Editar Planilla Diaria">
+                <i class="far fa-file-alt fa-fw"></i>
+              </button>
+              <button (click)="deleteStation(station)" class="btn btn-danger btn-sm" title="Borrar">
+                <span class="fas fa-trash-alt fa-fw"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-modal-dialog [visible]="boolEdit" (hide)="cancelEdit()">
+  <app-bs-edit [station]="stationSel" (submiter)="resEdit($event)"></app-bs-edit>
+</app-modal-dialog>
+
+<app-modal-dialog [visible]="boolEditArt" (hide)="cancelEditArt()">
+  <app-bs-art [station]="stationSel" (submiter)="resEditArt($event)"></app-bs-art>
+</app-modal-dialog>
+
+<app-modal-dialog [visible]="boolEditConf" (hide)="cancelEditConf()">
+  <app-bs-config [station]="stationSel" (submiter)="resEditConf($event)"></app-bs-config>
+</app-modal-dialog>
+<app-modal-dialog [visible]="boolEditDailySheet" (hide)="cancelEditDailySheet()">
+  <fieldset>
+    <legend *ngIf="stationSel" class="text-center">Habilitar edición de planilla - {{stationSel.nombreEstacion}}</legend>
+    <div class="form-group p-0 form-inline mb-1 justify-content-center">
+      <label class="control-label col-sm-1">Tipo</label>
+      <div class="input-group col-sm-3">
+        <select class="form-control" [(ngModel)]="typeSel">
+          <option *ngFor="let item2 of types" [ngValue]="item2">{{item2.text}}</option>
+        </select>
+      </div>
+      <label class="control-label col-sm-1">Fecha</label>
+      <div class="input-group col-sm-3">
+        <input type="date" class="form-control" id="fecha" [(ngModel)]="fecha">
+      </div>
+      <!-- <div class="input-group col-sm-1">
+        <button class="btn btn-info" (click)="getDailySheets()">
+          <span class="fa fa-search fa-fw"></span>&nbsp;{{editdaily == true ? 'Editable' : editdaily == false ? 'No
+          editable' : ''}}</button>
+      </div> -->
+      <div class="col-sm-3 btn-group justify-content-center" role="group">
+        <button class="btn btn-info" (click)="gettoEdit()" [disabled]="!validedit">
+          <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+        <button class="btn btn-success" (click)="toedit(true)" [disabled]="!validedit">
+          <span class="fas fa-pencil-alt fa-fw"></span></button>
+        <button class="btn btn-danger" (click)="toedit(false)" [disabled]="!validedit">
+          <span class="fas fa-times fa-fw"></span></button>
+      </div>
+    </div>
+  </fieldset>
+</app-modal-dialog>

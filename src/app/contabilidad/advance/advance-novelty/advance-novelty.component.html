@@ -1,0 +1,47 @@
+<form [formGroup]="noveltyForm" novalidate class="form-horizontal">
+  <fieldset>
+    <legend class="text-center">Tipo novedad</legend>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Tipo novedad:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fas fa-clipboard-list fa-fw"></i>
+        </span>
+        <select (ngModelChange)="validForm()" #noveltyType class="form-control" formControlName="tipoNovedad" ngmodel>
+          <option *ngFor="let noveltyT of noveltyTypeTrue" [ngValue]="noveltyT">{{noveltyT.name}}</option>
+        </select>
+      </div>
+      <label class="control-label col-sm-2">Detalle:</label>
+      <div class="input-group col-sm-4">
+        <textarea class="form-control" formControlName="detalle" cols="150" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="form-group form-inline" *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 3">
+      <label class="control-label col-sm-3">Seleccionar Archivo:</label>
+      <div class="input-group col-sm-9">
+        <span class="input-group-addon">
+          <i class="fas fa-file-upload fa-fw"></i>
+        </span>
+        <input (change)="fileChange($event)" class="form-control" type="file" accept="application/pdf" formControlName="file">
+      </div>
+      <!-- <label class="control-label col-sm-2">C. Egreso:</label>
+        <div class="input-group col-sm-4">
+          <span class="input-group-addon">
+            <i class="fa fa-file fa-fw"></i>
+          </span>
+          <input type="number" class="form-control" formControlName="egreso">
+        </div> -->
+    </div>
+    <div class="form-inline">
+      <div class="col-sm-6">
+        <!-- <button (click)="submitNoveltyForm()" class="btn btn-primary btn-block"> -->
+        <button (click)="submitNoveltyForm()" class="btn btn-primary btn-block" [disabled]="!noveltyForm.valid">
+          <span class="fas fa-clipboard-list fa-fw"></span>&nbsp;Guardar Novedad</button>
+      </div>
+      <div class="col-sm-6">
+        <button (click)="validAdvance(false)" class="btn btn-danger btn-block">
+          <span class="fas fa-times fa-fw"></span>&nbsp;Cancelar</button>
+      </div>
+    </div>
+  </fieldset>
+</form>

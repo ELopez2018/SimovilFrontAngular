@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+
+        <div class="col-sm-3  ">
+            <div class="form-group form-row p-0 form-inline mb-1 ">
+                <label class="control-label m-0">Estación: &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                <div class="input-group">
+                    <select class="form-control display-block" [disabled]="stationCode" [(ngModel)]="stationSel">
+                        <option *ngFor="let item of stationsAll" [ngValue]="item"> {{ item.nombreEstacion }} </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 ">
+            <div class="form-group form-row p-0 form-inline mb-1">
+                <label class="control-label m-0 display-block">Tipo de Reporte: &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                <br>
+                <div class="input-group">
+                    <select class="form-control display-block" [(ngModel)]="paramSel" (change)="TipodeReporte()">
+                        <option *ngFor="let Reporte of Reportes" [ngValue]="Reporte">
+                            {{  Reporte.text }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 ">
+            <label class="control-label m-0">Fecha :</label>
+            <br>
+            <p-calendar [(ngModel)]="FechaIni" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy">
+            </p-calendar>
+        </div>
+
+        <div class="col-sm-2" *ngIf="PorTurno">
+            <label class="control-label m-0">Turno :</label>
+            <br>
+            <div class="input-group">
+                <select class="form-control" [(ngModel)]="TurnoSel">
+                    <option *ngFor="let item of Turnos" [ngValue]="item">{{
+                            item.value
+                        }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-1 text-center">
+            <button type="button" class="btn btn-info mr-2 btn-block mt-4" (click)="getReport(prueba)"> <i
+                    class="fas fa-print "> </i> Ver</button>
+        </div>
+    </div>
+</div>
+<div #prueba></div>
+<app-report-ssrs #target [show]="showReport" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer"
+    [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
+</app-report-ssrs>

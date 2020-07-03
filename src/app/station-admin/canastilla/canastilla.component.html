@@ -1,0 +1,212 @@
+<div class="row text-center">
+    <div class="col-sm-12 ">
+        <span class="h4 text-center">REGISTRO DE VENTAS</span>
+    </div>
+</div>
+
+<div id="main">
+    <div class="container">
+        <div class="row py-4 mb-2  justify-content-center">
+
+            <div class="col-sm-3">
+                <!-- <label class="control-label">Estación</label> -->
+                <div class="input-group">
+                    <select class="form-control" [disabled]="stationCode" [(ngModel)]="stationSel">
+                        <option *ngFor="let item of stationsAll" [ngValue]="item">{{
+                            item.nombreEstacion
+                        }} </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <p-calendar [(ngModel)]="date3" (onSelect)="CambiodeFecha()" showButtonBar="true" [showIcon]="true" [locale]="es"
+                    dateFormat="dd/mm/yy">
+                </p-calendar>
+            </div>
+
+            <div class="col-sm-2 text-center">
+                <button class="btn btn-sm btn-info btn-block text-center" *ngIf="!visibleArray" (click)="Agregar()">
+                    <span class="fas fa-plus-circle fa-fw text-center"></span>Agregar
+                </button>
+                <!-- <button class="btn btn-sm btn-info btn-block text-center" *ngIf="!visibleArray" (click)="Mensaje()">
+                    <span class="fas fa-plus-circle fa-fw text-center"></span>Mensaje
+                </button> -->
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!--
+
+<div class="form-group form-row p-0 form-inline mb-3 mt-2 ">
+    <label *ngIf="stationCode == null" class="control-label col-sm-1 m-0">Estación</label>
+    <div *ngIf="stationCode == null" class="input-group col-sm-3">
+        <select class="form-control" [(ngModel)]="stationSel">
+            <option *ngFor="let item of stationsAll" [ngValue]="item">{{
+                item.nombreEstacion
+            }}</option>
+        </select>
+    </div>
+    <div class="col-sm-4 mx-auto clearfix">
+        <p-calendar [(ngModel)]="date3" (click)="CambiodeFecha()" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy">
+        </p-calendar>
+        <button class="btn btn-sm btn-info float-right mr-3"  *ngIf="!visibleArray" (click)="Agregar()">
+            <span class="fas fa-plus-circle fa-fw"> Agregar Venta</span>
+        </button>
+    </div>
+</div> -->
+
+<div class="pb-4" id="main" *ngIf="visibleArray">
+    <!-- FROMULARIO DE VENTAS DE PROCUTOS -->
+    <div class="container">
+        <!-- <div class="row head  mb-2 pt-2 text-center">
+            <div class="col-sm-1 "> Id </div>
+            <div class="col-sm-1 "> Código </div>
+            <div class="col-sm-4 "> Descripción </div>
+            <div class="col-sm-2 ">Existencia</div>
+            <div class="col-sm-2  ">Cantidad</div>
+            <div class="col-sm-2 ">Acciones</div>
+        </div> -->
+
+
+        <form class="container mb-4 pb-4">
+            <div class="row head  mb-2 pt-2 text-center">
+                <div class="col-sm-1 "> Id </div>
+                <div class="col-sm-1 "> Código </div>
+                <div class="col-sm-4 "> Descripción </div>
+                <div class="col-sm-2 ">Existencia</div>
+                <div class="col-sm-2  ">Cantidad</div>
+                <div class="col-sm-2 ">Acciones</div>
+            </div>
+            <fieldset *ngIf="true" [@fade]="'in'" [formGroup]="ventas">
+
+                <div [@fade]="'in'" class="form-row" formArrayName="lista"
+                    *ngFor="let item of ventas.get('lista')['controls']; let i = index">
+
+                    <div [formGroupName]="i" class="item w-100">
+
+                        <div class="form-row no-gutters">
+
+                            <!-- <div class="col-sm-1 text-left float-right"> </div> -->
+
+                            <div class="form-group mb-1 col-sm-1">
+                                <!-- <label class="control-label">Id</label> -->
+                                <input [id]="'fecha_item' + i" readonly type="number"
+                                    [class]="list.value[i].acredito ? 'form-control form-control-sm text-center bg-warning' : 'form-control form-control-sm text-center'"
+                                    formControlName="id" />
+                            </div>
+                            <div class="form-group  col-sm-1">
+                                <!-- <label class="control-label">Codigo</label> -->
+                                <input type="text" class="form-control form-control-sm text-center" readonly
+                                    formControlName="codContable" />
+                            </div>
+                            <div class="form-group  col-sm-4">
+                                <!-- <label class="control-label">Descripcion</label> -->
+                                <div class="input-group">
+                                    <div class="input-group-append"></div>
+                                    <input type="text" readonly class="form-control form-control-sm"
+                                        placeholder="Descripcion" formControlName="descripcion" />
+                                </div>
+                            </div>
+                            <div class="form-group  col-sm-2">
+                                <!-- <label class="control-label">Existencia</label> -->
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm text-center" readonly
+                                        formControlName="existencia" />
+                                </div>
+                            </div>
+                            <div class="form-group  col-sm-2">
+                                <!-- <label class="control-label">Cantidad</label> -->
+                                <div class="input-group">
+                                    <input type="number" [id]="'Cantidad' + (i + 1)"
+                                        class="form-control form-control-sm text-right ng-invalid" (keyup)="comparar(i); SumarArreglo()" 
+                                        placeholder="0" formControlName="cantidad" />
+
+                                    <input type="hide" class="form-control" *ngIf="false" formControlName="cliente" />
+                                </div>
+                            </div>
+                            <div class="col-sm-2 mx-auto text-center ">
+                                <button
+                                    [class]="list.value[i].acredito ? 'btn  btn-sm btn-success mr-1' : 'btn  btn-sm btn-info mr-1'"
+                                    (click)="Acredito(i)" title="Crédito">
+                                    <span
+                                        [class]="list.value[i].acredito ?  'fas fa-check-double  fa-fw' : 'fas fa-dollar-sign fa-fw mr-1'"></span>
+                                </button>
+                                <button #Boton class="btn btn-sm btn-warning mr-1"
+                                    (click)="RealizarDescuento(ventas.controls.lista.value[i], i, Boton)"
+                                    title="Descuento">
+                                    <span class="fas fa-shopping-bag  fa-fw"></span>
+                                </button>
+                                <button class="btn btn-sm btn-danger " (click)="delItem(i)" title="Eliminar">
+                                    <span class="fas fa-minus-circle  fa-fw"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </fieldset>
+
+                <div class="row head  mb-2 pt-2 text-center">
+                    <div  class="col-sm-1 ">  </div>
+                    <div class="col-sm-1 "> </div>
+                    <div class="col-sm-4 ">  </div>
+                    <div class="col-sm-2 "></div>
+                    <div class="col-sm-2  ">Total</div>
+                    <div class="col-sm-2 ">{{ totalVenta | currency }}</div>
+                </div>
+
+            <div class="row " *ngIf="visibleArray">
+                <div class="col-sm-2"></div>
+
+                <div class="col-sm-3 ">
+                    <button (click)="save()" [disabled]="!ventas.valid" class="btn btn-block btn-success">
+                        <span class="fas fa-save fa-fw"></span>&nbsp;Guardar
+                    </button>
+                </div>
+                <div class="col-sm-1 mx-auto" id="Botonplus">
+                    <button class="btn btn-block btn-primary " (click)="Agregar()">
+                        <span class="fas fa-plus-circle  fa-fw"></span>
+                    </button>
+                </div>
+                <div class="col-sm-3">
+                    <button (click)="cancel()" class="btn btn-block btn-danger">
+                        <span class="fas fa-trash-alt fa-fw"></span>&nbsp;Cancelar
+                    </button>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+<div #botonplus class="mb-4 mt-4"></div>
+
+<!-- FIN FROMULARIO DE VENTAS DE PROCUTOS -->
+
+<app-modal-dialog (hide)="VerLista = false" [visible]="VerLista">
+    <app-list-productos (submiter)="ProductoSelecionado($event,botonplus)" *ngIf="estacion" [stationCode]="estacion" [date3]="date3"></app-list-productos>
+</app-modal-dialog>
+
+<app-modal-dialog (hide)="listClientCred = false" [visible]="listClientCred">
+    <app-lista-clientes (submiter)="clienteElegido($event,botonplus)"></app-lista-clientes>
+</app-modal-dialog>
+
+<app-modal-dialog (hide)="VerFormDescuento = false" [visible]="VerFormDescuento">
+    <app-producto-dsto (Salir)="DescuentoRealizado($event)"
+                        (ObjetoEE)="BotonBlock($event)"
+                        [Producto]="ProductoEnviado"
+                        [Obj]="Obj" [Fecha]="date3">
+    </app-producto-dsto>
+</app-modal-dialog>

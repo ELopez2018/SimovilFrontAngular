@@ -1,0 +1,68 @@
+<div class="col-sm-12 p-2">
+  <div class="form-row">
+    <div class="col-lg-6 mb-1">
+      <div class="form-row">
+        <div class="col-sm mb-1">
+          <label for="type">Tipo</label>
+          <select id="type" disabled class="form-control" [(ngModel)]="typeSel">
+            <option *ngFor="let item of types" [ngValue]="item">{{item.text}}</option>
+          </select>
+        </div>
+        <div class="col-sm mb-1">
+          <label for="station">Estación</label>
+          <select id="station" class="form-control" [disabled]="stationCod" [(ngModel)]="stationSel">
+            <option *ngFor="let item of stations"    [ngValue]="item">{{item.nombreEstacion}}</option>
+          </select>
+        </div>
+        <div class="col-sm mb-1">
+          <label for="type">Reporte</label>
+          <select (change)="changeReport()" id="type" class="form-control" [(ngModel)]="paramSel">
+            <option *ngFor="let item of treeParams" [ngValue]="item">{{item.text}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mb-1">
+      <div class="form-row">
+        <div class="col-sm mb-1" *ngIf="paramSel && paramSel.child && paramSel.child.length > 0">
+          <label for="type">Opción</label>
+          <select id="type" class="form-control" [(ngModel)]="opcSel">
+            <option *ngFor="let item of paramSel.child" [ngValue]="item">{{item.text}}</option>
+          </select>
+        </div>
+        <div class="col-sm-4 mb-1">
+          <label for="date">Desde</label>
+          <input type="month" id="date" [(ngModel)]="date" class="form-control">
+        </div>
+        <div class="col-sm-4 mb-1">
+          <button [disabled]="!valid" id="btnSearchCartera" (click)="getReport(prueba)"
+            class="btn btn-block btn-sm btn-primary text-truncate">
+            <i class="fas fa-search fa-fw"></i>&nbsp;Consultar</button>
+          <button (click)="clear()" class="btn btn-block btn-sm btn-danger text-truncate">
+            <i class="fas fa-eraser"></i>&nbsp;Limpiar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-report-ssrs #target  [show]="showReport"
+                          [https]="true"
+                          serverReport="simovil.mileniumgas.com:1451/ReportsServer"
+                          [urlReport]="nameReport"
+                          [parameters]="params"
+                          [width]="widthReport"
+                          [showParameter]="false">
+</app-report-ssrs>
+
+<div #prueba></div>
+
+<div id="report" *ngIf="paramSel && paramSel.id == 7 && valid" [@fade]="'in'">
+
+  <app-other-wholesaler [station]="stationSel"
+                        [pending]="opcSel ? opcSel.id : null"
+                        [fechaIni]="date ? date + '-01' : null"
+                        [search]="eventSearch">
+  </app-other-wholesaler>
+
+</div>

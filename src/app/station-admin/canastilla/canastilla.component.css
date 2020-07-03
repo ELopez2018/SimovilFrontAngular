@@ -1,0 +1,11 @@
+.head {
+    background: black;
+    color: white;
+    height:40px;
+}
+
+#Botonplus {
+    /* position: absolute;
+    right: 120px;
+    z-index: 10; */
+}

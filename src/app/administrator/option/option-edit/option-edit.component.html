@@ -1,0 +1,69 @@
+<form [formGroup]="optionForm" novalidate class="form-horizontal">
+  <fieldset>
+    <legend class="text-center">Crear Opción</legend>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Nombre:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fas fa-user fa-fw"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="nombre de la opción" formControlName="descripcion">
+      </div>
+      <label class="control-label col-sm-2">Padre:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fas fas fa-clipboard-list fa-fw"></i>
+        </span>
+        <select name="rol" class="form-control" formControlName="padre">
+          <option *ngFor="let option of optionsEdit" [ngValue]="option">{{option.DESCRIPCION}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Url:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fas fa-link fa-fw"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="url" formControlName="url">
+      </div>
+      <label class="control-label col-sm-2">Icono</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fas fa-image fa-fw"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="icono" formControlName="icono">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2" for="estado">Activo:</label>
+      <div class="input-group col-sm-4">
+        <input type="checkbox" class="form-control" formControlName="estado" id="estado">
+      </div>
+      <label class="control-label col-sm-2" for="visible">Visible:</label>
+      <div class="input-group col-sm-4">
+        <input type="checkbox" class="form-control" formControlName="visible" id="visible">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Orden:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fas fa-sort fa-fw"></i>
+        </span>
+        <input type="number" class="form-control" min="0" max="1000" formControlName="orden">
+      </div>
+    </div>
+    <div class="form-inline">
+      <div class="col-sm-6">
+        <button (click)="submitOptionAddForm()" class="btn btn-primary btn-block"
+          [disabled]="!optionForm.valid || sending">
+          <i class="fa fa-floppy-o fa-fw"></i>&nbsp;Guardar</button>
+      </div>
+      <div class="col-sm-6">
+        <button (click)="cancel()" class="btn btn-danger btn-block">
+          <i class="fas fa-undo fa-fw"></i>&nbsp;Cancelar</button>
+      </div>
+    </div>
+  </fieldset>
+</form>

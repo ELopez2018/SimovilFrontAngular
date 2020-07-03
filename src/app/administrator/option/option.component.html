@@ -1,0 +1,19 @@
+<ul class="nav nav-tabs mb-1" id="myTab" role="tablist">
+  <li class="nav-item" aria-selected="true">
+    <a routerLink="./search" class="nav-link" routerLinkActive="active" id="search-tab" data-toggle="tab" role="tab" aria-controls="search"
+      aria-selected="true">
+      <span class="fas fa-search fa-fw"></span>&nbsp;
+      <span class="nameTab">Consultar Opción</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a routerLink="./add" class="nav-link" routerLinkActive="active" id="add-tab" data-toggle="tab" role="tab" aria-controls="search"
+      aria-selected="true">
+      <span class="fas fa-plus fa-fw"></span>&nbsp;
+      <span class="nameTab">Agregar Opción</span>
+    </a>
+  </li>
+</ul>
+<main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+  <router-outlet #o="outlet"></router-outlet>
+</main>

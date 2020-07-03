@@ -1,0 +1,238 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-0 justify-content-center">
+    <div class="row col-sm-12 pb-1">
+        <div class="input-group col-sm-2">
+            <p-dropdown [options]="estaciones" [disabled]="stationCode" [(ngModel)]="stacionElegida"></p-dropdown>
+        </div>
+        <div class="input-group col-sm-4">
+            <div class="input-group-prepend">
+                <button id="btnClient" class="btn btn-outline-secondary left" type="button"
+                    (click)="booleanClient=true">
+                    <span class="far fa-hand-pointer fa-fw"></span>
+                </button>
+            </div>
+            <input [(ngModel)]="cliente.codCliente" [disabled]="id!=null" required class="form-control" type="number"
+                name="codclient" id="codclient">
+        </div>
+        <div class="input-group col-sm-6">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i></span>
+            </div>
+            <input [(ngModel)]="cliente.nombre" disabled class="form-control" type="text" name="nameclient"
+                id="nameclient">
+        </div>
+    </div>
+    <div class="row col-sm-12 pb-1">
+        <label class="control-label col-sm-1 m-0">Desde:</label>
+        <div class="input-group col-sm-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar fa-fw"></i></span>
+            </div>
+            <input [(ngModel)]="searchConsumoFechaIni" required class="form-control" type="date"
+                name="fechaIniConsumoSearch" id="fechaIniConsumoSearch">
+        </div>
+        <label class="control-label col-sm-1 m-0">Hasta:</label>
+        <div class="input-group col-sm-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar fa-fw"></i></span>
+            </div>
+
+            <input [(ngModel)]="searchConsumoFechaFin" required class="form-control" type="date"
+                name="fechaFinConsumoSearch" id="fechaFinConsumoSearch">
+        </div>
+        <div class="col-sm-3 btn-group justify-content-center" role="group">
+            <button id="btnSearch" class="btn btn-info" (click)="consultar()">
+                <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+        </div>
+    </div>
+</div>
+<fieldset>
+    <legend>Balance General</legend>
+    <div class="row">
+        <div class="col-sm-8">
+            <fieldset>
+                <legend>Detalles</legend>
+            <p-accordion>
+                <p-accordionTab [header]="'Total Consumos = ' +  totalValorConsumo.toLocaleString()" [selected]="false">
+                    <p-messages [(value)]="msgsConsumo" *ngIf="consumos.length <=0 || consumos == null"></p-messages>
+                    <p-table [value]="consumos" [paginator]="true" [rows]="10" id="tablaConsumo"
+                        *ngIf="consumos && consumos.length > 0 ">
+                        <ng-template pTemplate="caption">
+                            CONSUMOS
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center" width="100px">id</th>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Cantidad</th>
+                                <th class="text-center">Ticket</th>
+                                <th class="text-center"  >Valor</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-consumo>
+                            <tr>
+                                <td class="text-center" width="100px"> {{ consumo.id }}</td>
+                                <td class="text-center"> {{ consumo.fechaConsumo }}</td>
+                                <td class="text-center"> {{ consumo.cantidad }}</td>
+                                <td class="text-center"> {{ consumo.ConsecutivoEstacion }}</td>
+                                <td class="text-right" > {{ consumo.valor | currency}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr class="">
+                                <td colspan="2" class="text-center bg-info"> Total Consumos: &nbsp;
+                                    {{ consumos.length }} </td>
+                                <td  class="text-center bg-info">Total Galones: &nbsp; {{ totalGalones | number:'.0-3' }}
+                                </td>
+                                <td colspan="2"class="bg-info text-right">Total Consumos: &nbsp; {{ totalValorConsumo | currency }} </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-accordionTab>
+
+
+                <p-accordionTab [header]="'Total Pagos = ' +  totalPagos.toLocaleString()">
+                    <p-messages [(value)]="msgsPagos" *ngIf="pagos.length <=0 || pagos == null"></p-messages>
+                    <p-table class="mb-4" [value]="pagos" [paginator]="true" [rows]="10" id="tablaConsumo"
+                        *ngIf="pagos && pagos.length > 0">
+                        <ng-template pTemplate="caption">
+                            PAGOS
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center">id</th>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Cuenta Cobro</th>
+                                <th class="text-center">Forma de Pago</th>
+                                <th class="text-center">Valor</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-pago>
+                            <tr>
+                                <td class="text-center"> {{ pago.id }}</td>
+                                <td class="text-center"> {{ pago.fechaPago }}</td>
+                                <td class="text-center"> {{ pago.cuentaCobro }}</td>
+                                <td class="text-center"> {{ pago.fp[0].Fpago }}</td>
+                                <td class="text-center"> {{ pago.valor | currency}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr>
+                                <td colspan="5" class="text-center bg-info">Total Pagos: &nbsp;
+                                    {{ totalPagos | currency }} </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-accordionTab>
+
+                <p-accordionTab [header]="'Total Retenciones = ' +  totalRetenciones.toLocaleString()">
+                    <p-messages [(value)]="msgsRetenciones" *ngIf="retenciones.length <=0 || retenciones == null">
+                    </p-messages>
+                    <p-table class="mb-4" [value]="retenciones" [paginator]="true" [rows]="10" id="tablaConsumo"
+                        *ngIf="retenciones.length > 0 && retenciones ">
+                        <ng-template pTemplate="caption">
+                            RETENCIONES
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center">id</th>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Cuenta Cobro</th>
+                                <th class="text-center">Forma de Pago</th>
+                                <th class="text-center">Valor</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="text-center"> {{ item.id }}</td>
+                                <td class="text-center"> {{ item.fechaPago }}</td>
+                                <td class="text-center"> {{ item.cuentaCobro }}</td>
+                                <td class="text-center"> {{ item.fp[0].Fpago }}</td>
+                                <td class="text-center"> {{ item.valor | currency}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr>
+                                <td colspan="5" class="text-center bg-info">Total Retenciones: &nbsp;
+                                    {{ totalRetenciones | currency }} </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-accordionTab>
+                <p-accordionTab [header]="'Total Descuento =' +  totalDescuento.toLocaleString()">
+                    <p-messages [(value)]="msgsDescuento" *ngIf="descuentos.length <=0 || descuentos == null">
+                    </p-messages>
+                    <p-table class="mb-4" [value]="descuentos" [paginator]="true" [rows]="10" id="tablaConsumo"
+                        *ngIf="descuentos.length > 0 && descuentos !== null">
+                        <ng-template pTemplate="caption">
+                            DESCUENTOS
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center">id</th>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Cuenta Cobro</th>
+                                <th class="text-center">Forma de Pago</th>
+                                <th class="text-center">Valor</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-item>
+                            <tr>
+                                <td class="text-center"> {{ item.id }}</td>
+                                <td class="text-center"> {{ item.fechaPago }}</td>
+                                <td class="text-center"> {{ item.cuentaCobro }}</td>
+                                <td class="text-center"> {{ item.fp[0].Fpago  }}</td>
+                                <td class="text-center"> {{ item.valor | currency}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr>
+                                <td colspan="5" class="text-center bg-info">Total Descuento: &nbsp;
+                                    {{ totalDescuento | currency }} </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+
+                </p-accordionTab>
+            </p-accordion>
+            </fieldset>
+        </div>
+
+        <div class="col-sm-4">
+            <fieldset>
+                <legend>Resumen</legend>
+
+                <div class="p-field p-grid">
+                    <label for="firstname3" class="p-col-fixed" style="width:100px">Saldo Inicial</label>
+                        <span class="float-right"> {{ saldoInicial | currency }} </span>
+                </div>
+                <div class="p-field p-grid">
+                    <label for="lastname3" class="p-col-fixed" style="width:100px">Consumos</label>
+                    <span class="float-right"> {{ totalValorConsumo | currency }} </span>
+
+                </div>
+                <div class="p-field p-grid">
+                    <label for="lastname4" class="p-col-fixed" style="width:100px">Pagos</label>
+                    <span class="float-right"> {{ totalPagos | currency }} </span>
+                </div>
+                <div class="p-field p-grid">
+                    <label for="lastname4" class="p-col-fixed" style="width:100px">Retenciones</label>
+                    <span class="float-right"> {{ totalRetenciones | currency }} </span>
+                </div>
+                <div class="p-field p-grid">
+                    <label for="lastname4" class="p-col-fixed" style="width:100px"> Descuentos </label>
+                    <span class="float-right"> {{ totalDescuento | currency }} </span>
+                    <hr>
+                </div>
+                <div class="p-field p-grid">
+                    <label for="lastname4" class="p-col-fixed" style="width:100px"> Saldo </label>
+                    <span class="float-right"> {{ (saldoInicial + totalPagos +totalDescuento ) -(totalRetenciones + totalValorConsumo)  | currency }} </span>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+</fieldset>
+
+<app-modal-dialog [visible]="booleanClient" (hide)="booleanClient=false">
+    <app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
+</app-modal-dialog>

@@ -1,0 +1,64 @@
+<div class="form-group p-0 form-inline mb-1 justify-content-center">
+  <div class="input-group col-sm-2">
+    <input [(ngModel)]="searchNum" (keyup.enter)="getDisabilityPayments()" class="form-control" type="number" name="searchid"
+      id="searchid" placeholder="# Radicado">
+  </div>
+  <div class="input-group col-sm-2">
+    <input [(ngModel)]="employee" (keyup.enter)="getDisabilityPayments()" class="form-control" type="number" name="employee"
+      placeholder="CC Empleado">
+  </div>
+  <div class="input-group col-sm-2">
+    <input [(ngModel)]="disability" (keyup.enter)="getDisabilityPayments()" class="form-control" type="number" name="disability"
+      placeholder="# Incapacidad">
+  </div>
+  <label class="control-label col-sm-1">Responsable:</label>
+  <div class="input-group col-sm-2">
+    <select class="form-control" [(ngModel)]="searchAdministrator">
+      <option *ngFor="let admin of administrator" [ngValue]="admin">{{admin.nombreAdministradora}}</option>
+    </select>
+  </div>
+  <div class="col-sm-2" role="group">
+    <div class="btn-group btn-block justify-content-center" role="group">
+      <button class="btn btn-info col" (click)="getDisabilityPayments()">
+        <span class="fa fa-search fa-fw"></span>&nbsp;Buscar</button>
+      <button title="Limpiar" class="btn btn-warning col" (click)="clear()">
+        <span class="fas fa-eraser fa-fw"></span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="table-wrapper" id="table-Search">
+  <div class="align-self-center no-more-tables">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Numero</th>
+          <th scope="col">Responsable</th>
+          <th scope="col">Fecha</th>
+          <!-- <th scope="col">Incapacidad</th> -->
+          <th scope="col">Valor</th>
+          <!-- <th scope="col">Acciones</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of payments" [@fade]="'in'">
+          <td data-title="Numero" class="text-center">{{item.id}}</td>
+          <td data-title="Resposable" class="text-center">{{getNameAdministrator(item.administradora)}}</td>
+          <td data-title="Fecha" class="text-center">{{item.fecha | date:'dd/MM/yy' : '+0000'}}</td>
+          <!-- <td data-title="Incapacidad" class="text-center">{{item.incapacidadId}}</td> -->
+          <td data-title="Valor" class="text-right">{{item.valor | currency}}</td>
+          <!-- <td class="text-center">
+            <div id="btns">
+              <button class="btn btn-info btn-sm" title="Radicar">
+                <span class="fas fa-check-circle fa-fw"></span>
+              </button>
+              <button class="btn btn-success btn-sm" title="Descargar">
+                <span class="fas fa-file-download fa-fw"></span>
+              </button>
+            </div>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

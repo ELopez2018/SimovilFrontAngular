@@ -1,0 +1,99 @@
+.cabecera {
+    width: 100%;
+    background: black;
+    color: white;
+    height: 40px;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.prue {
+    width: 100%;
+}
+
+.form-control-feedback {
+    color: red;
+}
+
+legend {
+    display: block;
+    -webkit-padding-start: 2px;
+    -webkit-padding-end: 2px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    width: inherit;
+    padding: 0 10px;
+    border-bottom: none;
+    font-size: 1.5rem;
+}
+Fieldset {
+    display: block;
+    -webkit-margin-start: 2px;
+    -webkit-margin-end: 2px;
+    -webkit-padding-before: 0.35em;
+    -webkit-padding-start: 0.75em;
+    -webkit-padding-end: 0.75em;
+    -webkit-padding-after: 0.625em;
+    min-width: -webkit-min-content;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.25rem;
+    margin: 20px;
+}
+
+.white-button.ui-button.ui-state-default {
+    background-color: #ffffff;
+    color: #222222;
+    border-color: #d6d6d6;
+    /* with the exported variables from Nova and Luna Themes*/
+    border-color: var(--input-border-color, #d6d6d6);
+}
+
+.white-button.ui-button.ui-state-default:enabled:hover,
+.white-button.ui-button.ui-state-default:focus {
+    background-color: #f2f2f2;
+    border-color: #ccc;
+    color: #373a3c;
+    /* with the exported variables from Nova and Luna Themes*/
+    border-color: var(--input-hover-border-color, #ccc);
+}
+
+.green-button.ui-button.ui-state-default {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+    color: #fff;
+}
+
+.green-button.ui-button.ui-state-default:enabled:hover,
+.green-button.ui-button.ui-state-default:focus {
+    background-color: #4cae4c;
+    border-color: #5cb85c;
+}
+
+.red-button.ui-button.ui-state-default {
+    background-color: #d9534f;
+    border-color: #d9534f;
+    color: #fff;
+}
+
+.red-button.ui-button.ui-state-default:enabled:hover,
+.red-button.ui-button.ui-state-default:focus {
+    background-color: #d43f3a;
+    border-color: #d9534f;
+}
+
+img {
+    display: block;
+    margin: auto;
+}
+
+.tarjeta {
+    height: 300px !important;
+}
+
+.imagen {
+    max-width: 450px;
+    /* max-height: 300px; */
+    margin: 10px;
+}

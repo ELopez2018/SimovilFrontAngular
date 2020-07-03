@@ -1,0 +1,63 @@
+<div class="form-group p-0 form-inline mb-1 justify-content-center">
+  <div class="input-group col-sm-2">
+    <input [(ngModel)]="idSel" (keyup.enter)="getEmployeeNovelty()" class="form-control" type="number" name="searchid" id="searchid"
+      placeholder="# Novedad">
+  </div>
+  <div class="input-group col-sm-2">
+    <input [(ngModel)]="employeeSel" (keyup.enter)="getEmployeeNovelty()" class="form-control" type="number" name="searchid"
+      id="searchid" placeholder="CC Empleado">
+  </div>
+  <label class="control-label col-sm-1">Desde:</label>
+  <div class="input-group col-sm-2">
+    <input [(ngModel)]="fechaIni" class="form-control" type="date" name="searchid">
+  </div>
+  <label class="control-label col-sm-1">Hasta:</label>
+  <div class="input-group col-sm-2">
+    <input [(ngModel)]="fechaFin" class="form-control" type="date" name="searchid">
+  </div>
+  <div class="col-sm-2" role="group">
+    <div class="btn-group btn-block justify-content-center" role="group">
+      <button class="btn btn-info col" (click)="getEmployeeNovelty()">
+        <span class="fa fa-search fa-fw"></span>&nbsp;Buscar</button>
+      <button title="Limpiar" class="btn btn-warning col" (click)="clear()">
+        <span class="fas fa-eraser fa-fw"></span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12">
+  <div class="table-wrapper">
+    <div class="align-self-center no-more-tables" id="table-Vehicles">
+      <table class="table table-hover table-sm table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Id</th>
+            <th scope="col">Empleado</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Desde</th>
+            <th scope="col">Hasta</th>
+            <th scope="col">Días</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let novelty of novelties" [@fade]="'in'">
+            <td data-title="Número" class="text-center">{{novelty.id}}</td>
+            <td data-title="Empleado" class="text-center">{{novelty['primerNombre'] + ' ' + novelty['primerApellido']}}</td>
+            <td data-title="Tipo" class="text-center">{{getNoveltyTypeName(novelty.tipo)}}</td>
+            <td data-title="Desde" class="text-center">{{novelty.fechaIni | date: 'dd/MM/yy' : '+0000'}} {{novelty.horaIni
+              | date: 'hh:mm a' : '+0000'}}</td>
+            <td data-title="Hasta" class="text-center">{{novelty.fechaFin | date: 'dd/MM/yy' : '+0000'}} {{novelty.horaFin
+              | date: 'hh:mm a' : '+0000'}}</td>
+            <td data-title="Días" class="text-center">{{novelty.dias}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- <app-modal-dialog [visible]="historyVisible" (hide)="historyVisible = false">
+  <app-disability-history [disability]="disability" [administrators]="administrators"></app-disability-history>
+</app-modal-dialog>
+<app-modal-dialog [visible]="noveltyVisible" (hide)="noveltyVisible = false">
+  <app-disability-novelty [disability]="disability" (submiter)="submitAddNovelty($event)"></app-disability-novelty>
+</app-modal-dialog> -->

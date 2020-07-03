@@ -1,0 +1,40 @@
+fieldset {
+    display: block;
+    margin: 0px 2px;
+    padding: 0.35em 0.75em;
+    min-width: -webkit-min-content;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.25rem;
+}
+legend {
+    display: block;
+    -webkit-padding-start: 2px;
+    -webkit-padding-end: 2px;
+    width: inherit;
+    padding: 0 10px;
+    font-size: 1.1rem;
+    margin-bottom: 0px !important;
+}
+
+label {
+    margin-bottom: 0px;
+}
+.titulo {
+    background: black;
+    color: white;
+
+}
+.item {
+    border-radius: 4px;
+    padding: 4px 8px;
+    background-color: #edf4f7
+}
+
+#header {
+    color: #fb5151;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+#footer {
+    border-top: 1px solid #d4d4d4;
+}

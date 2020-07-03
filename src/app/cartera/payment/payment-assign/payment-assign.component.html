@@ -1,0 +1,112 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-0">
+  <div class="row col-sm-12 pb-1">
+    <div class="input-group col-sm-3">
+      <div class="input-group-prepend">
+        <button id="btnBoolClient" class="btn btn-outline-secondary left" type="button" (click)="boolClient()">
+          <span class="far fa-hand-pointer fa-fw"></span>
+        </button>
+      </div>
+      <input [(ngModel)]="client.codCliente" (keyup.enter)="searchClient()" required class="form-control" type="number"
+        id="codclient">
+    </div>
+    <div class="input-group col-sm-6">
+      <span class="input-group-addon">
+        <i class="fas fa-user fa-fw"></i>
+      </span>
+      <input [(ngModel)]="client.nombre" disabled class="form-control" type="text" id="nameclient">
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-info btn-block" (click)="searchClient()" [disabled]="client.codCliente==null">
+        <span class="fas fa-search fa-fw"></span>&nbsp;Consultar</button>
+    </div>
+  </div>
+  <label class="control-label col-sm-1 m-0">Desde:</label>
+  <div class="input-group col-sm-3">
+    <span class="input-group-addon">
+      <i class="fas fa-calendar fa-fw"></i>
+    </span>
+    <input [(ngModel)]="searchPagoFechaIni" required class="form-control" type="date" id="fechaIniPagoSearch">
+  </div>
+  <label class="control-label col-sm-1 m-0">Hasta:</label>
+  <div class="input-group col-sm-3">
+    <span class="input-group-addon">
+      <i class="fas fa-calendar fa-fw"></i>
+    </span>
+    <input [(ngModel)]="searchPagoFechaFin" required class="form-control" type="date" id="fechaFinPagoSearch">
+  </div>
+  <div class="col-sm-3 btn-group justify-content-center" role="group">
+    <button id="btnSearchPayment" class="btn btn-info" (click)="getPaymentSearch()">
+      <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+    <button class="btn btn-warning" (click)="cleanPaymentSearch()">
+      <span class="fas fa-eraser fa-fw"></span>
+    </button>
+  </div>
+</div>
+<div class="table-wrapper container" id="table-Consumption-Search">
+  <div class="align-self-center no-more-tables" id="table-Consumption-Search">
+    <div id="print-payments">
+      <table class="table table-hover table-sm table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Id</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Registrado</th>
+            <th scope="col">Fecha de pago</th>
+            <th scope="col">Forma de pago</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of searchPayments">
+            <td class="text-center" data-title="Id">{{payment.idPago}}</td>
+            <td class="text-center" data-title="Cliente">{{payment.nombre}}</td>
+            <td class="text-center" data-title="Registrado">{{payment.fecha | date: 'dd/MM/yyyy hh:mm:ss a' :
+              '+0000'}}</td>
+            <td class="text-center" data-title="Fecha de pago">{{payment.fechaPago | date: 'dd/MM/yyyy' : '+0000'}}</td>
+            <td class="text-center" data-title="Forma de pago">{{getFormaPago(payment.formaPago)}}</td>
+            <td class="text-right" data-title="Valor">{{payment.valor | currency }}</td>
+            <td class="text-center" data-title="Acción" title="Asignar Cuenta de cobro">
+              <button (click)="assignPayment(payment)" class="btn btn-sm btn-primary">Asignar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-modal-dialog [visible]="boolSearchClient" (hide)="boolSearchClient = false">
+  <app-comp-search-client (submiter)="getCodClient($event)"></app-comp-search-client>
+</app-modal-dialog>
+<app-modal-dialog [visible]="boolAC" (hide)="boolAC = false">
+  <div class="table-wrapper container" id="table-Receivable-Search">
+    <div id="print-receivables">
+      <table class="table table-hover table-sm table-striped table-dark">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">N°</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Saldo</th>
+            <th scope="col">Seleccionar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let receivable of receivables">
+            <td data-title="N°" class="">{{receivable.num}}</td>
+            <td data-title="Nombre">{{receivable.nombre}}</td>
+            <td data-title="Fecha" class="text-center">{{receivable.fecha | date: 'dd/MM/yyyy' : '+0000'}}</td>
+            <td data-title="Valor" class="text-right">{{receivable.valor | currency }}</td>
+            <td data-title="Saldo" class="text-right">{{receivable.saldo | currency }}</td>
+            <td data-title="Acciones" class="text-center">
+              <button (click)="SelReceivable(receivable)" class="btn btn-success btn-sm">
+                <span class="fas fa-hand-pointer fa-fw"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-modal-dialog>

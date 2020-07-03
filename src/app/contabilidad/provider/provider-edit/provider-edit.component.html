@@ -1,0 +1,134 @@
+<form [formGroup]="providerForm" novalidate class="form-horizontal">
+  <fieldset>
+    <legend class="text-center">Editar Proveedor</legend>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Nit:</label>
+      <div class="input-group col-sm-4">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-secondary left" type="button" (click)="showBoolProvider(true)" [disabled]="providerForm.get('nit').disabled">
+            <span class="far fa-hand-pointer fa-fw"></span>
+          </button>
+        </div>
+        <input id="proId" type="number" class="form-control" #identificacion (keyup.enter)="GetProvider(identificacion.value)"
+          placeholder="Identificación" formControlName="nit" appAutofocus>
+      </div>
+      <label class="control-label col-sm-2">DV:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-user fa-fw"></i>
+        </span>
+        <input type="number" class="form-control" placeholder="Dígito de verificación" formControlName="dv">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Nombre:</label>
+      <div class="input-group col-sm-10">
+        <span class="input-group-addon">
+          <i class="fa fa-user fa-fw"></i>
+        </span>
+        <input id="proNom" type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Tipo documento:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-id-card fa-fw"></i>
+        </span>
+        <select name="tipoDocumento" class="form-control" formControlName="tipoDoc">
+          <option *ngFor="let documentType of documentTypes" [ngValue]="documentType">{{documentType.detalle}}</option>
+        </select>
+      </div>
+      <label class="control-label col-sm-2">Departamento:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-globe fa-fw"></i>
+        </span>
+        <select name="departamento" class="form-control" formControlName="departamento" (ngModelChange)="updateArrayCity($event)"
+          (blur)="assignCity()">
+          <option *ngFor="let departament of departments" [ngValue]="departament">{{departament.nombreDepartamento}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Ciudad:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-map-marker fa-fw"></i>
+        </span>
+        <select name="ciudad" class="form-control" formControlName="ciudad">
+          <option *ngFor="let city of filteredCities" [ngValue]="city">{{city.nombreCiudad}}</option>
+        </select>
+      </div>
+      <label class="control-label col-sm-2">Dirección:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-map-marker fa-fw"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="Dirección" name="direccion" formControlName="direccion">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Teléfono:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-mobile fa-fw"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="Teléfono" name="telefono" formControlName="telefono">
+      </div>
+      <label class="control-label col-sm-2">Correo:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-envelope fa-fw"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="Correo electrónico" formControlName="email">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Tipo:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-id-card fa-fw"></i>
+        </span>
+        <select class="form-control" formControlName="tipo">
+          <option *ngFor="let type of providerTypes" [ngValue]="type">{{type.text}}</option>
+        </select>
+      </div>
+      <ng-container *ngIf="providerForm.get('tipo').value && providerForm.get('tipo').value.id == 1">
+        <label class="control-label col-sm-2" [@fade]="'in'">Tipo Mayorista:</label>
+        <div class="input-group col-sm-4" [@fade]="'in'">
+          <span class="input-group-addon">
+            <i class="fa fa-id-card fa-fw"></i>
+          </span>
+          <select class="form-control" formControlName="tipoMayorista">
+            <option *ngFor="let type of providerTypes2" [ngValue]="type">{{type.text}}</option>
+          </select>
+        </div>
+      </ng-container>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Estado:</label>
+      <div class="form-check col-sm-4">
+        <input class="form-check-input" type="checkbox" formControlName="estado">
+      </div>
+    </div>
+    <div class="form-inline">
+      <div class="col-sm-6">
+        <button (click)="submit()" class="btn btn-primary btn-block" [disabled]="(!providerForm.valid || providerlo == null)">
+          <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Guardar</button>
+      </div>
+      <div class="col-sm-6" *ngIf="searchId==null">
+        <button (click)="reset()" class="btn btn-danger btn-block">
+          <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar</button>
+      </div>
+      <div class="col-sm-6" *ngIf="searchId">
+        <button (click)="back()" class="btn btn-danger btn-block">
+          <span class="fas fa-undo fa-fw"></span>&nbsp;Cancelar</button>
+      </div>
+    </div>
+  </fieldset>
+  <br>
+</form>
+<app-modal-dialog (hide)="showBoolProvider(false)" [visible]="boolProvider">
+  <app-comp-search-provider (submiter)="assignProvider($event)"></app-comp-search-provider>
+</app-modal-dialog>

@@ -1,0 +1,8 @@
+#clientName{
+    color: rgb(255, 60, 0);
+}
+
+.btn-left{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}

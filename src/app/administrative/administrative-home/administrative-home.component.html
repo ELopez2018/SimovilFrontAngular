@@ -1,0 +1,87 @@
+<div class="col-sm-12" *ngIf="view">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card border-light mb-1">
+        <!-- <div class="card-header ch ch1">Facturas pendientes</div> -->
+        <div class="card-body cb1 text-center">
+          <canvas baseChart [data]="invoicesData" [labels]="invoicesLabels" chartType="doughnut" (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event, 0)"></canvas>
+          <p class="title-card-light mb-0">Facturas por pagar</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card border-light mb-1">
+        <!-- <div class="card-header ch ch2">Facturas sin pagar</div> -->
+        <div class="card-body cb2 text-center">
+          <canvas baseChart [data]="invoicesByExpiredData" [labels]="invoicesByExpiredLabels" [chartType]="doughnutChartType"
+            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event, 1)"></canvas>
+          <p class="title-card-light mb-0 text-truncate">Por vencimiento</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card border-light mb-1">
+        <!-- <div class="card-header ch ch3">Facturas vencidas</div> -->
+        <div class="card-body cb3 text-center">
+          <canvas baseChart [data]="invoicesByProfileData" [labels]="invoicesByProfileLabels" [chartType]="doughnutChartType"
+            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event, 2)"></canvas>
+          <p class="title-card-light mb-0 text-truncate">Por área</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-sm-12" [@fade]="'in'" *ngIf="unpaidInvoices">
+  <button (click)="getUnpaidInvoices()" id="refresh" class="btn btn-sm btn-secondary">
+    <span class="fas fa-refresh fa-fw"></span>&nbsp;Refrescar
+  </button>
+  <legend class="text-center">Facturas Pendientes
+  </legend>
+  <div class="table-wrapper">
+    <div class="align-self-center no-more-tables" id="table-Vehicles">
+      <table class="table table-hover table-dark table-sm table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Número</th>
+            <th scope="col">Proveedor</th>
+            <th scope="col">Vence</th>
+            <!-- <th scope="col">Estado</th> -->
+            <th scope="col" title="R = Revisado&#xA;A = Autorizado&#xA;C = Causado&#xA;P = Pagado">Historial</th>
+            <th scope="col">Estación</th>
+            <!-- <th scope="col">Valor</th> -->
+            <th scope="col">Saldo</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invoice of unpaidInvoices" [ngClass]="porCobrar(invoice.estado)" [@fade]="'in'">
+            <td data-title="Número" class="text-center">{{invoice.numero}}</td>
+            <td data-title="Proveedor" class="text-center" [title]="getNameProvider(invoice.proveedor)">{{invoice.proveedor}}</td>
+            <td data-title="Vence" class="text-center">{{invoice.fechaVen | date: 'dd/MM/yy' : '+0000'}}</td>
+            <!-- <td data-title="Estado" class="text-center">{{getStatusName(invoice.estado)}}</td> -->
+            <td data-title="Historial" class="text-center">{{getHistoryInvoice(invoice)}}</td>
+            <td data-title="Estación" class="text-center">
+              <div id="truncat">{{getNameStation(invoice.estacion)}}</div>
+            </td>
+            <!-- <td data-title="Valor" class="text-right">{{invoice.valor | currency }}</td> -->
+            <td data-title="Saldo" class="text-right">{{invoice.saldo | currency }}</td>
+            <td data-title="Acciones" class="text-center">
+              <!-- <div id="btns"> -->
+              <!-- <button class="btn btn-success btn-sm" (click)="addNovelty(invoice)" title="Novedad">
+                  <span class="fas fa-plus fa-fw"></span>
+                </button> -->
+              <button (click)="searchHistory(invoice)" class="btn btn-info btn-sm" title="Historial">
+                <span class="fas fa-history fa-fw"></span>
+              </button>
+              <!-- </div> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-modal-dialog (hide)="boolHistory = false" [visible]="boolHistory">
+  <app-invoice-history [invoice]="invoiceSel">
+</app-invoice-history>

@@ -1,0 +1,74 @@
+<div class="container col-md-6">
+  <form [formGroup]="updatePassForm" (ngSubmit)="submitUpdatePassForm()" novalidate>
+    <fieldset>
+      <legend class="text-center">Cambiar Contraseña</legend>
+      <div class="form-group form-inline">
+        <label class="control-label col-md-4 m-0">Contraseña Anterior</label>
+        <div class="input-group col-md-8">
+          <span class="input-group-addon">
+            <i class="fas fa-key"></i>
+          </span>
+          <input id="currentPassword" type="password" class="form-control" name="currentPassword" placeholder="Contraseña anterior"
+            formControlName="currentPassword" required>
+        </div>
+      </div>
+      <div *ngIf="currentPassword.invalid && (currentPassword.dirty || currentPassword.touched)" class="alert alert-danger">
+        <div *ngIf="currentPassword.errors['required']">
+          La contraseña anterior es requerida.
+        </div>
+      </div>
+      <div class="form-group form-inline">
+        <label class="control-label col-md-4 m-0">Nueva contraseña</label>
+        <div class="input-group col-md-8">
+          <span class="input-group-addon">
+            <i class="fas fa-key"></i>
+          </span>
+          <input (keyup)="validatePass(0)" (blur)="validatePass(1)" id="newPassword" type="password" class="form-control" name="newPassword"
+            placeholder="Contraseña nueva" formControlName="newPassword">
+        </div>
+      </div>
+      <div *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)" class="alert alert-danger">
+        <div *ngIf="newPassword.errors['required']">
+          La nueva contraseña es requerida.
+        </div>
+        <div *ngIf="newPassword.errors['pattern']">
+          <p>La contraseña por su seguridad debe cumplir estas caracteristicas: </p>
+          <ul>
+            <li>Contener al menos una letra mayuscula y minuscula.</li>
+            <li>Contener al menos un numero.</li>
+            <li>No se permite espacios ni caracteres especiales.</li>
+            <li>Debe mínimo 8 y máximo 16 caracteres.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="form-group form-inline">
+        <label class="control-label col-md-4 m-0">Confirmar contraseña</label>
+        <div class="input-group col-md-8">
+          <span class="input-group-addon">
+            <i class="fas fa-key"></i>
+          </span>
+          <input (focus)="validatePass(2)" id="repeatNewPassword" type="password" class="form-control" name="repeatNewPassword" placeholder="Confirmar contraseña"
+            formControlName="repeatNewPassword">
+        </div>
+      </div>
+      <div *ngIf="repeatNewPassword.invalid && (repeatNewPassword.dirty || repeatNewPassword.touched)" class="alert alert-danger">
+        <div *ngIf="repeatNewPassword.errors['required']">
+          La contraseña es requerida.
+        </div>
+        <div *ngIf="repeatNewPassword.errors['pattern']">
+          Confirmación de contraseña errada.
+        </div>
+      </div>
+      <div class="form-inline">
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary btn-block mb-1" [disabled]="!updatePassForm.valid">
+            <i class="fa fa-save fa-fw"></i>&nbsp;Guardar</button>
+        </div>
+        <div class="col-md-6">
+          <button type="reset" class="btn btn-secondary btn-block">
+            <i class="fas fa-eraser fa-fw"></i>&nbsp;Limpiar</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

@@ -1,0 +1,60 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-1 justify-content-center">
+  <label class="control-label col-sm-1 m-0">Usuario</label>
+  <div class="input-group col-sm-4">
+    <span class="input-group-addon">
+      <i class="fas fa-user fa-fw"></i>
+    </span>
+    <input appAutofocus [(ngModel)]="searchUserid" (keyup.enter)="getUsers()" class="form-control" type="text" name="searchUserid" id="searchUserid">
+  </div>
+  <div class="form-check col-sm-2 p-0 input-check">
+    <input [(ngModel)]="searchUserStatus" class="mr-2" type="checkbox" value="Activo" id="searchUserStatus">
+    <label class="form-check-label m-0 text-truncate" for="searchUserStatus">
+      Activo
+    </label>
+  </div>
+  <div class="col-sm-3 btn-group justify-content-center" role="group">
+    <button class="btn btn-info" (click)="getUsers()">
+      <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+    <button class="btn btn-warning" (click)="clearUsers()">
+      <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+    </button>
+  </div>
+</div>
+<div class="table-wrapper" id="table-users-Search">
+  <div class="align-self-center no-more-tables" id="table-Users">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Usuario</th>
+          <th scope="col">Nombres</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Rol</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td data-title="Usuario" class="text-center">{{user.idUsuario}}</td>
+          <td data-title="Nombres" class="text-center">{{user.primerNombre}} {{user.segundoNombre}}</td>
+          <td data-title="Apellidos" class="text-center">{{user.primerApellido}} {{user.segundoApellido}}</td>
+          <td data-title="Estado" class="text-center">{{user.estado == true ? 'Activo' : 'Inactivo'}}</td>
+          <td data-title="Rol" class="text-center">{{getNameRole(user.rol)}}</td>
+          <td data-title="Acciones" class="text-center">
+            <div id="btns">
+              <button (click)="editUSer(user)" class="btn btn-info btn-sm" title="Editar">
+                <span class="fas fa-user-edit fa-fw"></span>
+              </button>
+              <button (click)="resetPass(user)" class="btn btn-success btn-sm" title="ResetPass">
+                <span class="fas fa-user-lock fa-fw"></span>
+              </button>
+              <button (click)="deleteUser(user)" class="btn btn-danger btn-sm" title="Borrar">
+                <span class="fas fa-trash-alt fa-fw"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

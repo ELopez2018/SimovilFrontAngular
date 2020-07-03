@@ -1,0 +1,116 @@
+<h4 class="text-center">Descargar Facturas</h4>
+<div class="table-wrapper" id="table-Search">
+  <div class="align-self-center no-more-tables">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Recibido</th>
+          <th scope="col">Proveedor</th>
+          <th scope="col">Factura #</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Pendiente</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr (dblclick)="selitem(item, false)" *ngFor="let item of pending" [@fade]="'in'">
+          <td data-title="Recibido" class="text-center">{{item.FECHA | date:'dd/MM/yyyy' : '+0000'}}</td>
+          <td data-title="Proveedor" class="text-center">{{item.NOMBRE}}</td>
+          <td data-title="Factura #" class="text-center">{{item.NUMERO}}</td>
+          <td data-title="Tipo" class="text-center">{{item.DESCRIPCION}}</td>
+          <td data-title="Cantidad" class="text-right">{{item.CANTIDAD | number}}</td>
+          <td data-title="Pendiente" class="text-right">{{item.PENDIENTE | number}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<h4 class="text-center mt-3 mb-2" *ngIf="pendingTrans && pendingTrans.length>0">Descargar Traslados</h4>
+<div class="table-wrapper" id="table-Search" *ngIf="pendingTrans && pendingTrans.length>0">
+  <div class="align-self-center no-more-tables">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Recibido</th>
+          <th scope="col">Estación</th>
+          <th scope="col">Proveedor</th>
+          <th scope="col">Factura #</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Pendiente</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr (dblclick)="selitem(item, true)" *ngFor="let item of pendingTrans" [@fade]="'in'">
+          <td data-title="Recibido" class="text-center">{{item.FECHA | date:'dd/MM/yyyy' : '+0000'}}</td>
+          <td data-title="Estación" class="text-center">{{item.NOMBRE_ESTACION | uppercase}}</td>
+          <td data-title="Proveedor" class="text-center">{{item.NOMBRE}}</td>
+          <td data-title="Factura #" class="text-center">{{item.NUMERO}}</td>
+          <td data-title="Tipo" class="text-center">{{item.DESCRIPCION}}</td>
+          <td data-title="Cantidad" class="text-right">{{item.CANTIDAD | number}}</td>
+          <td data-title="Pendiente" class="text-right">{{item.PENDIENTE | number}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-modal-dialog (hide)="showModal = false" [visible]="showModal" width="11">
+  <form [formGroup]="formFuel" class="form-horizontal">
+    <fieldset id="field1">
+      <legend class="text-center">Datos de factura</legend>
+      <div class="form-group form-inline align-items-start">
+        <label class="control-label col-sm-2">Fecha:</label>
+        <div class="input-group col-sm-4">
+          <input type="date" class="form-control" formControlName="FECHA2">
+        </div>
+        <label class="control-label col-sm-2">Proveedor:</label>
+        <div class="input-group col-sm-4">
+          <input type="text" class="form-control" formControlName="NOMBRE">
+        </div>
+      </div>
+      <div class="form-group form-inline align-items-start">
+        <label class="control-label col-sm-2">Factura #:</label>
+        <div class="input-group col-sm-4">
+          <input type="text" class="form-control" formControlName="NUMERO">
+        </div>
+        <label class="control-label col-sm-2">Tipo:</label>
+        <div class="input-group col-sm-4">
+          <input type="text" class="form-control" formControlName="DESCRIPCION">
+        </div>
+      </div>
+      <div class="form-group form-inline align-items-start">
+        <label class="control-label col-sm-2">Cantidad Total:</label>
+        <div class="input-group col-sm-4">
+          <input type="number" class="form-control" formControlName="CANTIDAD">
+        </div>
+        <label class="control-label col-sm-2">Pendiente por ingresar:</label>
+        <div class="input-group col-sm-4">
+          <input type="number" class="form-control" formControlName="PENDIENTE2">
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend class="text-center">Ingresar descargue de combustible</legend>
+      <div class="form-group form-inline align-items-start">
+        <label class="control-label col-sm-2">Fecha:</label>
+        <div class="input-group col-sm-4">
+          <input type="date" class="form-control" formControlName="FECHA">
+        </div>
+        <label class="control-label col-sm-2">Cantidad:</label>
+        <div class="input-group col-sm-4">
+          <input id="cant" type="number" class="form-control" formControlName="PENDIENTE">
+        </div>
+      </div>
+      <div class="form-inline">
+        <div class="col-sm-6">
+          <button (click)="saveFuelUnload()" class="btn btn-primary btn-block" [disabled]="!formFuel.valid">
+            <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Guardar</button>
+        </div>
+        <div class="col-sm-6">
+          <button (click)="clearInsert()" class="btn btn-danger btn-block">
+            <span class="fas fa-undo fa-fw"></span>&nbsp;Cancelar</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</app-modal-dialog>

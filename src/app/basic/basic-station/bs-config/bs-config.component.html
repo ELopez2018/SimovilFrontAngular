@@ -1,0 +1,211 @@
+<div id="main" class="container-12" *ngIf="station">
+  <div class="row">
+    <div class="col-4">
+      <div class="form-inline row">
+        <label class="col-4">Estación</label>
+        <div class="input-group col-8">
+          <span class="input-group-addon">
+            <i class="fas fa-user-alt fa-fw"></i>
+          </span>
+          <input type="text" class="form-control" [(ngModel)]="station.nombreEstacion" disabled>
+        </div>
+      </div>
+      <li class="seleccionada">
+        <div (click)="optionSelF(null, 3)">
+          <span class="far fa-folder-open fa-fw"></span>&nbsp;ISLAS
+        </div>
+        <ul id="primerUl" class="dropdown-menu-show">
+          <li *ngFor="let item of islas" [class]="classSel(item, 0)">
+            <div (dblclick)="show(item)" (click)="optionSelF(item,0)">
+              <span [class]="classItem(item,0)"></span>&nbsp;{{item.TIPO + '-' + item.DETALLE}}
+            </div>
+            <ul *ngIf="item.SURTIDOR && item.SURTIDOR.length > 0" [class]="item['class']">
+              <li *ngFor="let it of item.SURTIDOR" [class]="classSel(it,1)">
+                <div (dblclick)="show(it)" (click)="optionSelF(it,1)">
+                  <span [class]="classItem(it,1)"></span>&nbsp;{{it.DESCRIPCION}}
+                </div>
+                <ul *ngIf="it.MANGUERA && it.MANGUERA.length > 0" [class]="it['class']">
+                  <li *ngFor="let i of it.MANGUERA" [class]="classSel(i,2)">
+                    <div (dblclick)="show(i)" (click)="optionSelF(i,2)">
+                      <span [class]="classItem(i,2)"></span>&nbsp;{{i.DETALLE}}
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </div>
+    <div class="col-8">
+      <div class="form-row my-2">
+        <div class="col">
+          <button (click)="newitem()" class="btn btn-block btn-info"><span
+              class="fas fa-plus fa-fw"></span>&nbsp;{{textnewitem}}</button>
+        </div>
+        <div class="col">
+          <button (click)="edititem()" class="btn btn-block btn-secondary"><span
+              class="fas fa-pencil-alt fa-fw"></span>&nbsp;Editar</button>
+        </div>
+        <div class="col">
+          <button (click)="end1()" class="btn btn-block btn-danger"><span
+              class="fas fa-sign-out-alt fa-fw"></span>&nbsp;Salir</button>
+        </div>
+      </div>
+      <div class="table-wrapper" id="table-hoses-Search">
+        <div class="align-self-center no-more-tables" id="table-hoses">
+          <table class="table table-hover table-sm table-striped table-bordered"
+            *ngIf="listHoses && listHoses.length > 0">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">Número</th>
+                <th scope="col">Detalle</th>
+                <th scope="col">Artículo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listHoses">
+                <td data-title="Número" class="text-center">{{item.NUM_MAN}}</td>
+                <td data-title="Detalle" class="text-center">{{item.DETALLE}}</td>
+                <td data-title="Artículo" class="text-center">{{getnameArt(item.ID_ARTICULO)}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal-dialog [visible]="booleanForm[0]" (hide)="booleanForm[0] = false">
+  <form [formGroup]="islandForm" novalidate class="form-horizontal">
+    <fieldset>
+      <legend class="text-center">Isla</legend>
+      <div class="form-inline">
+        <div class="form-group col-sm-4">
+          <label class="control-label col-sm-2">Tipo:</label>
+          <select id="firstIsland" class="form-control w-100" formControlName="TIPO">
+            <option *ngFor="let item of typeIsland" [ngValue]="item">{{item.text}}</option>
+          </select>
+        </div>
+        <div class="form-group col-sm-4">
+          <label class="control-label">#Isla:</label>
+          <input (input)="updateIslandDet()" type="number" class="form-control w-100" formControlName="NUM_ISL">
+        </div>
+        <div class="form-group col-sm-4">
+          <label class="control-label col-sm-2">Detalle:</label>
+          <input type="text" class="form-control w-100" formControlName="DETALLE">
+        </div>
+      </div>
+      <div class="form-inline">
+        <!-- <div class="col-sm" *ngIf="status==true">
+          <button (click)="newItem()" class="btn btn-primary btn-block">
+            <i class="fa fa-floppy-o"></i>&nbsp;Nuevo</button>
+        </div> -->
+        <div class="col-sm" *ngIf="!edit[0]">
+          <button (click)="addIsland(true)" class="btn btn-success btn-block" [disabled]="!islandForm.valid">
+            <i class="fa fa-floppy-o fa-fw"></i>&nbsp;Agregar</button>
+        </div>
+        <div class="col-sm" *ngIf="edit[0]">
+          <button (click)="addIsland(false)" class="btn btn-success btn-block" [disabled]="!islandForm.valid">
+            <i class="fa fa-floppy-o fa-fw"></i>&nbsp;Actualizar</button>
+        </div>
+        <div class="col-sm" *ngIf="edit[0]">
+          <button (click)="deleteIsland()" class="btn btn-danger btn-block">
+            <i class="far fa-trash-alt fa-fw"></i>&nbsp;Eliminar</button>
+        </div>
+        <div class="col-sm">
+          <button (click)="cancel(0)" class="btn btn-secondary btn-block">
+            <i class="fas fa-undo fa-fw"></i>&nbsp;Cancelar</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</app-modal-dialog>
+<app-modal-dialog [visible]="booleanForm[1]" (hide)="booleanForm[1] = false">
+  <form [formGroup]="pumpForm" novalidate class="form-horizontal">
+    <fieldset>
+      <legend class="text-center" *ngIf="islandSel">{{islandSel.DETALLE}} - Surtidor</legend>
+      <div class="form-group form-inline">
+        <label class="control-label col-sm-2">#Surtidor:</label>
+        <div class="col-sm-4">
+          <input id="firstPump" (input)="updatePumpDet()" type="number" class="form-control w-100"
+            formControlName="NUM_SUR">
+        </div>
+        <label class="control-label col-sm-2">Detalle:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control w-100" formControlName="DESCRIPCION">
+        </div>
+      </div>
+      <div class="form-inline">
+        <!-- <div class="col-sm" *ngIf="status==true">
+          <button (click)="newItem()" class="btn btn-primary btn-block">
+            <i class="fa fa-floppy-o"></i>&nbsp;Nuevo</button>
+        </div> -->
+        <div class="col-sm" *ngIf="!edit[1]">
+          <button (click)="addPump(true)" class="btn btn-success btn-block" [disabled]="!pumpForm.valid">
+            <i class="fa fa-floppy-o fa-fw"></i>&nbsp;Agregar</button>
+        </div>
+        <div class="col-sm" *ngIf="edit[1]">
+          <button (click)="addPump(false)" class="btn btn-success btn-block" [disabled]="!pumpForm.valid">
+            <i class="fa fa-floppy-o fa-fw"></i>&nbsp;Actualizar</button>
+        </div>
+        <div class="col-sm" *ngIf="edit[1]">
+          <button (click)="deletePump()" class="btn btn-danger btn-block">
+            <i class="far fa-trash-alt fa-fw"></i>&nbsp;Eliminar</button>
+        </div>
+        <div class="col-sm">
+          <button (click)="cancel(1)" class="btn btn-secondary btn-block">
+            <i class="fas fa-undo fa-fw"></i>&nbsp;Cancelar</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</app-modal-dialog>
+<app-modal-dialog [visible]="booleanForm[2]" (hide)="booleanForm[2] = false">
+  <form [formGroup]="hoseForm" novalidate class="form-horizontal">
+    <fieldset>
+      <legend class="text-center" *ngIf="pumpSel">{{pumpSel.DESCRIPCION}} - Manguera</legend>
+      <div class="form-group form-inline">
+        <label class="control-label col-sm-2">#Manguera:</label>
+        <div class="col-sm-4">
+          <input id="firstHose" (input)="updateHoseDet()" type="number" class="form-control w-100"
+            formControlName="NUM_MAN">
+        </div>
+        <label class="control-label col-sm-2">Detalle:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control w-100" formControlName="DETALLE">
+        </div>
+      </div>
+      <div class="form-group form-inline">
+        <label class="control-label col-sm-2">ARTICULO:</label>
+        <div class="col-sm-4">
+          <select class="form-control w-100" formControlName="ID_ARTICULO">
+            <option *ngFor="let item of articles" [ngValue]="item">{{item.DESCRIPCION}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-inline">
+        <!-- <div class="col-sm" *ngIf="status==true">
+          <button (click)="newItem()" class="btn btn-primary btn-block">
+            <i class="fa fa-floppy-o"></i>&nbsp;Nuevo</button>
+        </div> -->
+        <div class="col-sm" *ngIf="!edit[2]">
+          <button (click)="addHose(true)" class="btn btn-success btn-block" [disabled]="!hoseForm.valid">
+            <i class="fa fa-floppy-o fa-fw"></i>&nbsp;Agregar</button>
+        </div>
+        <div class="col-sm" *ngIf="edit[2]">
+          <button (click)="addHose(false)" class="btn btn-success btn-block" [disabled]="!hoseForm.valid">
+            <i class="fa fa-floppy-o fa-fw"></i>&nbsp;Actualizar</button>
+        </div>
+        <div class="col-sm" *ngIf="edit[2]">
+          <button (click)="deleteHose()" class="btn btn-danger btn-block">
+            <i class="far fa-trash-alt fa-fw"></i>&nbsp;Eliminar</button>
+        </div>
+        <div class="col-sm">
+          <button (click)="cancel(2)" class="btn btn-secondary btn-block">
+            <i class="fas fa-undo fa-fw fa-fw"></i>&nbsp;Cancelar</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</app-modal-dialog>

@@ -1,0 +1,121 @@
+<form [formGroup]="AddForm" novalidate class="form-horizontal">
+    <fieldset>
+        <legend class="text-center">Crear Estación</legend>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Nombre:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control w-100" placeholder="Nombre" formControlName="nombreEstacion">
+            </div>
+            <label class="control-label col-sm-2">Ciudad:</label>
+            <div class="col-sm-4">
+                <select name="city" class="form-control w-100" formControlName="ciudadEstacion">
+                    <option *ngFor="let city of cities" [ngValue]="city">{{city.nombreCiudad}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Dirección:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control w-100" placeholder="Dirección" formControlName="direccion">
+            </div>
+            <label class="control-label col-sm-2">Teléfono:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control w-100" placeholder="Teléfono" formControlName="telefono">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Empresa:</label>
+            <div class="col-sm-4">
+                <select name="city" class="form-control w-100" formControlName="empresa">
+                    <option *ngFor="let company of companies" [ngValue]="company">{{company.nombre}}</option>
+                </select>
+            </div>
+            <label class="control-label col-sm-2">Tipo:</label>
+            <div class="col-sm-4">
+                <select name="city" class="form-control w-100" formControlName="tipoEstacion">
+                    <option *ngFor="let ty of stationType" [ngValue]="ty">{{ty.detalleTipoEstacion}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Administrador:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control w-100" placeholder="Administrador"
+                    formControlName="administrador">
+            </div>
+            <label class="control-label col-sm-2">Auxiliar Contable:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control w-100" placeholder="Auxiliar Contable"
+                    formControlName="nom_cont">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2"># Turnos:</label>
+            <div class="col-sm-4">
+                <input type="number" class="form-control w-100" placeholder="# de turnos" formControlName="turno">
+            </div>
+            <label class="control-label col-sm-2">Usuario:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control w-100" placeholder="Usuario" formControlName="usuario">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Banco:</label>
+            <div class="col-sm-4">
+                <select name="city" class="form-control w-100" formControlName="banco">
+                    <option *ngFor="let bank of banks" [ngValue]="bank">{{bank.nombreBanco}}</option>
+                </select>
+            </div>
+            <label class="control-label col-sm-2">Cuenta Bancaria:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control w-100" placeholder="Cuenta Bancaria"
+                    formControlName="cuentaBancaria">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Num. Caja:</label>
+            <div class="col-sm-4">
+                <input type="number" class="form-control w-100" placeholder="Número de caja actual"
+                    formControlName="num_caja">
+            </div>
+            <label class="control-label col-sm-2">Planta:</label>
+            <div class="col-sm-4">
+                <select name="planta" class="form-control w-100" formControlName="planta">
+                    <option *ngFor="let plant of plants" [ngValue]="plant">{{plant.DESCRIPCION}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-3" for="listoSimovil">Simovil:</label>
+            <div class="col-sm-3">
+                <input id="listoSimovil" type="checkbox" class="form-control" formControlName="listoSimovil">
+                <!-- <app-checkbox id="listoSimovil" formControlName="listoSimovil"></app-checkbox> -->
+            </div>
+            <label id="lblManual" class="control-label col-sm-3" for="manual">Manual:</label>
+            <div class="col-sm-3">
+                <input id="manual" type="checkbox" class="form-control" formControlName="manual">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-3" for="sisLiq">Liquidos Simovil:</label>
+            <div class="col-sm-3">
+                <input id="sisLiq" type="checkbox" class="form-control" formControlName="sisLiq">
+            </div>
+            <label class="control-label col-sm-3" for="sisGas">Gas Simovil:</label>
+            <div class="col-sm-3">
+                <input id="sisGas" type="checkbox" class="form-control" formControlName="sisGas">
+            </div>
+        </div>
+        <div class="form-inline">
+            <div class="col-sm-6">
+                <button (click)="submitAddForm()" class="btn btn-primary btn-block"
+                    [disabled]="!AddForm.valid || sending">
+                    <i class="fa fa-floppy-o"></i>&nbsp; Guardar</button>
+            </div>
+            <div class="col-sm-6">
+                <button (click)="reset()" class="btn btn-danger btn-block">
+                    <i class="fas fa-eraser"></i>&nbsp; Reset</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

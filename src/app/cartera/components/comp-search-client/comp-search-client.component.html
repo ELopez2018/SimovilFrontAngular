@@ -1,0 +1,62 @@
+<div class="col-sm-12 bg-dark text-white mb-2 text-center">
+    BUSQUEDA DE CLIENTES
+</div>
+<div class="form-group col-12 justify-content-center form-inline">
+    <label class="control-label text-right col">Ingrése el NIT o el Nombre</label>
+    <div class="input-group col">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+                <i class="fas fa-user-alt fa-fw"></i>
+            </span>
+        </div>
+
+        <input
+            id="searchCli"
+            type="text"
+            [(ngModel)]="search"
+            (keydown.enter)="getClient()"
+            class="form-control"
+            title="Ingrese el NIT o parte del nombre"
+        />
+    </div>
+    <div class="col btn-group" role="group">
+        <button class="btn btn-info" (click)="getClient()">
+            <span class="fas fa-search fa-fw"></span>&nbsp;Consultar
+        </button>
+        <button class="btn btn-warning" (click)="clear()">
+            <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+        </button>
+    </div>
+</div>
+<div class="table-wrapper" id="table-Search">
+    <div class="align-self-center no-more-tables">
+        <table class="table table-striped table-hover table-sm">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">Identificación</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let client of clients">
+                    <td data-title="Identificación" class="text-center">
+                        {{ client.codCliente }}
+                    </td>
+                    <td data-title="Nombre" class="text-center">
+                        {{ client.nombre }}
+                    </td>
+                    <td data-title="Acción" class="text-center">
+                        <button
+                            (click)="select(client)"
+                            class="btn btn-success btn-sm"
+                        >
+                            <span class="fas fa-check-circle fa-fw"></span
+                            >&nbsp;Seleccionar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

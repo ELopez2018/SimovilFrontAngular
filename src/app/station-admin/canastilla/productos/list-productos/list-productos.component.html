@@ -1,0 +1,144 @@
+<div class="row text-center">
+    <!-- <div class="col-sm-12 ">
+            <span class="h2 text-center">Productos Disponibles en la Estación</span>
+        </div> -->
+</div>
+
+<!-- <form  (ngSubmit)="GuardarVenta(forma)" #forma="ngForm"novalidate="novalidate"> -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 float-left">
+            <div class="input-group mb-1">
+                <input
+                    type="text"
+                    #Query
+                    class="form-control form-control-sm"
+                    (keyup.enter)="filterItems(Query.value)"
+                    placeholder="Búsqueda"
+                    aria-label="Recipient's username"
+                    aria-describedby="button-addon2"
+                />
+                <!-- <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">@example.com</span>
+                  </div> -->
+
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-secondary btn-sm"
+                        (click)="filterItems(Query.value)"
+                        type="button"
+                    >
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 float-right text-right" *ngIf="msjTrasla !== undefined">
+            <span class="h5 bold">
+                {{ "LISTA DE PRODUCTOS EN LA EDS " + msjTrasla }}
+            </span>
+        </div>
+    </div>
+
+    <table class="table table-sm table-hover mb-5 table-responsive-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="text-center">Id</th>
+                <th scope="col" class="text-center">Código</th>
+                <th scope="col" class="text-center">Descripción</th>
+                <th scope="col" class="text-center">Exist.</th>
+                <th scope="col" class="text-center">Costo</th>
+                <th scope="col" class="text-center">Precio</th>
+                <!-- <th scope="col" class="text-center">Ventas</th> -->
+                <!-- <th scope="col" class="text-center">Acciones</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let producto of productos; index as i"
+                (click)="EnviarProducto(producto)"
+            >
+                <th scope="row" class="text-center">
+                    {{ producto.id }}
+                </th>
+                <td class="text-center">{{ producto.codContable }}</td>
+                <td>{{ producto.descripcion }}</td>
+                <td class="text-center">
+                    {{ producto.existencia | number: ".2-3" }}
+                </td>
+                <td class="text-center">
+                    {{ producto.PrecioCompra | number: ".2-3" }}
+                </td>
+                <td class="text-center">
+                    {{ producto.precio | number: ".2-3" }}
+                </td>
+                <!-- <td class="text-center">
+                    <input
+                        type="number"
+                        class="form-control text-center tamano"
+                        placeholder="0"
+                        [(ngModel)]="producto.ventas"
+                        #ventas
+                        name="ventas"
+
+                    />
+                    <span
+                        class="badge badge-warning"
+                        *ngIf="producto.existencia < producto.ventas"
+                        >Venta mayor a la Existencia</span
+                    >
+                </td> -->
+                <!-- <td class="text-center">
+                    <button type="button" class="btn btn-primary mr-1" (click)="GuardarVenta(productos, date3)" [disabled]="producto.existencia<producto.ventas">
+                          <i class="fas fa-save"></i>
+                  </button>
+                </td> -->
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div
+    *ngIf="VentaRegistrada"
+    class="alert alert-success text-center mt-3 animated fadeIn faster"
+>
+    <h4 class="alert-heading">
+        LA VENTA DEL {{ date3 | date: "dd/MM/yyyy" }} YA FÚE REGISTRADA
+    </h4>
+    <p>
+        <i class="fas fa-calendar-check fa-3x animated slideInLeft"></i>
+    </p>
+</div>
+<div
+    *ngIf="!cargando && !VentaRegistrada && productos.length === 0"
+    class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+    <h4 class="alert-heading">No hay registros</h4>
+    <p>
+        <i class="fa fa-exclamation fa-2x"></i>
+    </p>
+</div>
+<!-- <div *ngIf="cargando" class="alert alert-info text-center mt-3 animated fadeIbn faster">
+    <h4 class="alert-heading">Cargando</h4>
+    <p>
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
+    </p>
+    <p class="mb-0">
+        Espere por favor
+    </p>
+</div> -->
+<!-- <div class="row">
+        <div class="col-sm-6 text-right">
+            <button
+                type="button"
+                class="btn btn-primary mr-1"
+                (click)="GuardarVenta(productos, date3)"
+            >
+                <i class="fas fa-save"></i> Guardar
+            </button>
+        </div>
+        <div class="col-sm-6 text-left">
+            <button type="button" class="btn btn-danger " (click)="Resetear()">
+                <i class="fas fa-quidditch"></i> Limpiar
+            </button>
+        </div>
+    </div> -->

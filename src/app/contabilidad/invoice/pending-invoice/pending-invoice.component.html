@@ -1,0 +1,95 @@
+<div class="col-sm-12">
+  <button [disabled]="!boolSearch" (click)="getInvoices()" id="refresh" class="btn btn-sm btn-secondary">
+    <span class="fas fa-refresh fa-fw"></span>&nbsp;Refrescar
+  </button>
+  <button (click)="configTb()" id="configTable" class="btn btn-sm btn-outline-info">
+    <span class="fas fa-cogs fa-fw"></span>
+  </button>
+  <div class="btn-group mr-1" id="btnFilters">
+    <button (click)="showFilter()" id="btnFilter" class="btn btn-sm btn-outline-info">
+      <span class="fas fa-search fa-fw"></span>
+    </button>
+    <button [disabled]="!filtered" (click)="hideFilter()" id="btnFilterTimes" class="btn btn-sm btn-outline-danger">
+      <span class="fas fa-times fa-fw"></span>
+    </button>
+  </div>
+  <legend class="text-center">Facturas Pendientes
+  </legend>
+  <div class="table-wrapper">
+    <div class="align-self-center no-more-tables" id="table-invoices">
+      <table class="table table-hover table-dark table-sm table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col" *ngIf="exits('Número')">Número</th>
+            <th scope="col" *ngIf="exits('Proveedor')">Proveedor</th>
+            <th scope="col" *ngIf="exits('Nombre')">Nombre</th>
+            <th scope="col" *ngIf="exits('Recibido')">Recibido</th>
+            <th scope="col" *ngIf="exits('Vence')">Vence</th>
+            <th scope="col" *ngIf="exits('Estado')">Estado</th>
+            <th scope="col" *ngIf="exits('Egreso')">Egreso</th>
+            <th scope="col" *ngIf="exits('Historial')"
+              title="R = Revisado&#xA;A = Autorizado&#xA;C = Causado&#xA;P = Pagado">Historial</th>
+            <th scope="col" *ngIf="exits('Estación')">Estación</th>
+            <th scope="col" *ngIf="exits('Valor')">Valor</th>
+            <th scope="col" *ngIf="exits('Saldo')">Saldos</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invoice of invoices" [ngClass]="porCobrar(invoice.estado)" [@fade]="'in'">
+            <td *ngIf="exits('Número')" data-title="Número" class="text-center">{{invoice.numero}}</td>
+            <td *ngIf="exits('Proveedor')" data-title="Proveedor" class="text-center"
+              [title]="getNameProvider(invoice.proveedor)">{{invoice.proveedor}}</td>
+            <td *ngIf="exits('Nombre')" data-title="Nombre" class="text-center">{{getNameProvider(invoice.proveedor)}}
+            </td>
+            <td *ngIf="exits('Recibido')" data-title="Recibido" class="text-center">{{invoice.recibido | date:
+              'dd/MM/yy' : '+0000'}}</td>
+            <td *ngIf="exits('Vence')" data-title="Vence" class="text-center">{{invoice.fechaVen | date: 'dd/MM/yy' :
+              '+0000'}}</td>
+            <td *ngIf="exits('Estado')" data-title="Estado" class="text-center">{{getStatusName(invoice.estado)}}</td>
+            <td *ngIf="exits('Egreso')" data-title="Egreso" class="text-center">{{invoice.egreso}}</td>
+            <td *ngIf="exits('Historial')" data-title=" Historial" class="text-center">{{invoice.historial}}</td>
+            <td *ngIf="exits('Estación')" data-title="Estación" class="text-center">
+              <div id="truncat">{{getNameStation(invoice.estacion)}}</div>
+            </td>
+            <td *ngIf="exits('Valor')" data-title="Valor" class="text-right">{{invoice.valor | currency }}</td>
+            <td *ngIf="exits('Saldo')" data-title="Saldo" class="text-right">{{invoice.saldo | currency }}</td>
+            <td data-title="Acciones" class="text-center">
+              <div id="btns">
+                <button class="btn btn-info btn-sm" (click)="addNovelty(invoice)" title="Novedad">
+                  <span class="fas fa-plus fa-fw"></span>
+                </button>
+                <button (click)="searchHistory(invoice)" class="btn btn-success btn-sm" title="Historial">
+                  <span class="fas fa-history fa-fw"></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-modal-dialog (hide)="boolHistory = false" [visible]="boolHistory">
+  <app-invoice-history [invoice]="invoiceSel">
+  </app-invoice-history>
+</app-modal-dialog>
+<app-modal-dialog (hide)="boolNovelty = false" [visible]="boolNovelty">
+  <app-invoice-novelty [invoice]="invoiceSel" (submiter)="resultNovelty($event)"></app-invoice-novelty>
+</app-modal-dialog>
+<app-modal-dialog (hide)="booleanTableConfig = false" [visible]="booleanTableConfig" width="4">
+  <app-table-config [tableName]="nameTAbleConfig" (submiter)="resultTableConfig()"></app-table-config>
+</app-modal-dialog>
+<app-modal-dialog (hide)="boolFilter = false" [visible]="boolFilter" width="6">
+  <div class="row">
+    <div class="col-sm-4">
+      <input class="form-control" id="stringFilter" type="text" [(ngModel)]="stringFilter" (keyup.enter)="filter()">
+    </div>
+    <div class="col-sm-4">
+      <button (click)="filter()" class="btn btn-primary btn-block">Filtrar</button>
+    </div>
+    <div class="col-sm-4">
+      <button (click)="hideFilter()" class="btn btn-danger btn-block">Cancelar</button>
+    </div>
+  </div>
+</app-modal-dialog>

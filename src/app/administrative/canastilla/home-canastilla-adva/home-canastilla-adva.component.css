@@ -1,0 +1,17 @@
+p {
+    font-size: 12px;
+}
+
+.card:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.015);
+    transform: scale(1.015);
+}
+
+.h7 {
+    font-size: 12px;
+}
+/*
+.contenedor {
+    overflow: hidden;
+} */

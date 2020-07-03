@@ -1,0 +1,31 @@
+#body {
+    margin-top: -12px;
+}
+
+.pagaTesoreria {
+    background-color: #c8efff !important;
+}
+
+#btns {
+    width: 76px;
+}
+
+#fechPago {
+    width: 10px;
+    max-width: 20px;
+}
+
+#detallesPago {
+    width: 50px !important;
+    max-width: 50px;
+}
+
+#valorPago {
+    width: 20px;
+    max-width: 30px;
+}
+
+.reducir {
+    width: 80%;
+    margin: 0 auto;
+}

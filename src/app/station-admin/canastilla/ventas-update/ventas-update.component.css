@@ -1,0 +1,20 @@
+.fa-check-circle {
+    color: springgreen;
+}
+.mostrar {
+    display:none;
+}
+
+.fecha {
+    width: 100px;
+    margin: auto;
+}
+.cantidad {
+    width: 60px;
+    margin: auto;
+}
+
+.costo {
+    width: 100px;
+    margin: auto;
+}

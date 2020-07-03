@@ -1,0 +1,54 @@
+<form [formGroup]="formulario" novalidate class="form-horizontal">
+    <fieldset>
+        <legend class="text-center">{{ Titulo }}</legend>
+        <div class="form-group form-inline d-flex justify-content-between">
+            <label class="control-label" *ngIf="!stationCode">Estación:</label>
+            <div class="input-group col-sm-3" *ngIf="!stationCode">
+                <div class="input-group-prepend" >
+                    <span class="input-group-text" id="basic-addon1"> <i class="fas fa-gas-pump fa-fw"></i></span>
+                </div>
+                <select  (change)="Busqueda()"  name="idEstacion" class="form-control form-control-sm"
+                    formControlName="idEstacion">
+                    <option *ngFor="let station of stations" [ngValue]="station.idEstacion">{{station.nombreEstacion}}
+                    </option>
+                </select>
+            </div>
+
+            <label class="control-label">Fecha:</label>
+            <div class="input-group col-sm-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="far fa-calendar-alt fa-fw"></i></span>
+                </div>
+                <input type="date" [readOnly]="SaldosInciales" (ngModelChange)="fecha"
+                    class="form-control form-control-sm" name="fecha" formControlName="fecha">
+            </div>
+            <label class="control-label">{{EtiquetaSaldo}}</label>
+            <div class="input-group col-sm-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-dollar-sign fa-fw"></i></span>
+                </div>
+                <input type="text" [readOnly]="SaldosInciales" currencyMask [options]="notdecimal" placeholder="$ 0"
+                    class="form-control  form-control-sm text-right" name="valor" formControlName="valor">
+            </div>
+        </div>
+
+        <div class="row  form-inline justify-content-end">
+
+            <div class="col-sm-10">
+                <div class="input-group ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Detalles: </span>
+                    </div>
+                    <input [readOnly]="SaldosInciales" type="text" placeholder="Detalles" class="form-control "
+                        name="observaciones" formControlName="observaciones">
+                </div>
+            </div>
+
+            <div class="col-sm-2 text-right">
+                <button class="btn  btn-primary btn-block" (click)="CrearSaldosIniciales ( formulario.value )"
+                    [disabled]="SaldosInciales">Crear</button>
+            </div>
+        </div>
+    </fieldset>
+    <br>
+</form>

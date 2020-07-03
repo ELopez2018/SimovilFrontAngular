@@ -1,0 +1,33 @@
+export class EntTicketVenta {
+    IdVentas: string;
+    CONSECUTIVO: number;
+    CodigoAlterno: number;
+    Fecha: Date;
+    FechaReal: Date;
+    hora: Date;
+    NUM_TUR: number;
+    COD_EMP: number;
+    COD_ISL:  number;
+    COD_SUR:  number;
+    COD_CAR:  number;
+    COD_MAN:  number;
+    COD_TANQ:  number;
+    COD_CLI: number;
+    PLACA: number;
+    HoraIni: Date;
+    HoraFin: Date;
+    LECT_INI: number;
+    LECT_FIN: number;
+    CANTIDAD:  number;
+    PRECIO_UNI:  number;
+    SUBTOTAL:  number;
+    TOTAL:  number;
+    Monto_Esta:  number;
+    COD_EST:  number;
+    COD_COMP:  number;
+    COD_GRU:  number;
+    NUM_AUTORI:  number;
+    PRESET:  number;
+    DESCUENTO:  number;
+    VALORNETO:  number;
+    }

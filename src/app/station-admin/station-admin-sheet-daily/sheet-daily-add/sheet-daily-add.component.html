@@ -1,0 +1,1016 @@
+<legend class="text-center">Ingresar Planilla</legend>
+<div class="form-row mb-1">
+    <label class="control-label col-sm-2">Fecha:</label>
+    <div class="input-group col-sm-3 py-1">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-calendar-alt fa-fw"></i></span>
+          </div>
+        <input type="date" class="form-control" id="fecha" [(ngModel)]="fecha" [disabled]="lock" />
+    </div>
+    <div *ngIf="
+            station && station.tipoEstacion == 3 && planilla == null;
+            then one_comp
+        "></div>
+    <ng-template #one_comp>
+        <div class="col-sm-3 py-1 btn-group special">
+            <button (click)="assignSheet('G')" class="btn btn-secondary">Gas</button>
+            <button (click)="assignSheet('L')" class="btn btn-primary">
+                Líquidos
+            </button>
+        </div>
+    </ng-template>
+    <label *ngIf="planilla" class="col-sm-3 text-center">{{
+        planilla == "L" ? "Líquidos" : "Gas"
+    }}</label>
+    <div class="col-sm-3 py-1 btn-group special">
+        <button (click)="createDailySheet()" class="btn btn-dark">
+            <span [class]="
+                    btnCombustible
+                        ? 'fa fa-upload fa-fw'
+                        : btnCombustible == false
+                        ? 'fa fa-plus fa-fw'
+                        : 'fas fa-question fa-fw'
+                "></span>
+            &nbsp;{{
+                btnCombustible ? "Cargar" : btnCombustible == false ? "CPL" : ""
+            }}
+        </button>
+        <button (click)="resetPlanilla()" class="btn btn-danger">
+            <span class="fas fa-eraser fa-fw"></span>
+        </button>
+    </div>
+</div>
+<app-fieldset cTitle="Ventas por combustible" [(show)]="show[0]">
+    <div class="table-wrapper mb-3" id="table-comb" *ngIf="CplDetail && CplDetail.length > 0">
+        <div class="align-self-center no-more-tables" id="table-Users">
+            <table class="table table-hover table-sm table-striped table-bordered">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Turno</th>
+                        <th scope="col">Manguera</th>
+                        <th scope="col">Artículo</th>
+                        <th scope="col">Lectura Inicial</th>
+                        <th scope="col">Lectura Final</th>
+                        <th scope="col">Galones</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of CplDetail" [class]="getClassTurn(item.NUM_TUR)">
+                        <td data-title="Turno" class="text-center">
+                            {{ item.NUM_TUR }}
+                        </td>
+                        <td data-title="Manguera" class="text-center">
+                            {{ item.NUM_MAN }}
+                        </td>
+                        <td data-title="Artículo" class="text-center">
+                            {{ item.DET_ART }}
+                        </td>
+                        <div *ngIf="
+                                station.manual && item.NUM_TUR == 1;
+                                then edit;
+                                else noEdit
+                            "></div>
+                        <ng-template #edit>
+                            <td data-title="Lectura Inicial" class="text-right">
+                                <input (input)="updateCPL(item)" type="number"
+                                    class="form-control form-control-sm text-right" [(ngModel)]="item.LEC_INI" />
+                            </td>
+                        </ng-template>
+                        <ng-template #noEdit>
+                            <td data-title="Lectura Inicial" class="text-right">
+                                {{ item.LEC_INI | number }}
+                            </td>
+                        </ng-template>
+                        <td data-title="Lectura Final" class="text-right">
+                            <input (input)="updateCPL(item)" type="number"
+                                class="form-control form-control-sm text-right" [(ngModel)]="item.LEC_FIN" />
+                        </td>
+                        <td data-title="Galones" class="text-right w-10">
+                            {{ item.CANTIDAD | number }}
+                        </td>
+                        <td data-title="Precio" class="text-right w-10">
+                            {{ item.PRECIO | number }}
+                        </td>
+                        <td data-title="Total" class="text-right">
+                            {{ item.TOTAL | currency }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- <td colspan="7" class="text-right">Total:</td>
+                        <td class="text-right">{{ cplSum | currency }}</td> -->
+
+                        <td class="text-right" colspan="6"> Total Galones: {{ cplTotalGalones | number }} </td>
+                        <td class="text-right">Total:</td>
+                        <td class="text-right">{{ cplSum | currency }}</td>
+
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="table-wrapper mb-3" id="table-comb" *ngIf="salesTurn && salesTurn.DETALLE">
+        <div class="align-self-center no-more-tables" id="table-Users">
+            <table class="table table-hover table-sm table-striped table-bordered">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Turno</th>
+                        <th scope="col">Artículo</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Editado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of salesTurn.DETALLE" (dblclick)="selItem(item)">
+                        <td data-title="Turno" class="text-center">
+                            {{ item.NUM_TURNO }}
+                        </td>
+                        <td data-title="Artículo" class="text-center">
+                            {{ item.DETALLE_ARTICULO }}
+                        </td>
+                        <td data-title="Cantidad" class="text-center">
+                            {{ item.CANTIDAD | number }}
+                        </td>
+                        <td data-title="Precio" class="text-right">
+                            {{ item.PRECIO | currency }}
+                        </td>
+                        <td data-title="Valor" class="text-right">
+                            {{ item.VALOR | currency }}
+                        </td>
+                        <td data-title="Editado" class="text-center">
+                            <span [class]="
+                                    item.EDITADO
+                                        ? 'fa fa-check-circle fa-fw text-success'
+                                        : 'fa fa-times-circle fa-fw text-danger'
+                                "></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-center">Totales</td>
+                        <td class="text-center">{{ cant | number }}</td>
+                        <td class="text-right"></td>
+                        <td class="text-right">
+                            {{ salesTurn.VALOR | currency }}
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-inline">
+        <div class="col-sm-6 m-auto">
+            <button (click)="submit(0)" class="btn btn-primary btn-block">
+                <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Siguiente
+            </button>
+        </div>
+    </div>
+</app-fieldset>
+<app-fieldset cTitle="Otros ingresos" [(show)]="show[1]">
+    <form [formGroup]="otherForm" class="max-650">
+        <div class="form-row justify-content-between">
+            <label class="control-label col-sm-4">Venta de lubricantes:</label>
+            <div class="col-sm-4">
+                <input (ngModelChange)="setlubri()" id="OI" type="text" class="form-control" currencyMask
+                    [options]="notdecimal" appLatestFocus formControlName="lubricante" placeholder="valor" />
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="control-label col-sm-4">SOAT Números de referencia:</label>
+            <div class="col-sm-4">
+                <input (ngModelChange)="setSoatRef()" type="text" class="form-control text-uppercase" placeholder="soatRef"
+                    formControlName="soatRef" />
+            </div>
+            <div class="col-sm-4">
+                <input (ngModelChange)="setSoatRef()" type="text" class="form-control" placeholder="valor" currencyMask
+                    [options]="notdecimal" appLatestFocus formControlName="soatValue" />
+            </div>
+        </div>
+        <div class="form-row justify-content-between">
+            <label class="control-label col-sm-4">Comisión SOAT Vendido</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="soatCom" />
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="control-label col-sm-2">Vendido</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control text-right" placeholder="# vendido"
+                    formControlName="soatVen" />
+            </div>
+            <label class="control-label col-sm-2">Anulados:</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control text-right" placeholder="# anulado"
+                    formControlName="soatAnu" />
+            </div>
+            <label class="control-label col-sm-2">Reemplazados:</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control text-right" placeholder="# reemplazados"
+                    formControlName="soatReem" />
+            </div>
+        </div>
+        <div class="form-row justify-content-between" *ngIf="planilla == 'L'">
+            <label class="control-label col-sm-4">Premios:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" currencyMask [options]="notdecimal" placeholder="valor"
+                    appLatestFocus formControlName="premio" />
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="control-label col-sm-4">Aprovechamiento:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control text-uppercase" placeholder="Aprovechamiento" formControlName="aprovNom" />
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="aprovVal" />
+            </div>
+        </div>
+        <div class="form-group col-md-12" id="lisproviders" [class]="
+                otherForm.get('clienteList')['controls'] &&
+                otherForm.get('clienteList')['controls'].length > 0
+                    ? 'pb-0'
+                    : null
+            ">
+            <div class="form-row">
+                <label class="control-label col-sm-4">Pago clientes:</label>
+                <div class="col-sm-4">
+                    <button (click)="showItemClient = !showItemClient" class="btn btn-sm btn-info">
+                        <span [class]="
+                                showItemClient
+                                    ? 'fas fa-search-minus fa-fw'
+                                    : 'fas fa-search-plus fa-fw'
+                            "></span>&nbsp;{{ showItemClient ? "Ocultar" : "Mostrar" }}
+                    </button>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus
+                        formControlName="cliente" />
+                </div>
+            </div>
+            <ng-container *ngIf="showItemClient">
+                <div id="breakWidth" [@fade]="'in'" *ngIf="
+                        otherForm.get('clienteList')['controls'] &&
+                        otherForm.get('clienteList')['controls'].length > 0
+                    ">
+                    <div [@fade]="'in'" class="form-row" formArrayName="clienteList" *ngFor="
+                            let item of otherForm.get('clienteList')[
+                                'controls'
+                            ];
+                            let i = index
+                        ">
+                        <div [formGroupName]="i" class="col-md-12 form-row">
+                            <div class="input-group col-sm-1" title="Seleccionar cliente">
+                                <button class="btn btn-outline-danger btn-block btn-sm" type="button"
+                                    (click)="removeItemClient(i)">
+                                    <span class="far fa-trash-alt fa-fw"></span>
+                                </button>
+                            </div>
+                            <div class="col-sm-7 input-group">
+                                <div class="input-group-append">
+                                    <button id="client" (click)="
+                                            item
+                                                .get('datafono')
+                                                .setValue(
+                                                    !item.get('datafono').value,
+                                                    emitFalse
+                                                )
+                                        " class="btn btn-outline-secondary" [title]="
+                                            item.get('datafono').value &&
+                                            !item.get('anticipo').value
+                                                ? 'Datafono'
+                                                : item.get('anticipo').value
+                                                ? 'Anticipo'
+                                                : 'Crédito'
+                                        ">
+                                        {{
+                                            item.get("datafono").value &&
+                                            !item.get("anticipo").value
+                                                ? "Datafono"
+                                                : item.get("anticipo").value
+                                                ? "Anticipo"
+                                                : "Crédito"
+                                        }}
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Nombre cliente"
+                                    formControlName="nombre" />
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" placeholder="valor" currencyMask
+                                    [options]="notdecimal" appLatestFocus formControlName="val" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <ng-container ><!--  *ngIf="planilla == 'L'" -->
+            <div class="form-row justify-content-between">
+                <label class="control-label col-sm-4">Prestamo líquidos:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" currencyMask [options]="notdecimal" placeholder="valor"
+                        appLatestFocus formControlName="presLiq" />
+                </div>
+            </div>
+            <div class="form-row justify-content-between">
+                <label class="control-label col-sm-4">Cusiana:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" currencyMask [options]="notdecimal" placeholder="valor"
+                        appLatestFocus formControlName="cusiana" />
+                </div>
+            </div>
+            <div class="form-row justify-content-between">
+                <label class="control-label col-sm-4">Recaudo premios catálogo:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" currencyMask [options]="notdecimal" placeholder="valor"
+                        appLatestFocus formControlName="premio" />
+                </div>
+            </div>
+        </ng-container>
+        <div class="form-row">
+            <label class="control-label col-sm-4">Otros servicios:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control text-uppercase" placeholder="otros servicios" formControlName="otroNom" />
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="otroVal" />
+            </div>
+        </div>
+        <div class="form-row" *ngIf="planilla == 'L'">
+            <label class="control-label col-sm-4">Prestamo venta del día:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control text-uppercase" placeholder="Prestamo" formControlName="prestamoNom" />
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="prestamoVal" />
+            </div>
+        </div>
+        <div class="form-row justify-content-between">
+            <label class="control-label col-sm-4">Total otros ingresos:</label>
+            <label class="control-label col-sm-4 text-right">{{
+                otherForm.get("total").value | currency
+            }}</label>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-6 m-auto">
+                <button (click)="submit(1)" class="btn btn-primary btn-block" [disabled]="!otherForm.valid">
+                    <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Siguiente
+                </button>
+            </div>
+        </div>
+    </form>
+</app-fieldset>
+<app-fieldset cTitle="Formas de pago" [(show)]="show[2]">
+    <form [formGroup]="paymentForm" id="paymentForm">
+        <div class="row" *ngIf="planilla == 'G'">
+            <label class="control-label col-sm-3">Bono autopuntos:</label>
+            <div class="col-sm-3">
+                <input id="FP" type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="bonoPunto" />
+            </div>
+            <label class="control-label col-sm-3">Bono cumpleaños:</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="bonoCumple" />
+            </div>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">Bono SOAT:</label>
+            <div class="col-sm-3">
+                <input id="FP" type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="bonoSoat" />
+            </div>
+            <label class="control-label col-sm-3">Calibraciones:</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="calibracion" />
+            </div>
+        </div>
+        <div class="form-group col-md-12" id="lisproviders">
+            <div class="form-row">
+                <label class="control-label col-sm-4">Ventas a clientes:</label>
+                <div class="col-sm-4">
+                    <button (click)="showItemClientVen = !showItemClientVen" class="btn btn-info btn-sm">
+                        <span [class]="
+                                showItemClientVen
+                                    ? 'fas fa-search-minus fa-fw'
+                                    : 'fas fa-search-plus fa-fw'
+                            "></span>&nbsp;{{ showItemClientVen ? "Ocultar" : "Mostrar" }}
+                    </button>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus
+                        formControlName="cliente" />
+                </div>
+            </div>
+
+            <ng-container *ngIf="showItemClientVen">
+                <div [@fade]="'in'" *ngIf="
+                        paymentForm.get('clienteList')['controls'] &&
+                        paymentForm.get('clienteList')['controls'].length > 0
+                    ">
+                    <div [@fade]="'in'" class="form-row" formArrayName="clienteList" *ngFor="
+                            let item of paymentForm.get('clienteList')[
+                                'controls'
+                            ];
+                            let i = index
+                        ">
+                        <div [formGroupName]="i" class="col-md-12 form-row justify-content-center">
+                            <div class="col-sm-5 input-group">
+                                <div class="input-group-append">
+                                    <button id="client" class="btn btn-outline-secondary" disabled [title]="
+                                            item.get('anticipo').value
+                                                ? 'Anticipo'
+                                                : 'Crédito'
+                                        ">
+                                        {{
+                                            item.get("anticipo").value
+                                                ? "A"
+                                                : "C"
+                                        }}
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control text-uppercase" placeholder="Nombre cliente"
+                                    formControlName="nombre" />
+                            </div>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" placeholder="valor" currencyMask
+                                    [options]="notdecimal" appLatestFocus formControlName="val" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-3">Datafono:</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="datafono" />
+            </div>
+            <ng-container *ngIf="planilla == 'L'">
+                <label class="control-label col-sm-3">Descuentos:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                        appLatestFocus formControlName="descuento" />
+                </div>
+            </ng-container>
+        </div>
+        <ng-container *ngIf="planilla == 'L'">
+            <div class="row">
+                <label class="control-label col-sm-3">Devoluciones:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" placeholder="valor" [options]="notdecimal" currencyMask appLatestFocus
+                        formControlName="devolucion" />
+                </div>
+                <label class="control-label col-sm-3">Donaciones:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" placeholder="valor" [options]="notdecimal" currencyMask appLatestFocus
+                        formControlName="donacion" />
+                </div>
+            </div>
+            <div class="row">
+                <label class="control-label col-sm-3">Mantenimiento:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" placeholder="valor"  [options]="notdecimal"  currencyMask appLatestFocus
+                        formControlName="mantenimiento" />
+                </div>
+                <label class="control-label col-sm-3">Prestamo venta del día:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" placeholder="valor"  [options]="notdecimal"  currencyMask appLatestFocus
+                        formControlName="prestamo" />
+                </div>
+            </div>
+        </ng-container>
+        <div class="row">
+            <label class="control-label col-sm-3">Otros:</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" placeholder="valor"  currencyMask appLatestFocus
+                    formControlName="otro" />
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="valor" placeholder="Detalle otros"
+                    formControlName="otroDetalle" />
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <label class="control-label col-sm-3">Total formas de pago:</label>
+            <label class="control-label col-sm-3 text-right">{{
+                paymentForm.get("total").value | currency
+            }}</label>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 m-auto">
+                <button (click)="submit(2)" class="btn btn-primary btn-block">
+                    <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Siguiente
+                </button>
+            </div>
+        </div>
+    </form>
+</app-fieldset>
+<app-fieldset cTitle="Distribución del efectivo" [(show)]="show[3]">
+    <form [formGroup]="cashForm" class="max-750">
+        <div class="form-row">
+            <div class="form-group col-md-12" id="lisproviders">
+                <div class="form-row" id="pagoAProvvedores">
+                    <label class="control-label col-sm-4  text-dark ">PAGOS A PROVEEDORES</label>
+                    <div class="col-sm-4">
+                        <div class="btn-group btn-group-sm">
+                            <button id="DE" (click)="addItemProvider()" class="btn btn-primary"
+                                title="Agregar proveedor">
+                                <span class="fas fa-plus fa-fw"></span>
+                            </button>
+                            <button (click)="removeItemProvider()" class="btn btn-danger" title="Eliminar proveedor">
+                                <span class="fas fa-minus fa-fw"></span>
+                            </button>
+                            <button (click)="showItemProvider = !showItemProvider" class="btn btn-info" [title]="
+                                    showItemProvider ? 'Ocultar' : 'Mostrar'
+                                ">
+                                <span [class]="
+                                        showItemProvider
+                                            ? 'fas fa-search-minus fa-fw'
+                                            : 'fas fa-search-plus fa-fw'
+                                    "></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus
+                            formControlName="proveedor" />
+                    </div>
+                </div>
+
+                <ng-container *ngIf="showItemProvider">
+                    <div [@fade]="'in'" class="form-row" formArrayName="proveedorList" *ngFor="
+                            let item of cashForm.get('proveedorList')[
+                                'controls'
+                            ];
+                            let i = index
+                        ">
+                        <div [formGroupName]="i" class="col-md-12 form-row">
+                            <div class="input-group col-sm-1" title="Seleccionar proveedor">
+                                <button class="btn btn-outline-secondary btn-block btn-sm" type="button"
+                                    (click)="boolProvider(i)">
+                                    <span class="far fa-hand-pointer fa-fw"></span>
+                                </button>
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" placeholder="Nombre proveedor"
+                                    formControlName="nombre" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" placeholder="Número" formControlName="numero" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input [id]="'AntValPro-' + i" type="text" class="form-control" currencyMask
+                                    [options]="notdecimal" appLatestFocus formControlName="val" />
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="form-row mt-1 pt-1" id="anticipoProvvedores">
+                    <label class="control-label col-sm-4 text-dark ">ANTICIPOS A PROVEEDORES</label>
+                    <div class="col-sm-4">
+                        <div class="btn-group btn-group-sm">
+                            <button id="Ant" (click)="anticipo = true" class="btn btn-primary"
+                                title="Agregar proveedor">
+                                <span class="fas fa-plus fa-fw"></span>
+                            </button>
+                            <button (click)="removeItemAnticProvider(0)" class="btn btn-danger"
+                                title="Eliminar proveedor">
+                                <span class="fas fa-minus fa-fw"></span>
+                            </button>
+                            <button (click)="showItemPAnticipo = !showItemPAnticipo" class="btn btn-info" [title]="
+                                    showItemPAnticipo ? 'Ocultar' : 'Mostrar'
+                                ">
+                                <span [class]="
+                                showItemPAnticipo
+                                            ? 'fas fa-search-minus fa-fw'
+                                            : 'fas fa-search-plus fa-fw'
+                                    "></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus
+                            formControlName="Anticipos" />
+                    </div>
+                </div>
+
+                <ng-container *ngIf="showItemPAnticipo && proveedorAnticipoList && proveedorAnticipoList.length > 0">
+                    <div [@fade]="'in'" class="form-row" formArrayName="proveedorAnticipoList" *ngFor="
+                            let item of proveedorAnticipoList.controls;
+                            let i = index
+                        ">
+                        <div [formGroupName]="i" class="col-md-12 form-row mt-1">
+
+                            <div class="input-group col-sm-1" title="Borrar Anticipo">
+                                <button class="btn btn-danger btn-block btn-sm" type="button" (click)="removeItemAnticProvider(i)" >
+                                    <span class="fas fa-trash fa-fw"  ></span>
+                                </button>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" placeholder="NIT" readonly
+                                    formControlName="nitProveedor" />
+                            </div>
+
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" placeholder="Proveedor" readonly formControlName="Provenombre" />
+                            </div>
+
+                            <div class="col-sm-3">
+                                <input [id]="'ValAntPro-' + i" type="text" class="form-control" placeholder="$ 0.00" currencyMask
+                                    [options]="notdecimal" appLatestFocus formControlName="AntValor" />
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="form-row mt-1 pt-1" id="otros">
+                    <label class="control-label col-sm-4  text-dark ">OTROS..</label>
+                    <div class="col-sm-4">
+                        <div class="btn-group btn-group-sm">
+                            <button id="Otr" (click)="addtOtrosList()" class="btn btn-primary"
+                                title="Agregar proveedor">
+                                <span class="fas fa-plus fa-fw"></span>
+                            </button>
+                            <button (click)="removeItemOtrosList(0)" class="btn btn-danger"
+                                title="Eliminar proveedor">
+                                <span class="fas fa-minus fa-fw"></span>
+                            </button>
+                            <button (click)="showItemOtros = !showItemOtros" class="btn btn-info" [title]="
+                            showItemOtros ? 'Ocultar' : 'Mostrar'
+                                ">
+                                <span [class]="
+                                showItemOtros
+                                            ? 'fas fa-search-minus fa-fw'
+                                            : 'fas fa-search-plus fa-fw'
+                                    "></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus
+                            formControlName="TotalOtros" />
+                    </div>
+                </div>
+
+                <ng-container *ngIf="showItemOtros && OtrosList && OtrosList.length > 0 ">
+                    <div [@fade]="'in'" class="form-row" formArrayName="OtrosList" *ngFor="
+                            let item of OtrosList.controls;
+                            let i = index
+                        ">
+                        <div [formGroupName]="i" class="col-md-12 form-row mt-1">
+
+                            <div class="input-group col-sm-1" title="Borrar Anticipo">
+                                <button class="btn btn-danger btn-block btn-sm" type="button" (click)="removeItemOtrosList(i)" >
+                                    <span class="fas fa-trash fa-fw"  ></span>
+                                </button>
+                            </div>
+
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control text-uppercase" placeholder="detalles"
+                                    formControlName="detalles" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input [id]="'ValAntPro-' + i" type="text" class="form-control" placeholder="$ 0.00" currencyMask
+                                    [options]="notdecimal" appLatestFocus formControlName="otroVal" />
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="control-label col-sm-4" >Reembolso de caja menor:</label>
+            <div class="col-sm-4">
+                <label class="control-label col-sm-4">{{
+                    cashForm.get("reembolsoNum").value
+                }}</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  [options]="notdecimal"  placeholder="valor" currencyMask
+                    appLatestFocus formControlName="reembolso" />
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="control-label col-sm-4">Servicios públicos</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control text-uppercase" placeholder="detalle" placeholder="Recibos"
+                    formControlName="servicioNom" />
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  [options]="notdecimal"  placeholder="valor" currencyMask
+                    appLatestFocus formControlName="servicioVal" />
+            </div>
+        </div>
+        <!-- <div class="form-row">
+            <label class="control-label col-sm-4">Otros:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="detalle" placeholder="otros"
+                    formControlName="otroNom" />
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="otroVal" />
+            </div>
+        </div> -->
+        <div class="form-row justify-content-between">
+            <label class="control-label col-sm-4">Total gastos pagados efectivo:</label>
+            <label class="control-label col-sm-4 text-right">{{
+                cashForm.get("totalEfe").value | currency
+            }}</label>
+        </div>
+        <div class="form-row justify-content-between">
+            <label class="control-label col-sm-4">Total egresos:</label>
+            <label class="control-label col-sm-4 text-right">{{
+                cashForm.get("total").value | currency
+            }}</label>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-6 m-auto">
+                <button (click)="submit(3)" class="btn btn-primary btn-block" [disabled]="!cashForm.valid">
+                    <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Siguiente
+                </button>
+            </div>
+        </div>
+    </form>
+</app-fieldset>
+<app-fieldset cTitle="Consignación en bancos" [(show)]="show[4]">
+    <form [formGroup]="bankForm" class="max-750">
+        <div class="form-row">
+            <label class="control-label col-sm-4">Bancolombia lubricantes</label>
+            <div class="col-sm-4">
+                <div *ngIf="
+                        station && station.manual;
+                        then bankLubInp;
+                        else bankLubLbl
+                    "></div>
+                <ng-template #bankLubLbl>
+                    <label class="control-label w-100 text-center">{{
+                        bankLub
+                    }}</label>
+                </ng-template>
+                <ng-template #bankLubInp>
+                    <input type="text" class="form-control" placeholder="numero" formControlName="lubricanteDet" />
+                </ng-template>
+            </div>
+            <div class="col-sm-4">
+                <input id="CB" type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                    appLatestFocus formControlName="lubricanteVal" />
+            </div>
+        </div>
+        <div *ngIf="planilla == 'G'; then gas; else liq"></div>
+        <ng-template #liq>
+            <div class="form-row">
+                <label class="control-label col-sm-4">
+                    Bancolombia liquidos
+                </label>
+                <div class="col-sm-4">
+                    <div *ngIf="
+                            station && station.manual;
+                            then bankLiqInp;
+                            else bankLiqLbl
+                        "></div>
+                    <ng-template #bankLiqLbl>
+                        <label class="control-label w-100 text-center">{{
+                            bankLiq
+                        }}</label>
+                    </ng-template>
+                    <ng-template #bankLiqInp>
+                        <input type="text" class="form-control" placeholder="numero" formControlName="liquidoDet" />
+                    </ng-template>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                        appLatestFocus formControlName="liquidoVal" />
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #gas>
+            <div class="form-row">
+                <label class="control-label col-sm-4">Bancolombia gas</label>
+                <div class="col-sm-4">
+                    <div *ngIf="
+                            station && station.manual;
+                            then bankGasInp;
+                            else bankGasLbl
+                        "></div>
+                    <ng-template #bankGasLbl>
+                        <label class="control-label w-100 text-center">{{
+                            bankGas
+                        }}</label>
+                    </ng-template>
+                    <ng-template #bankGasInp>
+                        <input type="text" class="form-control" placeholder="numero" formControlName="gasDet" />
+                    </ng-template>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="valor" currencyMask [options]="notdecimal"
+                        appLatestFocus formControlName="gasVal" />
+                </div>
+            </div>
+        </ng-template>
+        <div class="form-row justify-content-between">
+            <label class="control-label col-sm-4">Recaudo Cartera</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus
+                    formControlName="recaudo" />
+            </div>
+        </div>
+        <div class="form-row" >
+            <label class="control-label col-sm-4">Cusiana</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="numero" formControlName="cusianaDet" />
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus
+                    formControlName="cusianaVal" />
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="control-label col-sm-4">Seguros del estado Ref:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="numero" formControlName="seguroDet" />
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus
+                    formControlName="seguroVal" />
+            </div>
+        </div>
+        <div class="form-row justify-content-between">
+            <label class="control-label col-sm-4">Total Consignación en bancos:</label>
+            <label class="control-label col-sm-4 text-right">{{
+                bankForm.get("total").value | currency
+            }}</label>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-6 m-auto">
+                <button (click)="submit(4)" class="btn btn-primary btn-block" [disabled]="!bankForm.valid">
+                    <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Siguiente
+                </button>
+            </div>
+        </div>
+    </form>
+</app-fieldset>
+<app-fieldset cTitle="Documentos adjuntos" [(show)]="show[5]">
+    <form [formGroup]="attachedForm" class="max-750">
+        <div [@fade]="'in'" formArrayName="attachedTypes" *ngFor="
+                let item of attachedForm.get('attachedTypes')['controls'];
+                let i = index
+            ">
+            <div [formGroupName]="i" class="form-row justify-content-between">
+                <label class="control-label col-sm-4">{{
+                    item.get("DESCRIPCION").value
+                }}</label>
+                <div class="col-sm-7 form-row">
+                    <div class="custom-file">
+                        <input [id]="'customFile' + i" (change)="fileChange($event, item.get('ID').value)" type="file"
+                            class="custom-file-input" formControlName="RUTA" />
+                        <label class="custom-file-label" for="customFile">{{ item.get("RUTAVIEW").value }}
+                        </label>
+                    </div>
+                </div>
+                <button (click)="clearRouteAttach(item.get('ID').value)"
+                    class="col-sm-1 btn btn-outline-danger btn-block btn-sm">
+                    <i class="fas fa-backspace"></i>
+                </button>
+                <!-- <div class="custom-file">
+          <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+          <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+          <div class="invalid-feedback">Example invalid custom file feedback</div><i class="fa fa-times-circle-o fa-2x"></i>
+        </div> -->
+            </div>
+            <!-- <div class="form-group">
+        <label for="exampleFormControlFile1">Example file input</label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+      </div> -->
+        </div>
+        <div class="form-row">
+            <div class="col-sm-6 m-auto">
+                <button (click)="submit(5)" class="btn btn-primary btn-block" [disabled]="!attachedForm.valid">
+                    <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Siguiente
+                </button>
+            </div>
+        </div>
+    </form>
+</app-fieldset>
+<fieldset>
+    <div class="col-sm-12">
+        <div class="row">
+            <label class="control-label col-sm-4">Total venta y otros ingresos:</label>
+            <label class="control-label col-sm-2 text-right">{{
+                ventaTotal | currency
+            }}</label>
+            <label class="control-label col-sm-4">Total efectivo recibido:</label>
+            <label class="control-label col-sm-2 text-right">{{
+                efectivoRecibido | currency
+            }}</label>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-4">Saldo de caja en custodia:</label>
+            <div *ngIf="station && station.manual; then edit2; else noEdit2"></div>
+            <ng-template #edit2>
+                <input id="CAJA_CUST" class="form-control col-sm-2" type="text" currencyMask [options]="notdecimal"
+                    appLatestFocus [(ngModel)]="cajaCustodia" placeholder="valor" />
+            </ng-template>
+            <ng-template #noEdit2>
+                <label class="control-label col-sm-2 text-right">{{
+                    cajaCustodia | currency
+                }}</label>
+            </ng-template>
+            <label class="control-label col-sm-4">Saldo final de caja:</label>
+            <label class="control-label col-sm-2 text-right">{{
+                saldoCaja | currency
+            }}</label>
+        </div>
+        <div class="row">
+            <label class="control-label col-sm-4">Caja general + caja menor:</label>
+            <div *ngIf="station && station.manual; then edit3; else noEdit3"></div>
+            <ng-template #edit3>
+                <input type="text" class="form-control col-sm-2" required min="0" placeholder="valor" currencyMask
+                    [options]="notdecimal" appLatestFocus [(ngModel)]="cajaGenMen" />
+            </ng-template>
+            <ng-template #noEdit3>
+                <label class="control-label col-sm-2 text-right">{{
+                    cajaGenMen | currency
+                }}</label>
+            </ng-template>
+            <div class="col-sm-6 btn-group special">
+                <button id="BTN_SAVE" (click)="save(false)" class="btn btn-secondary">
+                    <span class="fas fa-eye fa-fw"></span>&nbsp;Preview
+                </button>
+                <button (click)="save(true)" [disabled]="!boolSave" class="btn btn-success">
+                    <span class="fas fa-save fa-fw"></span>&nbsp;Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<app-modal-dialog [visible]="boolEdit" (hide)="hide()">
+    <div class="table-wrapper" id="table-edit">
+        <div class="align-self-center no-more-tables" id="table-edit">
+            <table class="table table-hover table-sm table-striped table-bordered">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Turno</th>
+                        <th scope="col">Artículo</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Editado</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="itemSel">
+                    <td data-title="Turno" class="text-center">
+                        <input type="number" onfocus="this.select()" [(ngModel)]="itemSel.NUM_TURNO" class="text-center"
+                            id="turnoedit" (keyup.enter)="hide()" />
+                    </td>
+                    <td data-title="Artículo" class="text-center">
+                        {{ itemSel.DETALLE_ARTICULO }}
+                    </td>
+                    <td data-title="Cantidad" class="text-center">
+                        {{ itemSel.CANTIDAD | number }}
+                    </td>
+                    <td data-title="Precio" class="text-right">
+                        {{ itemSel.PRECIO | currency }}
+                    </td>
+                    <td data-title="Valor" class="text-right">
+                        {{ itemSel.VALOR | currency }}
+                    </td>
+                    <td data-title="Editado" class="text-center">
+                        <span [class]="
+                                itemSel.EDITADO
+                                    ? 'fa fa-check-circle fa-fw text-success'
+                                    : 'fa fa-times-circle fa-fw text-danger'
+                            "></span>
+                    </td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</app-modal-dialog>
+<!-- <app-modal-dialog [visible]="boolSearchProvider" (hide)="boolSearchProvider = false">
+  <app-comp-search-provider [tipo]="1" (submiter)="assignProvider($event)"></app-comp-search-provider>
+</app-modal-dialog> -->
+<app-modal-dialog [visible]="boolSearchProvider" (hide)="boolSearchProvider = false">
+    <app-wholesaler-invoices [search]="boolSearchProvider" (submiter)="assignProvider($event)">
+    </app-wholesaler-invoices>
+</app-modal-dialog>
+
+<app-modal-dialog [visible]="anticipo" (hide)="anticipo = false">
+    <app-anticipo-a-proveedores (submiter)="AgregarAnticipo($event)">
+    </app-anticipo-a-proveedores>
+</app-modal-dialog>

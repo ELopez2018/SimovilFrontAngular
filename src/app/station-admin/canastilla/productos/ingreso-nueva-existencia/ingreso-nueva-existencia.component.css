@@ -1,0 +1,10 @@
+.busqueda {
+    position: absolute;
+    right: 5px;
+    top: 45px;
+    width: 300px;
+}
+.titulo {
+    position: absolute;
+    top:48px;
+}

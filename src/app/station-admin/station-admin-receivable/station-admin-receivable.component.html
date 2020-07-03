@@ -1,0 +1,121 @@
+<div class="col-sm-12">
+
+    <ul class="nav nav-tabs mb-1" id="myTab" role="tablist">
+
+        <li class="nav-item" title="Resumen">
+            <a class="nav-link" (click)="tabClass(0)" [ngClass]="tabs[0].classTab" id="home-tab" data-toggle="tab"
+                role="tab" aria-controls="home" aria-selected="true">
+                <span class="fas fa-search fa-fw"></span>&nbsp;
+                <span class="nameTab">Buscar Cuentas de cobro</span>
+            </a>
+        </li>
+
+        <li class="nav-item" title="Resumen">
+            <a class="nav-link" (click)="tabClass(1)" [ngClass]="tabs[1].classTab" id="home-tab" data-toggle="tab"
+                role="tab" aria-controls="home" aria-selected="true">
+                <span class="fas fa-home fa-fw"></span>&nbsp;
+                <span class="nameTab">Crear cuenta por cliente</span>
+            </a>
+        </li>
+
+        <li class="nav-item" title="Consultar">
+            <a class="nav-link" (click)="tabClass(2)" [ngClass]="tabs[2].classTab" id="profile-tab" data-toggle="tab"
+                role="tab" aria-controls="profile" aria-selected="false">
+                <span class="fas fa-search fa-fw"></span>&nbsp;
+                <span class="nameTab">Crear cuenta a todos</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div *ngIf="tabs[0].estado" id="Resumen" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab"
+            [@fade]="'in'">
+            <app-receivable></app-receivable>
+        </div>
+        <div *ngIf="tabs[1].estado" id="Resumen" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab"
+            [@fade]="'in'">
+            <legend>Pendientes por generar cuenta de cobro</legend>
+            <div class="table-wrapper" id="tableCuentas">
+                <div class="align-self-center no-more-tables">
+                    <table class="table table-hover table-sm table-striped table-bordered">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">Nit</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Estado Cupo</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Cupo Disponible</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let client of clients" [@fade]="'in'">
+                                <td data-title="Nit" class="text-center">{{client.codCliente}}</td>
+                                <td data-title="Nombre" class="text-center">{{client.nombre}}</td>
+                                <td data-title="Estado Cupo" class="text-center">
+                                    {{client.estadoCupo == true ? 'Activo' : 'Inactivo'}}</td>
+                                <td data-title="Tipo Cupo" class="text-center">{{client.detalleTipoCupo}}</td>
+                                <td data-title="Cupo Disponible" class="text-right">{{client.cupoDisponible | currency}}
+                                </td>
+                                <td class="text-center">
+                                    <button (click)="SelectClient(client)" class="btn btn-primary btn-sm"
+                                        title="Crear Cuenta Cobro">
+                                        <i class="fas fa-file-invoice-dollar fa-fw"></i>&nbsp;Crear Cuenta
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="tabs[2].estado" id="Resumen" role="tabpanel" aria-labelledby="resumen-tab" [@fade]="'in'">
+            <div class="form-row">
+                <div class="col-sm form-row">
+                    <div class="col-sm">
+                        <label for="fecha">Fecha</label>
+                    </div>
+                    <div class="col-sm">
+                        <input id="fecha" type="date" class="form-control" [(ngModel)]="fecha">
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <button (click)="autoCreate()" class="btn btn-success">Crear cuentras de cobro</button>
+                </div>
+            </div>
+            <p class="mb-0"><i class="fa fa-question-circle text-primary fa-2x"></i> La fecha seleccionada debe ser por
+                quincena, ejemplo:
+            </p>
+            <ul>
+                <li>15/01/2020</li>
+                <li>31/01/2020</li>
+                <li>15/02/2020</li>
+                <li>28/02/2020</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<app-modal-dialog [visible]="boolCreateRec" (hide)="boolCreateRec = false">
+    <div class="row">
+        <div class="col-sm-3 form-group">
+            <label class="control-label mb-0">Nombre del cliente</label>
+            <input *ngIf="clientSel" type="text" class="form-control" disabled [(ngModel)]="clientSel.nombre">
+        </div>
+        <div class="col-sm-3 form-group">
+            <label class="control-label mb-0">Fecha inicial</label>
+            <input id="fechaIni" type="date" [(ngModel)]="fechaCliIni" class="form-control">
+        </div>
+        <div class="col-sm-3 form-group">
+            <label class="control-label mb-0">Fecha corte</label>
+            <input id="fechaCorte" type="date" [(ngModel)]="fechaCliFin" class="form-control">
+        </div>
+        <div class="col-sm-3 form-group">
+            <button [disabled]="!valid" (click)="createReceivable()" class="btn btn-sm btn-primary btn-block">
+                <i class="fas fa-file-invoice"></i>&nbsp;Crear
+            </button>
+            <button (click)="boolCreateRec = false" class="btn btn-sm btn-danger btn-block mt-0">
+                <i class="fas fa-times"></i>&nbsp;Cancelar
+            </button>
+        </div>
+    </div>
+</app-modal-dialog>

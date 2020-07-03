@@ -1,0 +1,86 @@
+<form [formGroup]="quotaForm" novalidate class="form-horizontal">
+  <fieldset>
+    <legend class="text-center">Ingresar Cupo</legend>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-3">Código cliente:</label>
+      <div class="input-group col-sm-9">
+        <span class="input-group-addon">
+          <i class="fa fa-address-card fa-fw"></i>
+        </span>
+        <input appAutofocus type="number" class="form-control" id="codCliente" #codCliente (blur)="validarCliente(codCliente.value)"
+          placeholder="Código cliente" name="codCliente" formControlName="codCliente">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-3">Nombre:</label>
+      <div class="input-group col-sm-9">
+        <span class="input-group-addon">
+          <i class="fa fa-user fa-fw"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="Nombre de Cliente" name="nombreCliente" formControlName="nombreCliente">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-3">Tipo de cupo:</label>
+      <div class="input-group col-sm-9">
+        <span class="input-group-addon">
+          <i class="fa fa-credit-card fa-fw"></i>
+        </span>
+        <select name="tipoCupo" id="tipoCupo" class="form-control" formControlName="tipoCupo" (ngModelChange)="onChangeQuotaType($event)">
+          <option *ngFor="let quotaType of quotaTypes" [ngValue]="quotaType">{{quotaType.detalleTipoCupo}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-3">Cupo Asignado:</label>
+      <div class="input-group col-sm-9">
+        <span class="input-group-addon">
+          <i class="fa fa-dollar fa-fw"></i>
+        </span>
+        <input currencyMask [options]="notdecimal" appLatestFocus class="form-control" id="cupoAsingado" placeholder="Cupo asignado"
+          name="cupoAsingado" formControlName="cupoAsignado">
+      </div>
+    </div>
+    <div class="form-group form-inline align-items-start">
+      <label class="control-label col-sm-3">Descuento</label>
+      <div class="col-sm-9">
+        <div class="btn-group btn-group-sm w-100 pb-2">
+          <button id="DE" (click)="addDiscount()" class="btn btn-primary" title="Agregar Descuento">
+            <span class="fas fa-plus fa-fw"></span>&nbsp;Agregar</button>
+          <button (click)="removeDiscount()" class="btn btn-secondary" title="Eliminar Descuento">
+            <span class="fas fa-minus fa-fw"></span>&nbsp;Quitar</button>
+        </div>
+        <div [@fade]="'in'" class="form-group pb-1" formArrayName="listDescuento" *ngFor="let item of quotaForm.get('listDescuento')['controls']; let i = index;">
+          <div [formGroupName]="i" class="form-inline w-100">
+            <div class="col-sm-6 input-group pl-0">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary left" type="button" (click)="boolDiscount(i)" title="Seleccionar combustible">
+                  <span class="far fa-hand-pointer fa-fw"></span>
+                </button>
+              </div>
+              <input type="text" class="form-control" placeholder="Combustible" formControlName="detalle">
+            </div>
+            <div class="col-sm-6 input-group">
+              <input type="text" [id]="'val-'+i" class="form-control" currencyMask [options]="notdecimal"
+                appLatestFocus formControlName="valor">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-inline">
+      <div class="col-sm-6">
+        <button (click)="submiter()" class="btn btn-primary btn-block" [disabled]="!quotaForm.valid">
+          <i class="fa fa-floppy-o fa-fw"></i>&nbsp;Guardar</button>
+      </div>
+      <div class="col-sm-6">
+        <button (click)="reset()" class="btn btn-danger btn-block">
+          <i class="fa fa-ban fa-fw"></i>&nbsp;Cancelar</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<app-modal-dialog width="5" [visible]="boolDiscountForm" (hide)="boolDiscountForm = false">
+  <button (click)="selArticle(item)" *ngFor="let item of articleTypes" class="btn btn-block btn-info">{{item.DESCRIPCION}}
+  </button>
+</app-modal-dialog>

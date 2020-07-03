@@ -1,0 +1,67 @@
+<div class="col-sm-12 p-2">
+  <div class="form-row">
+    <div class="col-lg-6 mb-1">
+      <div class="form-row">
+        <div class="col-sm mb-1">
+          <label for="station">Estación</label>
+          <select id="station" [disabled]="(params && params.station != null) || stationCod" class="form-control" [(ngModel)]="stationSel">
+            <option *ngFor="let item of stations" [ngValue]="item">{{item.nombreEstacion}}</option>
+          </select>
+        </div>
+        <div class="col-sm mb-1">
+          <label for="type">Tipo</label>
+          <select id="type" class="form-control" [(ngModel)]="typeSel">
+            <option *ngFor="let item of types" [ngValue]="item">{{item.text}}</option>
+          </select>
+        </div>
+        <div class="col-sm mb-1">
+          <label for="type">Opción</label>
+          <select id="type" class="form-control" [(ngModel)]="optionSel">
+            <option *ngFor="let item of options" [ngValue]="item">{{item.text}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mb-1">
+      <div class="form-row">
+        <div class="col-sm-4 mb-1">
+          <label for="date">Desde</label>
+          <input type="date" id="date" [(ngModel)]="dateIni" class="form-control">
+        </div>
+        <div class="col-sm-4 mb-1">
+          <label for="date">Hasta</label>
+          <input type="date" id="date" [(ngModel)]="dateEnd" class="form-control">
+        </div>
+        <div class="col-sm-4 mb-1">
+          <button id="btnSearchCartera" (click)="getReport()" class="btn btn-block btn-sm btn-primary text-truncate">
+            <i class="fas fa-search fa-fw"></i>&nbsp;Consultar</button>
+          <div class="btn-group special">
+            <button (click)="download()" [disabled]="!(tdTitle && tdTitle.length>0)" title="Descargar" class="btn btn-block btn-sm btn-success mt-0 text-truncate">
+              <i class="fas fa-file-download"></i>CSV</button>
+            <button (click)="clear()" class="btn btn-block btn-sm btn-danger mt-0 text-truncate">
+              <i class="fas fa-eraser"></i>&nbsp;Limpiar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="table-wrapper" id="table-Search" *ngIf="tdTitle && tdTitle.length>0">
+    <div class="align-self-center no-more-tables">
+      <table class="table table-hover table-sm table-striped table-bordered">
+        <thead>
+          <tr class="text-center">
+            <th (click)="orderBy(j)" scope="col" *ngFor="let item of tdTitle; let j = index">{{item[0]}}&nbsp;
+              <i *ngIf="lastColOrder == j" [class]="'fas fa-fw ' + (order ? 'fa-sort-down' :  'fa-sort-up')"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item2 of tdData" [@fade]="'in'">
+            <td [attr.data-title]="tdTitle[i]" [class]="tdTitle[i][1]" *ngFor="let item3 of item2; let i = index">{{valueShow(item3,i)}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

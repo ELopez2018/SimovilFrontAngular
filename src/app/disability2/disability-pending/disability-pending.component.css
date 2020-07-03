@@ -1,0 +1,33 @@
+legend {
+    display: block;
+    -webkit-padding-start: 2px;
+    -webkit-padding-end: 2px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    width: inherit;
+    padding: 0 10px;
+    border-bottom: none;
+    font-size: 1.5rem;
+}
+
+#btns {
+    width: 74px;
+    margin: auto;
+}
+
+@media only screen and (min-width: 577px) and (max-width: 1200px) {
+    #truncat {
+        width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: auto;
+    }
+}
+
+#refresh {
+    float: right;
+    margin-top: 5px;
+}

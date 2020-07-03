@@ -1,0 +1,44 @@
+<div class="form-inline">
+  <div class="col-sm-4">
+    <label class="control-label">Fecha inicial:</label>
+    <p-calendar [(ngModel)]="fechaIni" [showIcon]="true" inputStyleClass="form-control" class="col-sm-8"></p-calendar>
+  </div>
+  <div class="col-sm-4">
+    <label class="control-label">Fecha final:</label>
+    <p-calendar [(ngModel)]="fechaFinal" [showIcon]="true" class="col-sm-8"></p-calendar>
+  </div>
+  <div class="col-sm-3">
+    <button class="btn btn-primary btn-block" (click)="getLogOrder()">Consultar</button>
+  </div>
+</div>
+<div class="container">
+  <h1>Logs registrados</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Cedula</th>
+        <th>EnrollNumber</th>
+        <th>Entrada</th>
+        <th>Salida</th>
+        <th>CantidadHoras</th>
+        <th>Estacion</th>
+        <th>nombreEstacion</th>
+        <th>nombreCiudad</th>
+        <th>HoraExtra</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of logs">
+        <td>{{ item.Cedula}}</td>
+        <td>{{ item.EnrollNumber }}</td>
+        <td>{{ item.Entrada | date : "dd/MM/yyyy hh:mm:ss a" : '+0000'}}</td>
+        <td>{{ item.Salida | date : "dd/MM/yyyy hh:mm:ss a" : '+0000'}} </td>
+        <td>{{ item.CantidadHoras | date : "HH:mm:ss" : '+0000'}}</td>
+        <td>{{ item.Estacion }}</td>
+        <td>{{ item.nombreEstacion }}</td>
+        <td>{{ item.nombreCiudad }}</td>
+        <td>{{ item.HoraExtra }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

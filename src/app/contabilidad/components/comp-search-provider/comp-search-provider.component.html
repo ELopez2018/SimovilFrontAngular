@@ -1,0 +1,52 @@
+<div class="row text-center pb-2 no-gutters">
+    <div class="col-sm-12 bg-secondary text-white h5 p-2">BUSCAR PROVEEDOR</div>
+    <div class="salir" title="Salir"><span class="btn btn-secondary btn-sm" (click)="salir()" >X</span></div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="form-group col-12 justify-content-center form-inline">
+            <label class="control-label col">Búsqueda por nombre</label>
+            <div class="input-group col">
+
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary" (click)="boolProvider=true" type="button"><span
+                            class="fas fa-user-tie fa-fw" style="font-size: 1.4em; color:blue;"></span></button>
+                </div>
+                <input id="searchPro" [(ngModel)]="search" type="text" (keydown.enter)="getProvider()" class="form-control text-uppercase">
+            </div>
+            <div class="col btn-group" role="group">
+                <button class="btn btn-info" (click)="getProvider()">
+                    <span class="fas fa-search fa-fw"></span>&nbsp;Consultar
+                </button>
+                <button class="btn btn-warning" (click)="clear()">
+                    <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-wrapper" id="table-Search" *ngIf="providers.length > 0" >
+    <div class="align-self-center no-more-tables">
+        <table class="table table-striped table-hover table-sm ">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">Identificación</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let provider of providers">
+                    <td data-title="Identificación" class="text-center">{{provider.nit}}</td>
+                    <td data-title="Nombre" class="">{{provider.nombre}}</td>
+                    <td data-title="Acción" class="text-center">
+                        <button (click)="select(provider)" class="btn btn-success btn-sm">
+                            <span class="fas fa-check-circle fa-fw"></span>&nbsp;Seleccionar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

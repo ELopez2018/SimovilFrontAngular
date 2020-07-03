@@ -1,0 +1,89 @@
+<div id="wrapper" [ngClass]="displayMenu">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" *ngIf="notLoginPath">
+        <nav>
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand" [title]="'V.' + version">
+                    <a class="titleApp">
+                        SIMOVIL
+                    </a>
+                </li>
+                <li class="text-center">
+                    <a routerLink="/welcome" class="Usuario">
+                        <span> {{ NombreUsuario }}</span>
+
+                    </a>
+                </li>
+
+                <ng-container *ngFor="let item of navItems">
+                    <li class="dropdown" appCustomdropdown *ngIf="item.HIJO && item.HIJO.length > 0">
+                        <a class="dropdown-toggle">
+                            <span> <i [class]="item.ICONO"></i>&nbsp; </span>
+                            <span class="menu-item-title">{{
+                                item.DESCRIPCION
+                            }}</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li *ngFor="let it of item.HIJO">
+                                <a [routerLink]="it.URL" (click)="toggleVistaMin()">
+                                    <span>
+                                        <i [class]="it.ICONO"></i>&nbsp;
+                                    </span>
+                                    <span class="menu-item-title">{{
+                                        it.DESCRIPCION
+                                    }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li *ngIf="item.HIJO == null">
+                        <a [routerLink]="item.URL" (click)="toggleVistaMin()">
+                            <span> <i [class]="item.ICONO"></i>&nbsp; </span>
+                            <span class="menu-item-title">{{
+                                item.DESCRIPCION
+                            }}</span>
+                        </a>
+                    </li>
+                </ng-container>
+                <li>
+                    <a (click)="logout()">
+                        <span>
+                            <i class="fa fa-sign-out fa-fw"></i>&nbsp;
+                        </span>
+                        <span class="menu-item-title">Salir</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div id="menu-toggle" (click)="toggle()" *ngIf="notLoginPath">
+            <span>
+                <i class="fa fa-bars fa-fw"></i>
+            </span>
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <main class="transition_conten" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+                <router-outlet #o="outlet"></router-outlet>
+            </main>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    <div class="topbar text-center" *ngIf="notLoginPath">
+        <a class="titleApp">
+            Simovil
+        </a>
+        <div class="topbar-item-right">
+            <span class="font-weight-bold">{{ getLetterUser() }}</span>
+        </div>
+    </div>
+</div>
+<!-- /#wrapper -->
+<!-- <p-growl [value]="msgs" life="5000" [immutable]="false"></p-growl> -->
+<p-toast></p-toast>
+<app-confirm-modal></app-confirm-modal>
+<app-loader></app-loader>

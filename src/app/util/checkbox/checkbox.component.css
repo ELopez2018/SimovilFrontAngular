@@ -1,0 +1,14 @@
+.uncheck {
+    color: #fff;
+    background-color: #dee2e6;
+}
+
+.check {
+    color: #fff;
+    background-color: #007bff;
+}
+
+div {
+    border-radius: 4px;
+    transition: all ease 0.5s;
+}

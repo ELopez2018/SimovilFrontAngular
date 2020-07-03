@@ -1,0 +1,12 @@
+<fieldset class="mb-1">
+  <legend (click)="changeShow()">
+    <span [class]="show ? 'fas fa-minus fa-fw' : 'fas fa-plus fa-fw'"></span>&nbsp;
+    {{cTitle}}
+    <span class=" d-flex justify-content-end float-right text-right" *ngIf="cTexto" >{{cTexto}}</span>
+  </legend>
+  <div [class]="show ? 'fieldset show' : 'fieldset'" id="contenedor">
+    <div id="contenido">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</fieldset>

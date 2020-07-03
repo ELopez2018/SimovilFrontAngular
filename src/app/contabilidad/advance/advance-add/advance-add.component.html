@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="col-sm-12">
+        <form [formGroup]="advanceForm" novalidate class="form-horizontal">
+            <fieldset>
+                <legend class="text-center">Crear Anticípo</legend>
+                <div class="form-group form-inline">
+                    <label appAutofocus class="control-label col-sm-2">Nit proveedor:</label>
+                    <div class="input-group col-sm-4">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary left" type="button" (click)="boolProvider = true">
+                                <span class="far fa-hand-pointer fa-fw"></span>
+                            </button>
+                        </div>
+                        <input (keyup.enter)="getprovider()" type="number" class="form-control" placeholder="Proveedor"
+                            formControlName="proveedor">
+                    </div>
+                    <label class="control-label col-sm-2">Nombre proveedor:</label>
+                    <div class="input-group col-sm-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user fa-fw"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Nombre del proveedor" readonly
+                            formControlName="nombreProveedor">
+                    </div>
+                </div>
+
+                <div class="form-group form-inline">
+                    <label class="control-label col-sm-2">Total:</label>
+                    <div class="input-group col-sm-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-usd fa-fw"></i></span>
+                        </div>
+                        <input id="total" currencyMask [options]="notdecimal" appLatestFocus type="text"
+                            class="form-control" placeholder="$ 0" formControlName="valor">
+                    </div>
+                    <label class="control-label col-sm-2">Detalle:</label>
+                    <div class="input-group col-sm-4">
+                        <textarea formControlName="detalle" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="col-sm-6">
+                        <button (click)="submit()" class="btn btn-primary btn-block" [disabled]="!advanceForm.valid">
+                            <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Guardar</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button (click)="reset()" class="btn btn-danger btn-block">
+                            <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar</button>
+                    </div>
+                </div>
+            </fieldset>
+            <br>
+        </form>
+    </div>
+</div>
+<app-modal-dialog (hide)="boolProvider = false" [visible]="boolProvider">
+    <app-comp-search-provider (submiter)="assignProvider($event)"></app-comp-search-provider>
+</app-modal-dialog>

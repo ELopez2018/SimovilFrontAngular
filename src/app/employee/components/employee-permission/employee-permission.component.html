@@ -1,0 +1,83 @@
+<div [@fade]="'in'">
+    <form [formGroup]="noveltyForm" novalidate class="form-horizontal">
+      <fieldset>
+        <div class="form-inline">
+          <label class="control-label col-sm-2">Tipo permiso:</label>
+          <div class="input-group col-sm-4">
+            <span class="input-group-addon">
+              <i class="fas fa-clipboard-list fa-fw"></i>
+            </span>
+            <select class="form-control" (ngModelChange)="changeType($event)" formControlName="tipo">
+              <option *ngFor="let tipo of tipoPermiso" [ngValue]="tipo">{{tipo.detalle}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-inline" *ngIf="boolMayor == false">
+          <label class="control-label col-sm-2">Día inicial:</label>
+          <div class="input-group col-sm-4">
+            <input (ngModelChange)="validDate()" type="date" class="form-control" formControlName="fechaIni">
+          </div>
+          <label class="control-label col-sm-2">Hora inicial:</label>
+          <div class="input-group col-sm-4">
+            <input (ngModelChange)="validDate()" type="time" class="form-control" formControlName="horaIni">
+          </div>
+        </div>
+        <div class="form-inline" *ngIf="boolMayor == false">
+          <label class="control-label col-sm-2">Día final:</label>
+          <div class="input-group col-sm-4">
+            <input (ngModelChange)="validDate()" type="date" class="form-control" formControlName="fechaFin">
+          </div>
+          <label class="control-label col-sm-2">Hora final:</label>
+          <div class="input-group col-sm-4">
+            <input (ngModelChange)="validDate()" type="time" class="form-control" formControlName="horaFin">
+          </div>
+        </div>
+        <div class="form-inline" *ngIf="boolMayor == true">
+          <label class="control-label col-sm-2">Día inicial:</label>
+          <div class="input-group col-sm-4">
+            <input (ngModelChange)="validDate()" type="date" class="form-control" formControlName="fechaIni">
+          </div>
+          <label class="control-label col-sm-2">Día final:</label>
+          <div class="input-group col-sm-4">
+            <input (ngModelChange)="validDate()" type="date" class="form-control" formControlName="fechaFin">
+          </div>
+        </div>
+        <div class="form-inline">
+          <label class="control-label col-sm-2">Días:</label>
+          <div class="input-group col-sm-4">
+            <span class="input-group-addon">
+              <i class="fas fa-calendar-alt fa-fw"></i>
+            </span>
+            <input type="number" class="form-control" formControlName="dias">
+          </div>
+          <label class="control-label col-sm-2" *ngIf="boolMayor == false">Horas</label>
+          <div class="input-group col-sm-4" *ngIf="boolMayor == false">
+            <span class="input-group-addon">
+              <i class="fas fa-clock-o fa-fw"></i>
+            </span>
+            <input type="number" class="form-control" formControlName="horas">
+          </div>
+          <label class="control-label col-sm-2" *ngIf="boolMayor == true">Detalle:</label>
+          <div class="input-group col-sm-4" *ngIf="boolMayor == true">
+            <textarea class="form-control" formControlName="detalle" cols="150" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="form-inline" *ngIf="boolMayor == false">
+          <label class="control-label col-sm-2">Detalle:</label>
+          <div class="input-group col-sm-4">
+            <textarea class="form-control" formControlName="detalle" cols="150" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="form-inline">
+          <div class="col-sm-6">
+            <button (click)="submit()" class="btn btn-primary btn-block" [disabled]="!noveltyForm.valid">
+              <span class="fas fa-floppy-o fa-fw"></span>&nbsp;Guardar</button>
+          </div>
+          <div class="col-sm-6">
+            <button (click)="reset()" class="btn btn-danger btn-block">
+              <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>

@@ -1,0 +1,196 @@
+<p-tabView>
+  <p-tabPanel header="Tareas" leftIcon="fa fa-search">
+    <!-- <p-table [value]="tasks" *ngIf="tasks != null" [responsive]="true" [scrollable]="true" scrollHeight="300px">
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of cols" [ngStyle]="{'width':col.width}">{{col.header}}</th>
+          <th>Acción</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-task let-columns="cols">
+        <tr>
+          <td *ngFor="let col of cols" [ngStyle]="{'width':col.width}">
+            <span class="ui-column-title">{{col.header}}</span>
+            {{task[col.field]}}
+          </td>
+          <td>
+            <button class="btn btn-info btn-block" (click)="DeleteTask(task)">
+              <i class="fa fa-check"></i> Solucionar</button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table> -->
+    <div class="table-wrapper" id="table-Search">
+      <div class="align-self-center no-more-tables">
+        <table class="table table-hover table-sm table-striped table-bordered">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">Id</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Detalle</th>
+              <th scope="col">Solicitante</th>
+              <th scope="col">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of tasks" [@fade]="'in'">
+              <td data-title="Id" class="text-center">{{item.id}}</td>
+              <td data-title="Estado" class="text-center">{{item.estado}}</td>
+              <td data-title="Detalle" class="text-center">{{item.detalle}}</td>
+              <td data-title="Solicitante" class="text-center">{{item.solicitante}}</td>
+              <td>
+                <button class="btn btn-info btn-block" (click)="DeleteTask(item)">
+                  <i class="fa fa-check"></i> Solucionar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Edición" leftIcon="fa fa-pencil">
+    <p-fieldset [toggleable]="true" styleClass="my-panel">
+      <p-header>Cartera</p-header>
+      <label class="control-label">Habilitar edición de cupo del cliente:
+        <span id="clientName">&nbsp;{{client.nombre}}</span>
+      </label>
+      <div class="form-group form-inline justify-content-center">
+        <label class="control-label col-sm-2">Identificación:</label>
+        <div class="input-group col-sm-4">
+          <input appAutofocus type="number" class="form-control" id="numDocumento" placeholder="Identificación" name="numDocumento"
+            #searchID (keyup.enter)="validarCedula(searchID.value)" [(ngModel)]="idQuotaEdit">
+          <button class="btn btn-info btn-left" type="button" (click)="validarCedula(searchID.value)">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+        <div class="input-group col-sm-3">
+          <button class="btn btn-success btn-block" [disabled]="disabledControl[0]" (click)="EditEnabled(searchID.value)">
+            <span>
+              <i class="fa fa-pencil"></i>
+            </span>
+            Habilitar Edición</button>
+        </div>
+      </div>
+      <!-- <form [formGroup]="clientSearchForm" (ngSubmit)="submitClientSearch()" novalidate class="form-horizontal">
+            <div class="form-group form-inline">
+              <label class="control-label col-sm-2">Nombre:</label>
+              <div class="input-group col-sm-10">
+                <span class="input-group-addon">
+                  <i class="fa fa-user"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Nombre" name="nombre" formControlName="searchNombre">
+              </div>
+            </div>
+            <div class="form-group form-inline">
+              <label class="control-label col-sm-2">Identificación:</label>
+              <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                  <i class="fa fa-address-card"></i>
+                </span>
+                <input type="number" class="form-control" placeholder="Identificación" name="identificacion" formControlName="searchIdentificacion">
+              </div>
+
+              <label class="control-label col-sm-2">Tipo documento:</label>
+              <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                  <i class="fa fa-id-card"></i>
+                </span>
+                <select name="tipoDocumento" class="form-control" formControlName="searchTipoDocumento" [(ngModel)]="selectedDocumentTypeSearch">
+                  <option *ngFor="let documentType of documentTypes" [ngValue]="documentType">{{documentType.detalle}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group form-inline">
+              <label class="control-label col-sm-2">Departamento:</label>
+              <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                  <i class="fa fa-globe"></i>
+                </span>
+                <select name="departamento" class="form-control" formControlName="searchDepartamento" [(ngModel)]="selectedDepartamentSearch"
+                  (blur)="updateArrayCitySearch(selectedDepartamentSearch,true)">
+                  <option *ngFor="let departament of departaments" [ngValue]="departament">{{departament.nombreDepartamento}}</option>
+                </select>
+              </div>
+              <label class="control-label col-sm-2">Ciudad:</label>
+              <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                  <i class="fa fa-map-marker"></i>
+                </span>
+                <select name="ciudad" class="form-control" formControlName="searchCiudad" [(ngModel)]="selectedCitySearch">
+                  <option *ngFor="let city of filteredCitiesSearch" [ngValue]="city">{{city.nombreCiudad}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group form-inline">
+              <label class="control-label col-sm-2">Dirección:</label>
+              <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                  <i class="fa fa-map-marker"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Dirección" name="direccion" formControlName="searchDireccion">
+              </div>
+              <label class="control-label col-sm-2">Teléfono:</label>
+              <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                  <i class="fa fa-mobile"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Teléfono" name="telefono" formControlName="searchTelefono">
+              </div>
+            </div>
+            <div class="form-group form-inline">
+              <label class="control-label col-sm-2">Correo:</label>
+              <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                  <i class="fa fa-envelope"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Correo electrónico" name="correo" formControlName="searchCorreo">
+              </div>
+              <label class="control-label col-sm-2">Estado:</label>
+              <div class="form-check col-sm-4">
+                <input class="form-check-input" type="checkbox" name="estado" formControlName="searchEstado">
+              </div>
+            </div>
+            <div class="form-inline justify-content-center">
+              <div class="col-sm-5">
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="!editClientSearch">{{editClientSearchString}}</button>
+              </div>
+              <div class="col-sm-5" *ngIf="editClientSearchString == 'Guardar'">
+                <button (click)="CancelClientSearchForm()" class="btn btn-danger btn-block" [disabled]="!editClientSearch">Cancelar</button>
+              </div>
+            </div>
+          </form> -->
+    </p-fieldset>
+
+  </p-tabPanel>
+  <p-tabPanel header="Habilitar Cupo" leftIcon="fa fa-credit-card">
+    <div class="table-wrapper">
+      <table class="table table-hover table-sm table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Identificación</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cupo asignado</th>
+            <th scope="col">Tipo de cupo</th>
+            <th scope="col">Descuento</th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of basicClients">
+            <td>{{item.codCliente}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.cupoAsignado | currency }}</td>
+            <td>{{item.detalleTipoCupo }}</td>
+            <td>{{item.descuento | currency }}</td>
+            <td class="text-center">
+              <button class="btn btn-info" (click)="HabilitarCupo(item.codCliente)">
+                <span class="fa fa-check fa-fw"></span>&nbsp;Habilitar</button>
+              <button class="btn btn-danger" (click)="EditEnabled(item.codCliente)">
+                <span class="fa fa-close fa-fw"></span>&nbsp;Rechazar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </p-tabPanel>
+</p-tabView>

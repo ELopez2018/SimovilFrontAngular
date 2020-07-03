@@ -1,0 +1,103 @@
+<div id="main">
+    <div class="container">
+        <div class="row pt-1 pb-2 justify-content-center">
+
+            <div class="col-sm-2">
+                <label for="estaciones">Estación</label>
+                <div>
+                    <select id="estaciones" class="form-control" [disabled]="stationCod" [(ngModel)]="stationSel">
+                        <option *ngFor="let item of stations" [ngValue]="item">{{item.nombreEstacion}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <label for="type">Reporte</label>
+                <select (change)="changeReport()" id="type" class="form-control" [(ngModel)]="paramSel">
+                    <option *ngFor="let item of treeParams" [ngValue]="item">{{item.text}}</option>
+                </select>
+            </div>
+
+            <div class="col-sm-3">
+                <label for="calendario" *ngIf="!Mostrar">Fecha Inicial</label>
+                <label for="calendario" *ngIf="Mostrar">Fecha</label>
+                <br>
+                <p-calendar id="calendario" [(ngModel)]="FechaIni" [showIcon]="true" [locale]="es"
+                    dateFormat="dd/mm/yy">
+                </p-calendar>
+            </div>
+
+            <div class="col-sm-3" *ngIf="!Mostrar">
+                <label for="calendario">Fecha Final</label>
+                <p-calendar id="calendario" [(ngModel)]="FechaFin" [showIcon]="true" [locale]="es"
+                    dateFormat="dd/mm/yy">
+                </p-calendar>
+            </div>
+
+            <div class="col-sm-2 pt-4">
+                <button type="button" class="btn btn-info  btn-block" (click)="getReport(prueba)"> <i
+                        class="fas fa-print "> </i> Ver</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- <div class="marcoImpresion  form-inline text-center  clearfix ">
+    <div class="ui-g-12 ui-md-3 ui-lg-3 limpiar align-middle" *ngIf="stationCod==null">
+        <label for="estaciones">Estación</label>
+        <div>
+            <select id="estaciones" class="form-control" [(ngModel)]="stationSel">
+                <option *ngFor="let item of stations" [ngValue]="item">{{item.nombreEstacion}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="ui-g-12 ui-md-2 ui-lg-2 limpiar align-middle">
+        <label for="type">Reporte</label>
+        <select (change)="changeReport()" id="type" class="form-control" [(ngModel)]="paramSel">
+            <option *ngFor="let item of treeParams" [ngValue]="item">{{item.text}}</option>
+        </select>
+    </div>
+    <div class="ui-g-12 ui-md-5 ui-lg-5 limpiar align-middle">
+        <div class="ui-g-6 ui-md-6 ui-lg-6 limpiar">
+            <label for="calendario" *ngIf="!Mostrar">Fecha Inicial</label>
+            <label for="calendario" *ngIf="Mostrar">Fecha</label>
+            <p-calendar id="calendario" [(ngModel)]="FechaIni" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy">
+            </p-calendar>
+        </div>
+        <div class="ui-g-6 ui-md-6 ui-lg-6 limpiar align-middle " *ngIf="!Mostrar">
+            <label for="calendario">Fecha Final</label>
+            <p-calendar id="calendario" [(ngModel)]="FechaFin" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy">
+            </p-calendar>
+        </div>
+    </div>
+
+    <div class="ui-g-12 ui-md-2 ui-lg-2 align-middle">
+        <button type="button" class="btn btn-info mr-2 btn-block mt-3" (click)="getReport(prueba)"> <i
+                class="fas fa-print "> </i> Ver</button>
+    </div>
+</div> -->
+<div id="main" class="mt-1 mb-4 pb-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12">
+                <div #prueba></div>
+                <app-report-ssrs #target [show]="showReport" [https]="true"
+                    serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport"
+                    [parameters]="params" [width]="widthReport" [showParameter]="false" class="animated fadeIn slow">
+                </app-report-ssrs>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- <div #prueba></div> -->
+<!-- <app-report-ssrs #target [show]="showReport" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer"
+    [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
+</app-report-ssrs> -->

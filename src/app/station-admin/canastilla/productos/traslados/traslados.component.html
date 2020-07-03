@@ -1,0 +1,60 @@
+<div class="col-sm-12">
+
+    <ul class="nav nav-tabs mb-1" id="myTab" role="tablist">
+        <li class="nav-item" title="Enviar">
+            <a class="nav-link" (click)="tabClass(0)" [ngClass]="tabs[0].classTab" id="Compras-tab" data-toggle="tab"
+                role="tab" aria-controls="home" aria-selected="true">
+                <span class="fas fa-file-upload fa-2x fa-fw"></span>&nbsp;
+                <span class="nameTab">Enviar</span>
+            </a>
+        </li>
+        <li class="nav-item" title="Recibir">
+            <a class="nav-link" (click)="tabClass(1)" [ngClass]="tabs[1].classTab" id="Inicial-tab" data-toggle="tab"
+                role="tab" aria-controls="home" aria-selected="true">
+                <span class="fas fa-file-download fa-2x fa-fw"></span>&nbsp;
+                <span class="nameTab">Recibir <span class="badge badge-pill badge-danger" *ngIf="productos.length > 0">{{ productos.length }}
+                        New </span> </span>
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+
+        <div *ngIf="tabs[1].estado" id="TrasladoIn" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab">
+            <app-intraslados></app-intraslados>
+        </div>
+
+        <div *ngIf="tabs[0].estado" id="TrasladoOut" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab">
+            <app-outtraslados></app-outtraslados>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- <app-modal-dialog [visible]="boolCreateRec" (hide)="boolCreateRec = false">
+    <div class="row">
+      <div class="col-sm-3 form-group">
+        <label class="control-label mb-0">Nombre del cliente</label>
+        <input *ngIf="clientSel" type="text" class="form-control" disabled [(ngModel)]="clientSel.nombre">
+      </div>
+      <div class="col-sm-3 form-group">
+        <label class="control-label mb-0">Fecha inicial</label>
+        <input id="fechaIni" type="date" [(ngModel)]="fechaCliIni" class="form-control">
+      </div>
+      <div class="col-sm-3 form-group">
+        <label class="control-label mb-0">Fecha corte</label>
+        <input id="fechaCorte" type="date" [(ngModel)]="fechaCliFin" class="form-control">
+      </div>
+      <div class="col-sm-3 form-group">
+        <button [disabled]="!valid" (click)="createReceivable()" class="btn btn-sm btn-primary btn-block">
+          <i class="fas fa-file-invoice"></i>&nbsp;Crear
+        </button>
+        <button (click)="boolCreateRec = false" class="btn btn-sm btn-danger btn-block mt-0">
+          <i class="fas fa-times"></i>&nbsp;Cancelar
+        </button>
+      </div>
+    </div>
+  </app-modal-dialog> -->

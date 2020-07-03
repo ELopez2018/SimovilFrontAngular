@@ -1,0 +1,32 @@
+<!-- <ul *ngIf="dataTable && dataTable.length > 0">
+  <li *ngFor="let item of dataTable">{{item.name}}
+  </li>
+</ul> -->
+<table class="table table-hover table-sm table-striped">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">Item</th>
+      <th scope="col">Visible</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of dataTable">
+      <td class="text-center">{{item.name}}</td>
+      <td class="text-center">
+        <button (click)="item.visible = !item.visible" [class]="'fas btn btn-sm btn-block ' + (item.visible ? 'btn-success' : 'btn-danger')">
+          <i [class]="'fas fa-fw ' + (item.visible ? 'fa-check' : 'fa-times')"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="col form-row m-0">
+  <div class="col-sm-6">
+    <button (click)="save(true)" class="btn btn-block btn-primary">
+      <i class="fa fa-save fa-fw"></i>&nbsp;Guardar</button>
+  </div>
+  <div class="col-sm-6">
+    <button (click)="save(false)" class="btn btn-block btn-secondary">
+      <i class="fa fa-undo fa-fw"></i>&nbsp;Cancelar</button>
+  </div>
+</div>

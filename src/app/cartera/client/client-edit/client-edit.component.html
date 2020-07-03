@@ -1,0 +1,610 @@
+<div class="form-group form-inline">
+    <label class="control-label col-sm-2">Identificación:</label>
+    <div class="col-sm-7 input-group">
+        <div class="input-group-prepend">
+            <button
+                class="btn btn-outline-secondary left"
+                type="button"
+                (click)="searchClient()"
+            >
+                <span class="fas fa-hand-pointer fa-fw"></span>
+                Buscar Cliente
+            </button>
+        </div>
+        <input
+            appAutofocus
+            type="number"
+            class="form-control"
+            id="numDocumento"
+            placeholder="Identificación"
+            [(ngModel)]="id"
+            (keyup.enter)="SearchClient(id)"
+        />
+    </div>
+    <div class="input-group col-sm-3">
+        <button
+            id="btnSearchCli"
+            class="btn btn-info btn-block"
+            (click)="SearchClient(id)"
+        >
+            <span>
+                <i class="fa fa-search"></i>
+            </span>
+            Buscar
+        </button>
+    </div>
+</div>
+
+<p-fieldset
+    [toggleable]="true"
+    styleClass="ui-fieldset-toggleable"
+    [(collapsed)]="collapsed[0]"
+>
+    <p-header>Información</p-header>
+    <form
+        [formGroup]="clientSearchForm"
+        (ngSubmit)="submitClientSearch()"
+        novalidate
+        class="form-horizontal"
+    >
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Identificación:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fa fa-address-card fa-fw"></i>
+                </span>
+                <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Identificación"
+                    name="identificacion"
+                    formControlName="searchIdentificacion"
+                />
+            </div>
+
+            <label class="control-label col-sm-2">Nombre:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fa fa-user fa-fw"></i>
+                </span>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombre"
+                    name="nombre"
+                    formControlName="searchNombre"
+                />
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Tipo documento:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fa fa-id-card fa-fw"></i>
+                </span>
+                <select
+                    name="tipoDocumento"
+                    class="form-control"
+                    formControlName="searchTipoDocumento"
+                >
+                    <option
+                        *ngFor="let documentType of documentTypes"
+                        [ngValue]="documentType"
+                        >{{ documentType.detalle }}
+                    </option>
+                </select>
+            </div>
+            <label class="control-label col-sm-2">Departamento:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fa fa-globe fa-fw"></i>
+                </span>
+                <select
+                    name="departamento"
+                    class="form-control"
+                    #searchDepartment
+                    formControlName="searchDepartamento"
+                    (ngModelChange)="updateArrayCitySearch($event, true)"
+                >
+                    <option
+                        *ngFor="let departament of departaments"
+                        [ngValue]="departament"
+                    >
+                        {{ departament.nombreDepartamento }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Ciudad:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fa fa-map-marker fa-fw"></i>
+                </span>
+                <select
+                    name="ciudad"
+                    class="form-control"
+                    formControlName="searchCiudad"
+                >
+                    <option
+                        *ngFor="let city of filteredCitiesSearch"
+                        [ngValue]="city"
+                        >{{ city.nombreCiudad }}</option
+                    >
+                </select>
+            </div>
+            <label class="control-label col-sm-2">Dirección:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fa fa-map-marker fa-fw"></i>
+                </span>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Dirección"
+                    name="direccion"
+                    formControlName="searchDireccion"
+                />
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Teléfono:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fa fa-mobile fa-fw"></i>
+                </span>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Teléfono"
+                    name="telefono"
+                    formControlName="searchTelefono"
+                />
+            </div>
+            <label class="control-label col-sm-2">Correo:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fa fa-envelope fa-fw"></i>
+                </span>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Correo electrónico"
+                    name="correo"
+                    formControlName="searchCorreo"
+                />
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Estación:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fas fa-gas-pump fa-fw"></i>
+                </span>
+                <select
+                    name="searchEstacion"
+                    class="form-control"
+                    formControlName="searchEstacion"
+                >
+                    <option
+                        *ngFor="let searchStation of stations"
+                        [ngValue]="searchStation"
+                    >
+                        {{ searchStation.nombreEstacion }}
+                    </option>
+                </select>
+            </div>
+            <label class="control-label col-sm-2" for="searchEstado"
+                >Estado:</label
+            >
+            <div class="form-check col-sm-4">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="searchEstado"
+                    name="estado"
+                    formControlName="searchEstado"
+                />
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2" for="searchRetenedor"
+                >Retenedor:</label
+            >
+            <div class="form-check col-sm-4">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="searchRetenedor"
+                    formControlName="searchRetenedor"
+                />
+            </div>
+            <label class="control-label col-sm-2">Forma Cuenta Cobro:</label>
+            <div class="input-group col-sm-4">
+                <!-- <span class="input-group-addon">
+                <i class="fa fa-envelope fa-fw"></i>
+              </span> -->
+                <select
+                    name="searchModCobro"
+                    class="form-control"
+                    formControlName="searchModCobro"
+                    (ngModelChange)="onChangeSearch($event)"
+                >
+                    <option
+                        *ngFor="let item of modoCuentaCobro"
+                        [ngValue]="item"
+                        >{{ item.text }}</option
+                    >
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-3" for="searchSistema"
+                >Sistema por chip:</label
+            >
+            <div class="form-check col-sm-3">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="searchSistema"
+                    formControlName="searchSistema"
+                />
+            </div>
+            <label class="control-label col-sm-2" *ngIf="controlShow == true"
+                >Periodo en # de días:</label
+            >
+            <div class="input-group col-sm-4" *ngIf="controlShow == true">
+                <span class="input-group-addon">
+                    <i class="fa fa-fw">#</i>
+                </span>
+                <input
+                    type="number"
+                    class="form-control"
+                    placeholder="# día"
+                    name="searchNumDiaCobro"
+                    formControlName="searchNumDiaCobro"
+                />
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Nit alterno:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fa fa-address-card fa-fw"></i>
+                </span>
+                <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Nit alterno"
+                    formControlName="searchNitAlt"
+                />
+            </div>
+            <label class="control-label col-sm-2">Nombre alterno:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fa fa-user fa-fw"></i>
+                </span>
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombre alterno"
+                    formControlName="searchNombreAlt"
+                />
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-3" for="notificar"
+                >Cobro por estación:</label
+            >
+            <div class="form-check col-sm-3">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="todasEstaciones"
+                    formControlName="searchTodasEstaciones"
+                />
+            </div>
+        </div>
+        <div class="form-inline justify-content-center">
+            <div class="col-sm-5">
+                <button
+                    type="submit"
+                    class="btn btn-primary btn-block"
+                    [disabled]="!editClientSearch"
+                >
+                    {{ editClientSearchString }}
+                </button>
+            </div>
+            <div class="col-sm-5" *ngIf="editClientSearchString == 'Guardar'">
+                <button
+                    (click)="CancelClientSearchForm()"
+                    class="btn btn-danger btn-block"
+                    [disabled]="!editClientSearch"
+                >
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </form>
+</p-fieldset>
+
+<p-fieldset
+    [toggleable]="true"
+    styleClass="ui-fieldset-toggleable"
+    [(collapsed)]="collapsed[1]"
+>
+    <p-header>Cupos</p-header>
+    <form class="form-horizontal" [formGroup]="quotaSearchForm" novalidate>
+        <div class="form-group form-inline" [hidden]="quotaSearch == null">
+            <label class="control-label col-sm-3">Cupo Asignado:</label>
+            <div class="input-group col-sm-9">
+                <span class="input-group-addon">
+                    <i class="fa fa-dollar fa-fw"></i>
+                </span>
+                <input
+                    currencyMask
+                    [options]="notdecimal"
+                    appLatestFocus
+                    (blur)="ActCupoAsig()"
+                    formControlName="searchQuotaAssigned"
+                    class="form-control"
+                    placeholder="Cupo asignado"
+                    name="cupoAsignado"
+                />
+            </div>
+        </div>
+        <div class="form-group form-inline" [hidden]="quotaSearch == null">
+            <label class="control-label col-sm-3">Cupo Disponible:</label>
+            <div class="input-group col-sm-9">
+                <span class="input-group-addon">
+                    <i class="fa fa-dollar fa-fw"></i>
+                </span>
+                <input
+                    currencyMask
+                    [options]="notdecimal"
+                    appLatestFocus
+                    class="form-control"
+                    formControlName="searchQuotaAvaliable"
+                    placeholder="Cupo disponible"
+                    name="cupoDisponible"
+                />
+            </div>
+        </div>
+        <div
+            class="form-group form-inline align-items-start"
+            [hidden]="quotaSearch == null"
+        >
+            <label class="control-label col-sm-3">Descuento</label>
+            <div class="col-sm-9">
+                <div class="btn-group btn-group-sm w-100 pb-2">
+                    <button
+                        [disabled]="!enableListDiscount"
+                        id="DE"
+                        (click)="addDiscount()"
+                        class="btn btn-primary"
+                        title="Agregar Descuento"
+                    >
+                        <span class="fas fa-plus fa-fw"></span>
+                    </button>
+                    <button
+                        [disabled]="!enableListDiscount"
+                        (click)="removeDiscount()"
+                        class="btn btn-secondary"
+                        title="Eliminar Descuento"
+                    >
+                        <span class="fas fa-minus fa-fw"></span>
+                    </button>
+                    <button
+                        [disabled]="!enableListDiscount"
+                        (click)="boolDiscountShow = !boolDiscountShow"
+                        class="btn btn-info"
+                        [title]="boolDiscountShow ? 'Ocultar' : 'Mostrar'"
+                    >
+                        <span
+                            [class]="
+                                boolDiscountShow
+                                    ? 'fas fa-search-minus fa-fw'
+                                    : 'fas fa-search-plus fa-fw'
+                            "
+                        ></span>
+                    </button>
+                </div>
+                <ng-container *ngIf="boolDiscountShow">
+                    <div
+                        [@fade]="'in'"
+                        class="form-group pb-1"
+                        formArrayName="listDescuento"
+                        *ngFor="
+                            let item of quotaSearchForm.get('listDescuento')[
+                                'controls'
+                            ];
+                            let i = index
+                        "
+                    >
+                        <div [formGroupName]="i" class="form-inline w-100">
+                            <div class="col-sm-6 input-group pl-0">
+                                <div class="input-group-prepend">
+                                    <button
+                                        [disabled]="!enableListDiscount"
+                                        class="btn btn-outline-secondary left"
+                                        type="button"
+                                        (click)="boolDiscount(i)"
+                                        title="Seleccionar combustible"
+                                    >
+                                        <span
+                                            class="far fa-hand-pointer fa-fw"
+                                        ></span>
+                                    </button>
+                                </div>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Combustible"
+                                    formControlName="detalle"
+                                />
+                            </div>
+                            <div class="col-sm-6 input-group">
+                                <input
+                                    [id]="'val-' + i"
+                                    type="text"
+                                    class="form-control"
+                                    currencyMask
+                                    [options]="notdecimal"
+                                    appLatestFocus
+                                    formControlName="valor"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="form-group form-inline" [hidden]="quotaSearch == null">
+            <label class="control-label col-sm-3">Tipo de cupo:</label>
+            <div class="input-group col-sm-9">
+                <span class="input-group-addon">
+                    <i class="fa fa-credit-card fa-fw"></i>
+                </span>
+                <select
+                    name="tipoCupo"
+                    class="form-control"
+                    formControlName="searchQuotaType"
+                >
+                    <option
+                        *ngFor="let quota of quotaTypes"
+                        [ngValue]="quota"
+                        >{{ quota.detalleTipoCupo }}</option
+                    >
+                </select>
+            </div>
+        </div>
+        <div class="form-inline justify-content-center">
+            <div class="col-sm-5">
+                <button
+                    (click)="submitQuotaSearch()"
+                    class="btn btn-primary btn-block"
+                    [disabled]="!editQuotaSearch"
+                >
+                    {{ editQuotaSearchString }}
+                </button>
+            </div>
+            <div class="col-sm-5" *ngIf="editQuotaSearchString == 'Guardar'">
+                <button
+                    (click)="CancelQoutaForm()"
+                    class="btn btn-danger btn-block"
+                    [disabled]="!editQuotaSearch"
+                >
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </form>
+    <p-dialog
+        header="Motivo del cambio"
+        [(visible)]="displayDialog"
+        modal="modal"
+        [responsive]="true"
+        [minY]="70"
+    >
+        <textarea
+            pInputTextarea
+            [(ngModel)]="reasonForChange"
+            rows="5"
+            cols="34"
+        ></textarea>
+        <p-footer>
+            <button
+                type="button"
+                pButton
+                icon="fa-check"
+                (click)="setQuotaSearch()"
+                label="Guardar"
+                [disabled]="reasonForChange.length < 1"
+            ></button>
+            <button
+                type="button"
+                pButton
+                icon="fa-close"
+                (click)="displayDialog = false"
+                label="Cancelar"
+            ></button>
+        </p-footer>
+    </p-dialog>
+    <p-dialog
+        header="Solicitar Cambio"
+        [(visible)]="displayDialogAudit"
+        modal="modal"
+        [responsive]="true"
+        [minY]="70"
+    >
+        Solo se puede editar una vez el cupo. ¿Desea solicitar edicion a
+        Auditoría?
+        <p-footer>
+            <button
+                type="button"
+                pButton
+                icon="fa-check"
+                (click)="setChangeAudit()"
+                label="Sí"
+            ></button>
+            <button
+                type="button"
+                pButton
+                icon="fa-close"
+                (click)="displayDialogAudit = false"
+                label="No"
+            ></button>
+        </p-footer>
+    </p-dialog>
+
+    <br />
+</p-fieldset>
+
+<p-fieldset
+    [toggleable]="true"
+    styleClass="ui-fieldset-toggleable"
+    [(collapsed)]="collapsed[2]"
+>
+    <p-header>Vehículos</p-header>
+    <p-table [value]="vehicles" *ngIf="vehicles != null">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Placa</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Estado</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-vehicle>
+            <tr>
+                <td>{{ vehicle.placa }}</td>
+                <td>{{ vehicle.marca }}</td>
+                <td>{{ vehicle.modelo }}</td>
+                <td>{{ vehicle.ano }}</td>
+                <td>{{ vehicle.estado }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-fieldset>
+<app-modal-dialog
+    [visible]="boolSearchClient"
+    (hide)="boolSearchClient = false"
+>
+    <app-comp-search-client
+        (submiter)="getCodClient($event)"
+    ></app-comp-search-client>
+</app-modal-dialog>
+<app-modal-dialog
+    width="5"
+    [visible]="boolDiscountForm"
+    (hide)="boolDiscountForm = false"
+>
+    <button
+        (click)="selArticle(item)"
+        *ngFor="let item of articleTypes"
+        class="btn btn-block btn-info"
+    >
+        {{ item.DESCRIPCION }}
+    </button>
+</app-modal-dialog>

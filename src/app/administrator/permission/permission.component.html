@@ -1,0 +1,95 @@
+<div class="container-12" *ngIf="profile">
+  <div class="row">
+    <div class="col-4">
+      <div class="form-inline row">
+        <label class="col-4">Perfil</label>
+        <div class="input-group col-8">
+          <span class="input-group-addon">
+            <i class="fas fa-user-alt fa-fw"></i>
+          </span>
+          <input type="text" class="form-control" [(ngModel)]="profile.NOMBRE" disabled>
+        </div>
+      </div>
+      <ul id="primerUl">
+        <li *ngFor="let item of options" [class]="classSel(item)">
+          <div (dblclick)="show(item)" (click)="optionSelF(item)">
+            <span [class]="classItem(item)"></span>&nbsp;{{item.DESCRIPCION}}
+          </div>
+          <ul *ngIf="item.HIJO && item.HIJO.length > 0" [class]="item['class']">
+            <li *ngFor="let it of item.HIJO" [class]="classSel(it)">
+              <div (dblclick)="show(it)" (click)="optionSelF(it)">
+                <span [class]="classItem(it)"></span>&nbsp;{{it.DESCRIPCION}}
+              </div>
+              <ul *ngIf="it.HIJO && it.HIJO.length > 0" [class]="it['class']">
+                <li *ngFor="let i of it.HIJO" [class]="classSel(i)">
+                  <div (dblclick)="show(i)" (click)="optionSelF(i)">
+                    <span [class]="classItem(i)"></span>&nbsp;{{i.DESCRIPCION}}
+                  </div>
+                  <ul *ngIf="i.HIJO && i.HIJO.length > 0" [class]="i['class']">
+                    <li *ngFor="let i2 of i.HIJO" [class]="classSel(i2)">
+                      <div (dblclick)="show(i2)" (click)="optionSelF(i2)">
+                        <span [class]="classItem(i2)"></span>&nbsp;{{i2.DESCRIPCION}}
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="col-8">
+      <div class="table-wrapper" id="table-users-Search">
+        <div class="align-self-center no-more-tables" id="table-Users">
+          <table class="table table-hover table-sm table-striped table-bordered" *ngIf="opcionSel">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">Opción</th>
+                <th scope="col">Todo</th>
+                <th scope="col">Leer</th>
+                <th scope="col">Crear</th>
+                <th scope="col">Actualizar</th>
+                <th scope="col">Borrar</th>
+                <th scope="col">Imprimir</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let op of opcionSel.HIJO">
+                <td data-title="Opción" class="text-center">{{op.DESCRIPCION}}</td>
+                <td data-title="Todo" class="text-center" (dblclick)="op['TODO'] = !op['TODO']">
+                  <span [class]="classStatus(op['TODO'])"></span>
+                </td>
+                <td data-title="Leer" class="text-center" (dblclick)="op['LEER'] = !op['LEER']">
+                  <span [class]="classStatus(op['LEER'])"></span>
+                </td>
+                <td data-title="Crear" class="text-center" (dblclick)="op['CREAR'] = !op['CREAR']">
+                  <span [class]="classStatus(op['CREAR'])"></span>
+                </td>
+                <td data-title="Actualizar" class="text-center" (dblclick)="op['ACTUALIZAR'] = !op['ACTUALIZAR']">
+                  <span [class]="classStatus(op['ACTUALIZAR'])"></span>
+                </td>
+                <td data-title="Borrar" class="text-center" (dblclick)="op['BORRAR'] = !op['BORRAR']">
+                  <span [class]="classStatus(op['BORRAR'])"></span>
+                </td>
+                <td data-title="Imprimir" class="text-center" (dblclick)="op['IMPRIMIR'] = !op['IMPRIMIR']">
+                  <span [class]="classStatus(op['IMPRIMIR'])"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="form-inline mt-3">
+        <div class="col-6">
+          <button (click)="save()" class="btn btn-block btn-primary"><span class="fas fa-floppy-o fa-fw"></span>&nbsp;Guardar</button>
+        </div>
+        <div class="col-6">
+          <button (click)="cancel()" class="btn btn-block btn-danger"><span class="fas fa-undo fa-fw"></span>&nbsp;Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- {{options.length}} -->

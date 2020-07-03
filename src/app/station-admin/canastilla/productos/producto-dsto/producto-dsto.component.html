@@ -1,0 +1,82 @@
+<div id="main">
+    <div class="container py-3">
+        <fieldset class="px-4">
+
+            <div class="row text-center">
+                <div class="col-sm-12 ">
+                    <span class="h4 text-center">DESCUENTOS</span>
+                </div>
+            </div>
+
+            <div class="row  justify-content-center">
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <select class="form-control" [disabled]="stationCode" [(ngModel)]="stationSel">
+                            <option *ngFor="let item of stationsAll" [ngValue]="item">
+                                {{ item.nombreEstacion }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <p-calendar [(ngModel)]="Fecha" [showIcon]="true" disabled [locale]="es" dateFormat="dd/mm/yy">
+                    </p-calendar>
+                </div>
+
+            </div>
+            <div class="row my-2 table-responsive-sm">
+                <table class="table table-sm table-responsive-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" class="text-center">Id</th>
+                            <th scope="col" class="text-center">Código</th>
+                            <th scope="col" class="text-center">Artículo</th>
+                            <th scope="col" class="text-center">Precio</th>
+                            <th scope="col" class="text-center">Detalles</th>
+                            <th scope="col" class="text-center">Cant.</th>
+                            <th scope="col" class="text-center">Descuento</th>
+                            <th scope="col" class="text-center">Total</th>
+                            <th scope="col" class="text-center"><i class="far fa-save"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let datos of Producto; index as i">
+                            <td scope="row" class="text-center">{{ datos.id }}</td>
+                            <td scope="row" class="text-center"> {{ datos.codContable }}</td>
+                            <td class="text-center">{{ datos.descripcion }}</td>
+                            <td class="text-center">{{ datos.precio | currency }}</td>
+                            <td class="text-center">
+                                <input type="text" id="detalle" placeholder="Detalles" [(ngModel)]="datos.detalles">
+                            </td>
+                            <td class="text-center">
+                                <input type="number"
+                                class="text-center"
+                                placeholder="0"  id="cantidad"
+                                [(ngModel)]="datos.cantidad"
+                                (keyup)="datos.total = datos.cantidad*datos.descuento">
+                                </td>
+                            <td class="text-center">
+                                <input  type="number"
+                                        placeholder="0"
+                                        class="tamano"
+                                        [(ngModel)]="datos.descuento"
+                                        (keyup)="datos.total = datos.cantidad*datos.descuento">
+                            </td>
+                            <td class="text-center">
+                                <input type="number" placeholder="0" class="tamano"[(ngModel)]="datos.total">
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-success btn-sm " (click)="GuardarDescuento(datos)">
+                                    <i class="far fa-save"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+
+    </div>
+
+</div>

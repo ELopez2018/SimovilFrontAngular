@@ -1,0 +1,68 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-1 justify-content-center">
+  <label class="control-label col-sm-1 m-0">Empleado</label>
+  <div class="input-group col-sm-4">
+    <span class="input-group-addon">
+      <i class="fas fa-user fa-fw"></i>
+    </span>
+    <input [(ngModel)]="searchEmployee" (keyup.enter)="getEmployee()" class="form-control" type="text"
+      name="searchEmployee" id="searchEmployee">
+  </div>
+  <div class="form-check col-sm-2 p-0 input-check">
+    <input [(ngModel)]="searchEmployeeStatus" class="mr-2" type="checkbox" value="true" id="searchEmployeeStatus">
+    <label class="form-check-label m-0 text-truncate" for="searchEmployeeStatus">
+      Activo
+    </label>
+  </div>
+  <div class="col-sm-3 btn-group justify-content-center" role="group">
+    <button class="btn btn-info" (click)="getEmployee()">
+      <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+    <button class="btn btn-warning" (click)="clearEmployee()">
+      <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+    </button>
+  </div>
+</div>
+<div class="table-wrapper" id="table-users-Search">
+  <div class="align-self-center no-more-tables" id="table-Users">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Usuario</th>
+          <th scope="col">Nombres</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Estación</th>
+          <th scope="col">Biométrico</th>
+          <th scope="col">Huella</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td data-title="Usuario" class="text-center">{{employee.numDocumento}}</td>
+          <td data-title="Nombres" class="text-center">{{employee.primerNombre}} {{employee.segundoNombre}}</td>
+          <td data-title="Apellidos" class="text-center">{{employee.primerApellido}} {{employee.segundoApellido}}</td>
+          <td data-title="Estado" class="text-center">{{employee.estado == true ? 'Activo' : 'Inactivo'}}</td>
+          <td data-title="Estación" class="text-center">{{getStationName(employee.estacion)}}</td>
+          <td data-title="Biométrico" class="text-center">{{employee.EnrollNumber}}</td>
+          <td data-title="Huella" class="text-center">
+            <span
+              [class]="employee.fingerprint ? 'fa fa-check-circle fa-fw text-success' : 'fa fa-times-circle fa-fw text-danger'"></span>
+          </td>
+          <td class="text-center">
+            <div id="btns">
+              <button (click)="addNovelty(employee)" class="btn btn-success btn-sm" title="Agregar Novedad">
+                <span class="fas fa-exclamation-circle fa-fw"></span>
+              </button>
+              <button (click)="editEmployee(employee)" class="btn btn-info btn-sm" title="Editar">
+                <span class="fas fa-pencil-alt fa-fw"></span>
+              </button>
+              <button (click)="deleteUser(employee)" class="btn btn-danger btn-sm" title="Borrar">
+                <span class="fas fa-trash-alt fa-fw"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

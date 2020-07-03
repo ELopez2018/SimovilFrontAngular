@@ -1,0 +1,148 @@
+input {
+    height: 2em;
+    font-size: 1em;
+    padding-left: .4em;
+    margin: 1px;
+    background: rgba(255, 255, 255, .3) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+}
+
+input:focus{
+    border-color: #66afe9 !important;
+}
+
+.tam400 {
+    width: 400px;
+}
+
+#ErrorLogin {
+    margin-top: 5px;
+}
+
+legend {
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 0;
+    text-shadow: 0 1.5px 4px #000000;
+    font-weight: bold;
+}
+
+#login {
+    margin-top: 7em;
+}
+
+label {
+    color: #ffffff;
+    font-size: 0.9rem;
+    margin-bottom: 0 !important;
+}
+
+.btn {
+    font-size: 0.9rem;
+}
+
+#containerLogin {
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    z-index: 100;
+    position: fixed;
+}
+
+#bg {
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    position: relative;
+    top: 0%;
+    bottom: 0%;
+    left: 0px;
+    z-index: -10;
+    position: fixed;
+    animation-name: blur;
+    animation-duration: 1.5s;
+}
+
+#version {
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    z-index: 100;
+    position: fixed;
+    text-align: center;
+    color: #ffffff;
+}
+
+@keyframes blur {
+    from {
+        filter: blur(5px) brightness(70%);
+    }
+    to {
+        filter: blur(0px) brightness(100%);
+    }
+}
+
+@media(min-width:320px) {
+    #bg {
+        background: url('/assets/img/fondo780.jpg') no-repeat center;
+        background-size: cover;
+    }
+}
+
+@media(min-width:781px) {
+    #bg {
+        background: url('/assets/img/fondo1024.jpg') no-repeat center;
+        background-size: cover;
+    }
+}
+
+#bg-overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+    top: 0%;
+    bottom: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: -5;
+}
+
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+}
+
+#rememberPass {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2;
+}
+
+#formUpdatePass {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    z-index: 4;
+}
+
+h5 {
+    color: #ffffff;
+    text-align: center;
+}
+
+#ResetPass {
+    cursor: default;
+    background-color: rgba(255, 255, 255, 0.87);
+    border-radius: 3px;
+}

@@ -1,0 +1,141 @@
+<div class="row text-center">
+    <div class="col-sm-12 ">
+        <span class="h4 text-center">Enviar Traslados de Productos</span>
+    </div>
+</div>
+
+<div class="row clearfix text-center">
+    <div class="col-sm-4">
+        <div class="form-group form-row p-0 form-inline mb-1 justify-content-center">
+            <label class="control-label m-0">Origen:&nbsp;</label>
+            <div class="input-group">
+                <select class="form-control display-block" [disabled]="stationCode"  [(ngModel)]="stationSelOrigen">
+                    <option *ngFor="let EstacionOrg of stationsAll" [ngValue]="EstacionOrg"> {{ EstacionOrg.nombreEstacion }} </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group form-row p-0 form-inline mb-1 justify-content-center">
+            <label class="control-label m-0">Destino:&nbsp; </label>
+            <div class="input-group">
+                <select class="form-control display-block" [(ngModel)]="stationSelDestino" (change)="CambiodeFecha()">
+                    <option *ngFor="let EstacionDest of stationsAll" [ngValue]="EstacionDest">{{
+                        EstacionDest.nombreEstacion
+                    }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+
+        <p-calendar [(ngModel)]="fecha" (change)="CambiodeFecha()" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy">
+        </p-calendar>
+
+    </div>
+</div>
+
+
+<!-- FROMULARIO DE VENTAS DE PROCUTOS -->
+<div class="container">
+    <div class="row head  pl-4 mb-2 pt-2 text-center">
+        <div class="col-sm-1 mr-1 ml-3 "> Id </div>
+        <div class="col-sm-1 "> &nbsp;&nbsp;Código </div>
+        <div class="col-sm-6 "> Descripcion </div>
+        <div class="col-sm-1 mr-3">Existencia</div>
+        <div class="col-sm-1 mr-3 "> Cantidad</div>
+        <div class="col-sm-1 ml-2">Observaciones</div>
+    </div>
+</div>
+<form class="mb-4">
+    <fieldset *ngIf="true" [@fade]="'in'" [formGroup]="ventas">
+        <div [@fade]="'in'" class="form-row" formArrayName="lista"
+            *ngFor="let item of ventas.get('lista')['controls']; let i = index">
+            <div [formGroupName]="i" class="item w-100">
+                <div class="form-row">
+                    <div class="col-sm-1 text-left float-right"> </div>
+                    <div class="form-group mb-1 col-sm-1">
+                        <!-- <label class="control-label">Id</label> -->
+                        <input [id]="'fecha_item' + i" readonly type="number"
+                            [class]="list.value[i].acredito ? 'form-control form-control-sm text-center bg-warning' : 'form-control form-control-sm text-center'"
+                            formControlName="idProducto" />
+                    </div>
+                    <div class="form-group  col-sm-1">
+                        <!-- <label class="control-label">Codigo</label> -->
+                        <input type="text" class="form-control form-control-sm text-center" readonly
+                            formControlName="codContable" />
+                    </div>
+                    <div class="form-group  col-sm-3">
+                        <!-- <label class="control-label">Descripcion</label> -->
+                        <div class="input-group">
+                            <div class="input-group-append"></div>
+                            <input type="text" readonly class="form-control form-control-sm" placeholder="Descripcion"
+                                formControlName="descripcion" />
+                        </div>
+                    </div>
+                    <div class="form-group  col-sm-1">
+                        <!-- <label class="control-label">Codigo</label> -->
+                        <input type="text" class="form-control form-control-sm text-center" readonly
+                            formControlName="existencia" />
+                    </div>
+                    <div class="form-group  col-sm-1">
+                        <div class="input-group">
+                            <input type="number" [id]="'Cantidad' + (i + 1)"
+                                class="form-control form-control-sm text-right ng-invalid" (blur)="comparar(i)"
+                                placeholder="0.00" formControlName="cantidad" />
+
+                            <!-- <input type="hide" class="form-control" *ngIf="false" formControlName="cliente" /> -->
+
+                        </div>
+                    </div>
+                    <div class="col-sm-2 ">
+                        <input class="form-control form-control-sm"  placeholder="Observaciones" type="text" formControlName="observaciones">
+                    </div>
+                    <div class="col-sm-1 ">
+                        <button class="btn btn-sm btn-danger " (click)="delItem(i)" title="Eliminar">
+                            <span class="fas fa-minus-circle  fa-fw"></span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-1 text-left float-right">
+        </div>
+        <div class="col-sm-1 text-left float-right">
+            <button class="btn btn-sm btn-primary" [title]="!stationSelDestino.idEstacion ? 'Debe seleccionar la Estacion Destino' : 'Agregue Artículos'" [disabled]="!stationSelDestino.idEstacion" (click)="Agregar()">
+                <span class="fas fa-plus-circle fa-2x fa-fw"></span>
+            </button>
+        </div>
+
+        <div class="form-row justify-content-around " *ngIf="visibleArray">
+            <div class="col-sm-2"> </div>
+            <div class="col-sm-4">
+                <button (click)="save()" [disabled]="!ventas.valid" class="btn btn-block btn-success">
+                    <span class="fas fa-save fa-fw"></span>&nbsp;Guardar
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <button (click)="cancel()" class="btn btn-block btn-danger">
+                    <span class="fas fa-trash-alt fa-fw"></span>&nbsp;Cancelar
+                </button>
+            </div>
+        </div>
+    </fieldset>
+    <!-- <pre>
+        {{ ventas }}
+    </pre> -->
+
+</form>
+<div #botonplus class="mb-4 mt-4"></div>
+
+<!-- FIN FROMULARIO DE VENTAS DE PROCUTOS -->
+
+<app-modal-dialog (hide)="VerLista = false" [visible]="VerLista">
+    <app-list-productos *ngIf="VerLista" (submiter)="ProductoSelecionado($event,botonplus)" [date3]="fecha" [stationCode]="stationSelDestino.idEstacion"  [msjTrasla]="stationSelDestino.nombreEstacion" ></app-list-productos>
+</app-modal-dialog>
+
+<app-modal-dialog (hide)="listClientCred = false" [visible]="listClientCred">
+    <app-lista-clientes (submiter)="clienteElegido($event,botonplus)"></app-lista-clientes>
+</app-modal-dialog>

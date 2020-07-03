@@ -1,0 +1,105 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-0 justify-content-center">
+    <div class="row col-sm-12 pb-1">
+        <div class="input-group col-sm-3">
+            <div class="input-group-prepend">
+                <button id="btnClient" class="btn btn-outline-secondary left" type="button" (click)="openModCli()">
+                    <span class="far fa-hand-pointer fa-fw"></span>
+                </button>
+            </div>
+            <input [(ngModel)]="client.codCliente" [disabled]="id!=null" required class="form-control" type="number"
+                name="codclient" id="codclient">
+        </div>
+        <div class="input-group col-sm-6">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i></span>
+              </div>
+            <input [(ngModel)]="client.nombre" disabled class="form-control" type="text" name="nameclient"
+                id="nameclient">
+        </div>
+        <div *ngIf="id!=null" class="col-sm-2">
+            <button class="btn btn-danger btn-block" (click)="back()">
+                <span class="fas fa-undo fa-fw"></span>&nbsp;Atras</button>
+        </div>
+        <div *ngIf="id==null" class="col-sm-2">
+            <button class="btn btn-info btn-block" (click)="searchClient()" [disabled]="client.codCliente==null">
+                <span class="fas fa-search fa-fw"></span>&nbsp;Consultar</button>
+        </div>
+    </div>
+    <div class="row col-sm-12 pb-1">
+        <label class="control-label col-sm-1 m-0">Desde:</label>
+        <div class="input-group col-sm-3">
+            <span class="input-group-addon">
+                <i class="fas fa-calendar fa-fw"></i>
+            </span>
+            <input [(ngModel)]="searchConsumoFechaIni" required class="form-control" type="date"
+                name="fechaIniConsumoSearch" id="fechaIniConsumoSearch">
+        </div>
+        <label class="control-label col-sm-1 m-0">Hasta:</label>
+        <div class="input-group col-sm-3">
+            <span class="input-group-addon">
+                <i class="fas fa-calendar fa-fw"></i>
+            </span>
+            <input [(ngModel)]="searchConsumoFechaFin" required class="form-control" type="date"
+                name="fechaFinConsumoSearch" id="fechaFinConsumoSearch">
+        </div>
+        <div class="col-sm-3 btn-group justify-content-center" role="group">
+            <button id="btnSearch" class="btn btn-info" (click)="getConsumptionSearch()">
+                <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+            <button class="btn btn-warning" (click)="cleanConsumptionSearch()">
+                <span class="fas fa-eraser fa-fw"></span>
+            </button>
+            <button class="btn btn-success" (click)="printConsumptionSearch()"
+                [disabled]="searchConsumos == null || searchConsumos.length == 0">
+                <span class="fa fa-print fa-fw"></span>
+            </button>
+            <button class="btn btn-secondary" (click)="csvConsumptionSearch()"
+                [disabled]="searchConsumos == null || searchConsumos.length == 0">
+                <span class="fas fa-file-download fa-fw"></span>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="table-wrapper" id="table-Consumption-Search">
+    <div id="print-consumption" class="align-self-center no-more-tables">
+        <table class="table table-hover table-sm table-striped">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">Fecha Consumo</th>
+                    <th scope="col">Hora Consumo</th>
+                    <th scope="col" *ngIf="!(client && client.codCliente)">Cliente</th>
+                    <th scope="col">Tiquete</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Placa</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Pedido</th>
+                    <th scope="col">Estacion</th>
+                    <th scope="col">Cuenta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let consumo of searchConsumos">
+                    <td data-title="Fecha consumo" class="text-center">
+                        {{consumo.fechaConsumo | date:'dd/MM/yyyy' : '+0000'}}</td>
+                    <td data-title="Hora consumo" class="text-center">
+                        {{consumo.horaConsumo | date: 'mediumTime':'+0000'}}</td>
+                    <td data-title="Cliente" class="text-center" *ngIf="!(client && client.codCliente)">
+                        {{consumo.nombreCliente}}</td>
+                    <td data-title="Tiquete" class="text-center">{{consumo.ConsecutivoEstacion}}</td>
+                    <td data-title="Cantidad" class="text-right">{{consumo.cantidad}}</td>
+                    <td data-title="Placa" class="text-center">{{consumo.placa}}</td>
+                    <td data-title="Valor" class="text-right">{{consumo.valor | currency }}</td>
+                    <td data-title="Pedido" class="text-center">{{consumo.idPedido}}</td>
+                    <td data-title="Estacion" class="text-center">{{getNameStation(consumo.estacionConsumo)}}</td>
+                    <td data-title="Cuenta de cobro" class="text-center">{{consumo.numCuentaCobro}}</td>
+                </tr>
+                <tr *ngIf="searchConsumos != null">
+                    <td colspan="5"></td>
+                    <td>Total = {{sumConsumption() | currency}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<app-modal-dialog [visible]="booleanClient" (hide)="booleanClient=false">
+    <app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
+</app-modal-dialog>

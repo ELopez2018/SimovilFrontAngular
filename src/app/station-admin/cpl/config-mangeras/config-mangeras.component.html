@@ -1,0 +1,161 @@
+<div class="row text-center">
+    <div class="col-sm-12 ">
+        <span class="h4 text-center">CONFIGURACIÓN DE PRECIOS</span>
+    </div>
+</div>
+
+<div class="container-fluid my-4">
+    <div class="row  justify-content-center">
+        <div class="col-sm-3">
+            <div class="input-group">
+                <select class="form-control" (change)="CambiaEstacion()" [disabled]="stationCode"
+                    [(ngModel)]="stationSel">
+                    <option *ngFor="let item of stationsAll" [ngValue]="item">{{
+                        item.nombreEstacion
+                    }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <p-calendar [(ngModel)]="Fecha" (click)="CambiaEstacion()" [showIcon]="true" [locale]="es"
+                dateFormat="dd/mm/yy">
+            </p-calendar>
+        </div>
+
+    </div>
+</div>
+
+<div class="main my-4 " id="main">
+    <div class="container my-2">
+        <div class="row  justify-content-center">
+            <div class="col-sm-9">
+                <fieldset>
+                    <legend class="text-center h2">Precios de Artículos</legend>
+                    <table class="table table-striped table-sm table-hover table-responsive-sm">
+                        <thead class="p-3 mb-2 bg-secondary text-white">
+                            <tr>
+                                <!-- <th scope="col" class="text-center">Id</th> -->
+                                <th scope="col" class="text-center">No</th>
+                                <th scope="col" class="text-center">Id</th>
+                                <th scope="col" class="text-center">Artículo</th>
+                                <th scope="col" class="text-center">Precio Anterior</th>
+                                <th scope="col" class="text-center">Precio Actual</th>
+                                <th scope="col" class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let articulo of articulos; index as i">
+                                <td class="text-center">{{ i+1 }}</td>
+                                <td class="text-center">{{  articulo.ID_ARTICULO }}</td>
+                                <td class="text-center"> {{ articulo.DESCRIPCION }}</td>
+                                <td class="text-center"> {{ articulo.VALOR_ANT | number: '.2-3'  }}</td>
+                                <td class="text-right">
+
+                                    <span   (dblclick)="CambiarValorArt(articulo)" class="Personalizable">
+                                        {{ articulo.VALOR | number: '.2-3'   }} </span>
+
+                                    <i class="fas fa-check-double" *ngIf="articulo.CAM_VAL"></i>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-success btn-sm mr-1"
+                                        title="Guardar los Cambios">
+                                        <i class="far fa-save"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-sm mr-1"
+                                        title="Aplica los cambios en todas las Mangueras"
+                                        (click)="UpdateTodasMangueras(articulo)">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </div>
+            <!-- <div class="col-sm-6">
+                <fieldset>
+                    <legend class="text-center h2">Opciones</legend>
+                    <table class="table table-striped table-sm table-hover">
+                        <thead class="p-3 mb-2 bg-info text-white">
+                            <tr>
+                                <th scope="col" class="text-center">No</th>
+                                <th scope="col" class="text-center">Id</th>
+                                <th scope="col" class="text-center">Artículo</th>
+                                <th scope="col" class="text-center">Precio Anterior.</th>
+                                <th scope="col" class="text-center">Precio Actual.</th>
+                                <th scope="col" class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let articulo of articulos; index as i">
+                                <td class="text-center">{{ i+1 }}</td>
+                                <td class="text-center">{{  articulo.ID_ARTICULO }}</td>
+                                <td class="text-center"> {{ articulo.DESCRIPCION }}</td>
+                                <td class="text-center"> {{ articulo.VALOR_ANT | number: '.2-3'  }}</td>
+                                <td class="text-center"> {{ articulo.VALOR | number: '.2-3'   }} </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-success btn-sm mr-1"
+                                        title="Guardar los Cambios">
+                                        <i class="far fa-save"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div class="main mb-4" id="main">
+    <div class="container mb-4">
+        <div class="row">
+            <table class="table table-striped table-sm table-hover">
+                <thead class="p-3 mb-2 bg-primary text-white">
+                    <tr>
+                        <!-- <th scope="col" class="text-center">Id</th> -->
+                        <th scope="col" class="text-center">No</th>
+                        <th scope="col" class="text-center">Id</th>
+                        <th scope="col" class="text-center">Isla</th>
+                        <th scope="col" class="text-center">Surt.</th>
+                        <th scope="col" class="text-center">Mang.</th>
+                        <th scope="col" class="text-center">Producto</th>
+                        <th scope="col" class="text-center">Tipo</th>
+                        <th scope="col" class="text-center">Precio</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let manguera of mangueras; index as i">
+                        <td class="text-center">{{ i+1 }}</td>
+                        <td class="text-center">{{  manguera.ID }}</td>
+                        <td class="text-center"> {{ manguera.ISLA }}</td>
+                        <td class="text-center"> {{ manguera.SURTIDOR }}</td>
+                        <td class="text-center"> {{ manguera.MANGUERA  }}</td>
+                        <td> {{ manguera.PRODUCTO  }}</td>
+                        <td> {{ manguera.TIPO  }} </td>
+                        <td class="text-right"> <span class="Personalizable"
+                                (dblclick)="CambiarValorArt(manguera)">{{  manguera.PRECIO | number:'.2-3' }}
+                                <!-- <i class="fas fa-check"></i> -->
+                                <i class="fas fa-check-double" *ngIf="manguera.UpdPrecio"></i>
+                            </span>
+
+                            <!-- <input *ngIf="manguera.UpdPrecio" (keyup.escape)="manguera.UpdPrecio= !manguera.UpdPrecio"
+                                (keyup.enter)="CambioPrecio(manguera); manguera.UpdPrecio= !manguera.UpdPrecio"
+                                type="number" class="form-control form-control-sm text-right" placeholder="0"
+                                [(ngModel)]=" manguera.PRECIO" required> -->
+
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-success btn-sm mr-1" title="Guardar los Cambios"
+                                (click)="GuardarCambios(manguera)">
+                                <i class="far fa-save"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div id="main" class="my-4">
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped table-sm table-responsive">
+                <thead class="p-3 mb-2 bg-primary text-white">
+                    <tr>
+                        <th scope="col" class="text-center">ID</th>
+                        <th scope="col" class="text-center">iNCAPACIDAD</th>
+                        <th scope="col" class="text-center">FECHA PAGO</th>
+                        <th scope="col" colspan="2" class="text-center">VALOR</th>
+                        <th scope="col" class="text-center">MontoPago</th>
+                        <th scope="col" class="text-center">ValorPagado</th>
+                        <th scope="col" class="text-center">N° Pago</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor= "let pago of Pagos; index as i">
+                        <td class="text-center">{{ pago.id  }}</td>
+                        <td class="text-center">{{ pago.incapacidad  }}</td>
+                        <td class="text-center"> {{ pago.fecha | date:"dd/MM/yyyy" }}</td>
+                        <td>
+                            <!-- {{ pago.valor }} -->
+                            <input type="text"  class="form-control" currencyMask [(ngModel)]="pago.valor" >
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-success btn-sm mr-1" title="Guardar los Cambios"
+                                (click)="UpdatePago(pago)">
+                                <i class="far fa-save"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm " title="Borrar la Lectura">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+
+                        </td>
+                        <td class="text-center"> {{ pago.VALORPAGO | currency }}</td>
+                        <td class="text-center"> {{ pago.valorPagado | currency }}</td>
+                        <td class="text-center"> {{ pago.pago }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

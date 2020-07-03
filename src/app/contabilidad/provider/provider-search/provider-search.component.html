@@ -1,0 +1,57 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-1 justify-content-center">
+  <label class="control-label col-sm-1 m-0">Proveedor</label>
+  <div class="input-group col-sm-4">
+    <span class="input-group-addon">
+      <i class="fas fa-user fa-fw"></i>
+    </span>
+    <input [(ngModel)]="searchId" (keyup.enter)="getProviders()" class="form-control" type="text" name="searchId" id="searchId">
+  </div>
+  <div class="form-check col-sm-2 p-0 input-check">
+    <input [(ngModel)]="searchStatus" class="mr-2" type="checkbox" value="Activo" id="searchStatus">
+    <label class="form-check-label m-0 text-truncate" for="searchStatus">
+      Activo
+    </label>
+  </div>
+  <div class="col-sm-3 btn-group justify-content-center" role="group">
+    <button class="btn btn-info" (click)="getProviders()">
+      <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+    <button class="btn btn-warning" (click)="clearUsers()">
+      <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+    </button>
+  </div>
+</div>
+<div class="table-wrapper" id="table-users-Search">
+  <div class="align-self-center no-more-tables" id="table-Users">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Nit</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let provider of providers">
+          <td data-title="Nit" class="text-center">{{provider.nit}}-{{provider.dv}}</td>
+          <td data-title="Nombre" class="text-center">{{provider.nombre}}</td>
+          <td data-title="Correo" class="text-center">{{provider.email}}</td>
+          <td data-title="Telefono" class="text-center">{{provider.telefono}}</td>
+          <td data-title="Estado" class="text-center">{{provider.estado == true ? 'Activo' : 'Inactivo'}}</td>
+          <td class="text-center">
+            <div id="btns">
+              <button (click)="editProvider(provider)" class="btn btn-info btn-sm" title="Editar">
+                <span class="fas fa-user-edit fa-fw"></span>
+              </button>
+              <button (click)="deleteProvider(provider)" class="btn btn-danger btn-sm" title="Borrar">
+                <span class="fas fa-trash-alt fa-fw"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

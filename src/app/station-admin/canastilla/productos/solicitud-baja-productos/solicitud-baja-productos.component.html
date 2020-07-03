@@ -1,0 +1,104 @@
+<!-- INVENTARIO INICIAL -->
+<div class="row text-center">
+    <div class="col-sm-12 ">
+        <span class="h2 text-center">SOLICITUDES</span>
+    </div>
+</div>
+
+
+
+<table class="table table-sm table-responsive-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" class="text-center">No</th>
+            <th scope="col" class="text-center">Id</th>
+            <th scope="col" class="text-center">Estación</th>
+            <th scope="col" class="text-center">Fecha Solicitud</th>
+            <th scope="col" class="text-center">Código</th>
+            <th scope="col" class="text-center">Producto(s)</th>
+
+
+            <th scope="col" class="text-center">Cantidad</th>
+            <th scope="col" class="text-center">Motivo</th>
+            <th scope="col" class="text-center" *ngIf="Area === 11 || Area === 3">
+                Opera.
+            </th>
+            <th scope="col" class="text-center" *ngIf="Area === 11 || Area === 5">
+                Contab.
+            </th>
+            <th scope="col" class="text-center" *ngIf="Area === 11 || Area === 8">
+                Audit.
+            </th>
+            <th scope="col" class="text-center" *ngIf="Area === 11">
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor= "let solicitud of Solicitudes; index as i" >
+            <td scope="row" class="text-center">
+                {{ solicitud.id }}
+            </td>
+            <td scope="row" class="text-center">
+                {{ solicitud.idProducto }}
+            </td>
+            <td class="text-center">{{ solicitud.Estacion }}</td>
+            <td class="text-center">
+                {{ solicitud.Fecha | date: "shortDate" }}
+            </td>
+            <td class="text-center">{{ solicitud.codContable }}</td>
+            <td class="text-center">{{ solicitud.Producto }}</td>
+            <td class="text-center">{{ solicitud.cantidad }}</td>
+            <td class="text-center">{{ solicitud.Motivo }}</td>
+
+            <td class="text-center" *ngIf="Area == 11 || Area == 3">
+                <span [class]="
+                        solicitud.Operaciones
+                            ? 'fa fa-check-circle fa-2x fa-fw text-success'
+                            : 'fa fa-times-circle fa-2x fa-fw text-danger'
+                    " (click)="CambiarOPera(solicitud)">
+                </span>
+            </td>
+
+            <td class="text-center" *ngIf="Area === 11 || Area === 5">
+                <span [class]="
+                        solicitud.Contabilidad
+                            ? 'fa fa-check-circle  fa-2x fa-fw text-success'
+                            : 'fa fa-times-circle fa-2x fa-fw text-danger'
+                    " (click)="CambiarConta(solicitud)" *ngIf="solicitud.Operaciones">
+                </span>
+            </td>
+
+            <td class="text-center" *ngIf="Area === 11 || Area === 8">
+                <span [class]="
+                        solicitud.Auditoria
+                            ? 'fa fa-check-circle fa-2x fa-fw text-success'
+                            : 'fa fa-times-circle fa-2x fa-fw text-danger'
+                    " (click)="CambiarAudito(solicitud)" *ngIf="solicitud.Operaciones && solicitud.Contabilidad">
+                </span>
+            </td>
+
+            <td class="text-center" *ngIf="Area === 11">
+                <button type="button" class="btn btn-danger">
+                    <i class="far fa-trash-alt fa-1x fa-fw "></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="!cargando && Solicitudes.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+    <h4 class="alert-heading">No hay registros</h4>
+    <p>
+        <i class="fa fa-exclamation fa-2x"></i>
+    </p>
+</div>
+<div *ngIf="cargando" class="alert alert-info text-center mt-3 animated fadeIbn faster">
+    <h4 class="alert-heading">Cargando</h4>
+    <p>
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
+    </p>
+    <p class="mb-0">
+        Espere por favor
+    </p>
+</div>

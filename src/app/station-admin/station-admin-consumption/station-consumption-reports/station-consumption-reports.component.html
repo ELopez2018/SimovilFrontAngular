@@ -1,0 +1,62 @@
+<div class="row titulo text-center">
+    <div class="col-sm-12 h4 strong"> REPORTES DE CONSUMOS </div>
+</div>
+
+<fieldset>
+    <legend>Parámetros</legend>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            <label for="estaciones" class="control-label">Estación</label>
+            <select class="form-control form-control-sm" [disabled]="stationCode" id="estaciones"
+                [(ngModel)]="stationSel">
+                <option *ngFor="let estacion of stationsAll" [ngValue]="estacion">{{ estacion.nombreEstacion }}</option>
+            </select>
+        </div>
+        <div class="col-sm-3">
+
+            <label for="cliente" class="control-label">Cliente</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button id="btnClient" class="btn btn-outline-secondary left btn-sm" (click)="boolClientF()">
+                        <span class="far fa-hand-pointer fa-fw"></span>
+                    </button>
+                </div>
+                <input id="cliente" type="text" class="form-control form-control-sm" placeholder="Cliente"
+                    [(ngModel)]="clientSel.nombre" />
+            </div>
+
+        </div>
+        <div class="col-sm-2">
+            <label for="desde" class="control-label">Desde</label>
+            <input type="date" id="desde"  class="form-control form-control-sm" [(ngModel)]="desde" />
+        </div>
+        <div class="col-sm-2">
+            <label for="hasta" class="control-label">Hasta</label>
+            <input type="date" id="hasta" class="form-control form-control-sm" [(ngModel)]="hasta" />
+
+        </div>
+        <div class="col-sm-2 mt-4">
+            <button class="btn btn-outline-primary btn-sm btn-block" (click)="imprimirReporte()"> <i class="far fa-eye"></i> &nbsp; VER</button>
+        </div>
+    </div>
+</fieldset>
+
+<app-modal-dialog (hide)="boolClient = false" [visible]="boolClient">
+    <app-comp-search-client (submiter)="assignClient($event)"></app-comp-search-client>
+</app-modal-dialog>
+
+<div id="main" class="mt-1 mb-4 pb-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12">
+                <div #prueba></div>
+                <app-report-ssrs #target [show]="showReport" [https]="true"
+                    serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport"
+                    [parameters]="params" [width]="widthReport" [showParameter]="false" class="animated fadeIn slow">
+                </app-report-ssrs>
+
+            </div>
+        </div>
+
+    </div>
+</div>

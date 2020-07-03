@@ -1,0 +1,40 @@
+<button (click)="autoCreate()" class="btn btn-success">Auto crear radicados</button>
+<button (click)="updateAll(true)" class="btn btn-primary">Todo</button>
+<button (click)="updateAll(false)" class="btn btn-secondary">Nada</button>
+<div class="col-sm-12">
+    <div class="table-wrapper">
+        <div class="align-self-center no-more-tables" id="table-Vehicles">
+            <table class="table table-hover table-sm table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">Id</th>
+                        <th scope="col">Empleado</th>
+                        <th scope="col" title="EG :&#x9;Enfermedad General&#xA;AT:&#x9;Accidente de trabajo&#xA;LM:&#x9;Licencia de maternidad">Motivo</th>
+                        <th scope="col">Responsable</th>
+                        <th scope="col">Desde</th>
+                        <th scope="col">Hasta</th>
+                        <th scope="col">Días</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Selecccionado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let disability of disabilities" [@fade]="'in'">
+                        <td data-title="Número" class="text-center">{{disability.id}}</td>
+                        <td data-title="Empleado" class="text-center">{{disability.primerNombre + ' ' +
+                            disability.primerApellido}}</td>
+                        <td data-title="Motivo" class="text-center">{{getMotiveName(disability.motivo)}}</td>
+                        <td data-title="Responsable" class="text-center">{{getAdminstratorName(disability.administradora)}}</td>
+                        <td data-title="Desde" class="text-center">{{disability.fechaIni | date: 'dd/MM/yy' : '+0000'}}</td>
+                        <td data-title="Hasta" class="text-center">{{disability.fechaFin | date: 'dd/MM/yy' : '+0000'}}</td>
+                        <td data-title="Días" class="text-center">{{disability.dias}}</td>
+                        <td data-title="Estado" class="text-center">{{getStatusName(disability.estado)}}</td>
+                        <td data-title="Seleccionar" class="text-center" (dblclick)="updateDisability(disability)">
+                            <span [class]="disability.radicar ? 'fa fa-check-circle fa-fw text-success' : 'fa fa-times-circle fa-fw text-danger'"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

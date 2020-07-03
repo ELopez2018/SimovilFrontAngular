@@ -1,0 +1,65 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-1 justify-content-center">
+  <label class="control-label col-sm-1 m-0">Perfil</label>
+  <div class="input-group col-sm-4">
+    <span class="input-group-addon">
+      <i class="fas fa-user fa-fw"></i>
+    </span>
+    <input appAutofocus [(ngModel)]="searchString" (keyup.enter)="getProfiles()" class="form-control" type="text" name="searchUserid"
+      id="searchUserid">
+  </div>
+  <!-- <div class="form-check col-sm-2 p-0 input-check">
+      <input [(ngModel)]="searchStatus" class="mr-2" type="checkbox" value="Activo" id="searchUserStatus">
+      <label class="form-check-label m-0 text-truncate" for="searchUserStatus">
+        Activo
+      </label>
+    </div> -->
+  <div class="col-sm-3 btn-group justify-content-center" role="group">
+    <button class="btn btn-info" (click)="getProfiles()">
+      <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+    <button class="btn btn-warning" (click)="clear()">
+      <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+    </button>
+  </div>
+</div>
+<div class="table-wrapper" id="table-users-Search">
+  <div class="align-self-center no-more-tables" id="table-Users">
+    <table class="table table-hover table-sm table-striped table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Id</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Editado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let val of profiles">
+          <td data-title="Id" class="text-center">{{val.ID}}</td>
+          <td data-title="Nombre" class="text-center">{{val.NOMBRE}}</td>
+          <td data-title="Descripción" class="text-center">{{val.DESCRIPCION}}</td>
+          <td data-title="Editado" class="text-center">{{val.USUARIO}}</td>
+          <td data-title="Acciones" class="text-center">
+            <div id="btns">
+              <button (click)="edit(val)" class="btn btn-info btn-sm" title="Editar">
+                <span class="fas fa-pencil-alt fa-fw"></span>
+              </button>
+              <button (click)="delete(val)" class="btn btn-danger btn-sm" title="Borrar">
+                <span class="fas fa-trash-alt fa-fw"></span>
+              </button>
+              <button (click)="permission(val)" class="btn btn-success btn-sm" title="Permisos">
+                Permisos
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-modal-dialog [visible]="boolEdit" (hide)="boolEdit = false">
+  <app-profile-edit [profile]="profileSel" (submiter)="resultEdit($event)"></app-profile-edit>
+</app-modal-dialog>
+<app-modal-dialog [visible]="boolPermission" (hide)="boolPermission = false">
+  <app-permission [profile]="profileSel" (submiter)="boolPermission = false"></app-permission>
+</app-modal-dialog>

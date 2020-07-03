@@ -1,0 +1,8 @@
+label {
+    margin-bottom: 0px !important;
+}
+
+th {
+    user-select: none;
+    cursor: pointer;
+}

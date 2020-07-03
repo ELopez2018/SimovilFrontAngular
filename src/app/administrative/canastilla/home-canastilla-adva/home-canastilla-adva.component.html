@@ -1,0 +1,88 @@
+<!-- <div class="container">
+    <div class="row no-gutters">
+        <div class="col-sm-2 mt-1 ml-1"  *ngFor="let estacion of stationsAll" >
+            <div class="card">
+                <img class="card-img-top" src="./../../../../assets/img/mixta.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title text-center h7">EDS. {{ estacion.nombreEstacion }}</h5>
+                    <p class=" text-center">
+                        <strong> {{ estacion.ventaBruta | currency }} </strong>
+                        <br> <span class="badge badge-primary">VENTAS</span>
+                        <br> <strong> {{ estacion.utilidad | currency }} </strong>
+                        <br> <span class="badge badge-success">UTILIDAD</span>
+                        <br> <strong>{{ estacion.fechaUltimoRegistro | date:'dd/MM/yy'}} </strong>
+                    </p>
+                    <p class=" text-center"></p>
+                    <p class=" text-center"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> -->
+
+<div class="container justify-content-center mt-4">
+    <div class="row justify-content-center">
+        <div class="col-sm-8 justify-content-center">
+            <table class="table table-sm table-striped animated table-responsive-sm fadeIn fast table-hover  table-bordered mb-4 ">
+                <thead class="thead-dark ">
+                    <tr>
+                        <th scope="col" class="text-center">N°</th>
+                        <th scope="col" class="text-center">Cód</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col" class="text-center">Venta Bruta</th>
+                        <th scope="col" class="text-center">Utilidad</th>
+                        <th scope="col" colspan="2" class="text-center">Ultimo Registro</th>
+                        <!-- <th scope="col" class="text-center"><i class="fas fa-info"></i></th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let estacion of stationsAll; index as i" >
+                        <td class="text-center" *ngIf="estacion.ventaBruta">
+                            {{ i+ 1  }}
+                        </td>
+                        <td class="text-center" *ngIf="estacion.ventaBruta">
+                            {{ estacion.idEstacion }}
+                        </td>
+                        <td *ngIf="estacion.ventaBruta">
+                            {{ estacion.nombreEstacion }}
+                        </td>
+                        <td class="text-center"*ngIf="estacion.ventaBruta"> {{ estacion.ventaBruta | currency }}</td>
+
+                        <td class="text-center" *ngIf="estacion.ventaBruta">
+                            {{ estacion.utilidad | currency  }}
+                        </td>
+                        <td class="text-center" *ngIf="estacion.ventaBruta">
+                            {{ estacion.fechaUltimoRegistro | date: "dd/MM/yyyy" }}
+                        </td>
+                        <td *ngIf="estacion.ventaBruta" >
+                            <button class="btn btn-info btn-sm" title="Detalles" (click)="VerModal(estacion)"><i
+                                    class="fas fa-info"></i></button>
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+                <tfoot class="thead-dark">
+                    <tr>
+                        <th colspan="3" scope="col" class="text-center">Totales</th>
+                        <th scope="col" class="text-center" title ="Total Ventas Brutas">{{  totalVentasBrutas | currency }}</th>
+                        <th scope="col" class="text-center" title ="Total Utilidad Neta">{{  totalUtilidad | currency }}</th>
+                        <th scope="col" colspan="2" class="text-center" title="Porcentaje de Utilidad Neta" > {{ totalUtilidad/(totalVentasBrutas- totalUtilidad) | percent:'.2-2' }} </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<app-modal-dialog (hide)="boolNovelty = false" [visible]="boolNovelty">
+    <app-report-ssrs #target [show]="boolNovelty" [https]="true"
+        serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params"
+        [width]="widthReport" [showParameter]="false">
+    </app-report-ssrs>
+
+</app-modal-dialog>

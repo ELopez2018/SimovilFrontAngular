@@ -1,0 +1,54 @@
+<form [formGroup]="updateFiledForm" novalidate class="form-horizontal">
+  <fieldset>
+    <legend class="text-center">Radicado</legend>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Número:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-address-card fa-fw"></i>
+        </span>
+        <input type="number" class="form-control" formControlName="numero">
+      </div>
+      <label class="control-label col-sm-2">Responsable:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fa fa-user fa-fw"></i>
+        </span>
+        <input type="text" class="form-control" formControlName="administradora">
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Fecha Radicado:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fas fa-calendar fa-fw"></i>
+        </span>
+        <input type="date" class="form-control" formControlName="fecha">
+      </div>
+      <label class="control-label col-sm-2">Metodo Envío:</label>
+      <div class="input-group col-sm-4">
+        <select class="form-control" formControlName="metodo">
+          <option *ngFor="let metodo of metodos" [ngValue]="metodo">{{metodo.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Detalle:</label>
+      <div class="input-group col-sm-4">
+        <textarea class="form-control" formControlName="detalle" cols="150" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="form-group form-inline">
+      <div class="col-sm-6">
+        <button (click)="radicar()" class="btn btn-block btn-primary" [disabled]="!updateFiledForm.valid">
+          <span class="fas fa-floppy-o fa-fw"></span>&nbsp;Guardar
+        </button>
+      </div>
+      <div class="col-sm-6">
+        <button (click)="cancel()" class="btn btn-block btn-danger">
+          <span class="fas fa-undo fa-fw"></span>&nbsp;Cancelar
+        </button>
+      </div>
+    </div>
+  </fieldset>
+</form>

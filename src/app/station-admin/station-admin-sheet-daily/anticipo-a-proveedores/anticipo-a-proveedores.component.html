@@ -1,0 +1,95 @@
+<div id="main" class="py-5 pr-5 my-4 mr-4">
+    <div class="container py-4 pr-4 m-4">
+        <fieldset>
+            <legend>Datos del Anticipo</legend>
+            <form [formGroup]="formulario" (submit)="submit()">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button
+                                    class="btn btn-outline-secondary btn-sm"
+                                    (click)="boolProvider = true"
+                                    type="button"
+                                >
+                                    <li class="far fa-hand-pointer fa-fw"></li>
+                                </button>
+                            </div>
+                            <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                readonly
+                                placeholder="NIT"
+                                aria-label=""
+                                aria-describedby="basic-addon1"
+                                formControlName="nitProvedor"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            readonly
+                            placeholder="Nombre del Proveedor"
+                            aria-label=""
+                            aria-describedby="basic-addon1"
+                            formControlName="nombreProvee"
+                        />
+                    </div>
+                    <div class="col-sm-3">
+                        <input
+                            type="date"
+                            class="form-control form-control-sm text-center"
+                            placeholder="01/01/2020"
+                            aria-label=""
+                            aria-describedby="basic-addon1"
+                            formControlName="fecha"
+                        />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <input
+                            type="text"
+                            class="form-control form-control-sm text-uppercase"
+                            placeholder="Detalles"
+                            aria-label=""
+                            aria-describedby="basic-addon1"
+                            formControlName="detallesAntpo"
+                        />
+                    </div>
+                    <div class="col-sm-3">
+                        <input
+                            type="text"
+                            class="form-control form-control-sm text-right"
+                            placeholder="$ 0.00"
+                            aria-label=""
+                            aria-describedby="basic-addon1"
+                            formControlName="valorAntpo"
+                            currencyMask
+                        />
+                    </div>
+                </div>
+                <div class="row mt-3 d-flex justify-content-center no-gutters">
+                    <div class="col-sm-2">
+                        <button class="btn btn-primary btn-block" [disabled]="formulario.invalid" >
+                            Incluir
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-danger btn-block" type="button" (click)="refrescarForm()" >
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+</div>
+
+<app-modal-dialog (hide)="boolProvider = false" [visible]="boolProvider">
+    <app-comp-search-provider
+        (submiter)="assignProvider($event)"
+    ></app-comp-search-provider>
+</app-modal-dialog>

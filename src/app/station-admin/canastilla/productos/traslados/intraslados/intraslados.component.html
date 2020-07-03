@@ -1,0 +1,46 @@
+<div class="row text-center">
+    <div class="col-sm-12 my-2">
+        <span class="h4 text-center ">Recibir Traslados de Productos</span>
+    </div>
+</div>
+<!-- <form  (ngSubmit)="GuardarVenta(forma)" #forma="ngForm"novalidate="novalidate"> -->
+<div class="container">
+    <table class="table table-sm table-hover table-responsive-sm mb-5">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="text-center">Id</th>
+                <th scope="col" class="text-center">Estación Envía</th>
+                <th scope="col" class="text-center">Fecha Envío</th>
+                <th scope="col" class="text-center">Código</th>
+                <th scope="col" class="text-center">Descripción</th>
+                <th scope="col" class="text-center">Cantidad</th>
+                <th scope="col" class="text-center">Observación</th>
+                <th scope="col" class="text-center">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of productos; index as i">
+                <th scope="row" class="text-center">
+                    {{ producto.id }}
+                </th>
+                <td class="text-center">{{ producto.EstacionEnvia }}</td>
+                <td class="text-center">{{ producto.FechaEnvio  }}</td>
+                <td class="text-center">{{ producto.codContable }}</td>
+                <td class="text-left">{{ producto.descripcion }}</td>
+                <td class="text-center">{{ producto.Cantidad | number: ".2-2" }}</td>
+                <td class="text-center">
+                    <input type="text" class="form-control text-center tamano" placeholder="Observaciones"
+                        [(ngModel)]="producto.observacionesRecibe" #ventas name="observacionesRecibe" />
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-success mr-1" (click)="Repuesta(true,producto)">
+                        <i class="fas fa-check" title="Aceptar"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger mr-1">
+                        <i class="fas fa-times" title="Rechazar" (click)="Repuesta(false,producto)"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

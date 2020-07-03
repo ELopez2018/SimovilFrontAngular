@@ -1,0 +1,122 @@
+tr {
+    user-select: none;
+}
+
+legend {
+    display: block;
+    -webkit-padding-start: 2px;
+    -webkit-padding-end: 2px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    width: inherit;
+    padding: 0 10px;
+    border-bottom: none;
+    font-size: 1.5rem;
+}
+#pagoAProvvedores {
+    background-color: #eeeeee;
+}
+#anticipoProvvedores {
+    background-color: rgba(0, 0, 255, 0.281) ;
+}
+#otros {
+    background-color: rgba(0, 0, 0, 0.329) ;
+}
+fieldset {
+    display: block;
+    -webkit-margin-start: 2px;
+    -webkit-margin-end: 2px;
+    -webkit-padding-before: 0.35em;
+    -webkit-padding-start: 0.75em;
+    -webkit-padding-end: 0.75em;
+    -webkit-padding-after: 0.625em;
+    min-width: -webkit-min-content;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.25rem;
+}
+
+label {
+    display: inline-block;
+    /* width: 10em; */
+    margin: .5em 0;
+    color: #607D8B;
+    font-weight: bold;
+}
+
+form input {
+    /* height: 2em; */
+    font-size: 1em;
+    padding-left: .4em;
+    padding-right: .4em;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #c3c3c3;
+    background-color: transparent;
+}
+
+.max-650 {
+    max-width: 650px;
+    margin: auto;
+}
+
+.max-750 {
+    max-width: 750px;
+    margin: auto;
+}
+
+form input.ng-valid.ng-touched,
+select.ng-valid.ng-touched,
+textarea.ng-valid.ng-touched {
+    /* border: thin solid rgb(57, 189, 250); */
+    border: none;
+    border-bottom: 1px solid #42A948;
+    /* green */
+}
+
+form input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+    /* border: thin solid rgb(255, 117, 117); */
+    border: none;
+    border-bottom: 2px solid #a94442;
+    /* red */
+}
+
+#lisproviders {
+    padding: 0.5rem;
+    border-radius: 4px;
+    background-color: #eeeeee;
+}
+
+#table-comb {
+    max-height: 600px;
+}
+
+.w-10 {
+    width: 14%;
+}
+
+#breakWidth {
+    padding: 0.5rem;
+    /* padding: 0.5rem 0.5rem 0 5.5rem; */
+    border-radius: 4px;
+    background-color: #eeeeee;
+}
+
+@media(min-width:800px) {
+    #breakWidth {
+        width: calc(100% + 8rem);
+        position: relative;
+        left: -4rem;
+    }
+}
+
+#breakWidth #client {
+    font-size: 0.8rem;
+    width: 4.2rem;
+    height: 100%;
+    padding-left: 6px;
+    padding-right: 6px;
+}

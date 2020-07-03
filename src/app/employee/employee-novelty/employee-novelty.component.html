@@ -1,0 +1,19 @@
+<ul class="nav nav-pills" id="myTab" role="tablist">
+  <li class="nav-item text-center" title="Buscar">
+    <a routerLink="./search" routerLinkActive="active" class="nav-link" id="home-tab" data-toggle="tab" role="tab" aria-controls="home"
+      aria-selected="true">
+      <span class="fas fa-search fa-fw"></span>&nbsp;
+      <span class="nameTab">Buscar novedad</span>
+    </a>
+  </li>
+  <li class="nav-item text-center" title="Agregar">
+    <a routerLink="./add" routerLinkActive="active" class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile"
+      aria-selected="false">
+      <span class="fas fa-user-plus fa-fw"></span>&nbsp;
+      <span class="nameTab">Agregar novedad</span>
+    </a>
+  </li>
+</ul>
+<main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+  <router-outlet #o="outlet"></router-outlet>
+</main>

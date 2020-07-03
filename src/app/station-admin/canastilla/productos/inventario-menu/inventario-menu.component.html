@@ -1,0 +1,83 @@
+<div class="col-sm-12">
+
+  <ul class="nav nav-tabs mb-1" id="myTab" role="tablist">
+    <li class="nav-item" title="Ingreson de Inventario">
+      <a class="nav-link" (click)="tabClass(0)" [ngClass]="tabs[0].classTab" id="Compras-tab" data-toggle="tab" role="tab"
+        aria-controls="home" aria-selected="true">
+        <span class="fas fa-truck-loading fa-fw"></span>&nbsp;
+        <span class="nameTab">Compras</span>
+      </a>
+    </li>
+    <li class="nav-item" title="Inventario Inicial">
+      <a class="nav-link" (click)="tabClass(1)" [ngClass]="tabs[1].classTab" id="Inicial-tab" data-toggle="tab" role="tab"
+        aria-controls="home" aria-selected="true">
+        <span class="fas fa-dolly-flatbed fa-fw"></span>&nbsp;
+        <span class="nameTab">Inicial</span>
+      </a>
+    </li>
+
+
+
+    <li class="nav-item" title="Consultar">
+      <a class="nav-link" (click)="tabClass(2)" [ngClass]="tabs[2].classTab" id="profile-tab" data-toggle="tab" role="tab"
+        aria-controls="profile" aria-selected="false">
+        <span class="fas fa-minus-circle fa-fw"></span>&nbsp;
+        <span class="nameTab">Bajas</span>
+      </a>
+    </li>
+
+    <li class="nav-item" title="Precios">
+        <a class="nav-link" (click)="tabClass(3)" [ngClass]="tabs[3].classTab" id="profile-tab" data-toggle="tab" role="tab"
+          aria-controls="profile" aria-selected="false">
+          <span class="fas fa-tags fa-fw"></span>&nbsp;
+          <span class="nameTab">Precios</span>
+        </a>
+      </li>
+
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+
+    <div *ngIf="tabs[1].estado" id="InventarioInicial" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab" [@fade]="'in'">
+      <app-product-inventario> </app-product-inventario>
+    </div>
+
+    <div *ngIf="tabs[0].estado" id="IngresoInventario" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab" [@fade]="'in'">
+      <app-ingreso-nueva-existencia></app-ingreso-nueva-existencia>
+    </div>
+
+    <div *ngIf="tabs[2].estado" id="SalidaInventario" role="tabpanel" aria-labelledby="resumen-tab" [@fade]="'in'">
+        <app-desincorporaciones-exitencia> </app-desincorporaciones-exitencia>
+    </div>
+    <div *ngIf="tabs[3].estado" id="PrciosProductos" role="tabpanel" aria-labelledby="resumen-tab" [@fade]="'in'">
+        <app-precios-productos> </app-precios-productos>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- <app-modal-dialog [visible]="boolCreateRec" (hide)="boolCreateRec = false">
+  <div class="row">
+    <div class="col-sm-3 form-group">
+      <label class="control-label mb-0">Nombre del cliente</label>
+      <input *ngIf="clientSel" type="text" class="form-control" disabled [(ngModel)]="clientSel.nombre">
+    </div>
+    <div class="col-sm-3 form-group">
+      <label class="control-label mb-0">Fecha inicial</label>
+      <input id="fechaIni" type="date" [(ngModel)]="fechaCliIni" class="form-control">
+    </div>
+    <div class="col-sm-3 form-group">
+      <label class="control-label mb-0">Fecha corte</label>
+      <input id="fechaCorte" type="date" [(ngModel)]="fechaCliFin" class="form-control">
+    </div>
+    <div class="col-sm-3 form-group">
+      <button [disabled]="!valid" (click)="createReceivable()" class="btn btn-sm btn-primary btn-block">
+        <i class="fas fa-file-invoice"></i>&nbsp;Crear
+      </button>
+      <button (click)="boolCreateRec = false" class="btn btn-sm btn-danger btn-block mt-0">
+        <i class="fas fa-times"></i>&nbsp;Cancelar
+      </button>
+    </div>
+  </div>
+</app-modal-dialog> -->

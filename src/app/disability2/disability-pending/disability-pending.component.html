@@ -1,0 +1,71 @@
+<div class="col-sm-12">
+  <button (click)="getDisabilities()" id="refresh" class="btn btn-sm btn-secondary">
+    <span class="fas fa-refresh fa-fw"></span>&nbsp;Refrescar
+  </button>
+  <legend class="text-center">Incapacidades Pendientes
+  </legend>
+  <div class="table-wrapper">
+    <div class="align-self-center no-more-tables" id="table-Vehicles">
+      <table class="table table-hover table-dark table-sm table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Id</th>
+            <th scope="col">Empleado</th>
+            <th scope="col" title="EG :&#x9;Enfermedad General&#xA;AT:&#x9;Accidente de trabajo&#xA;LM:&#x9;Licencia de maternidad">Motivo</th>
+            <th scope="col">Responsable</th>
+            <th scope="col">Desde</th>
+            <th scope="col">Hasta</th>
+            <th scope="col">Días</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Radicado</th>
+            <!-- <th scope="col">Valor</th> -->
+            <th scope="col">Saldo</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let disability of disabilities" [@fade]="'in'" [class]="Color(disability.estado)">
+            <td data-title="Número" class="text-center">{{disability.id}}</td>
+            <td data-title="Empleado" class="text-center">{{disability.primerNombre + ' ' + disability.primerApellido}}</td>
+            <td data-title="Motivo" class="text-center">{{getMotiveName(disability.motivo)}}</td>
+            <td data-title="Responsable" class="text-center">{{getAdminstratorName(disability.administradora)}}</td>
+            <td data-title="Desde" class="text-center">{{disability.fechaIni | date: 'dd/MM/yy' : '+0000'}}</td>
+            <td data-title="Hasta" class="text-center">{{disability.fechaFin | date: 'dd/MM/yy' : '+0000'}}</td>
+            <td data-title="Días" class="text-center">{{disability.dias}}</td>
+            <td data-title="Estado" class="text-center">{{getStatusName(disability.estado)}}</td>
+            <td data-title="Radicado" class="text-center">
+              <button class="btn btn-sm btn-secondary" (click)="toFiled(disability)">
+                <div *ngIf="disability.radicado; then content1 else content2"></div>
+                <ng-template #content1>
+                  {{disability.radicado}}
+                </ng-template>
+                <ng-template #content2>
+                  Crear
+                </ng-template>
+              </button>
+            </td>
+            <!-- <td data-title="Valor" class="text-right">{{disability.valor | currency }}</td> -->
+            <td data-title="Saldo" class="text-right">{{disability.saldo | currency }}</td>
+            <td data-title="Acciones" class="text-center">
+              <div id="btns">
+                <button class="btn btn-info btn-sm" (click)="addNovelty(disability)" title="Novedad">
+                  <span class="fas fa-plus fa-fw"></span>
+                </button>
+                <button (click)="searchHistory(disability)" class="btn btn-success btn-sm" title="Historial">
+                  <span class="fas fa-history fa-fw"></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-modal-dialog [visible]="historyVisible" (hide)="historyVisible = false">
+  <app-disability-history [disability]="disability" [administrators]="administrators"></app-disability-history>
+</app-modal-dialog>
+<app-modal-dialog [visible]="noveltyVisible" (hide)="noveltyVisible = false">
+  <!-- <app-disability-history [disability]="disability" [administrators]="administrators"></app-disability-history> -->
+  <app-disability-novelty [disability]="disability" (submiter)="submitAddNovelty($event)"></app-disability-novelty>
+</app-modal-dialog>

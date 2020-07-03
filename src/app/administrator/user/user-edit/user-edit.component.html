@@ -1,0 +1,84 @@
+<form [formGroup]="userForm" novalidate class="form-horizontal">
+    <fieldset>
+        <legend class="text-center">Crear Usuario</legend>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Usuario:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fas fa-user fa-fw"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="idUsuario" name="idUsuario" formControlName="idUsuario">
+            </div>
+            <label class="control-label col-sm-2">Rol:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fas fa-users-cog fa-fw"></i>
+                </span>
+                <select name="rol" class="form-control" formControlName="rol">
+                    <option *ngFor="let rol of roles" [ngValue]="rol">{{rol.DESCRIPCION}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Primer nombre:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fas fa-user fa-fw"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Primer nombre" name="primerNombre" formControlName="primerNombre">
+            </div>
+            <label class="control-label col-sm-2">Segundo nombre:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fas fa-user fa-fw"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Segundo nombre" name="segundoNombre" formControlName="segundoNombre">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Primer Apellido:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fas fa-user fa-fw"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Primer apellido" name="primerApellido" formControlName="primerApellido">
+            </div>
+            <label class="control-label col-sm-2">Segundo Apellido:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fas fa-user fa-fw"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Segundo apellido" name="segundoApellido" formControlName="segundoApellido">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">E-Mail:</label>
+            <div class="input-group col-sm-4">
+                <span class="input-group-addon">
+                    <i class="fas fa-envelope fa-fw"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="email" name="email" formControlName="email">
+            </div>
+            <label class="control-label col-sm-2">Cambiar contraseña:</label>
+            <div class="input-group col-sm-4">
+                <input type="checkbox" class="form-control" name="cambiarPass" formControlName="cambiarPass">
+            </div>
+        </div>
+        <div class="form-group form-inline">
+            <label class="control-label col-sm-2">Activo:</label>
+            <div class="input-group col-sm-4">
+                <input type="checkbox" class="form-control" name="estado" formControlName="estado">
+            </div>
+        </div>
+        <div class="form-inline">
+            <div class="col-sm-6">
+                <button (click)="submitUserForm()" class="btn btn-primary btn-block" [disabled]="!userForm.valid || sending">
+                    <i class="fa fa-floppy-o"></i>&nbsp;Guardar</button>
+            </div>
+            <div class="col-sm-6">
+                <button (click)="getUser()" class="btn btn-danger btn-block">
+                    <i class="fas fa-eraser"></i>&nbsp;Reset</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

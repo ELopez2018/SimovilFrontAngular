@@ -1,0 +1,40 @@
+<ul class="nav nav-tabs mb-1" id="myTab" role="tablist" [@fade]="'in'">
+  <li class="nav-item text-center" title="Buscar">
+    <a routerLink="./search" routerLinkActive="active" class="nav-link" id="home-tab" data-toggle="tab" role="tab" aria-controls="home"
+      aria-selected="true">
+      <span class="fas fa-search fa-fw"></span>&nbsp;
+      <span class="nameTab">Buscar</span>
+    </a>
+  </li>
+  <li class="nav-item text-center" title="Agregar">
+    <a routerLink="./add" routerLinkActive="active" class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile"
+      aria-selected="false">
+      <span class="fas fa-user-plus fa-fw"></span>&nbsp;
+      <span class="nameTab">Agregar</span>
+    </a>
+  </li>
+  <li class="nav-item text-center" title="Editar">
+    <a routerLink="./edit" routerLinkActive="active" class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile"
+      aria-selected="false">
+      <span class="fas fa-user-edit fa-fw"></span>&nbsp;
+      <span class="nameTab">Editar</span>
+    </a>
+  </li>
+  <li class="nav-item text-center" title="Novedad">
+    <a routerLink="./novelty" routerLinkActive="active" class="nav-link" id="novelty-tab" data-toggle="tab" role="tab" aria-controls="novelty"
+      aria-selected="false">
+      <span class="fas fa-exclamation-circle fa-fw"></span>&nbsp;
+      <span class="nameTab">Novedad</span>
+    </a>
+  </li>
+  <li class="nav-item text-center" title="Nomina">
+    <a routerLink="./roster" routerLinkActive="active" class="nav-link" id="roster-tab" data-toggle="tab" role="tab" aria-controls="novelty"
+      aria-selected="false">
+      <span class="fas fa-id-card fa-fw"></span>&nbsp;
+      <span class="nameTab">Nómina</span>
+    </a>
+  </li>
+</ul>
+<main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+  <router-outlet #o="outlet"></router-outlet>
+</main>
