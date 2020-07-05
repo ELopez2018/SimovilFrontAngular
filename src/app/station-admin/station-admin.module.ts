@@ -83,13 +83,13 @@ import { StationPaymentComponent } from '../station/station-payment/station-paym
 @NgModule({
     imports: [
         CommonModule,
-        StationAdminRoutes,
+        RouterModule,
         FormsModule,
-        CalendarModule,
         ReactiveFormsModule,
+        StationAdminRoutes,
+        CalendarModule,
         DropdownModule,
         CardModule,
-        RouterModule,
         ChartModule,
         CurrencyMaskModule,
     ],

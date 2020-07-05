@@ -179,6 +179,7 @@ import { ClientInfoComponent } from './cartera/client/client-info/client-info.co
 import { ClientEstadoCuentasComponent } from './cartera/client/client-estado-cuentas/client-estado-cuentas.component';
 import { ClientBalanceGeneralComponent } from './cartera/client/client-estado-cuentas/client-Balance-General/client-Balance-General.component';
 import { StationAdminModule } from './station-admin/station-admin.module';
+import { CarteraRoutes } from './cartera/cartera.routing';
 
 
 
@@ -193,7 +194,7 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         TurnoComponent,
         WelcomeComponent,
         CupoComponent,
-        ClientComponent,
+        // ClientComponent,
         CustomdropdownDirective,
         AutofocusDirective,
         VehicleComponent,
@@ -211,9 +212,9 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         EmployeeSearchComponent,
         ConfirmModalComponent,
         LoaderComponent,
-        ClientSearchComponent,
-        ClientAddComponent,
-        ClientEditComponent,
+        // ClientSearchComponent,
+        // ClientAddComponent,
+        // ClientEditComponent,
         InvoiceComponent,
         InvoiceAddComponent,
         InvoiceSearchComponent,
@@ -277,7 +278,7 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         LatestFocusDirective,
         CarteraComponent,
         TableConfigComponent,
-        PaymentSearchComponent,
+        // PaymentSearchComponent,
         PaymentAddComponent,
         PaymentAssignComponent,
         InvoicePaymentComponent,
@@ -294,11 +295,11 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         HomeCanastillaAdvaComponent,
         DisabilityPaymentEditComponent,
         CplAdmonComponent,
-        ClientConfiguracionComponent,
-        ClientSaldosIncialesComponent,
-        ClientInfoComponent,
-        ClientEstadoCuentasComponent,
-        ClientBalanceGeneralComponent
+        // ClientConfiguracionComponent,
+        // ClientSaldosIncialesComponent,
+        // ClientInfoComponent,
+        // ClientEstadoCuentasComponent,
+        // ClientBalanceGeneralComponent
     ],
     imports: [
         BrowserModule,
@@ -306,8 +307,11 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
+        // Rutas
+        CarteraRoutes,
         StationAdminModule,
         AppRoutingModule,
+
         CurrencyMaskModule,
         CalendarModule,
         TabMenuModule,
