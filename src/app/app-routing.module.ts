@@ -229,15 +229,15 @@ const routes: Routes = [
             { path: 'payment', component: InvoicePaymentComponent }
         ]
     },
-    {
-        path: 'advance', component: AdvanceComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
-            { path: '', redirectTo: 'search', pathMatch: 'full' },
-            { path: 'search', component: AdvanceSearchComponent },
-            { path: 'search/:id', component: AdvanceSearchComponent },
-            { path: 'add', component: AdvanceAddComponent },
-            { path: 'add/:id', component: AdvanceAddComponent }
-        ]
-    },
+    // {
+    //     path: 'advance', component: AdvanceComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
+    //         { path: '', redirectTo: 'search', pathMatch: 'full' },
+    //         { path: 'search', component: AdvanceSearchComponent },
+    //         { path: 'search/:id', component: AdvanceSearchComponent },
+    //         { path: 'add', component: AdvanceAddComponent },
+    //         { path: 'add/:id', component: AdvanceAddComponent }
+    //     ]
+    // },
     {
         path: 'provider', component: ProviderComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
             { path: '', redirectTo: 'search', pathMatch: 'full' },

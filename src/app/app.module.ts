@@ -181,6 +181,7 @@ import { ClientBalanceGeneralComponent } from './cartera/client/client-estado-cu
 import { StationAdminModule } from './station-admin/station-admin.module';
 import { CarteraRoutes } from './cartera/cartera.routing';
 import { CarteraModule } from './cartera/cartera.module';
+import { ContabilidadModule } from './contabilidad/contabilidad.module';
 
 
 
@@ -228,7 +229,7 @@ import { CarteraModule } from './cartera/cartera.module';
         // AdvanceSearchComponent,
         AdvanceAddComponent,
         AdvanceNoveltyComponent,
-        AdvanceHistoryComponent,
+        // AdvanceHistoryComponent,
         PendingAdvanceComponent,
         AdministrativeHomeComponent,
         EmployeeNoveltyComponent,
@@ -297,6 +298,7 @@ import { CarteraModule } from './cartera/cartera.module';
         // Division en modulos
         CarteraModule,
         StationAdminModule,
+        ContabilidadModule,
         AppRoutingModule,
 
         CurrencyMaskModule,
