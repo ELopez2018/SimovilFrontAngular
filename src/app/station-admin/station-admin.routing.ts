@@ -36,6 +36,24 @@ import { ListaTodosProductosComponent } from './canastilla/productos/listaTodosP
 import { EditProductosComponent } from './canastilla/productos/edit-productos/edit-productos.component';
 import { ProductAddMenuComponent } from './canastilla/productos/product-add-menu/product-add-menu.component';
 import { ProductoCrearCodigosComponent } from './canastilla/productos/product-add/producto-crear-codigos/producto-crear-codigos.component';
+import { InventoryComponent } from '../inventory/inventory.component';
+import { TankRadingComponent } from '../inventory/tank-rading/tank-rading.component';
+import { FuelUnloadComponent } from '../inventory/fuel-unload/fuel-unload.component';
+import { StationAdminCalibrationComponent } from './station-admin-calibration/station-admin-calibration.component';
+import { ReturnedComponent } from '../inventory/returned/returned.component';
+import { FuelTransferComponent } from '../inventory/fuel-transfer/fuel-transfer.component';
+import { CplComponent } from './cpl/cpl.component';
+import { HomeCPLComponent } from './cpl/home-cpl/home-cpl.component';
+import { IngresoLecturasComponent } from './cpl/ingreso-lecturas/ingreso-lecturas.component';
+import { EditLecturasComponent } from './cpl/edit-lecturas/edit-lecturas.component';
+import { ConfigMangerasComponent } from './cpl/config-mangeras/config-mangeras.component';
+import { StationComponent } from '../station/station.component';
+import { StationHomeComponent } from '../station/station-home/station-home.component';
+import { StationClientComponent } from '../station/station-client/station-client.component';
+import { StationReceivableComponent } from '../station/station-receivable/station-receivable.component';
+import { StationConsumptionComponent } from '../station/station-consumption/station-consumption.component';
+import { StationOrderComponent } from '../station/station-order/station-order.component';
+import { StationPaymentComponent } from '../station/station-payment/station-payment.component';
 
 const ROUTES: Routes = [
     {
@@ -89,6 +107,42 @@ const ROUTES: Routes = [
             { path: 'productoAddMenu', component: ProductAddMenuComponent },
             { path: 'crearCodContable', component: ProductoCrearCodigosComponent }
 
+        ]
+    },
+    {
+        path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
+            // { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'tankReading', component: TankRadingComponent },
+            { path: 'fuelUnload', component: FuelUnloadComponent },
+            { path: 'calibration', component: StationAdminCalibrationComponent },
+            { path: 'returned', component: ReturnedComponent },
+            { path: 'fuelTransfer', component: FuelTransferComponent }
+        ]
+    },
+    {
+        path: 'cpl', component: CplComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
+            { path: '', redirectTo: 'homeCPL', pathMatch: 'full' },
+            { path: 'homeCPL', component: HomeCPLComponent },
+            { path: 'ingresoLecturas', component: IngresoLecturasComponent },
+            { path: 'EditLecturas', component: EditLecturasComponent },
+            { path: 'ConfigMangeras', component: ConfigMangerasComponent },
+            { path: 'ReportesCpl', component: ReportLecturasComponent },
+        ]
+    },
+    {
+        path: 'station', component: StationComponent, canActivate: [AuthGuard], children: [
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'home', component: StationHomeComponent },
+            { path: 'client', component: StationClientComponent },
+            { path: 'client/:id', component: StationClientComponent },
+            { path: 'receivable', component: StationReceivableComponent },
+            { path: 'receivable/:id', component: StationReceivableComponent },
+            { path: 'consumption', component: StationConsumptionComponent },
+            { path: 'consumption/:id', component: StationConsumptionComponent },
+            { path: 'order', component: StationOrderComponent },
+            { path: 'order/:id', component: StationOrderComponent },
+            { path: 'payment', component: StationPaymentComponent },
+            { path: 'payment/:id', component: StationPaymentComponent }
         ]
     },
 ];

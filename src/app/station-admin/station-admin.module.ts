@@ -67,6 +67,18 @@ import { CarteraPlanillaComponent } from '../report/cartera/cartera-planilla/car
 import { CompSearchClientComponent } from '../cartera/components/comp-search-client/comp-search-client.component';
 import { StationConsumptionComponent } from '../station/station-consumption/station-consumption.component';
 import { StationAdminRoutes } from './station-admin.routing';
+import { TankRadingComponent } from '../inventory/tank-rading/tank-rading.component';
+import { FuelUnloadComponent } from '../inventory/fuel-unload/fuel-unload.component';
+import { ReturnedComponent } from '../inventory/returned/returned.component';
+import { FuelTransferComponent } from '../inventory/fuel-transfer/fuel-transfer.component';
+import { InventoryComponent } from '../inventory/inventory.component';
+import { StationClientComponent } from '../station/station-client/station-client.component';
+import { StationComponent } from '../station/station.component';
+import { StationHomeComponent } from '../station/station-home/station-home.component';
+import { StationOrderComponent } from '../station/station-order/station-order.component';
+import { StationPaymentComponent } from '../station/station-payment/station-payment.component';
+
+
 
 @NgModule({
     imports: [
@@ -143,9 +155,19 @@ import { StationAdminRoutes } from './station-admin.routing';
         CarteraPlanillaComponent,
         CompSearchClientComponent,
         StationConsumptionComponent,
-
-
-
+        // Invetarios
+        TankRadingComponent,
+        FuelUnloadComponent,
+        ReturnedComponent,
+        FuelTransferComponent,
+        InventoryComponent,
+        // Estacion
+        StationComponent,
+        StationHomeComponent,
+        StationClientComponent,
+        StationReceivableComponent,
+        StationOrderComponent,
+        StationPaymentComponent,
     ],
 
     exports: [

@@ -281,48 +281,6 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'station', component: StationComponent, canActivate: [AuthGuard], children: [
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: StationHomeComponent },
-            { path: 'client', component: StationClientComponent },
-            { path: 'client/:id', component: StationClientComponent },
-            { path: 'receivable', component: StationReceivableComponent },
-            { path: 'receivable/:id', component: StationReceivableComponent },
-            { path: 'consumption', component: StationConsumptionComponent },
-            { path: 'consumption/:id', component: StationConsumptionComponent },
-            { path: 'order', component: StationOrderComponent },
-            { path: 'order/:id', component: StationOrderComponent },
-            { path: 'payment', component: StationPaymentComponent },
-            { path: 'payment/:id', component: StationPaymentComponent }
-        ]
-    },
-    // {
-    //     path: 'stationAdmin', component: StationAdminComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
-    //         { path: '', redirectTo: 'sheetDaily', pathMatch: 'full' },
-    //         {
-    //             path: 'sheetDaily', component: StationAdminSheetDailyComponent, canActivateChild: [AuthGuard], children: [
-    //                 { path: '', redirectTo: 'search', pathMatch: 'full' },
-    //                 { path: 'search', component: SheetDailySearchComponent },
-    //                 { path: 'add', component: SheetDailyAddComponent, canDeactivate: [CanDesactivateGuard] },
-    //                 { path: 'edit', component: SheetDailyEditComponent, canDeactivate: [CanDesactivateGuard] },
-    //                 { path: 'ReportesCpl', component: ReportLecturasComponent },
-    //             ]
-    //         },
-    //         {
-    //             path: 'consumption', component: StationAdminConsumptionComponent, canActivateChild: [AuthGuard], children: [
-    //                 { path: '', redirectTo: 'search', pathMatch: 'full' },
-    //                 { path: 'search', component: StationConsumptionSearchComponent },
-    //                 { path: 'add', component: StationConsumptionAddComponent },
-    //                 { path: 'edit', component: StationConsumptionEditComponent },
-    //                 { path: 'formaPagos', component: StationConsumptionFormapagoComponent },
-    //                 { path: 'consumptionReports', component: StationConsumptionReportsComponent },
-    //                 { path: 'otrasVentasAdd', component: OtrasVentasAddComponent }
-    //             ]
-    //         },
-    //         { path: 'receivable', component: StationAdminReceivableComponent }
-    //     ]
-    // },
-    {
         path: 'user', component: UserComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
             { path: '', redirectTo: 'search', pathMatch: 'full' },
             { path: 'search', component: UserSearchComponent },
@@ -363,53 +321,6 @@ const routes: Routes = [
             { path: 'AdvaHomCanast', component: HomeCanastillaAdvaComponent },
             { path: 'cplEstatus', component: CplAdmonComponent }
 
-        ]
-    },
-    {
-        path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
-            // { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'tankReading', component: TankRadingComponent },
-            { path: 'fuelUnload', component: FuelUnloadComponent },
-            { path: 'calibration', component: StationAdminCalibrationComponent },
-            { path: 'returned', component: ReturnedComponent },
-            { path: 'fuelTransfer', component: FuelTransferComponent }
-        ]
-    },
-    // {
-    //     path: 'ppalCanastilla', component: PpalCanastillaComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
-    //         { path: '', redirectTo: 'homeCanastilla', pathMatch: 'full' },
-    //         { path: 'homeCanastilla', component: HomeCanatillaComponent },
-    //         { path: 'addProducto', component: ProductAddComponent },
-    //         { path: 'canastilla', component: CanastillaComponent },
-    //         { path: 'InventarioProducto', component: ProductInventarioComponent },
-    //         { path: 'Inventariohome', component: InventarioMenuComponent },
-    //         { path: 'Ingresoexistencia', component: IngresoNuevaExistenciaComponent },
-    //         { path: 'desincorporaciones', component: DesincorporacionesExitenciaComponent },
-    //         { path: 'aprobacionBajaProductos', component: SolicitudBajaProductosComponent },
-    //         { path: 'reportesCanastilla', component: ReportesCanastillaComponent },
-    //         { path: 'consolidado', component: ConsolidadoComponent },
-    //         { path: 'estadisticas', component: EstadisticasComponent },
-    //         { path: 'traslados', component: TrasladosComponent },
-    //         { path: 'hojaExel', component: InvoiceImportComponent },
-    //         { path: 'Preciosproductos', component: PreciosProductosComponent },
-    //         { path: 'Descuentos', component: ProductoDstoComponent },
-    //         { path: 'EditarVentas', component: VentasUpdateComponent },
-    //         { path: 'ListaTodosProd', component: ListaTodosProductosComponent },
-    //         { path: 'editProd/:id', component: EditProductosComponent },
-    //         { path: 'productoAddMenu', component: ProductAddMenuComponent },
-    //         { path: 'crearCodContable', component: ProductoCrearCodigosComponent }
-
-
-    //     ]
-    // },
-    {
-        path: 'cpl', component: CplComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
-            { path: '', redirectTo: 'homeCPL', pathMatch: 'full' },
-            { path: 'homeCPL', component: HomeCPLComponent },
-            { path: 'ingresoLecturas', component: IngresoLecturasComponent },
-            { path: 'EditLecturas', component: EditLecturasComponent },
-            { path: 'ConfigMangeras', component: ConfigMangerasComponent },
-            { path: 'ReportesCpl', component: ReportLecturasComponent },
         ]
     },
     { path: '**', redirectTo: '/login', pathMatch: 'full' }
