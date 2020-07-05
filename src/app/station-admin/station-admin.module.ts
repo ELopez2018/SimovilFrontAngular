@@ -61,19 +61,17 @@ import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
 import { CompSearchProviderComponent } from '../contabilidad/components/comp-search-provider/comp-search-provider.component';
 import { FieldsetComponent } from '../util/fieldset/fieldset.component';
-import { CurrencyMaskModule } from "ng2-currency-mask";
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { WholesalerInvoicesComponent } from '../contabilidad/invoice/wholesaler-invoices/wholesaler-invoices.component';
 import { CarteraPlanillaComponent } from '../report/cartera/cartera-planilla/cartera-planilla.component';
 import { CompSearchClientComponent } from '../cartera/components/comp-search-client/comp-search-client.component';
 import { StationConsumptionComponent } from '../station/station-consumption/station-consumption.component';
+import { StationAdminRoutes } from './station-admin.routing';
 
 @NgModule({
     imports: [
         CommonModule,
-        // CanastillaModule,
-        // CplModule,
-        // StationConsumptionModule,
-        // StationAdminSheetDailyModule,
+        StationAdminRoutes,
         FormsModule,
         CalendarModule,
         ReactiveFormsModule,
@@ -81,7 +79,7 @@ import { StationConsumptionComponent } from '../station/station-consumption/stat
         CardModule,
         RouterModule,
         ChartModule,
-        CurrencyMaskModule
+        CurrencyMaskModule,
     ],
     declarations: [
         DsCarteraComponent,

@@ -421,7 +421,10 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
+
+        StationAdminModule,
         AppRoutingModule,
+
         CurrencyMaskModule,
         CalendarModule,
         TabMenuModule,
@@ -451,7 +454,7 @@ import { StationAdminModule } from './station-admin/station-admin.module';
         AccordionModule,
         MessagesModule,
         MessageModule,
-        StationAdminModule
+
     ],
     providers: [
         AuthenticationService,

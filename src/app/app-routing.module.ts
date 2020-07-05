@@ -296,32 +296,32 @@ const routes: Routes = [
             { path: 'payment/:id', component: StationPaymentComponent }
         ]
     },
-    {
-        path: 'stationAdmin', component: StationAdminComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
-            { path: '', redirectTo: 'sheetDaily', pathMatch: 'full' },
-            {
-                path: 'sheetDaily', component: StationAdminSheetDailyComponent, canActivateChild: [AuthGuard], children: [
-                    { path: '', redirectTo: 'search', pathMatch: 'full' },
-                    { path: 'search', component: SheetDailySearchComponent },
-                    { path: 'add', component: SheetDailyAddComponent, canDeactivate: [CanDesactivateGuard] },
-                    { path: 'edit', component: SheetDailyEditComponent, canDeactivate: [CanDesactivateGuard] },
-                    { path: 'ReportesCpl', component: ReportLecturasComponent },
-                ]
-            },
-            {
-                path: 'consumption', component: StationAdminConsumptionComponent, canActivateChild: [AuthGuard], children: [
-                    { path: '', redirectTo: 'search', pathMatch: 'full' },
-                    { path: 'search', component: StationConsumptionSearchComponent },
-                    { path: 'add', component: StationConsumptionAddComponent },
-                    { path: 'edit', component: StationConsumptionEditComponent },
-                    { path: 'formaPagos', component: StationConsumptionFormapagoComponent },
-                    { path: 'consumptionReports', component: StationConsumptionReportsComponent },
-                    { path: 'otrasVentasAdd', component: OtrasVentasAddComponent }
-                ]
-            },
-            { path: 'receivable', component: StationAdminReceivableComponent }
-        ]
-    },
+    // {
+    //     path: 'stationAdmin', component: StationAdminComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
+    //         { path: '', redirectTo: 'sheetDaily', pathMatch: 'full' },
+    //         {
+    //             path: 'sheetDaily', component: StationAdminSheetDailyComponent, canActivateChild: [AuthGuard], children: [
+    //                 { path: '', redirectTo: 'search', pathMatch: 'full' },
+    //                 { path: 'search', component: SheetDailySearchComponent },
+    //                 { path: 'add', component: SheetDailyAddComponent, canDeactivate: [CanDesactivateGuard] },
+    //                 { path: 'edit', component: SheetDailyEditComponent, canDeactivate: [CanDesactivateGuard] },
+    //                 { path: 'ReportesCpl', component: ReportLecturasComponent },
+    //             ]
+    //         },
+    //         {
+    //             path: 'consumption', component: StationAdminConsumptionComponent, canActivateChild: [AuthGuard], children: [
+    //                 { path: '', redirectTo: 'search', pathMatch: 'full' },
+    //                 { path: 'search', component: StationConsumptionSearchComponent },
+    //                 { path: 'add', component: StationConsumptionAddComponent },
+    //                 { path: 'edit', component: StationConsumptionEditComponent },
+    //                 { path: 'formaPagos', component: StationConsumptionFormapagoComponent },
+    //                 { path: 'consumptionReports', component: StationConsumptionReportsComponent },
+    //                 { path: 'otrasVentasAdd', component: OtrasVentasAddComponent }
+    //             ]
+    //         },
+    //         { path: 'receivable', component: StationAdminReceivableComponent }
+    //     ]
+    // },
     {
         path: 'user', component: UserComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
             { path: '', redirectTo: 'search', pathMatch: 'full' },
@@ -375,33 +375,33 @@ const routes: Routes = [
             { path: 'fuelTransfer', component: FuelTransferComponent }
         ]
     },
-    {
-        path: 'ppalCanastilla', component: PpalCanastillaComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
-            { path: '', redirectTo: 'homeCanastilla', pathMatch: 'full' },
-            { path: 'homeCanastilla', component: HomeCanatillaComponent },
-            { path: 'addProducto', component: ProductAddComponent },
-            { path: 'canastilla', component: CanastillaComponent },
-            { path: 'InventarioProducto', component: ProductInventarioComponent },
-            { path: 'Inventariohome', component: InventarioMenuComponent },
-            { path: 'Ingresoexistencia', component: IngresoNuevaExistenciaComponent },
-            { path: 'desincorporaciones', component: DesincorporacionesExitenciaComponent },
-            { path: 'aprobacionBajaProductos', component: SolicitudBajaProductosComponent },
-            { path: 'reportesCanastilla', component: ReportesCanastillaComponent },
-            { path: 'consolidado', component: ConsolidadoComponent },
-            { path: 'estadisticas', component: EstadisticasComponent },
-            { path: 'traslados', component: TrasladosComponent },
-            { path: 'hojaExel', component: InvoiceImportComponent },
-            { path: 'Preciosproductos', component: PreciosProductosComponent },
-            { path: 'Descuentos', component: ProductoDstoComponent },
-            { path: 'EditarVentas', component: VentasUpdateComponent },
-            { path: 'ListaTodosProd', component: ListaTodosProductosComponent },
-            { path: 'editProd/:id', component: EditProductosComponent },
-            { path: 'productoAddMenu', component: ProductAddMenuComponent },
-            { path: 'crearCodContable', component: ProductoCrearCodigosComponent }
+    // {
+    //     path: 'ppalCanastilla', component: PpalCanastillaComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
+    //         { path: '', redirectTo: 'homeCanastilla', pathMatch: 'full' },
+    //         { path: 'homeCanastilla', component: HomeCanatillaComponent },
+    //         { path: 'addProducto', component: ProductAddComponent },
+    //         { path: 'canastilla', component: CanastillaComponent },
+    //         { path: 'InventarioProducto', component: ProductInventarioComponent },
+    //         { path: 'Inventariohome', component: InventarioMenuComponent },
+    //         { path: 'Ingresoexistencia', component: IngresoNuevaExistenciaComponent },
+    //         { path: 'desincorporaciones', component: DesincorporacionesExitenciaComponent },
+    //         { path: 'aprobacionBajaProductos', component: SolicitudBajaProductosComponent },
+    //         { path: 'reportesCanastilla', component: ReportesCanastillaComponent },
+    //         { path: 'consolidado', component: ConsolidadoComponent },
+    //         { path: 'estadisticas', component: EstadisticasComponent },
+    //         { path: 'traslados', component: TrasladosComponent },
+    //         { path: 'hojaExel', component: InvoiceImportComponent },
+    //         { path: 'Preciosproductos', component: PreciosProductosComponent },
+    //         { path: 'Descuentos', component: ProductoDstoComponent },
+    //         { path: 'EditarVentas', component: VentasUpdateComponent },
+    //         { path: 'ListaTodosProd', component: ListaTodosProductosComponent },
+    //         { path: 'editProd/:id', component: EditProductosComponent },
+    //         { path: 'productoAddMenu', component: ProductAddMenuComponent },
+    //         { path: 'crearCodContable', component: ProductoCrearCodigosComponent }
 
 
-        ]
-    },
+    //     ]
+    // },
     {
         path: 'cpl', component: CplComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
             { path: '', redirectTo: 'homeCPL', pathMatch: 'full' },
