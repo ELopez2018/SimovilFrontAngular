@@ -24,6 +24,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { DropdownModule } from 'primeng/dropdown';
+import { CarteraRoutes } from './cartera.routing';
 
 
 
@@ -55,7 +56,8 @@ import { DropdownModule } from 'primeng/dropdown';
     AccordionModule,
     MessagesModule,
     MessageModule,
-    DropdownModule
+    DropdownModule,
+    CarteraRoutes,
   ]
 })
 export class CarteraModule { }

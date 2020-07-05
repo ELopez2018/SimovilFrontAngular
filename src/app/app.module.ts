@@ -180,6 +180,7 @@ import { ClientEstadoCuentasComponent } from './cartera/client/client-estado-cue
 import { ClientBalanceGeneralComponent } from './cartera/client/client-estado-cuentas/client-Balance-General/client-Balance-General.component';
 import { StationAdminModule } from './station-admin/station-admin.module';
 import { CarteraRoutes } from './cartera/cartera.routing';
+import { CarteraModule } from './cartera/cartera.module';
 
 
 
@@ -194,7 +195,6 @@ import { CarteraRoutes } from './cartera/cartera.routing';
         TurnoComponent,
         WelcomeComponent,
         CupoComponent,
-        // ClientComponent,
         CustomdropdownDirective,
         AutofocusDirective,
         VehicleComponent,
@@ -212,9 +212,6 @@ import { CarteraRoutes } from './cartera/cartera.routing';
         EmployeeSearchComponent,
         ConfirmModalComponent,
         LoaderComponent,
-        // ClientSearchComponent,
-        // ClientAddComponent,
-        // ClientEditComponent,
         InvoiceComponent,
         InvoiceAddComponent,
         InvoiceSearchComponent,
@@ -227,8 +224,8 @@ import { CarteraRoutes } from './cartera/cartera.routing';
         ProviderEditComponent,
         InvoiceHistoryComponent,
         InvoiceEditComponent,
-        AdvanceComponent,
-        AdvanceSearchComponent,
+        // AdvanceComponent,
+        // AdvanceSearchComponent,
         AdvanceAddComponent,
         AdvanceNoveltyComponent,
         AdvanceHistoryComponent,
@@ -278,28 +275,17 @@ import { CarteraRoutes } from './cartera/cartera.routing';
         LatestFocusDirective,
         CarteraComponent,
         TableConfigComponent,
-        // PaymentSearchComponent,
         PaymentAddComponent,
         PaymentAssignComponent,
         InvoicePaymentComponent,
         OtherComponent,
-        // InventoryComponent,
-        // TankRadingComponent,
-        // FuelUnloadComponent,
         PaymentOtherComponent,
-        // ReturnedComponent,
         OtherWholesalerComponent,
-        // FuelTransferComponent,
         RosterComponent,
         InvoiceImportComponent,
         HomeCanastillaAdvaComponent,
         DisabilityPaymentEditComponent,
         CplAdmonComponent,
-        // ClientConfiguracionComponent,
-        // ClientSaldosIncialesComponent,
-        // ClientInfoComponent,
-        // ClientEstadoCuentasComponent,
-        // ClientBalanceGeneralComponent
     ],
     imports: [
         BrowserModule,
@@ -307,8 +293,9 @@ import { CarteraRoutes } from './cartera/cartera.routing';
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        // Rutas
-        CarteraRoutes,
+
+        // Division en modulos
+        CarteraModule,
         StationAdminModule,
         AppRoutingModule,
 

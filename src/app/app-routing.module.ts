@@ -197,26 +197,26 @@ const routes: Routes = [
     { path: 'principal', component: PrincipalComponent },
     { path: 'turnos', component: TurnoComponent, canActivate: [AuthGuard] },
     { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard] },
-    {
-        path: 'client', component: ClientComponent, canActivate: [AuthGuard], children: [
-            { path: '', redirectTo: 'search', pathMatch: 'full' },
-            { path: 'search', component: ClientSearchComponent },
-            { path: 'search/:id', component: ClientSearchComponent },
-            { path: 'add', component: ClientAddComponent },
-            { path: 'add/:id', component: ClientAddComponent },
-            { path: 'edit', component: ClientEditComponent },
-            { path: 'edit/:id', component: ClientEditComponent },
-            { path: 'config', component: ClientConfiguracionComponent },
-            { path: 'EstadodeCuentas', component: ClientEstadoCuentasComponent, children: [
-                { path: '', redirectTo: 'balance', pathMatch: 'full' },
-                { path: 'balance', component: ClientBalanceGeneralComponent },
-                { path: 'consumos', component: StationConsumptionComponent },
-                { path: 'pagos', component: PaymentSearchComponent },
-            ]
-        }
+    // {
+    //     path: 'client', component: ClientComponent, canActivate: [AuthGuard], children: [
+    //         { path: '', redirectTo: 'search', pathMatch: 'full' },
+    //         { path: 'search', component: ClientSearchComponent },
+    //         { path: 'search/:id', component: ClientSearchComponent },
+    //         { path: 'add', component: ClientAddComponent },
+    //         { path: 'add/:id', component: ClientAddComponent },
+    //         { path: 'edit', component: ClientEditComponent },
+    //         { path: 'edit/:id', component: ClientEditComponent },
+    //         { path: 'config', component: ClientConfiguracionComponent },
+    //         { path: 'EstadodeCuentas', component: ClientEstadoCuentasComponent, children: [
+    //             { path: '', redirectTo: 'balance', pathMatch: 'full' },
+    //             { path: 'balance', component: ClientBalanceGeneralComponent },
+    //             { path: 'consumos', component: StationConsumptionComponent },
+    //             { path: 'pagos', component: PaymentSearchComponent },
+    //         ]
+    //     }
 
-        ]
-    },
+    //     ]
+    // },
     {
         path: 'invoice', component: InvoiceComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
             { path: '', redirectTo: 'search', pathMatch: 'full' },
