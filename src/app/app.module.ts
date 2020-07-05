@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -46,7 +46,6 @@ import { BasicDataService } from './services/basic-data.service';
 
 
 // Comonentes
-
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { EmployeeComponent } from './employee/employee.component';
@@ -58,8 +57,6 @@ import { TurnoComponent } from './turno/turno.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CupoComponent } from './cartera/cupo/cupo.component';
-import { ClientComponent } from './cartera/client/client.component';
-
 import { CustomdropdownDirective } from './directives/customdropdown.directive';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { VehicleComponent } from './cartera/vehicle/vehicle.component';
@@ -74,11 +71,6 @@ import { UserComponent } from './administrator/user/user.component';
 import { UserSearchComponent } from './administrator/user/user-search/user-search.component';
 import { UserAddComponent } from './administrator/user/user-add/user-add.component';
 import { PrintService } from './services/print.service';
-import { StationComponent } from './station/station.component';
-import { StationHomeComponent } from './station/station-home/station-home.component';
-import { StationClientComponent } from './station/station-client/station-client.component';
-import { StationPaymentComponent } from './station/station-payment/station-payment.component';
-import { StationOrderComponent } from './station/station-order/station-order.component';
 import { UserEditComponent } from './administrator/user/user-edit/user-edit.component';
 import { EmployeeEditComponent } from './employee/employee-edit/employee-edit.component';
 import { EmployeeAddComponent } from './employee/employee-add/employee-add.component';
@@ -88,9 +80,6 @@ import { SubirArchivoService } from './services/subir-archivo.service';
 import { LoaderComponent } from './util/loader/loader.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { ClientSearchComponent } from './cartera/client/client-search/client-search.component';
-import { ClientAddComponent } from './cartera/client/client-add/client-add.component';
-import { ClientEditComponent } from './cartera/client/client-edit/client-edit.component';
 import { InvoiceComponent } from './contabilidad/invoice/invoice.component';
 import { InvoiceAddComponent } from './contabilidad/invoice/invoice-add/invoice-add.component';
 import { InvoiceSearchComponent } from './contabilidad/invoice/invoice-search/invoice-search.component';
@@ -103,11 +92,8 @@ import { ProviderSearchComponent } from './contabilidad/provider/provider-search
 import { ProviderEditComponent } from './contabilidad/provider/provider-edit/provider-edit.component';
 import { InvoiceHistoryComponent } from './contabilidad/invoice/invoice-history/invoice-history.component';
 import { InvoiceEditComponent } from './contabilidad/invoice/invoice-edit/invoice-edit.component';
-import { AdvanceComponent } from './contabilidad/advance/advance.component';
-import { AdvanceSearchComponent } from './contabilidad/advance/advance-search/advance-search.component';
 import { AdvanceAddComponent } from './contabilidad/advance/advance-add/advance-add.component';
 import { AdvanceNoveltyComponent } from './contabilidad/advance/advance-novelty/advance-novelty.component';
-import { AdvanceHistoryComponent } from './contabilidad/advance/advance-history/advance-history.component';
 import { PendingAdvanceComponent } from './contabilidad/advance/pending-advance/pending-advance.component';
 import { AdministrativeHomeComponent } from './administrative/administrative-home/administrative-home.component';
 import { EmployeeNoveltyComponent } from './employee/employee-novelty/employee-novelty.component';
@@ -153,19 +139,10 @@ import { BsArtComponent } from './basic/basic-station/bs-art/bs-art.component';
 import { BsConfigComponent } from './basic/basic-station/bs-config/bs-config.component';
 import { LatestFocusDirective } from './directives/latest-focus.directive';
 import { CarteraComponent } from './report/cartera/cartera.component';
-import { TableConfigComponent } from './util/table-config/table-config.component';
-import { PaymentSearchComponent } from './cartera/payment/payment-search/payment-search.component';
 import { PaymentAddComponent } from './cartera/payment/payment-add/payment-add.component';
 import { PaymentAssignComponent } from './cartera/payment/payment-assign/payment-assign.component';
 import { InvoicePaymentComponent } from './contabilidad/invoice/invoice-payment/invoice-payment.component';
 import { OtherComponent } from './report/other/other.component';
-
-
-
-
-
-
-
 import { OtherWholesalerComponent } from './report/other/other-wholesaler/other-wholesaler.component';
 import { PaymentOtherComponent } from './cartera/payment/payment-other/payment-other.component';
 import { RosterComponent } from './employee/roster/roster.component';
@@ -173,15 +150,10 @@ import { InvoiceImportComponent } from './contabilidad/invoice/invoice-import/in
 import { HomeCanastillaAdvaComponent } from './administrative/canastilla/home-canastilla-adva/home-canastilla-adva.component';
 import { DisabilityPaymentEditComponent } from './disability2/disability-payment/disability-payment-edit/disability-payment-edit.component';
 import { CplAdmonComponent } from './administrative/cpl-admon/cpl-admon.component';
-import { ClientConfiguracionComponent } from './cartera/client/client-Configuracion/client-Configuracion.component';
-import { ClientSaldosIncialesComponent } from './cartera/client/client-saldosInciales/client-saldosInciales.component';
-import { ClientInfoComponent } from './cartera/client/client-info/client-info.component';
-import { ClientEstadoCuentasComponent } from './cartera/client/client-estado-cuentas/client-estado-cuentas.component';
-import { ClientBalanceGeneralComponent } from './cartera/client/client-estado-cuentas/client-Balance-General/client-Balance-General.component';
 import { StationAdminModule } from './station-admin/station-admin.module';
-import { CarteraRoutes } from './cartera/cartera.routing';
 import { CarteraModule } from './cartera/cartera.module';
 import { ContabilidadModule } from './contabilidad/contabilidad.module';
+import { TableConfigComponent } from './util/table-config/table-config.component';
 
 
 
@@ -225,11 +197,8 @@ import { ContabilidadModule } from './contabilidad/contabilidad.module';
         ProviderEditComponent,
         InvoiceHistoryComponent,
         InvoiceEditComponent,
-        // AdvanceComponent,
-        // AdvanceSearchComponent,
         AdvanceAddComponent,
         AdvanceNoveltyComponent,
-        // AdvanceHistoryComponent,
         PendingAdvanceComponent,
         AdministrativeHomeComponent,
         EmployeeNoveltyComponent,
