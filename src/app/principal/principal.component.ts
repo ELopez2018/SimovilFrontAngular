@@ -136,17 +136,17 @@ export class PrincipalComponent implements OnInit {
 
     getMenuItem() {
 
-        this.basicDataService.ObsMenu.subscribe(resp => {
-            this.navItems = resp;
-            console.log(resp);
-        });
-    //     if (this.basicDataService.menu.length != 0) {
-    //         this.navItems = this.basicDataService.menu;
-    //     } else {
-    //         this.basicDataService.SetMenuItem(res => {
-    //             this.navItems = this.basicDataService.menu;
-    //         });
-    //     }
+        // this.basicDataService.ObsMenu.subscribe(resp => {
+        //     this.navItems = resp;
+        //     console.log(resp);
+        // });
+        if (this.basicDataService.menu.length != 0) {
+            this.navItems = this.basicDataService.menu;
+        } else {
+            this.basicDataService.SetMenuItem(res => {
+                this.navItems = this.basicDataService.menu;
+            });
+        }
     }
 
     @HostListener('window:resize', ['$event'])
