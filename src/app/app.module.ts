@@ -35,7 +35,6 @@ import { MessageModule } from 'primeng/message';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ChartsModule } from 'ng2-charts';
 
-
 // Servicios
 import { AuthenticationService } from './services/authentication.service';
 import { NominaService } from './services/nomina.service';
@@ -43,7 +42,6 @@ import { StorageService } from './services/storage.service';
 import { CarteraService } from './services/cartera.service';
 import { UtilService } from './services/util.service';
 import { BasicDataService } from './services/basic-data.service';
-
 
 // Comonentes
 import { AppComponent } from './app.component';
