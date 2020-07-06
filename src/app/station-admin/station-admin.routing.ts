@@ -54,6 +54,7 @@ import { StationReceivableComponent } from '../station/station-receivable/statio
 import { StationConsumptionComponent } from '../station/station-consumption/station-consumption.component';
 import { StationOrderComponent } from '../station/station-order/station-order.component';
 import { StationPaymentComponent } from '../station/station-payment/station-payment.component';
+import { ProductCodigoEditComponent } from './canastilla/productos/product-add/product-codigo-edit/product-codigo-edit.component';
 
 const ROUTES: Routes = [
     {
@@ -105,7 +106,8 @@ const ROUTES: Routes = [
             { path: 'ListaTodosProd', component: ListaTodosProductosComponent },
             { path: 'editProd/:id', component: EditProductosComponent },
             { path: 'productoAddMenu', component: ProductAddMenuComponent },
-            { path: 'crearCodContable', component: ProductoCrearCodigosComponent }
+            { path: 'crearCodContable', component: ProductoCrearCodigosComponent },
+            { path: 'CodContableEdit', component: ProductCodigoEditComponent }
 
         ]
     },

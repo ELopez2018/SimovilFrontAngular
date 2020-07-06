@@ -77,6 +77,7 @@ import { StationComponent } from '../station/station.component';
 import { StationHomeComponent } from '../station/station-home/station-home.component';
 import { StationOrderComponent } from '../station/station-order/station-order.component';
 import { StationPaymentComponent } from '../station/station-payment/station-payment.component';
+import { ProductCodigoEditComponent } from './canastilla/productos/product-add/product-codigo-edit/product-codigo-edit.component';
 
 
 
@@ -119,11 +120,13 @@ import { StationPaymentComponent } from '../station/station-payment/station-paym
         TrasladosComponent,
         IntrasladosComponent,
         OuttrasladosComponent,
+        ProductCodigoEditComponent,
         /// canastilla
         HomeCanatillaComponent,
         PpalCanastillaComponent,
         VentasUpdateComponent,
         CanastillaComponent,
+
         /// Cpl
         CplComponent,
         ConfigMangerasComponent,
