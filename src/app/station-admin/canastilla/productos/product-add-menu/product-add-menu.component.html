@@ -1,94 +1,40 @@
 <div class="col-sm-12">
     <ul class="nav nav-tabs mb-1" id="myTab" role="tablist">
         <li class="nav-item" title="Crear Items">
-            <a
-                class="nav-link"
-                (click)="tabClass(0)"
-                [ngClass]="tabs[0].classTab"
-                id="Compras-tab"
-                data-toggle="tab"
-                role="tab"
-                aria-controls="home"
-                aria-selected="true"
-            >
+            <a class="nav-link" (click)="tabClass(0)" [ngClass]="tabs[0].classTab" id="Compras-tab" data-toggle="tab"
+                role="tab" aria-controls="home" aria-selected="true">
                 <span class="fas fa-clipboard-list fa-fw"></span>&nbsp;
                 <span class="nameTab">Agregar Productos</span>
             </a>
         </li>
         <li class="nav-item" title="Códigos">
-            <a
-                class="nav-link"
-                (click)="tabClass(1)"
-                [ngClass]="tabs[1].classTab"
-                id="Inicial-tab"
-                data-toggle="tab"
-                role="tab"
-                aria-controls="home"
-                aria-selected="true"
-            >
+            <a class="nav-link" (click)="tabClass(1)" [ngClass]="tabs[1].classTab" id="Inicial-tab" data-toggle="tab"
+                role="tab" aria-controls="home" aria-selected="true">
                 <span class="fas fa-barcode fa-fw"></span>&nbsp;
                 <span class="nameTab">Crear Códigos</span>
             </a>
         </li>
-
-        <!-- <li class="nav-item" title="Consultar">
-      <a class="nav-link" (click)="tabClass(2)" [ngClass]="tabs[2].classTab" id="profile-tab" data-toggle="tab" role="tab"
-        aria-controls="profile" aria-selected="false">
-        <span class="fas fa-minus-circle fa-fw"></span>&nbsp;
-        <span class="nameTab">Bajas</span>
-      </a>
-    </li>
-
-    <li class="nav-item" title="Precios">
-        <a class="nav-link" (click)="tabClass(3)" [ngClass]="tabs[3].classTab" id="profile-tab" data-toggle="tab" role="tab"
-          aria-controls="profile" aria-selected="false">
-          <span class="fas fa-tags fa-fw"></span>&nbsp;
-          <span class="nameTab">Precios</span>
-        </a>
-      </li> -->
+        <li class="nav-item" title="Códigos">
+            <a class="nav-link" (click)="tabClass(2)" [ngClass]="tabs[1].classTab" id="Inicial-tab" data-toggle="tab"
+                role="tab" aria-controls="home" aria-selected="true">
+                <span class="fas fa-barcode fa-fw"></span>&nbsp;
+                <span class="nameTab">Editar Códigos</span>
+            </a>
+        </li>
     </ul>
 
     <div class="tab-content" id="myTabContent">
-        <div
-            *ngIf="tabs[1].estado"
-            id="crearCodContable"
-            role="tabpanel"
-            class="mb-3"
-            aria-labelledby="resumen-tab"
-            [@fade]="'in'"
-        >
+        <div *ngIf="tabs[1].estado" id="crearCodContable" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab">
             <app-producto-crear-codigos> </app-producto-crear-codigos>
         </div>
 
-        <div
-            *ngIf="tabs[0].estado"
-            id="IngresoInventario"
-            role="tabpanel"
-            class="mb-3"
-            aria-labelledby="resumen-tab"
-            [@fade]="'in'"
-        >
+        <div *ngIf="tabs[0].estado" id="IngresoInventario" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab">
             <app-product-add></app-product-add>
         </div>
 
-        <div
-            *ngIf="tabs[2].estado"
-            id="SalidaInventario"
-            role="tabpanel"
-            aria-labelledby="resumen-tab"
-            [@fade]="'in'"
-        >
-            <app-desincorporaciones-exitencia>
-            </app-desincorporaciones-exitencia>
+        <div *ngIf="tabs[2].estado" id="EditCoContab" role="tabpanel" aria-labelledby="resumen-tab">
+            <app-product-codigo-edit></app-product-codigo-edit>
         </div>
-        <div
-            *ngIf="tabs[3].estado"
-            id="PrciosProductos"
-            role="tabpanel"
-            aria-labelledby="resumen-tab"
-            [@fade]="'in'"
-        >
-            <app-precios-productos> </app-precios-productos>
-        </div>
+
     </div>
 </div>

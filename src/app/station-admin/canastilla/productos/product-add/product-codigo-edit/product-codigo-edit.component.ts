@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CarteraService } from '../../../../../services/cartera.service';
 
 @Component({
   selector: 'app-product-codigo-edit',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductCodigoEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+      private carteraService: CarteraService
+  ) { }
 
   ngOnInit(): void {
+      this.carteraService.getCodContables().subscribe( resp => {
+          console.log(resp);
+      })
   }
 
 }

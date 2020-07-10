@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CanastillaModule } from './canastilla/canastilla.module';
+
 import { DsCarteraComponent } from './components/ds-cartera/ds-cartera.component';
-import { CplModule } from './cpl/cpl.module';
+// import { CplModule } from './cpl/cpl.module';
 import { StationAdminCalibrationComponent } from './station-admin-calibration/station-admin-calibration.component';
-import { StationConsumptionModule } from './station-admin-consumption/station-consumption.module';
+// import { StationConsumptionModule } from './station-admin-consumption/station-consumption.module';
 import { StationAdminReceivableComponent } from './station-admin-receivable/station-admin-receivable.component';
-import { StationAdminSheetDailyModule } from './station-admin-sheet-daily/station-admin-sheet-daily.module';
+// import { StationAdminSheetDailyModule } from './station-admin-sheet-daily/station-admin-sheet-daily.module';
 import { ReportSSRSComponent } from '../common/report-ssrs/report-ssrs.component';
 import { EstadisticasComponent } from './canastilla/productos/consolidado/estadisticas/estadisticas.component';
 import { ConsolidadoComponent } from './canastilla/productos/consolidado/consolidado.component';
@@ -78,6 +78,7 @@ import { StationHomeComponent } from '../station/station-home/station-home.compo
 import { StationOrderComponent } from '../station/station-order/station-order.component';
 import { StationPaymentComponent } from '../station/station-payment/station-payment.component';
 import { ProductCodigoEditComponent } from './canastilla/productos/product-add/product-codigo-edit/product-codigo-edit.component';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -93,6 +94,8 @@ import { ProductCodigoEditComponent } from './canastilla/productos/product-add/p
         CardModule,
         ChartModule,
         CurrencyMaskModule,
+        BrowserAnimationsModule,
+        NoopAnimationsModule
     ],
     declarations: [
         DsCarteraComponent,

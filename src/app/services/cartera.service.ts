@@ -401,7 +401,6 @@ export class CarteraService {
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntDailySheet[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
             tap(result => {
-                console.log('getDailySheet', result);
                 result.map(e => {
                     e.DE_ACUM_ANTICIPOS != null ? e.DE_ACUM_ANTICIPOS = JSON.parse(String(e.DE_ACUM_ANTICIPOS))[0].Acumulado : null;
                     e.DE_OTROS_PAGOS != null ? e.DE_OTROS_PAGOS = JSON.parse(String(e.DE_OTROS_PAGOS)) : null;
@@ -1381,4 +1380,14 @@ export class CarteraService {
         );
     }
 
+    // CODIGO CONTABLES
+    public getCodContables (): Observable< any > {
+        return this.http.get<any>(Parametros.GetParametros().servidorLocal + '/api/codcontable', this.httpOptions).pipe(
+            tap(result => {
+                result.map(e => {
+                    e.Codigos != null ? e.Codigos = JSON.parse(String(e.Codigos)) : null;
+                });
+            })
+        );
+    }
 }
