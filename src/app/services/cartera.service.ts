@@ -166,7 +166,7 @@ export class CarteraService {
         ];
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<ICarteraForStation[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
-            tap(data => console.log('OrderParametersToGet Realizado con éxito', data)),
+            tap(data => console.log('GetCarteraForStation Realizado con éxito')),
             catchError(this.handleError('getUser', []))
         );
     }
@@ -398,6 +398,7 @@ export class CarteraService {
             [id, 'ID'],
             [full, 'TODO']
         ];
+        //console.log('parameters', parameters);
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntDailySheet[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
             tap(result => {
@@ -448,10 +449,11 @@ export class CarteraService {
             [tipo, 'TIPO'],
             [fecha, 'FECHA']
         ];
+        console.log('getDailySheetAcum=>parameters', parameters);
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntDailySheet[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
             tap(result => {
-                console.log('Realizado con éxito');
+                console.log('getDailySheetAcum=>parameters=>result ', result);
                 result.map(e => {
                     // e.PLA_DIA_PAG_CLI = JSON.parse(String(e.PLA_DIA_PAG_CLI));
                     // e.PLA_DIA_PAG_PRO = JSON.parse(String(e.PLA_DIA_PAG_PRO));
@@ -582,6 +584,7 @@ export class CarteraService {
             [novedad, 'novedad'],
             [historial, 'historial']
         ];
+        console.log(parameters);
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntInvoice[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
             tap(result => {

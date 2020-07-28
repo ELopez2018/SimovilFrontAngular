@@ -46,6 +46,7 @@ export class CarteraPlanillaComponent implements OnInit {
     ) {
         this.dateL = rangedate(dateToISOString(new Date()), 1)
         this.stationCod = this.storageService.getCurrentStation();
+        console.log(this.dateL );
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -55,6 +56,7 @@ export class CarteraPlanillaComponent implements OnInit {
             this.stationSel = this.stations.find(e => e.idEstacion == this.params.station);
             this.dateIni = dateToISOString(this.params.dateIni);
             this.dateEnd = dateToISOString(this.params.dateEnd);
+
             this.month = this.params.month;
             this.typeSel = this.types.find(e => e.id == this.params.type);
             setTimeout(() => {
@@ -98,6 +100,7 @@ export class CarteraPlanillaComponent implements OnInit {
         this.utilService.loader()
         this.carteraService.GetCarteraForStation(this.stationSel.idEstacion, this.dateIni, this.dateEnd, this.optionSel.id, this.typeSel.id, this.month).subscribe(res => {
             this.utilService.loader(false)
+            console.log(res);
             this.assignData(res);
         }, error => {
             this.utilService.loader(false)
@@ -120,7 +123,7 @@ export class CarteraPlanillaComponent implements OnInit {
             case 'C':
                 this.tdTitle = [['Nit Cliente', 'text-center', ''], ['Cliente', 'text-left', ''], ['Tipo', 'text-center', ''], ['Saldo Ant', 'text-right', 'c'], ['Pagado', 'text-right', 'c'], ['Vendido', 'text-right', 'c'], ['Decuento', 'text-right', 'c'], ['Retención', 'text-right', 'c'], ['Saldo', 'text-right', 'c']];
                 data.map(e => {
-                    this.tdData.push([e.COD_CLIENTE, e.NOMBRE, this.getNameQuotaType(e.TIPO_CUPO)[0], e.ANTERIOR, e.PAGADO, e.VENDIDO, e.DESCUENTO, e.RETENCION, e.SALDO + e.ANTERIOR + e.DESCUENTO + e.RETENCION]);
+                    this.tdData.push([e.COD_CLIENTE, e.NOMBRE, this.getNameQuotaType(e.TIPO_CUPO)[0], e.ANTERIOR, e.PAGADO, e.VENDIDO, e.DESCUENTO, e.RETENCION,  e.SALDO ]);
                 });
                 break;
             case 'F':

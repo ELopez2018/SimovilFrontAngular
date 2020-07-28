@@ -108,7 +108,7 @@ export class BsEditComponent implements OnInit {
       tipoEstacion: ['', [Validators.required]],
       sisLiq: ['', [Validators.required]],
       sisGas: ['', [Validators.required]],
-      turno: ['', [Validators.required, Validators.min(3), Validators.max(5)]],
+      turno: ['', [Validators.required, Validators.min(3), Validators.max(12)]],
       manual: ['', [Validators.required]],
       numCaja: ['', Validators.required],
       planta: ['', Validators.required],

@@ -79,6 +79,7 @@ export class ClientBalanceGeneralComponent implements OnInit {
                 this.consumos = resp[0].CONSUMOS || [];
                 this.retenciones = resp[0].RETENCIONES || [];
                 this.pagos = resp[0].PAGOS || [];
+                console.log(this.pagos );
                 this.descuentos = resp[0].DESCUENTOS || [];
                 this.saldoInicial = resp[0].SALDOINICIAL || 0;
 

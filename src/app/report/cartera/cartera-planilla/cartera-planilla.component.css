@@ -6,3 +6,6 @@ th {
     user-select: none;
     cursor: pointer;
 }
+.centrar {
+    margin: 0 auto !important;
+}

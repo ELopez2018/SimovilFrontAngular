@@ -47,9 +47,10 @@
   </div>
 </div>
 <div>
-  <div class="table-wrapper" id="table-Search" *ngIf="tdTitle && tdTitle.length>0">
-    <div class="align-self-center no-more-tables">
-      <table class="table table-hover table-sm table-striped table-bordered">
+
+  <div class="table-wrapper my-2 mb-4 pb-4 centrar" id="table-Search" *ngIf="tdTitle && tdTitle.length>0">
+    <div class="align-self-center no-more-tables  pb-4 centrar">
+      <table class="table table-hover table-sm table-striped table-bordered table-responsive centrar">
         <thead>
           <tr class="text-center">
             <th (click)="orderBy(j)" scope="col" *ngFor="let item of tdTitle; let j = index">{{item[0]}}&nbsp;

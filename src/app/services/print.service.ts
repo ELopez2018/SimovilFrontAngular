@@ -87,6 +87,7 @@ export class PrintService {
 
     private sumObj(obj1, obj2) {
         const keys = Object.keys(obj2);
+        //console.log('keys', keys);
         const obj = {};
         keys.forEach(e => {
             if (isArray(obj1[e]) && isArray(obj2[e])) {
@@ -126,7 +127,6 @@ export class PrintService {
                 this.utilService.loader(true);
 
                 acum = res1[0];
-
                 company = res2[0];
                 this.printSheetDaily(planilla, station, company, acum, view, res => {
                     this.utilService.loader(false);
@@ -143,13 +143,18 @@ export class PrintService {
     }
 
     private printSheetDaily(planilla: EntDailySheet, station: EntStation, company: EntCompany, acum: EntDailySheet, open?: boolean, callback?) {
+        console.log('acum', acum);
         const acum2 = this.sumObj(planilla, acum) as EntDailySheet;
+        console.log('acum2', acum2);
+
+
         acum2.PLA_DIA_TUR = [];
         var facPag = '';
         let ArrayPagoProveedor: any[] = [];
         let ArrayAnticiposProveedor: any[] = [];
         let ArrayOtrosPagos: any[] = [];
         let TotalAnticipos = 0;
+
         if (planilla.PLA_DIA_PAG_PRO && planilla.PLA_DIA_PAG_PRO.length > 0) {
             planilla.PLA_DIA_PAG_PRO.map(e => {
                 facPag += e.NUMERO + ',';

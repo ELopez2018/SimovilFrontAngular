@@ -58,11 +58,12 @@ export class SheetDailySearchComponent implements OnInit {
   }
 
   getDailySheets() {
+      // OBTIENE UNA LISTA CON LAS PLANILLAS
     this.utilService.loader(true);
     let staionCod = this.stationCode ? this.stationCode : this.stationSel ? this.stationSel.idEstacion : null;
     this.carteraService.getDailySheet(staionCod, this.typeSel ? this.typeSel.id : null, this.fechaIni, this.fechaFin, null, false).subscribe(result => {
-      this.dailySheets = result;
-      this.utilService.loader(false);
+        this.utilService.loader(false);
+        this.dailySheets = result;
     }, error => {
       console.log(error);
       this.utilService.loader(false);
@@ -74,6 +75,7 @@ export class SheetDailySearchComponent implements OnInit {
     return new Observable<EntDailySheet>((observer) => {
       this.carteraService.getDailySheet(null, null, null, null, dailySheet.ID, true).subscribe(data => {
         this.utilService.loader(false);
+        //console.log('getDailySheetComplete ', data);
         if (data && data.length == 1) {
           observer.next(data[0]);
         } else {
@@ -104,6 +106,7 @@ export class SheetDailySearchComponent implements OnInit {
 
   download(dailySheet: EntDailySheet, view) {
     this.getDailySheetComplete(dailySheet).subscribe(planilla => {
+       // console.log('download=>planilla', planilla);
       this.printService.printSheetDailyEasy(planilla, view, res =>
         this.principal.showMsg('error', 'error', res)
       );

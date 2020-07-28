@@ -79,6 +79,7 @@ import { StationOrderComponent } from '../station/station-order/station-order.co
 import { StationPaymentComponent } from '../station/station-payment/station-payment.component';
 import { ProductCodigoEditComponent } from './canastilla/productos/product-add/product-codigo-edit/product-codigo-edit.component';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductosListaGeneralComponent } from './canastilla/productos/product-add/productos-lista-general/productos-lista-general.component';
 
 
 
@@ -174,6 +175,7 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
         StationReceivableComponent,
         StationOrderComponent,
         StationPaymentComponent,
+        ProductosListaGeneralComponent,
     ],
 
     exports: [
