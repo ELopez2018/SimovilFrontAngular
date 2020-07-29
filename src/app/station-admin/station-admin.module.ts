@@ -55,10 +55,17 @@ import { StationConsumptionSearchComponent } from './station-admin-consumption/s
 import { StationConsumptionFormapagoComponent } from './station-admin-consumption/stationConsumptionFormapago/stationConsumptionFormapago.component';
 import { ReceivableComponent } from '../cartera/receivable/receivable.component';
 import { ModalDialogComponent } from '../util/modal-dialog/modal-dialog.component';
+
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { SliderModule } from 'primeng/slider';
+import { TableModule } from 'primeng/table';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DialogModule } from 'primeng/dialog';
+
 import { CompSearchProviderComponent } from '../contabilidad/components/comp-search-provider/comp-search-provider.component';
 import { FieldsetComponent } from '../util/fieldset/fieldset.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
@@ -96,7 +103,12 @@ import { ProductosListaGeneralComponent } from './canastilla/productos/product-a
         ChartModule,
         CurrencyMaskModule,
         BrowserAnimationsModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        TabMenuModule,
+        SliderModule,
+        TableModule,
+        MultiSelectModule,
+        DialogModule
     ],
     declarations: [
         DsCarteraComponent,

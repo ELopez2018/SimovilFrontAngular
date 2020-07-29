@@ -31,7 +31,7 @@ export class ProductAddComponent implements OnInit {
   Producto: EntProductos = new EntProductos;
   selectedCat: Categoria = { id: 0, descripcion: '' };
   centroCostos: SelectItem[];
-
+  displayDialog: boolean = false;
   public archivos: FileImagen[] = [];
 
   constructor(private nominaService: NominaService,

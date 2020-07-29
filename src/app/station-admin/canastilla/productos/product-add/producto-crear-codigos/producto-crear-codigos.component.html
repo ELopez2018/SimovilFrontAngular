@@ -4,40 +4,65 @@
 <form [formGroup]="forma" (ngSubmit)="Guardar()" novalidate class="form-horizontal">
     <fieldset>
         <legend class="text-center h2">Datos</legend>
-        <div class="row">
-            <div class="col-sm-2">
+        <div class="ug-g">
+            <div class="ui-g-12 ui-md-2">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span  class="input-group-text pointer btn-outline-dark " id="basic-addon1"><i class="far fa-hand-pointer"></i></span>
+                        <span class="input-group-text pointer btn-outline-dark " id="basic-addon1"><i
+                                class="far fa-hand-pointer"></i></span>
                     </div>
-                    <input type="text" class="form-control text-center" placeholder="id" aria-label="id" aria-describedby="basic-addon1">
-                  </div>
+                    <input type="text" formControlName="id" class="form-control text-center" placeholder="id" aria-label="id"
+                        aria-describedby="basic-addon1">
+                </div>
             </div>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" placeholder="Producto" aria-label="Producto" aria-describedby="basic-addon1">
+            <div class="ui-g-12 ui-md-4">
+                <input type="text" class="form-control"  formControlName="descripcion" placeholder="Producto" aria-label="Producto"
+                    aria-describedby="basic-addon1">
             </div>
-            <div class="col-sm-1">
-                <button class="btn btn-primary"><i class="fas fa-plus"></i></button>
+            <div class="ui-g-12 ui-md-2">
+                <p-dropdown [options]="centroCostos" #pdEmpresa formControlName="empresa" name="empresa"></p-dropdown>
+            </div>
+            <div class="ui-g-12 ui-md-2">
+                <input type="text" class="form-control" placeholder="Código Contable" aria-label="CodigoContable"
+                    aria-describedby="basic-addon1" formControlName="codigoContable" name="codigoContable">
+            </div>
+            <div class="ui-g-12 ui-md-2">
+                <button type="button" class="btn  btn-outline-dark" (click)="AgregarCodigoContable( forma.value, pdEmpresa)" ><i class="fas fa-plus"></i></button>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-sm-2">
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span  class="input-group-text pointer btn-outline-dark " id="basic-addon1"><i class="far fa-hand-pointer"></i></span>
-                    </div>
-                    <input type="text" class="form-control form-control-sm text-center" placeholder="NIT" aria-label="id" aria-describedby="basic-addon1">
-                  </div>
-            </div>
-            <div class="col-sm-3">
-                <input type="text" class="form-control form-control-sm" placeholder="Empresa" aria-label="Producto" aria-describedby="basic-addon1">
-              </div>
-              <div class="col-sm-2">
-                <input type="text" class="form-control form-control-sm" placeholder="Código" aria-label="Producto" aria-describedby="basic-addon1">
-              </div>
-        </div>
-
     </fieldset>
 </form>
+<div class="mb-4 pb-4">
+    <p-table [(value)]="codigoContables" [responsive]="true">
+        <ng-template pTemplate="caption">
+            <div style="text-align: center">
+                <span>CODIGOS CONTABLES DE PARA {{ Articulo.descripcion | uppercase }}</span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>id</th>
+                <th>Empresa</th>
+                <th>Descripcion</th>
+                <th>Código</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{ item.idProducto }}</td>
+                <td>{{ item.empresa }}</td>
+                <td>{{ item.articulo }}</td>
+                <td>{{ item.codigoContable }}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-rowData>
+            <div style="text-align:left">
+                <button type="button" pButton icon="far fa-save" (click)="Guardar()" label="Guardar" [disabled]="!nuevosCodigosConta && nuevosCodigosConta.length <= 0" ></button>
+            </div>
+        </ng-template>
+    </p-table>
+
+</div>
+
+

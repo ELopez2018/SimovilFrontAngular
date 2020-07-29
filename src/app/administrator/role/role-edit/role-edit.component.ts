@@ -35,6 +35,7 @@ export class RoleEditComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+
   }
 
   assign(option: EntRole) {

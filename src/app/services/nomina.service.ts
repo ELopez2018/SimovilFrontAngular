@@ -40,6 +40,7 @@ import { EntAdtvaDatosEstaciones } from '../Class/EntAdtvaDatosEstaciones';
 import { EntVentasEdit } from '../Class/EntVentasEdit';
 import { EntSaldosIniciales } from '../Class/EntSaldosIniciales';
 import { EstadoDeCuentasModel } from '../Class/EstadoDeCuentas.Model';
+import { EntCodigoContable } from '../Class/EntCodigosContables';
 
 
 @Injectable()
@@ -295,6 +296,7 @@ export class NominaService {
 
             }));
     }
+
     public GetProducto(id: number): Observable<EntProductos[]> {
         const query = '/api/getproducto';
         const parameters = [
@@ -303,7 +305,29 @@ export class NominaService {
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntProductos[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions);
     }
+    /// CODIGOS cONTABLES
+    public GetCodigosContables(idEstacion?: number): Observable<EntCodigoContable[]> {
+        const query = '/api/codigosContables';
+        const parameters = [
+            [idEstacion, 'idEstacion'],
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http.get<EntCodigoContable[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions)
+        .pipe(
+            tap( resp => {
+                resp.map( e => {
+                    e.Codigos != null ? e.Codigos = JSON.parse(String(e.Codigos)) : null;
+                    e.TodosCodigos != null ? e.TodosCodigos = JSON.parse(String(e.TodosCodigos)) : null;
+                })
+            })
+        );
+    }
 
+    public InsertCodigoConta(codigos: any): Observable<any> {
+        return this.http.post<any>(Parametros.GetParametros().servidorLocal + '/api/codigosContables', JSON.stringify(codigos), this.httpOptions).pipe(
+            tap(InsertCodigoConta => console.log('InserVentas Realizado con éxito'))
+        );
+    }
 
     // Obtiene los productos por traslados por Estacion
     public GetProductosTraslados(IdEstacion?: number): Observable<EntProductosTraslados[]> {
