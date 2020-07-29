@@ -32,6 +32,7 @@ export class ProductAddComponent implements OnInit {
   selectedCat: Categoria = { id: 0, descripcion: '' };
   centroCostos: SelectItem[];
   displayDialog: boolean = false;
+  mostrar: boolean = false;
   public archivos: FileImagen[] = [];
 
   constructor(private nominaService: NominaService,
@@ -42,8 +43,8 @@ export class ProductAddComponent implements OnInit {
     this.title.setTitle('Crear Productos - Simovil');
     this.imagenTemp = '../../../../../assets/img/sinimagen.jpg';
     this.forma = new FormGroup({
-      'CodContable': new FormControl('', [Validators.required, Validators.minLength(4)]),
-      'Descripcion': new FormControl('', [Validators.required, Validators.minLength(10)]),
+      'CodContable': new FormControl(''),
+      'Descripcion': new FormControl('', [Validators.required, Validators.minLength(5)]),
       'Marca': new FormControl(''),
       'Presentacion': new FormControl('', [Validators.required, Validators.minLength(3)]),
       'Tamano': new FormControl('', Validators.required),
@@ -53,13 +54,11 @@ export class ProductAddComponent implements OnInit {
       'BarCode': new FormControl(''),
       'Mileniumgas': new FormControl(true),
       'IdCategoria': new FormControl(null, [Validators.required]),
-      'empresa': new FormControl(null, [Validators.required])
+      'empresa': new FormControl(null)
       // #selectedCat1 (onChange)="Funcion(selectedCat1 )"
     });
     this.ProductosCategorias = [{ label: ' SELECCIONE LA CATEGORIA  ', value: null }];
     this.centroCostos = [{ label: ' SELECCIONE LA EMPRESA  ', value: null }];
-
-
   }
 
   GetCategorias() {
@@ -85,6 +84,7 @@ export class ProductAddComponent implements OnInit {
     });
   }
   GuardarProducto() {
+    this.mostrar = false;
     this.Producto.codContable = this.forma.value.CodContable;
     this.Producto.descripcion = this.forma.value.Descripcion;
     this.Producto.marca = this.forma.value.Marca;
@@ -103,7 +103,6 @@ export class ProductAddComponent implements OnInit {
     this.CodigoContable = this.forma.value.CodContable;
 
     if (this.Producto.IdCategoria === null || this.Producto.IdCategoria === undefined) {
-      console.log(this.Producto.IdCategoria);
       this.principalComponent.showMsg('error', '¡NO SE GUARDÓ!', 'Debe escoger la Categoria ');
       return;
     }
@@ -111,7 +110,11 @@ export class ProductAddComponent implements OnInit {
       this.principalComponent.showMsg('success', 'Éxito', 'Se Guardo correctamente.');
       this.guardarImagen(this.imagenSubir, this.ArchivoASubir, this.CodigoContable);
       this.forma.reset();
-    }, error => this.principalComponent.showMsg('error', 'Advertencia', error.error.message));
+      this.mostrar = true;
+    }, error => {
+        this.principalComponent.showMsg('error', 'Advertencia', error.error.message);
+        this.mostrar = true;
+    });
   }
   ngOnInit() {
     this.GetCategorias();
