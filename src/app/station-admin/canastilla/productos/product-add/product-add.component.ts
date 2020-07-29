@@ -32,7 +32,7 @@ export class ProductAddComponent implements OnInit {
   selectedCat: Categoria = { id: 0, descripcion: '' };
   centroCostos: SelectItem[];
   displayDialog: boolean = false;
-  mostrar: boolean = false;
+  mostrar: boolean = true;
   public archivos: FileImagen[] = [];
 
   constructor(private nominaService: NominaService,
