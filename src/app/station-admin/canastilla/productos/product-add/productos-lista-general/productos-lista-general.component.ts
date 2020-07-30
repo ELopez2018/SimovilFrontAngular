@@ -3,6 +3,8 @@ import { SelectItem } from 'primeng/api';
 import { NominaService } from '../../../../../services/nomina.service';
 import { EntProductos } from '../../../../../Class/EntProductos';
 
+
+
 @Component({
     selector: 'app-productos-lista-general',
     templateUrl: './productos-lista-general.component.html',
@@ -11,7 +13,7 @@ import { EntProductos } from '../../../../../Class/EntProductos';
 export class ProductosListaGeneralComponent implements OnInit {
     cars: any[];
 
-    cols: any[];
+    cols: IColumnas[];
 
     brands: SelectItem[];
 
@@ -33,31 +35,6 @@ export class ProductosListaGeneralComponent implements OnInit {
     this.productosAll = resp;
     // console.log(this.productosAll);
     });
-        // this.brands = [
-        //     { label: 'All Brands', value: null },
-        //     { label: 'Audi', value: 'Audi' },
-        //     { label: 'BMW', value: 'BMW' },
-        //     { label: 'Fiat', value: 'Fiat' },
-        //     { label: 'Honda', value: 'Honda' },
-        //     { label: 'Jaguar', value: 'Jaguar' },
-        //     { label: 'Mercedes', value: 'Mercedes' },
-        //     { label: 'Renault', value: 'Renault' },
-        //     { label: 'VW', value: 'VW' },
-        //     { label: 'Volvo', value: 'Volvo' }
-        // ];
-
-        // this.colors = [
-        //     { label: 'White', value: 'White' },
-        //     { label: 'Green', value: 'Green' },
-        //     { label: 'Silver', value: 'Silver' },
-        //     { label: 'Black', value: 'Black' },
-        //     { label: 'Red', value: 'Red' },
-        //     { label: 'Maroon', value: 'Maroon' },
-        //     { label: 'Brown', value: 'Brown' },
-        //     { label: 'Orange', value: 'Orange' },
-        //     { label: 'Blue', value: 'Blue' }
-        // ];
-
         this.cols = [
             { field: 'id', header: 'Id' },
             { field: 'descripcion', header: 'Descripcion' },
@@ -66,17 +43,6 @@ export class ProductosListaGeneralComponent implements OnInit {
             { field: 'empresa', header: 'Empresa' }
         ];
 
-        // FilterUtils['custom'] = (value, filter): boolean => {
-        //     if (filter === undefined || filter === null || filter.trim() === '') {
-        //         return true;
-        //     }
-
-        //     if (value === undefined || value === null) {
-        //         return false;
-        //     }
-
-        //     return parseInt(filter) > value;
-        // }
     }
 
     onYearChange(event, dt) {
@@ -96,4 +62,7 @@ export class ProductosListaGeneralComponent implements OnInit {
     }
 }
 
-
+interface IColumnas {
+    field: string,
+    header: string
+}

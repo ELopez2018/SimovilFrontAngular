@@ -7,7 +7,7 @@ import { CarteraService } from '../../../../../services/cartera.service';
   styleUrls: ['./product-codigo-edit.component.css']
 })
 export class ProductCodigoEditComponent implements OnInit {
-
+    cols
   constructor(
       private carteraService: CarteraService
   ) { }
@@ -17,5 +17,14 @@ export class ProductCodigoEditComponent implements OnInit {
           console.log(resp);
       })
   }
+  this.cols = [
+    { field: 'id', header: 'Id' },
+    { field: 'descripcion', header: 'Descripcion' },
+    { field: 'tamano', header: 'Tamaño' },
+    { field: 'UnMedida', header: 'Presentacion' },
+    { field: 'empresa', header: 'Empresa' }
+];
+
+
 
 }

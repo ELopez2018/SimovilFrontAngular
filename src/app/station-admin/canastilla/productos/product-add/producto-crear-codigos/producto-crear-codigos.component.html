@@ -19,14 +19,14 @@
                 <input type="text" class="form-control"  formControlName="descripcion" placeholder="Producto" aria-label="Producto"
                     aria-describedby="basic-addon1">
             </div>
-            <div class="ui-g-12 ui-md-2">
+            <div class="ui-g-12 ui-md-3">
                 <p-dropdown [options]="centroCostos" #pdEmpresa formControlName="empresa" name="empresa"></p-dropdown>
             </div>
             <div class="ui-g-12 ui-md-2">
                 <input type="text" class="form-control" placeholder="Código Contable" aria-label="CodigoContable"
                     aria-describedby="basic-addon1" formControlName="codigoContable" name="codigoContable">
             </div>
-            <div class="ui-g-12 ui-md-2">
+            <div class="ui-g-12 ui-md-1">
                 <button type="button" class="btn  btn-outline-dark" (click)="AgregarCodigoContable( forma.value, pdEmpresa)" ><i class="fas fa-plus"></i></button>
             </div>
         </div>
@@ -58,7 +58,7 @@
         </ng-template>
         <ng-template pTemplate="summary" let-rowData>
             <div style="text-align:left">
-                <button type="button" pButton icon="far fa-save" (click)="Guardar()" label="Guardar" [disabled]="!nuevosCodigosConta && nuevosCodigosConta.length <= 0" ></button>
+                <button type="button" pButton icon="far fa-save" (click)="Guardar()" label="Guardar" [disabled]="nuevosCodigosConta.length <= 0" ></button>
             </div>
         </ng-template>
     </p-table>
