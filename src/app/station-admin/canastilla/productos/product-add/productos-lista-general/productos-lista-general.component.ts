@@ -13,7 +13,7 @@ import { EntProductos } from '../../../../../Class/EntProductos';
 export class ProductosListaGeneralComponent implements OnInit {
     cars: any[];
 
-    cols: IColumnas[];
+    cols: any[];
 
     brands: SelectItem[];
 
@@ -62,7 +62,3 @@ export class ProductosListaGeneralComponent implements OnInit {
     }
 }
 
-interface IColumnas {
-    field: string,
-    header: string
-}

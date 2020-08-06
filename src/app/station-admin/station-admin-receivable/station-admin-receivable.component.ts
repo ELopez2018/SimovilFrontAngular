@@ -121,6 +121,7 @@ export class StationAdminReceivableComponent implements OnInit {
         ).subscribe(([res1, res2]) => {
             console.log(res1, res2 );
           this.nominaService.GetStations(res1[0].estacion).subscribe(res => {
+
             this.printService.printReceivable(res1[0], res2, res[0], result => {
               this.utilService.loader(false);
             });

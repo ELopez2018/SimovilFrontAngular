@@ -30,7 +30,9 @@
     <div class="tab-content" id="myTabContent">
         <div *ngIf="tabs[0].estado" id="Resumen" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab"
             [@fade]="'in'">
+
             <app-receivable></app-receivable>
+
         </div>
         <div *ngIf="tabs[1].estado" id="Resumen" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab"
             [@fade]="'in'">
@@ -95,6 +97,7 @@
         </div>
     </div>
 </div>
+
 <app-modal-dialog [visible]="boolCreateRec" (hide)="boolCreateRec = false">
     <div class="row">
         <div class="col-sm-3 form-group">

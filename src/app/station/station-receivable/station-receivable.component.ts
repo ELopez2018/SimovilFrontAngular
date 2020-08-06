@@ -182,8 +182,9 @@ export class StationReceivableComponent implements OnInit {
         var consumosC: EntConsumptionClient[];
         this.carteraService.getConsumption(receivable.codCliente, null, null, receivable.id, null).subscribe(consumos => {
             consumosC = consumos
+            // console.log('receivable', consumos);
             this.printService.printReceivable(receivable, consumosC,
-                this.stationsAll.find(e => e.idEstacion == receivable.estacion), result => {
+                this.stationsAll.find(e => e.idEstacion == receivable.idEstacion), result => {
                     this.utilService.loader(false);
                 });
         }, error =>

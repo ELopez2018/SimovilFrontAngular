@@ -225,7 +225,7 @@
                 </div>
                 <div class="p-field p-grid">
                     <label for="lastname4" class="p-col-fixed" style="width:100px"> Saldo </label>
-                    <span class="float-right"> {{ (((saldoInicial  - totalValorConsumo) + totalPagos  ) +  totalRetenciones + totalDescuento)  | currency }} </span>
+                    <span class="float-right"> {{ ((saldoInicial  - totalValorConsumo) + (totalPagos + totalRetenciones + totalDescuento) )    | currency }} </span>
                 </div>
             </fieldset>
         </div>

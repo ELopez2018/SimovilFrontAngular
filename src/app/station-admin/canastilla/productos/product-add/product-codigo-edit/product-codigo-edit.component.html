@@ -5,31 +5,49 @@
             <input type="text" pInputText size="25" placeholder="Busqueda" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
         </div>
     </ng-template>
-    <ng-template pTemplate="header" let-columns>
+    <ng-template pTemplate="header">
         <tr>
-            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                {{col.header}}
-                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            <th  [pSortableColumn]="'id'"  style="width:4%; text-align: center">
+                id
+                <p-sortIcon [field]="'id'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+            <th  [pSortableColumn]="'descripcion'" header="descripcion"style="width:30%; text-align: center">
+                Descripción
+                <p-sortIcon [field]="'descripcion'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+            <th  [pSortableColumn]="'codContable'"  header="descripcion"style="width:8%; text-align: center">
+                Código
+                <p-sortIcon [field]="'codContable'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>  <th  [pSortableColumn]="'tamano'"  header="descripcion"style="width:8%; text-align: center">
+                Tamaño
+                <p-sortIcon [field]="'tamano'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+            <th  [pSortableColumn]="'UnMedida'"  header="descripcion" style="width:10%; text-align: center">
+                Presentacion
+                <p-sortIcon [field]="'UnMedida'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+            <th  style="width:8%" class="text-center">
+                Opciones
             </th>
         </tr>
-        <tr>
-            <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                <input *ngSwitchCase="'id'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                <input *ngSwitchCase="'descripcion'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                <input *ngSwitchCase="'tamano'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                <input *ngSwitchCase="'UnMedida'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                <input *ngSwitchCase="'empresa'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-            </th>
-        </tr>
+
     </ng-template>
-    <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <ng-template pTemplate="body" let-rowData >
         <tr [pSelectableRow]="rowData">
-            <td *ngFor="let col of columns" (click)="AgregarCodigoContable(rowData)">
-                {{rowData[col.field]}}
+            <td class="text-center">{{ rowData.id }}</td>
+            <td>{{ rowData.descripcion }}</td>
+            <td class="text-center">{{ rowData.codContable }}</td>
+            <td class="text-center">{{ rowData.tamano }}</td>
+            <td>{{ rowData.UnMedida }}</td>
+            <td class="text-center">
+                <Button class="btn btn-sm btn-outline-primary mr-1"><i class="fas fa-save"></i></Button>
+                <!-- <Button class="btn btn-sm btn-outline-dark"><i class="fas fa-barcode"></i></Button> -->
+                <Button class="btn btn-sm btn-outline-warning mx-1"><i class="fas fa-edit"></i></Button>
+                <Button class="btn btn-sm btn-outline-danger mx-1"><i class="fas fa-trash"></i></Button>
             </td>
         </tr>
     </ng-template>
 </p-table>
 <p-dialog header="SIMOVIL" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '75%'}">
-    <app-producto-crear-codigos *ngIf="producto" [Articulo]="producto"  ></app-producto-crear-codigos>
+
 </p-dialog>

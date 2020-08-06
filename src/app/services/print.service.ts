@@ -184,7 +184,6 @@ export class PrintService {
         }
 
         // Construccion de Nuevo Array de Anticipo a Proveedores
-        console.log(planilla);
         if (planilla.DE_ANT_PROV && planilla.DE_ANT_PROV.length > 0) {
             ArrayAnticiposProveedor.push(
                 [{ text: 'ANTICIPOS A PROVEEDORES', style: 'sub', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: '', border: [false, false, false, true], colSpan: 3, style: 'center' }, {}, {}, {}, { text: '', style: 'right', border: [false, false, true, false] }, {}, { text: '', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: '', style: 'total', border: [false, false, true, false] }],
@@ -198,12 +197,12 @@ export class PrintService {
             });
 
             ArrayAnticiposProveedor.push(
-                [{ text: 'TOTAL ANTICIPOS A PROVEEDORES' , style: 'tituloTotal', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: '', border: [false, false, false, true], colSpan: 3, style: 'center' }, {}, {}, {}, { text: TotalAnticipos.toLocaleString(), style: 'total', border: [false, false, true, false] }, {}, { text: 'TOTAL ACUM ANTICIPOS PROVEEDORES', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: planilla.DE_ACUM_ANTICIPOS.toLocaleString(), style: 'total', border: [false, false, true, false] }],
+                [{ text: 'TOTAL ANTICIPOS A PROVEEDORES', style: 'tituloTotal', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: '', border: [false, false, false, true], colSpan: 3, style: 'center' }, {}, {}, {}, { text: TotalAnticipos.toLocaleString(), style: 'total', border: [false, false, true, false] }, {}, { text: 'TOTAL ACUM ANTICIPOS PROVEEDORES', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: planilla.DE_ACUM_ANTICIPOS.toLocaleString(), style: 'total', border: [false, false, true, false] }],
             );
         } else {
             if (planilla.DE_ACUM_ANTICIPOS && planilla.DE_ACUM_ANTICIPOS > 0) {
                 ArrayAnticiposProveedor.push(
-                    [{ text: 'TOTAL ANTICIPOS A PROVEEDORES',  style: 'tituloTotal', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: '', border: [false, false, false, true], colSpan: 3, style: 'center' }, {}, {}, {}, { text: TotalAnticipos.toLocaleString(), style: 'total', border: [false, false, true, false] }, {}, { text: 'TOTAL ACUM ANTICIPOS PROVEEDORES', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: planilla.DE_ACUM_ANTICIPOS.toLocaleString(), style: 'total', border: [false, false, true, false] }],
+                    [{ text: 'TOTAL ANTICIPOS A PROVEEDORES', style: 'tituloTotal', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: '', border: [false, false, false, true], colSpan: 3, style: 'center' }, {}, {}, {}, { text: TotalAnticipos.toLocaleString(), style: 'total', border: [false, false, true, false] }, {}, { text: 'TOTAL ACUM ANTICIPOS PROVEEDORES', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: planilla.DE_ACUM_ANTICIPOS.toLocaleString(), style: 'total', border: [false, false, true, false] }],
                 );
             }
         }
@@ -366,7 +365,7 @@ export class PrintService {
             [{ text: 'CUSIANA', colSpan: 7, border: [true, false, false, false] }, {}, {}, {}, {}, {}, {}, { text: planilla.OI_CUSIANA.toLocaleString(), style: 'right', border: [false, false, true, false] }, {}, { text: 'CUSIANA', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acum2.OI_CUSIANA.toLocaleString(), style: 'right', border: [false, false, true, false] }],
             [{ text: 'OTROS SERVICIOS', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: planilla.OI_OTRO_DET, style: 'right', colSpan: 2, border: [false, false, false, true] }, {}, { text: '', colSpan: 2 }, {}, { text: planilla.OI_OTRO.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: 'OTROS SERVICIOS', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acum2.OI_OTRO.toLocaleString(), style: 'right', border: [false, false, true, true] }],
             [{ text: 'TOTAL OTROS INGRESOS', style: 'tituloTotal', colSpan: 7, border: [true, false, false, false] }, {}, {}, {}, {}, {}, {}, { text: planilla.OI_TOTAL.toLocaleString(), style: 'total', border: [false, false, true, true] }, {}, { text: 'ACUM. TOTAL OTROS INGRESOS', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acum2.OI_TOTAL.toLocaleString(), style: 'total', border: [false, false, true, true] }],
-            [{ text: 'TOTAL VENTA ' + tipoPlanilla + ' + OTROS INGRESOS' , style: 'tituloTotal', margin: [0, 0, 0, 2], colSpan: 7, border: [true, true, false, true], fillColor: '#d0cece' }, {}, {}, {}, {}, {}, {}, { text: planilla.TOTAL_OI_VENTAS.toLocaleString(), style: 'right', border: [false, false, true, true], fillColor: '#d0cece' }, {}, { text: 'ACUM VENTA ' + tipoPlanilla + ' + OTROS INGRESOS', colSpan: 3, border: [true, true, false, true], fillColor: '#d0cece' }, {}, {}, { text: acum2.TOTAL_OI_VENTAS.toLocaleString(), style: 'right', border: [false, false, true, true], fillColor: '#d0cece' }],
+            [{ text: 'TOTAL VENTA ' + tipoPlanilla + ' + OTROS INGRESOS', style: 'tituloTotal', margin: [0, 0, 0, 2], colSpan: 7, border: [true, true, false, true], fillColor: '#d0cece' }, {}, {}, {}, {}, {}, {}, { text: planilla.TOTAL_OI_VENTAS.toLocaleString(), style: 'right', border: [false, false, true, true], fillColor: '#d0cece' }, {}, { text: 'ACUM VENTA ' + tipoPlanilla + ' + OTROS INGRESOS', colSpan: 3, border: [true, true, false, true], fillColor: '#d0cece' }, {}, {}, { text: acum2.TOTAL_OI_VENTAS.toLocaleString(), style: 'right', border: [false, false, true, true], fillColor: '#d0cece' }],
             [{ text: 'FORMAS DE PAGO', colSpan: 8, border: [true, false, true, false], fillColor: '#ddebf7', }, {}, {}, {}, {}, {}, {}, {}, {}, { text: 'ACUMULADO TOTAL FORMAS DE PAGO', colSpan: 4, border: [true, false, true, false], fillColor: '#ddebf7' }, {}, {}, {}],
             [{ text: 'BONO AUTOPUNTOS', colSpan: 7, border: [true, false, false, false] }, {}, {}, {}, {}, {}, {}, { text: planilla.FP_BONO_PUNTO.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: 'BONO AUTOPUNTOS', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acum2.FP_BONO_PUNTO.toLocaleString(), style: 'right', border: [false, false, true, true] }],
             [{ text: 'BONO CUMPLEAÑOS', colSpan: 7, border: [true, false, false, false] }, {}, {}, {}, {}, {}, {}, { text: planilla.FP_BONO_CUMPLE.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: 'BONO CUMPLEAÑOS', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acum2.FP_BONO_CUMPLE.toLocaleString(), style: 'right', border: [false, false, true, true] }],
@@ -416,8 +415,8 @@ export class PrintService {
 
         const medio = medioant.concat((planilla.TIPO == 'L' ? medioL : medioG), medioF);
         const cusiana = [{ text: 'CUSIANA', colSpan: 4, border: [true, false, false, false] }, {}, {}, {}, { text: planilla.CB_CUSIANA_DET, style: 'center', colSpan: 2, border: [false, false, false, true] }, {}, {}, { text: planilla.CB_CUSIANA.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: 'CUSIANA', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acum2.CB_CUSIANA.toLocaleString(), style: 'right', border: [false, false, true, true] }]
-       // planilla.TIPO == 'G' ? medio.push(cusiana) : null;
-       medio.push(cusiana);
+        // planilla.TIPO == 'G' ? medio.push(cusiana) : null;
+        medio.push(cusiana);
         const final: any = [
             [{ text: 'SEGUROS DEL ESTADO REF.', colSpan: 2, border: [true, false, false, false] }, {}, { text: planilla.CB_SEG_EST_DET, style: 'center', colSpan: 4, border: [false, false, false, true] }, {}, {}, {}, {}, { text: planilla.CB_SEG_EST.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: 'SEGUROS DEL ESTADO REF.', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acum2.CB_SEG_EST.toLocaleString(), style: 'right', border: [false, false, true, true] }],
             [{ text: 'TOTAL CONSIGNACIÓN EN BANCOS', colSpan: 7, border: [true, false, false, false] }, {}, {}, {}, {}, {}, {}, { text: planilla.CB_TOTAL.toLocaleString(), style: 'total', border: [false, false, true, false] }, {}, { text: 'ACUM CONSIGNACIÓN EN BANCOS', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acum2.CB_TOTAL.toLocaleString(), style: 'total', border: [false, false, true, true] }],
@@ -543,9 +542,10 @@ export class PrintService {
 
 
     printReceivable(receivable: EntReceivable, consumos: EntConsumptionClient[], station: EntStation, result?) {
-        console.log(receivable);
+        // console.log(station);
+        console.log(consumos);
         const currentCompany = this.empresas.find(e => e.nit === station.empresa);
-        const  SomosGranContr = (station.empresa == 900127676 ? '' : 'Somos grandes contribuyentes');
+        const SomosGranContr = (station.empresa == 900127676 ? '' : 'Somos grandes contribuyentes');
         const currenBank = this.bancos.find(e => e.idBanco === station.banco);
         const date = new Date(receivable.fecha);
         const cliente = (receivable.nombreAlt && receivable.nombreAlt.length > 0) ? receivable.nombreAlt : receivable.nombre;
@@ -592,7 +592,7 @@ export class PrintService {
                         text: ['\n\n\n\n',
                             { text: '.\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t', decoration: 'underline', decorationColor: 'black', color: 'white' }, '\n',
                             {
-                                text: station.administrador.toUpperCase() + '\nAdministradora EDS ' + station.nombreEstacion.toUpperCase(),
+                                text: station.administrador.toUpperCase() + '\nADMINISTRADOR(A) EDS ' + station.nombreEstacion.toUpperCase(),
                                 style: 'firma'
                             },
                             {
@@ -618,8 +618,8 @@ export class PrintService {
         bodyTableReceivable.push([
             { text: 'Fecha', style: 'headerTable' },
             { text: 'Placa', style: 'headerTable' },
-            { text: 'Galones', style: 'headerTable' },
-            { text: 'Combustible', style: 'headerTable' },
+            { text: 'Cantidad', style: 'headerTable' },
+            { text: 'Producto', style: 'headerTable' },
             { text: 'Consecutivo', style: 'headerTable' },
             { text: 'Valor', style: 'headerTable' }
         ]);
@@ -632,7 +632,7 @@ export class PrintService {
                 dateconsumption.toLocaleDateString(),
                 element.placa,
                 { text: element.cantidad.toLocaleString(), alignment: 'right' },
-                element.combustible == 0 ? 'Gasolina' : element.combustible == 1 ? 'Diesel' : 'Gas',
+                element.combustible == 0 ? 'Gasolina' : element.combustible == 1 ? 'Diesel' : element.combustible == 2 ? 'Gas' : element.combustible == 3 ? 'Lubricantes' : '',
                 element.ConsecutivoEstacion.toString(),
                 { text: element.valor.toLocaleString(), alignment: 'right' }]);
         });

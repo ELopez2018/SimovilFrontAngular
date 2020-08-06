@@ -17,4 +17,5 @@ export class EntReceivable {
     estacion: number;
     periodoIni: string;
     periodoFin: string;
+    idEstacion: number;
 }

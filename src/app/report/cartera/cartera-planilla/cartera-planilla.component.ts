@@ -44,9 +44,8 @@ export class CarteraPlanillaComponent implements OnInit {
         private principal: PrincipalComponent,
         private printService: PrintService
     ) {
-        this.dateL = rangedate(dateToISOString(new Date()), 1)
+        this.dateL = rangedate(dateToISOString(new Date()), 1);
         this.stationCod = this.storageService.getCurrentStation();
-        console.log(this.dateL );
     }
 
     ngOnChanges(changes: SimpleChanges) {

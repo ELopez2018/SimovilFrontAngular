@@ -93,7 +93,8 @@ export class StationHomeComponent implements OnInit {
     this.utilService.loader(true);
     var consumosC: EntConsumptionClient[];
     this.carteraService.getConsumption(receivable.codCliente, null, null, receivable.id, null).subscribe(consumos => {
-      consumosC = consumos
+      consumosC = consumos;
+      console.log(consumos);
       this.printService.printReceivable(receivable, consumosC,
         this.stationsAll.find(e => e.idEstacion == receivable.estacion), result => {
           this.utilService.loader(false);
