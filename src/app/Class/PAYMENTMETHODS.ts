@@ -1,5 +1,5 @@
 export const PAYMENTMETHODS = [
-    { id: 1, text: 'Consignación' },
+    { id: 1, text: 'Consignación/Transferencia' },
     { id: 2, text: 'Efectivo' },
     { id: 3, text: 'Reembolso Descuento' },
     { id: 4, text: 'Reembolso Retención' },

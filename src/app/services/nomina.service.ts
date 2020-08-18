@@ -313,14 +313,14 @@ export class NominaService {
         ];
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntCodigoContable[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions)
-        .pipe(
-            tap( resp => {
-                resp.map( e => {
-                    e.Codigos != null ? e.Codigos = JSON.parse(String(e.Codigos)) : null;
-                    e.TodosCodigos != null ? e.TodosCodigos = JSON.parse(String(e.TodosCodigos)) : null;
+            .pipe(
+                tap(resp => {
+                    resp.map(e => {
+                        e.Codigos != null ? e.Codigos = JSON.parse(String(e.Codigos)) : null;
+                        e.TodosCodigos != null ? e.TodosCodigos = JSON.parse(String(e.TodosCodigos)) : null;
+                    })
                 })
-            })
-        );
+            );
     }
 
     public InsertCodigoConta(codigos: any): Observable<any> {
@@ -369,6 +369,32 @@ export class NominaService {
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<SelectItem[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions);
     }
+
+    // Obtiene las Categorias
+    public GetTiposImpuestos(): Observable<SelectItem[]> {
+        const query = '/api/getTaxTypes';
+        const parameters = [];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http.get<SelectItem[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
+            tap(resp => console.log(resp)),
+            map(resp => {
+                let data = [];
+                resp.forEach((item: any) => {
+                    data.push(
+                        {
+                            id: item.id,
+                            text: item.nombre + ' ( ' + (item.valor * 100) + '% )',
+                            valor: item.valor,
+                            formaPago: item.idFormaPago
+                        }
+                    );
+                });
+
+                return data;
+            })
+        );
+    }
+
     public GetEmpresas(): Observable<SelectItem[]> {
         const query = '/api/empresas';
         const parameters = [];

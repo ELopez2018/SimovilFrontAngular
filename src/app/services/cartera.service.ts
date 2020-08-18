@@ -344,6 +344,7 @@ export class CarteraService {
         ];
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntSalesTurn[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
+            tap(e => console.log(e)),
             tap(result => {
                 console.log('Realizado con éxito');
                 result.map(e => {
@@ -449,15 +450,17 @@ export class CarteraService {
             [tipo, 'TIPO'],
             [fecha, 'FECHA']
         ];
-        console.log('getDailySheetAcum=>parameters', parameters);
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntDailySheet[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
             tap(result => {
-                console.log('getDailySheetAcum=>parameters=>result ', result);
+                console.log('getDailySheetAcum=>result ', result);
                 result.map(e => {
                     // e.PLA_DIA_PAG_CLI = JSON.parse(String(e.PLA_DIA_PAG_CLI));
                     // e.PLA_DIA_PAG_PRO = JSON.parse(String(e.PLA_DIA_PAG_PRO));
                     e.PLA_DIA_TUR = JSON.parse(String(e.PLA_DIA_TUR));
+                    for (let i = 0; i < e.PLA_DIA_TUR.length; i++) {
+                        e.PLA_DIA_TUR[i].PLA_DIA_TUR_VEN = JSON.parse(String(e.PLA_DIA_TUR[i].PLA_DIA_TUR_VEN));
+                    }
                 });
             })
         );
@@ -659,9 +662,10 @@ export class CarteraService {
             [asignado, 'asignado'],
             [planilla, 'planilla']
         ];
+        console.log(parameters);
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntPayment[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
-            tap(departaments => console.log('Realizado con éxito'))
+            tap(departaments => console.log('Realizado con éxito', departaments))
         );
     }
 
@@ -1178,8 +1182,8 @@ export class CarteraService {
     public GetClient(codClient): Observable<EntClient[]> {
         return this.http.get<EntClient[]>(Parametros.GetParametros().servidorLocal + '/api/client/?codClient=' + codClient, this.httpOptions).pipe(
             map((resp: any) => {
-                resp[0].infoCupo = JSON.parse( resp[0].infoCupo);
-                 return resp;
+                resp[0].infoCupo = JSON.parse(resp[0].infoCupo);
+                return resp;
             })
         );
     }
@@ -1377,14 +1381,14 @@ export class CarteraService {
     public getTaxes(): Observable<TaxesModel[]> {
         return this.http.get<TaxesModel[]>(Parametros.GetParametros().servidorLocal + '/api/taxes', this.httpOptions);
     }
-    public DeleteRecievable(idCuentaCobro: number ): Observable<any> {
+    public DeleteRecievable(idCuentaCobro: number): Observable<any> {
         return this.http.delete(Parametros.GetParametros().servidorLocal + '/api/cuentaCobro/' + idCuentaCobro, this.httpOptions).pipe(
             tap(_ => console.log('Eliminado Correctamente'))
         );
     }
 
     // CODIGO CONTABLES
-    public getCodContables (): Observable< any > {
+    public getCodContables(): Observable<any> {
         return this.http.get<any>(Parametros.GetParametros().servidorLocal + '/api/codcontable', this.httpOptions).pipe(
             tap(result => {
                 result.map(e => {

@@ -15,4 +15,8 @@ export class EntPayment {
     ASIGNADO: boolean;
     DETALLE: string;
     idEstacion: number;
+    Valorpago: number;
+    tipoRetencion: any;
+    montoRentencion: number;
+    detalles: string;
 }

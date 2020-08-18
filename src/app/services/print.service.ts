@@ -87,9 +87,10 @@ export class PrintService {
 
     private sumObj(obj1, obj2) {
         const keys = Object.keys(obj2);
-        //console.log('keys', keys);
-        const obj = {};
+
+        let obj = {};
         keys.forEach(e => {
+
             if (isArray(obj1[e]) && isArray(obj2[e])) {
                 null;
             } else {
@@ -127,6 +128,7 @@ export class PrintService {
                 this.utilService.loader(true);
 
                 acum = res1[0];
+
                 company = res2[0];
                 this.printSheetDaily(planilla, station, company, acum, view, res => {
                     this.utilService.loader(false);
@@ -143,11 +145,9 @@ export class PrintService {
     }
 
     private printSheetDaily(planilla: EntDailySheet, station: EntStation, company: EntCompany, acum: EntDailySheet, open?: boolean, callback?) {
-        console.log('acum', acum);
+        console.log(acum);
+
         const acum2 = this.sumObj(planilla, acum) as EntDailySheet;
-        console.log('acum2', acum2);
-
-
         acum2.PLA_DIA_TUR = [];
         var facPag = '';
         let ArrayPagoProveedor: any[] = [];
@@ -206,8 +206,6 @@ export class PrintService {
                 );
             }
         }
-        console.log(planilla.DE_OTROS_PAGOS);
-
         if (planilla.DE_OTROS_PAGOS && planilla.DE_OTROS_PAGOS.length > 0) {
             ArrayOtrosPagos.push(
                 [{ text: 'OTROS', style: 'sub', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: '', border: [false, false, false, false], colSpan: 3, style: 'center' }, {}, {}, {}, { text: 'VALOR', style: 'right', border: [false, false, true, false] }, {}, { text: '', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: '', style: 'total', border: [false, false, true, false] }],

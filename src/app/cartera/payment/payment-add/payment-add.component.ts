@@ -36,6 +36,7 @@ export class PaymentAddComponent implements OnInit {
     stationsAll: EntStation[];
     stationSel;
 
+    tiposImpuestos: any[] = [];
     constructor(
         private carteraService: CarteraService,
         private principalComponent: PrincipalComponent,
@@ -54,8 +55,9 @@ export class PaymentAddComponent implements OnInit {
         this.receivableSelected = new EntReceivable();
         this.client = new EntBasicClient();
         this.formasPagoAll = Object.create(PAYMENTMETHODS);
-        this.formasPago = this.formasPagoAll.filter(e => e.id < 3 || e.id === 5 );
+        this.formasPago = this.formasPagoAll.filter(e => e.id < 3 || e.id === 5);
         focusById('btnBoolClient', true);
+        this.GetTipoImpuestos();
     }
     GetEstaciones() {
         this.stationCode = this.storageService.getCurrentStation();
@@ -70,15 +72,24 @@ export class PaymentAddComponent implements OnInit {
         this.addPaymentForm = this.fb.group({
             paymentId: [null, Validators.required],
             paymentName: [{ value: null, disabled: true }, Validators.compose([Validators.required])],
-            valuePayment: [null, Validators.required],
+            valuePayment: [0, Validators.required],
             saldoCuentaCobro: [null, Validators.required],
             cuentaCobro: [null, Validators.required],
             cuentaCobroNum: [null, Validators.required],
             formaPago: [null, Validators.required],
-            fechaPago: [null, Validators.required]
+            fechaPago: [null, Validators.required],
+            Valorpago: [0],
+            tipoRetencion: [null],
+            montoRentencion: [0],
+            detalles: [null]
         });
     }
+    GetTipoImpuestos() {
+        this.NominaService.GetTiposImpuestos().subscribe(resp => {
+            this.tiposImpuestos = resp;
 
+        });
+    }
     DateToLocalString(date: any) {
         if (date == null) {
             return null;
@@ -140,6 +151,9 @@ export class PaymentAddComponent implements OnInit {
         payment.anticipo = this.client.tipoCupo == 2;
         payment.ASIGNADO = (this.client.tipoCupo == 2) ? true : this.assignPago;
         payment.idEstacion = this.stationSel.idEstacion;
+        payment.tipoRetencion = payfor.tipoRetencion;
+        payment.montoRentencion = payfor.montoRentencion;
+        payment.detalles = payfor.detalles;
         if (payment && payment.anticipo == false && payment.ASIGNADO == false) {
             this.utilService.confirm('Es cliente crédito, ¿está seguro de no asignar la cuenta de cobro a afectar? ', res => {
                 if (res) {
@@ -273,7 +287,16 @@ export class PaymentAddComponent implements OnInit {
             this.addPaymentForm.updateValueAndValidity();
         }
     }
-
+    CalculoImpuesto() {
+        let impuesto = (this.addPaymentForm.get('tipoRetencion').value).valor;
+        let base = (this.addPaymentForm.get('Valorpago').value);
+        let retencion = (impuesto * base);
+        let TOTAL = (base - retencion);
+        if( retencion !== null && TOTAL !== null ){
+            this.addPaymentForm.get('montoRentencion').setValue(retencion);
+            this.addPaymentForm.get('valuePayment').setValue(TOTAL);
+        }
+    }
     get valorPago() { return this.addPaymentForm.get('valuePayment').value; }
     get valorCuentaCobro() { return this.addPaymentForm.get('saldoCuentaCobro').value; }
     get PagoMayorACuentaCobro() { return this.valorPago > this.valorCuentaCobro; }

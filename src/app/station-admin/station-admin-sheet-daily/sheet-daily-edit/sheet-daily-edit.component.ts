@@ -311,6 +311,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                     this.getcplorsales();
                     this.carteraService.getDailySheetBefore(this.station.idEstacion, this.planilla, this.fecha).subscribe(res => {
                         if (res.length == 1) {
+
                             this.assignplanillaAnterior(res[0]);
                         }
                     }, error => {
@@ -1270,8 +1271,9 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         // });
         this.utilService.loader(true);
         this.carteraService.getSalesTurn(this.station.idEstacion, this.planilla, true, null, this.fecha, this.fecha).subscribe(result => {
+            console.log(result);
             this.utilService.loader(false);
-            if (result.length == 1) {
+            if (result.length > 0) {
                 this.cant = result[0].DETALLE.reduce((a, b) => a + b.CANTIDAD, 0);
                 this.salesTurn = result[0];
                 this.show[0] = true;
