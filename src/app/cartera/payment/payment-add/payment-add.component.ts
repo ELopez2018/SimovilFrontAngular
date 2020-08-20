@@ -158,6 +158,7 @@ export class PaymentAddComponent implements OnInit {
             this.utilService.confirm('Es cliente crédito, ¿está seguro de no asignar la cuenta de cobro a afectar? ', res => {
                 if (res) {
                     setTimeout(() => {
+                        console.log(payment);
                         this.submiter(payment);
                     }, 10);
                 }
@@ -292,10 +293,20 @@ export class PaymentAddComponent implements OnInit {
         let base = (this.addPaymentForm.get('Valorpago').value);
         let retencion = (impuesto * base);
         let TOTAL = (base - retencion);
+        console.log('object');
         if( retencion !== null && TOTAL !== null ){
             this.addPaymentForm.get('montoRentencion').setValue(retencion);
             this.addPaymentForm.get('valuePayment').setValue(TOTAL);
         }
+    }
+    RestaTotal( valor) {
+
+        let base = (this.addPaymentForm.get('Valorpago').value);
+        let retencion = this.addPaymentForm.get('montoRentencion').value ;
+        if( retencion !== null && base !== null ){
+            this.addPaymentForm.get('valuePayment').setValue(base - retencion);
+        }
+
     }
     get valorPago() { return this.addPaymentForm.get('valuePayment').value; }
     get valorCuentaCobro() { return this.addPaymentForm.get('saldoCuentaCobro').value; }

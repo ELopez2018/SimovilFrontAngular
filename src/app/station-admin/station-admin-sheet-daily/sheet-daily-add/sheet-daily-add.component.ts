@@ -928,7 +928,9 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         this.utilService.loader(true);
 
         // Obtiene las ultimas Lecturas
+        console.log(this.station.idEstacion, newFecha );
         this.carteraService.getCPL(this.station.idEstacion, newFecha).subscribe(result => {
+
             this.utilService.loader(false);
             if (result.length == 1) {
 
@@ -943,6 +945,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     }
 
     loadBeforeValues(value: EntCPL) {
+
         let NumTurn = value.DETALLE[value.DETALLE.length - 1].NUM_TUR;
         this.CplDetail.map(e => {
             if (e.NUM_TUR === 1) {

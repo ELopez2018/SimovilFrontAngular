@@ -376,7 +376,7 @@ export class NominaService {
         const parameters = [];
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<SelectItem[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
-            tap(resp => console.log(resp)),
+            // tap(resp => console.log(resp)),
             map(resp => {
                 let data = [];
                 resp.forEach((item: any) => {

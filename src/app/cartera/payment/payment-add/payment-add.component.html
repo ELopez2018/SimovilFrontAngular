@@ -53,7 +53,7 @@
             </div>
             <label class="col-sm-2">Pago:</label>
             <div class="input-group col-sm-4">
-                <input  id="base" currencyMask [options]="notdecimal" appLatestFocus class="form-control"
+                <input  (keyup)="RestaTotal()" id="base" currencyMask [options]="notdecimal" appLatestFocus class="form-control"
                     placeholder="$ 0.00" formControlName="Valorpago">
             </div>
         </div>
@@ -71,7 +71,7 @@
             </div>
             <label class="col-sm-2">Retencion:</label>
             <div class="input-group col-sm-4">
-                <input id="retencion" currencyMask [options]="notdecimal" appLatestFocus class="form-control"
+                <input (keyup)="RestaTotal()"  #input id="retencion" currencyMask [options]="notdecimal" appLatestFocus class="form-control"
                     placeholder="$ 0.00" formControlName="montoRentencion">
             </div>
         </div>
