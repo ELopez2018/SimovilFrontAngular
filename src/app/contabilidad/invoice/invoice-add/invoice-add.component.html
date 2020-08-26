@@ -1,6 +1,5 @@
 <form [formGroup]="invoiceForm" novalidate class="form-horizontal  mt-2 mb-5 ">
     <fieldset>
-        <!-- <legend class="text-center" ></legend> -->
         <fieldset class="pt-0" id="datosProvee">
             <legend class="text-left">Datos del Proveedor</legend>
             <div class="form-group form-inline m-0  disable-color" *ngIf="idReturnedInvoice">
@@ -72,23 +71,6 @@
                         </button>
                     </div>
 
-                    <!-- <div class="col-sm-2">
-                        <button
-                            [disabled]="validFirt()"
-                            class="btn btn-block btn-primary"
-                            (click)="getprovider()"
-                        >
-                            <span class="fa fa-check fa-fw"></span>
-                        </button>
-                    </div>
-                    <div class="col-sm-2">
-                        <button
-                            class="btn btn-block btn-danger"
-                            (click)="reset()"
-                        >
-                            <span class="fas fa-eraser fa-fw"></span>
-                        </button>
-                    </div>-->
                 </div>
 
                 <label class="control-label col-sm-2">Fecha Factura:</label>
@@ -251,29 +233,13 @@
                     </span>
                 </div>
 
-                <select  class="form-control" formControlName="clasificacionId">
+                <select class="form-control" formControlName="clasificacionId">
                     <option *ngFor="let item of clasificacionInvoiceAll" [ngValue]="item.Id">{{
                         item.Descripcion
                     }}</option>
                 </select>
             </div>
-            <!-- <label class="control-label col-sm-2">Fecha Recibido:</label>
-                <div class="input-group col-sm-4">
-                    <input
-                        type="date"
-                        class="form-control"
-                        formControlName="fechaRec"
-                        readonly
-                    />
-                </div>
-                <label class="control-label col-sm-2">Fecha Vencimiento:</label>
-                <div class="input-group col-sm-4">
-                    <input
-                        type="date"
-                        class="form-control"
-                        formControlName="fechaVen"
-                    />
-                </div> -->
+
         </div>
         <div class="form-group form-inline">
             <div *ngIf="
@@ -412,7 +378,6 @@
     <div id="formAddAdvance" class="col-md-7">
         <div class="container p-3" id="login" [@fade]="'in'">
             <table class="table table-hover table-sm table-striped table-bordered">
-                <!-- <caption>Anticipos disponibles</caption> -->
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th scope="col">Numero</th>
