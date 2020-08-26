@@ -166,6 +166,7 @@ export class InvoiceAddComponent implements OnInit {
         invoiceLocal.estado = 0;
         invoiceLocal.rol = this.rol;
         invoiceLocal.estacion = this.stationCode || rawValue.estacion.idEstacion;
+        invoiceLocal.clasificacionId = rawValue.clasificacionId;
         if (this.providerSel && this.providerSel.tipo == 1) {
             invoiceLocal.cargado = rawValue.cargado != null ? rawValue.cargado.idEstacion : null;
             invoiceLocal.guia = rawValue.guia;
