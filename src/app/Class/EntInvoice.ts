@@ -36,4 +36,5 @@ export class EntInvoice {
   nombre?: string;
   pagaEstacion: boolean;
   pagos?: EntPago_Pro[];
+  clasificacionId: number;
 }

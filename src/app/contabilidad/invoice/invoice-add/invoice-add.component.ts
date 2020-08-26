@@ -16,6 +16,7 @@ import { EntProvider } from '../../../Class/EntProvider';
 import { focusById, currencyNotDecimal, dateToISOString } from '../../../util/util-lib';
 import { forkJoin } from 'rxjs';
 import { EntPlant } from '../../../Class/EntPlant';
+import { EntClasificacionInvoice } from '../../../Class/EntClasificacionInvoice';
 
 @Component({
     selector: 'app-invoice-add',
@@ -43,7 +44,8 @@ export class InvoiceAddComponent implements OnInit {
     notdecimal = currencyNotDecimal();
     plants: EntPlant[];
     emitFalse = { emitEvent: false };
-    mostrarItems = false ;
+    mostrarItems = false;
+    clasificacionInvoiceAll: EntClasificacionInvoice[] = [];
     constructor(
         private fb: FormBuilder,
         private carteraService: CarteraService,
@@ -65,6 +67,7 @@ export class InvoiceAddComponent implements OnInit {
         this.getData();
         this.GetParam();
         focusById('codPro');
+        this.getClasificacionInvoice();
     }
 
     GetParam() {
@@ -126,7 +129,9 @@ export class InvoiceAddComponent implements OnInit {
             planta: ['', Validators.required],
             pagaEstacion: [false, Validators.required],
             guia: ['', [Validators.required, Validators.pattern(/^[0-9]+([-][0-9]+)?$/)]],
-            listCantArt: this.fb.array([])
+            listCantArt: this.fb.array([]),
+            clasificacionId: [null, Validators.required]
+
         });
         this.formEdit(0);
         this.invoiceForm.get('estacion').valueChanges.subscribe(e => {
@@ -208,7 +213,9 @@ export class InvoiceAddComponent implements OnInit {
                 console.log(error);
             });
     }
-
+  getClasificacionInvoice() {
+      this.nominaService.GetClasificacionInvoice().subscribe( resp => this.clasificacionInvoiceAll = resp )
+  }
     InsertInvoice(invoice: EntInvoice): void {
         setTimeout(() => {
             this.utilService.confirm('Creará la factura #' + invoice.numero + ' con valor: $' + invoice.saldo.toLocaleString() + ' ¿Desea continuar?', result => {

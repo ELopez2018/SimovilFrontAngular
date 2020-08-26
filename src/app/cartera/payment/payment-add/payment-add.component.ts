@@ -299,7 +299,7 @@ export class PaymentAddComponent implements OnInit {
             this.addPaymentForm.get('valuePayment').setValue(TOTAL);
         }
     }
-    RestaTotal( valor) {
+    RestaTotal() {
 
         let base = (this.addPaymentForm.get('Valorpago').value);
         let retencion = this.addPaymentForm.get('montoRentencion').value ;

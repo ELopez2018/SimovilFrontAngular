@@ -41,6 +41,7 @@ import { EntVentasEdit } from '../Class/EntVentasEdit';
 import { EntSaldosIniciales } from '../Class/EntSaldosIniciales';
 import { EstadoDeCuentasModel } from '../Class/EstadoDeCuentas.Model';
 import { EntCodigoContable } from '../Class/EntCodigosContables';
+import { EntClasificacionInvoice } from '../Class/EntClasificacionInvoice';
 
 
 @Injectable()
@@ -912,6 +913,13 @@ export class NominaService {
                 });
                 return resp;
             })
+        );
+    }
+
+    public GetClasificacionInvoice(): Observable<EntClasificacionInvoice[]> {
+        const query = '/api/invoiceclassification';
+        return this.http.get<EntClasificacionInvoice[]>(Parametros.GetParametros().servidorLocal + query , this.httpOptions).pipe(
+            tap(data => console.log('clasificaciones de Facturas', data))
         );
     }
 }
