@@ -455,12 +455,13 @@ export class CarteraService {
             tap(result => {
                 console.log('getDailySheetAcum=>result ', result);
                 result.map(e => {
-                    // e.PLA_DIA_PAG_CLI = JSON.parse(String(e.PLA_DIA_PAG_CLI));
-                    // e.PLA_DIA_PAG_PRO = JSON.parse(String(e.PLA_DIA_PAG_PRO));
                     e.PLA_DIA_TUR = JSON.parse(String(e.PLA_DIA_TUR));
-                    for (let i = 0; i < e.PLA_DIA_TUR.length; i++) {
-                        e.PLA_DIA_TUR[i].PLA_DIA_TUR_VEN = JSON.parse(String(e.PLA_DIA_TUR[i].PLA_DIA_TUR_VEN));
+                    if (e.PLA_DIA_TUR !== null) {
+                        for (let i = 0; i < e.PLA_DIA_TUR.length; i++) {
+                            e.PLA_DIA_TUR[i].PLA_DIA_TUR_VEN = JSON.parse(String(e.PLA_DIA_TUR[i].PLA_DIA_TUR_VEN));
+                        }
                     }
+
                 });
             })
         );

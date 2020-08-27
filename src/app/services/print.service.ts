@@ -117,12 +117,13 @@ export class PrintService {
         let company: EntCompany;
         let acum: EntDailySheet;
         const station = this.stationsAll.find(e => e.idEstacion == planilla.ID_ESTACION);
-
+        console.log(station);
         forkJoin(
             this.carteraService.getDailySheetAcum(planilla.ID_ESTACION, planilla.TIPO, dateToISOString(addDays(planilla.FECHA, -1))),
             this.carteraService.getCompany(station.empresa)
 
         ).subscribe(([res1, res2]) => {
+            console.log(res1, res2 );
             this.utilService.loader(false);
             if (res2.length == 1 && res1.length == 1) {
                 this.utilService.loader(true);
@@ -264,13 +265,18 @@ export class PrintService {
         if (planilla.TIPO == 'L') {
 
             planilla.PLA_DIA_TUR.map(e => {
-                const acumItem = acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR);
+                let acumItem ;
+                if ( acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR) !== null) {
+                     acumItem = acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR);
+                }
+
                 ingresosObj.push(
                     [{ text: 'TURNO ' + e.NUM_TUR, border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 3 }, {}, {}, { text: 'VTA GL', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'PRECIO x GL', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'VENTA $ TURNO ' + e.NUM_TUR, fillColor: '#ddebf7', style: 'center', border: [false, true, true, false] }, {}, { text: '', border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 2 }, {}, { text: 'ACUM. VTA GL.', style: 'center', border: [false, true, false, false], fillColor: '#ddebf7' }, { text: 'ACUM VTA $ TURNO ' + e.NUM_TUR, style: 'center', border: [false, true, true, false], fillColor: '#ddebf7' }]
                 );
                 arrayLineA.push(true);
 
                 e.PLA_DIA_TUR_VEN.map(r => {
+
 
                     const acItm = acumItem.PLA_DIA_TUR_VEN.find(pdt => pdt.COD_ART == r.COD_ART);
                     ingresosObj.push(

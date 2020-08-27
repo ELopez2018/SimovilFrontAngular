@@ -35,7 +35,7 @@ export class ListaTodosProductosComponent implements OnInit {
         this.title.setTitle('Editar Productos - Simovil');
         this.stationCode = this.storageService.getCurrentStation();
         this.date3 = new Date();
-        this.centroCostos = [{ label: ' SELECCIONE LA EMPRESA  ', value: '', tips: 'Elija el Centro de Costo' }];
+        this.centroCostos = [{ label: ' SELECCIONE LA EMPRESA  ', value: '', title: 'Elija el Centro de Costo' }];
     }
     ngOnInit() {
         this.cargando = true;
@@ -68,10 +68,10 @@ export class ListaTodosProductosComponent implements OnInit {
                 this.centroCostos.push({
                     label: elemento.marca,
                     value: elemento.nit,
-                    tips: elemento.nombre
+                    title: elemento.nombre
                 });
             });
-            this.centroCostos.unshift({ label: 'SELECCIONE LA EMPRESA', value: '', tips: 'Elija el Centro de Costo' });
+            this.centroCostos.unshift({ label: 'SELECCIONE LA EMPRESA', value: '', title: 'Elija el Centro de Costo' });
         }, error => {
             console.log(error);
         });
