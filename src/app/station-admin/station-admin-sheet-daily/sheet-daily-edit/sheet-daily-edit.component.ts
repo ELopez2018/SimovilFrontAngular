@@ -897,6 +897,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         }).then((result) => {
             if (result.value) {
                 this.otrosAEliminar.push({ id: id });
+                console.log( this.otrosAEliminar);
                 this.OtrosList.removeAt(indice);
             } else {
                 return;

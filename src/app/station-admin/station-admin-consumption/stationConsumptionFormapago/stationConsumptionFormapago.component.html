@@ -72,8 +72,8 @@
                     <input type="date" id="fecha" class="form-control form-control-sm" [(ngModel)]="fechaFinal"
                         id="hasta" />
                 </div>
-                <div class="col-sm-1 mt-4">
-                    <button class="btn btn-outline-dark btn-sm btn-block" (click)="Buscar()"> Buscar</button>
+                <div class="col-sm-2 mt-4">
+                    <button [disabled]="inactivo" class="btn btn-outline-dark btn-sm btn-block" (click)="Buscar()"> Buscar</button>
                 </div>
             </div>
 

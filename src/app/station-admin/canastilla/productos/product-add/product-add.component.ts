@@ -50,7 +50,7 @@ export class ProductAddComponent implements OnInit {
       'Tamano': new FormControl('', Validators.required),
       'Color': new FormControl(''),
       'Detalles': new FormControl(''),
-      'tope': new FormControl('', [Validators.required]),
+      'tope': new FormControl(''),
       'BarCode': new FormControl(''),
       'Mileniumgas': new FormControl(true),
       'IdCategoria': new FormControl(null, [Validators.required]),

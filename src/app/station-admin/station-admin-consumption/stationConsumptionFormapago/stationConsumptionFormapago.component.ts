@@ -19,6 +19,7 @@ import { EntConsumo } from '../../../Class/EntConsumo';
     styleUrls: ['./stationConsumptionFormapago.component.css']
 })
 export class StationConsumptionFormapagoComponent implements OnInit {
+    inactivo: boolean = false;
     mensaje: string;
     mensaje2: string;
     formaPago: number;
@@ -103,12 +104,14 @@ export class StationConsumptionFormapagoComponent implements OnInit {
     }
 
     Buscar() {
+        this.inactivo = true;
         if (this.stationCode == null) {
             Swal.fire({
                 title: 'SIN AUTORIZACION',
                 text: 'Debe ser Administrador de Estacion para poder consultar las Formas de Pago',
                 icon: 'error'
             });
+            this.inactivo = false;
             return;
         }
         this.consumos = [];
@@ -116,6 +119,7 @@ export class StationConsumptionFormapagoComponent implements OnInit {
         this.utilService.loader();
         this.consultarDatosFP(this.stationCode, this.formaPago);
         this.nominaService.getFormadePago(this.stationCode, this.formaPago, this.fechaInicial, this.fechaFinal).subscribe(resp => {
+            this.inactivo = false;
             this.utilService.loader(false);
             this.consumos = resp;
             let arrayTickets;
@@ -134,6 +138,7 @@ export class StationConsumptionFormapagoComponent implements OnInit {
                 });
             });
         }, error => {
+            this.inactivo = false;
             this.utilService.loader(false);
             this.Mensaje.showMsg('error', 'SE PRODUJERON ERRORES', error.error.message);
             console.error('ESTE ES EL ERROR :', error);

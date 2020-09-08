@@ -16,7 +16,6 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { FieldsetModule } from 'primeng/fieldset';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { ModalDialogComponent } from '../util/modal-dialog/modal-dialog.component';
 import { StationAdminModule } from '../station-admin/station-admin.module';
 import { ClientInfoComponent } from './client/client-info/client-info.component';
 import { ClientSaldosIncialesComponent } from './client/client-saldosInciales/client-saldosInciales.component';
