@@ -117,13 +117,13 @@ export class PrintService {
         let company: EntCompany;
         let acum: EntDailySheet;
         const station = this.stationsAll.find(e => e.idEstacion == planilla.ID_ESTACION);
-        console.log(station);
+        // console.log(station);
         forkJoin(
             this.carteraService.getDailySheetAcum(planilla.ID_ESTACION, planilla.TIPO, dateToISOString(addDays(planilla.FECHA, -1))),
             this.carteraService.getCompany(station.empresa)
 
         ).subscribe(([res1, res2]) => {
-            console.log(res1, res2 );
+            // console.log(res1, res2);
             this.utilService.loader(false);
             if (res2.length == 1 && res1.length == 1) {
                 this.utilService.loader(true);
@@ -146,11 +146,9 @@ export class PrintService {
     }
 
     private printSheetDaily(planilla: EntDailySheet, station: EntStation, company: EntCompany, acum: EntDailySheet, open?: boolean, callback?) {
-        console.log(acum);
-
         const acum2 = this.sumObj(planilla, acum) as EntDailySheet;
         acum2.PLA_DIA_TUR = [];
-        var facPag = '';
+        let facPag = '';
         let ArrayPagoProveedor: any[] = [];
         let ArrayAnticiposProveedor: any[] = [];
         let ArrayOtrosPagos: any[] = [];
@@ -265,9 +263,9 @@ export class PrintService {
         if (planilla.TIPO == 'L') {
 
             planilla.PLA_DIA_TUR.map(e => {
-                let acumItem ;
-                if ( acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR) !== null) {
-                     acumItem = acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR);
+                let acumItem;
+                if (acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR) !== null) {
+                    acumItem = acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR);
                 }
 
                 ingresosObj.push(

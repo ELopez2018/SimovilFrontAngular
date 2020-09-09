@@ -453,7 +453,7 @@ export class CarteraService {
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntDailySheet[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
             tap(result => {
-                console.log('getDailySheetAcum=>result ', result);
+                // console.log('getDailySheetAcum=>result ', result);
                 result.map(e => {
                     e.PLA_DIA_TUR = JSON.parse(String(e.PLA_DIA_TUR));
                     if (e.PLA_DIA_TUR !== null) {
