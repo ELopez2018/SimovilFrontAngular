@@ -26,7 +26,8 @@ import { AdvanceBalanceComponent } from './advance/advance-balance/advance-balan
 
   ],
   exports: [
-    AdvanceHistoryComponent
+    AdvanceHistoryComponent,
+    AdvanceBalanceComponent
   ]
 })
 export class ContabilidadModule { }

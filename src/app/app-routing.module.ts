@@ -71,6 +71,7 @@ import { PendingAdvanceComponent } from './contabilidad/advance/pending-advance/
 import { UpdatePassComponent } from './update-pass/update-pass.component';
 import { UserEditComponent } from './administrator/user/user-edit/user-edit.component';
 import { UserComponent } from './administrator/user/user.component';
+import { AdvanceBalanceComponent } from './contabilidad/advance/advance-balance/advance-balance.component';
 
 
 const routes: Routes = [
@@ -134,7 +135,8 @@ const routes: Routes = [
             { path: 'add/:id', component: InvoiceAddComponent },
             { path: 'edit', component: InvoiceEditComponent },
             { path: 'edit/:id', component: InvoiceEditComponent },
-            { path: 'payment', component: InvoicePaymentComponent }
+            { path: 'payment', component: InvoicePaymentComponent },
+            { path: 'anticiposPay', component: AdvanceBalanceComponent }
         ]
     },
     {

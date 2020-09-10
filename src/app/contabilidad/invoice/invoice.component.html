@@ -24,10 +24,17 @@
     <a title="Pago Mayorista" routerLink="./payment" class="nav-link" routerLinkActive="active" id="edit-tab" data-toggle="tab"
       role="tab" aria-controls="edit" aria-selected="true">
       <span class="fas fa-hand-holding-usd fa-fw"></span>&nbsp;
-      <span class="nameTab">Pago Mayorista</span>
+      <span class="nameTab">Pago a Mayoristas</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a title="Pago Mayorista" routerLink="./anticiposPay" class="nav-link" routerLinkActive="active" id="edit-tab" data-toggle="tab"
+      role="tab" aria-controls="edit" aria-selected="true">
+      <span class="fas fa-hand-holding-usd fa-fw"></span>&nbsp;
+      <span class="nameTab">Anticipos Saldos</span>
     </a>
   </li>
 </ul>
-<main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+<main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''" >
   <router-outlet #o="outlet"></router-outlet>
 </main>
