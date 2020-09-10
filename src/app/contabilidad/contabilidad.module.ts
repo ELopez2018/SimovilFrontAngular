@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StationAdminModule } from '../station-admin/station-admin.module';
 import { AdvanceHistoryComponent } from './advance/advance-history/advance-history.component';
 import { ContabilidadRoutes } from './contabilidad.routing';
+import { AdvanceBalanceComponent } from './advance/advance-balance/advance-balance.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ContabilidadRoutes } from './contabilidad.routing';
   declarations: [
     AdvanceComponent,
     AdvanceSearchComponent,
-    AdvanceHistoryComponent
+    AdvanceHistoryComponent,
+    AdvanceBalanceComponent
 
   ],
   exports: [
