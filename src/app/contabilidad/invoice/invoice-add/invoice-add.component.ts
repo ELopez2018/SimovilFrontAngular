@@ -326,7 +326,7 @@ export class InvoiceAddComponent implements OnInit {
     getAdvances() {
         this.utilService.loader(true);
         let provider = this.invoiceForm.get('proveedor').value;
-        this.carteraService.getAdvance(null, provider, null, null, 3, this.stationCode).subscribe(result => {
+        this.carteraService.getAdvance(null, provider, null, null, 3, null, this.stationCode).subscribe(result => {
             this.utilService.loader(false);
             if (result.length > 0) {
                 console.log(result);
