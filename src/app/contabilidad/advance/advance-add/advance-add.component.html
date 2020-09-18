@@ -25,6 +25,22 @@
                 </div>
 
                 <div class="form-group form-inline">
+
+                    <label class="control-label col-sm-2">Estacion:</label>
+                    <div class="input-group col-sm-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><em class="fas fa-gas-pump"></em></span>
+                        </div>
+                        <select class="custom-select" id="idEstacion" [(ngModel)]="idstationSel" [disabled]="stationsAll.length == 0"  [ngModelOptions]="{standalone: true}">
+                            <option [ngValue]="item.idEstacion" *ngFor="let item of stationsAll">
+                                {{ item.nombreEstacion }}</option>
+                        </select>
+
+
+                    </div>
+
+
+
                     <label class="control-label col-sm-2">Total:</label>
                     <div class="input-group col-sm-4">
                         <div class="input-group-prepend">
@@ -33,11 +49,14 @@
                         <input id="total" currencyMask [options]="notdecimal" appLatestFocus type="text"
                             class="form-control" placeholder="$ 0" formControlName="valor">
                     </div>
-                    <label class="control-label col-sm-2">Detalle:</label>
-                    <div class="input-group col-sm-4">
+                </div>
+                <div class="form-group form-inline">
+                    <label class="control-label col-sm-2">Detalles:</label>
+                    <div class="input-group col-sm-10">
                         <textarea formControlName="detalle" class="form-control"></textarea>
                     </div>
                 </div>
+
                 <div class="form-inline">
                     <div class="col-sm-6">
                         <button (click)="submit()" class="btn btn-primary btn-block" [disabled]="!advanceForm.valid">

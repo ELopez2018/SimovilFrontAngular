@@ -8,7 +8,7 @@ import { StationAdminModule } from '../station-admin/station-admin.module';
 import { AdvanceHistoryComponent } from './advance/advance-history/advance-history.component';
 import { ContabilidadRoutes } from './contabilidad.routing';
 import { AdvanceBalanceComponent } from './advance/advance-balance/advance-balance.component';
-
+import { CardModule } from 'primeng/card';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,7 +16,8 @@ import { AdvanceBalanceComponent } from './advance/advance-balance/advance-balan
     FormsModule,
     ReactiveFormsModule,
     StationAdminModule,
-    ContabilidadRoutes
+    ContabilidadRoutes,
+    CardModule
   ],
   declarations: [
     AdvanceComponent,

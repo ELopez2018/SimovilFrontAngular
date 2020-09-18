@@ -31,6 +31,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { SliderModule } from 'primeng/slider';
+
 // ng2
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ChartsModule } from 'ng2-charts';
