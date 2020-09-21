@@ -96,19 +96,19 @@ export class CarteraPlanillaComponent implements OnInit {
         }
         this.lastQuery = this.optionSel.id;
         this.dateEnd = this.dateEnd == '' ? null : this.dateEnd;
-        this.utilService.loader()
+        this.utilService.loader();
         this.carteraService.GetCarteraForStation(this.stationSel.idEstacion, this.dateIni, this.dateEnd, this.optionSel.id, this.typeSel.id, this.month).subscribe(res => {
-            this.utilService.loader(false)
-            console.log(res);
+            this.utilService.loader(false);
             this.assignData(res);
         }, error => {
-            this.utilService.loader(false)
+            this.utilService.loader(false);
             console.log(error);
             this.principal.showMsg('error', 'Error', error.error.message);
         });
     }
 
     assignData(data: ICarteraForStation[]) {
+        console.log(data);
         this.tdData = [];
         this.tdTitle = [];
         switch (this.optionSel.id) {
@@ -164,11 +164,11 @@ export class CarteraPlanillaComponent implements OnInit {
     getNameQuotaType(val) {
         switch (val) {
             case 1:
-                return 'Crédito'
+                return 'Crédito';
             case 2:
-                return 'Anticipo'
+                return 'Anticipo';
             case 3:
-                return 'Sin cupo'
+                return 'Sin cupo';
         }
     }
 

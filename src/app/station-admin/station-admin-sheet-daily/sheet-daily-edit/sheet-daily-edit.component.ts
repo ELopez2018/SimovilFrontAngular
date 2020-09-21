@@ -131,7 +131,6 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 );
             });
         }
-        console.log(planilla.DE_OTROS_PAGOS);
         if (planilla.DE_OTROS_PAGOS && planilla.DE_OTROS_PAGOS.length > 0) {
             planilla.DE_OTROS_PAGOS.map(e => {
                 this.OtrosList.push(
@@ -465,9 +464,13 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 });
                 planilla.PLA_DIA_TUR.push({ NUM_TUR: index, CANT_VENTA: sumaCTurn, TOTAL: sumaTurn, PLA_DIA_TUR_VEN: turn_det });
             }
+
+            this.salesTurn.VALOR = Math.round(this.salesTurn.VALOR);
             planilla.V_TOTAL = this.salesTurn.VALOR;
         }
+
         planilla.V_CANT = planilla.PLA_DIA_TUR.reduce((a, b) => a + b.CANT_VENTA, 0);
+
         // OTROS INGRESOS
         const OI = this.otherForm.getRawValue();
         const listclient: EntDailySheetPagCli[] = [];
@@ -561,7 +564,6 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         let DetallesOtros: string;
         let sum = 0;
         DetallesOtros = DE.OtrosList.length > 0 ? 'DETALLES: ' : null;
-        console.log(DetallesOtros);
         DE.proveedorList.map(e => {
             sum += e.val;
             listprovider.push({ ID_FACTURA: e.id, NOMBRE: e.nombre, NUMERO: e.numero, VALOR: e.val });
@@ -569,7 +571,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
 
         DE.OtrosList.map((e: any) => {
             TotalOtros += e.otroVal;
-            DetallesOtros += ' ' + e.detalles.toUpperCase()  + ' VALOR: ' + e.otroVal;
+            DetallesOtros += ' ' + e.detalles.toUpperCase() + ' VALOR: ' + e.otroVal;
             listOtrosPagos.push({
                 id: e.id,
                 detalles: e.detalles.toUpperCase(),
@@ -582,7 +584,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 idAnticipo: e.idAnticipo,
                 proveedor: e.proveedor,
                 valor: e.valor,
-                detalle: ' ' + e.detalle +   'VALOR: ' + e.valor,
+                detalle: ' ' + e.detalle + 'VALOR: ' + e.valor,
                 estado: e.estado,
                 factura: e.factura,
                 fecha: e.fecha,
@@ -628,7 +630,6 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         planilla.PLA_DIA_PAG_CLI = listclient;
         planilla.PLA_DIA_PAG_PRO = listprovider;
         planilla.PLA_DIA_VEN_CLI = listclientVen;
-        console.log(planilla);
         this.showPreview(planilla, val);
         this.boolSave = true;
     }
@@ -897,7 +898,6 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         }).then((result) => {
             if (result.value) {
                 this.otrosAEliminar.push({ id: id });
-                console.log( this.otrosAEliminar);
                 this.OtrosList.removeAt(indice);
             } else {
                 return;
@@ -1272,11 +1272,12 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         // });
         this.utilService.loader(true);
         this.carteraService.getSalesTurn(this.station.idEstacion, this.planilla, true, null, this.fecha, this.fecha).subscribe(result => {
-            console.log(result);
             this.utilService.loader(false);
             if (result.length > 0) {
                 this.cant = result[0].DETALLE.reduce((a, b) => a + b.CANTIDAD, 0);
+                this.cant = Math.round(this.cant);
                 this.salesTurn = result[0];
+                this.salesTurn.VALOR = Math.round(this.salesTurn.VALOR);
                 this.show[0] = true;
                 this.salesTurnBefore = JSON.parse(JSON.stringify(result[0]));
                 this.lock = true;

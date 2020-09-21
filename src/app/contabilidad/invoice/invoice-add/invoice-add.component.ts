@@ -183,7 +183,7 @@ export class InvoiceAddComponent implements OnInit {
             this.advanceSel.forEach(e =>
                 arraytemp.push(e.idAnticipo)
             );
-            invoiceLocal["listAnt"] = arraytemp.join();
+            invoiceLocal['listAnt'] = arraytemp.join();
         }
         this.verifyInsertInvoice(invoiceLocal);
     }
@@ -344,14 +344,14 @@ export class InvoiceAddComponent implements OnInit {
 
     addAdvance(advance: EntAdvance) {
         this.advanceSel.push(advance);
-        advance["Sel"] = true;
+        advance['Sel'] = true;
         this.updateValueAnticipo();
     }
 
     removeAdvance(advance: EntAdvance) {
         let index = this.advanceSel.findIndex(E => E == advance);
         this.advanceSel.splice(index, 1);
-        advance["Sel"] = false;
+        advance['Sel'] = false;
         this.updateValueAnticipo();
     }
 
@@ -359,7 +359,7 @@ export class InvoiceAddComponent implements OnInit {
         if (this.advanceSel && this.advances.length > 0) {
             this.advanceSel.forEach(element => {
                 let index = this.advances.findIndex(e => e.idAnticipo == element.idAnticipo);
-                this.advances[index]["Sel"] = true;
+                this.advances[index]['Sel'] = true;
             });
         }
     }
