@@ -344,7 +344,7 @@ export class CarteraService {
         ];
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntSalesTurn[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
-            tap(e => console.log(e)),
+
             tap(result => {
                 console.log('Realizado con éxito');
                 result.map(e => {
@@ -360,7 +360,7 @@ export class CarteraService {
         ];
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntHose[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
-            tap(result => console.log('Realizado con éxito'))
+            // tap(result => console.log('Realizado con éxito'))
         );
     }
 
@@ -374,7 +374,7 @@ export class CarteraService {
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntCPL[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
             tap(result => {
-                console.log('Realizado con éxito');
+                // console.log('Realizado con éxito');
                 result.map(e => {
                     e.DETALLE = JSON.parse(String(e.DETALLE));
                 });
@@ -814,6 +814,15 @@ export class CarteraService {
                 return JSON.parse(resp.datos);
             })
         );
+    }
+    // Obtiene los datos de la forma de Pago
+    public getDescuentosCientes(codCliente: number): Observable<any[]> {
+        const query = '/api/clientesDescuentos';
+        const parameters = [
+            [codCliente, 'codCliente']
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http.get<any[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions);
     }
 
     // public getPayment5(codClient, dateIni, dateFin, status: boolean, asignado?: boolean, planilla?: number): Observable<EntPayment[]> {

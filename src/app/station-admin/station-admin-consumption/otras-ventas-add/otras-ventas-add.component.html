@@ -1,3 +1,35 @@
 <div class="row titulo text-center">
     <div class="col-sm-12 h4 strong"> VENTAS A CLIENTES CARTERA </div>
 </div>
+
+<fieldset>
+    <legend>Datos del Cliente</legend>
+    <div class="row">
+
+        <div class="col-sm-3">
+
+            <input type="date" class="form-control " name="" id="">
+        </div>
+        <div class="col-sm-9">
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary left" type="button" (click)="searchClient()">
+                        <span class="fas fa-hand-pointer fa-fw"></span>
+                        Buscar Cliente
+                    </button>
+                </div>
+                <input appAutofocus type="number" class="form-control" id="numDocumento" placeholder="Cliente"
+                    />
+                    <!-- [(ngModel)]="id" (keyup.enter)="SearchClient(id)"  -->
+            </div>
+        </div>
+
+    </div>
+</fieldset>
+
+
+<!-- Formulario Buscar Cliente -->
+<app-modal-dialog [visible]="boolSearchClient" (hide)="boolSearchClient = false">
+    <app-comp-search-client (submiter)="getCodClient($event)"></app-comp-search-client>
+</app-modal-dialog>

@@ -2,7 +2,6 @@ fieldset {
     display: block;
     margin: 0px 2px;
     padding: 0.35em 0.75em;
-    min-width: -webkit-min-content;
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: 0.25rem;
 }

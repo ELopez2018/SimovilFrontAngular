@@ -1,9 +1,9 @@
 <div class="form-group col-sm-12 p-0 form-inline mb-1 justify-content-center">
   <label class="control-label col-sm-1 m-0">Cliente</label>
   <div class="input-group col-sm-4">
-    <span class="input-group-addon">
-      <i class="fas fa-user fa-fw"></i>
-    </span>
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i></span>
+      </div>
     <input [(ngModel)]="searchId" appAutofocus (keyup.enter)="getClients()" class="form-control" type="text" name="searchid" id="searchid">
   </div>
   <div class="form-check col-sm-2 p-0 input-check">
@@ -22,7 +22,7 @@
 </div>
 <div class="table-wrapper" id="table-Search">
   <div class="align-self-center no-more-tables">
-    <table class="table table-hover table-sm table-striped table-bordered">
+    <table class="table table-hover table-sm table-striped table-bordered ">
       <thead>
         <tr class="text-center">
           <th scope="col">Nit</th>

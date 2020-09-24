@@ -11,6 +11,7 @@ import { UtilService } from '../../../services/util.service';
 import { EntClient } from '../../../Class/EntClient';
 import { StorageService } from '../../../services/storage.service';
 import { EntConsumo } from '../../../Class/EntConsumo';
+import { EntConsumoServipunto } from '../../../Class/EntConsumoServipunto';
 
 @Component({
     // tslint:disable-next-line: component-selector
@@ -25,7 +26,8 @@ export class StationConsumptionFormapagoComponent implements OnInit {
     formaPago: number;
     VerBuscarFP: boolean = false;
     es: any;
-    consumos: any[] = [];
+    consumos: EntConsumoServipunto[] = [];
+    consumosRaw: EntConsumoServipunto[] = [];
     fechaInicial: Date = new Date();
     fechaFinal: Date = new Date();
     descripcionFP: string;
@@ -39,6 +41,7 @@ export class StationConsumptionFormapagoComponent implements OnInit {
     stationSel: EntStation;
     stationCode: number;
     stationsAll: EntStation[];
+    descuentos: any[];
     constructor(
         public nominaService: CarteraService,
         public _NominaService: NominaService,
@@ -91,11 +94,20 @@ export class StationConsumptionFormapagoComponent implements OnInit {
     }
 
     assignClient(client: EntClient) {
+        this.boolClient = false;
         this.clientSel = client;
         this.VerBuscarFP = client !== null;
-        this.boolClient = false;
-    }
+        console.log(client);
+        this.GetDescuentos(client.codCliente);
 
+
+    }
+    GetDescuentos(codCliente: number) {
+        this.nominaService.getDescuentosCientes(codCliente).subscribe(resp => {
+            this.descuentos = resp;
+            console.log(this.descuentos);
+        });
+    }
 
     async consultarDatosFP(estacion: number, formaPago: number) {
         await this.nominaService.getDatosFormadePago(estacion, formaPago).subscribe(resp => {
@@ -115,28 +127,41 @@ export class StationConsumptionFormapagoComponent implements OnInit {
             return;
         }
         this.consumos = [];
+        this.consumosRaw = [];
+
         this.descripcionFP = null;
         this.utilService.loader();
         this.consultarDatosFP(this.stationCode, this.formaPago);
         this.nominaService.getFormadePago(this.stationCode, this.formaPago, this.fechaInicial, this.fechaFinal).subscribe(resp => {
             this.inactivo = false;
             this.utilService.loader(false);
-            this.consumos = resp;
-            let arrayTickets;
-            arrayTickets = [];
-            this.consumos.forEach(consumo => {
+            this.consumosRaw = resp;
+            console.log(this.consumosRaw);
+            let arrayTickets = [];
+
+            this.consumosRaw.forEach(consumo => {
                 arrayTickets.push({ ticket: consumo.CONSECUTIVO });
             });
+
             const Tickets = {
                 idEstacion: this.stationSel.idEstacion,
                 tickets: arrayTickets
             };
+
             this.nominaService.getValidarConsumoFp(Tickets).subscribe(datos => {
                 datos.forEach((Cons: any) => {
-                    let Indice = this.consumos.findIndex(ticket => ticket.CONSECUTIVO == Cons.tickets);
-                    this.consumos[Indice].REGISTRADO = Cons.registrado;
+                    let Indice = this.consumosRaw.findIndex(ticket => ticket.CONSECUTIVO == Cons.tickets);
+                    this.consumosRaw[Indice].REGISTRADO = Cons.registrado;
                 });
+                // this.consumosRaw.forEach(item => {
+
+                //     this.consumos.noInterno = 0;
+
+                // });
+                console.log(this.consumos);
+                this.consumos = this.consumosRaw;
             });
+
         }, error => {
             this.inactivo = false;
             this.utilService.loader(false);
