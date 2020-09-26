@@ -9,6 +9,9 @@ import { PAYMENTMETHODS } from '../../../Class/PAYMENTMETHODS';
 import { focusById } from '../../../util/util-lib';
 import { EntReceivable } from '../../../Class/EntReceivable';
 import { fadeTransition } from '../../../routerAnimation';
+import { StorageService } from '../../../services/storage.service';
+import { EntStation } from '../../../Class/EntStation';
+import { NominaService } from '../../../services/nomina.service';
 
 @Component({
     selector: 'app-payment-assign',
@@ -17,7 +20,9 @@ import { fadeTransition } from '../../../routerAnimation';
     animations: [fadeTransition()]
 })
 export class PaymentAssignComponent implements OnInit {
-
+    stationCode: number;
+    stationsAll: EntStation[] = [];
+    stationSel: EntStation;
     searchPayments: EntPayment[];
     paymentSel: EntPayment;
     client: EntClient;
@@ -34,7 +39,9 @@ export class PaymentAssignComponent implements OnInit {
         private carteraService: CarteraService,
         private principalComponent: PrincipalComponent,
         private title: Title,
-        private utilService: UtilService
+        private utilService: UtilService,
+        private _storageService: StorageService,
+        private _NominaService: NominaService
     ) {
         this.title.setTitle('Asignar pago - Simovil');
     }
@@ -44,8 +51,17 @@ export class PaymentAssignComponent implements OnInit {
         this.formasPagoAll = Object.create(PAYMENTMETHODS);
         this.formasPago = this.formasPagoAll.filter(e => e.id < 3);
         focusById('btnBoolClient');
+        this.GetEstaciones();
     }
-
+    GetEstaciones() {
+        this.stationCode = this._storageService.getCurrentStation();
+        this._NominaService.GetStations().subscribe(data => {
+            this.stationsAll = data;
+            if (this.stationCode) {
+                this.stationSel = this.stationsAll.find(e => e.idEstacion == this.stationCode);
+            }
+        }, error => console.error(error.error.message));
+    }
     getFormaPago(value) {
         if (value != null) {
             return this.formasPagoAll.find(e => e.id == value).text;
@@ -118,8 +134,8 @@ export class PaymentAssignComponent implements OnInit {
 
     assignPayment(payment: EntPayment) {
         this.paymentSel = payment;
-        this.utilService.loader()
-        this.carteraService.getReceivable(payment.cliente, true, null, null, null, null).subscribe(res => {
+        this.utilService.loader();
+        this.carteraService.getReceivable(payment.cliente, true, null, null, null,  this.stationCode ).subscribe(res => {
             this.utilService.loader(false);
             this.receivables = res;
             if (res.length > 0) {

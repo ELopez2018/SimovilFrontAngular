@@ -10,8 +10,8 @@ export class EntConsumoServipunto {
     COD_MAN: string;
     COD_SUR: string;
     COD_TANQ: string;
-    CONSECUTIVO: string;
-    CodigoAlterno: string;
+    CONSECUTIVO: number;
+    CodigoAlterno: number;
     DESCUENTO: number;
     Fecha: string;
     FechaReal: string;
@@ -26,10 +26,10 @@ export class EntConsumoServipunto {
     PLACA: string;
     PRECIO_UNI: string;
     PRESET: string;
-    REGISTRADO: string;
+    REGISTRADO: boolean;
     SUBTOTAL: number;
-    TOTAL: string;
-    VALOR: string;
+    TOTAL: number;
+    VALOR: number;
     hora: string;
     noInterno: string;
 }

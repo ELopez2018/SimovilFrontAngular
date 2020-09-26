@@ -255,7 +255,9 @@ export class StationConsumptionFormapagoComponent implements OnInit {
                 placa: string,
                 articulo: number,
                 cantidad: number,
-                total: number
+                total: number,
+                valorDescuento: number,
+                noInterno: string
             }[]
         }[] = [];
         arrayList.push({
@@ -275,7 +277,9 @@ export class StationConsumptionFormapagoComponent implements OnInit {
                         placa: cleanString(a.PLACA).toUpperCase(),
                         articulo: a.CodigoAlterno,
                         cantidad: a.CANTIDAD,
-                        total: a.VALOR
+                        total: a.VALOR,
+                        valorDescuento: a.DESCUENTO,
+                        noInterno: a.noInterno
                     });
                 } else {
                     contadorOmitidas++;
