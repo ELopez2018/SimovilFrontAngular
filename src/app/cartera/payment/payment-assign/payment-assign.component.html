@@ -45,7 +45,7 @@
 <div class="table-wrapper container" id="table-Consumption-Search">
   <div class="align-self-center no-more-tables" id="table-Consumption-Search">
     <div id="print-payments">
-      <table class="table table-hover table-sm table-striped">
+      <table class="table table-hover table-sm table-striped table-responsive">
         <thead>
           <tr class="text-center">
             <th scope="col">Id</th>
@@ -53,6 +53,7 @@
             <th scope="col">Registrado</th>
             <th scope="col">Fecha de pago</th>
             <th scope="col">Forma de pago</th>
+            <th scope="col">Detalle</th>
             <th scope="col">Valor</th>
             <th scope="col">Acción</th>
           </tr>
@@ -60,12 +61,15 @@
         <tbody>
           <tr *ngFor="let payment of searchPayments">
             <td class="text-center" data-title="Id">{{payment.idPago}}</td>
-            <td class="text-center" data-title="Cliente">{{payment.nombre}}</td>
+            <td class="" data-title="Cliente">{{payment.nombre}}</td>
             <td class="text-center" data-title="Registrado">{{payment.fecha | date: 'dd/MM/yyyy hh:mm:ss a' :
               '+0000'}}</td>
             <td class="text-center" data-title="Fecha de pago">{{payment.fechaPago | date: 'dd/MM/yyyy' : '+0000'}}</td>
             <td class="text-center" data-title="Forma de pago">{{getFormaPago(payment.formaPago)}}</td>
+
+            <td class="" data-title="Valor">{{payment.DETALLE | uppercase }}</td>
             <td class="text-right" data-title="Valor">{{payment.valor | currency }}</td>
+
             <td class="text-center" data-title="Acción" title="Asignar Cuenta de cobro">
               <button (click)="assignPayment(payment)" class="btn btn-sm btn-primary">Asignar</button>
             </td>

@@ -149,7 +149,7 @@ export class PaymentAddComponent implements OnInit {
         payment.fechaPago = payfor.fechaPago;
         payment.formaPago = payfor.formaPago ? payfor.formaPago.id : null;
         payment.anticipo = this.client.tipoCupo == 2;
-        payment.ASIGNADO = (this.client.tipoCupo == 2) ? true : this.assignPago;
+        payment.ASIGNADO = (this.client.tipoCupo == 2) ? false : this.assignPago;
         payment.idEstacion = this.stationSel.idEstacion;
         payment.tipoRetencion = payfor.tipoRetencion;
         payment.montoRentencion = payfor.montoRentencion;

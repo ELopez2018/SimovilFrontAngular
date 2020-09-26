@@ -119,7 +119,7 @@ export class PaymentAssignComponent implements OnInit {
     }
 
     SelReceivable(receivable: EntReceivable) {
-        this.utilService.loader()
+        this.utilService.loader();
         this.carteraService.AssignPayment(receivable.id, this.paymentSel.idPago).subscribe(res => {
             this.utilService.loader(false);
             this.principalComponent.showMsg('success', 'Éxito', 'Pago asignado correctamente');
