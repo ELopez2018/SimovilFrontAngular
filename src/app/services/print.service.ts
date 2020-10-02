@@ -52,7 +52,7 @@ export class PrintService {
         window.open(blobURL);
     }
 
-    downloadCSV(csv: any, name: string = 'prueba') {
+    downloadCSV(csv: any, name: string = 'fileCSV') {
         // var blob;
         // blob = new Blob([csv], { type: 'text/csv' })
         // var blobURL = URL.createObjectURL(blob);

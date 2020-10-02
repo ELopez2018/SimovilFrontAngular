@@ -21,4 +21,5 @@ export class EntConsumptionClient {
     manual: boolean;
     fecha: string;
     usuario: string;
+    DESCRIPCION: string;
 }

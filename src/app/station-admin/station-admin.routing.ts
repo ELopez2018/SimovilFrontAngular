@@ -77,7 +77,7 @@ const ROUTES: Routes = [
                     { path: 'formaPagos', component: StationConsumptionFormapagoComponent },
                     { path: 'consumptionReports', component: StationConsumptionReportsComponent },
                     { path: 'otrasVentasAdd', component: OtrasVentasAddComponent },
-                    // { path: '', redirectTo: 'search', pathMatch: 'full' },
+                    { path: '', redirectTo: 'search', pathMatch: 'full' },
                 ]
             },
             { path: 'receivable', component: StationAdminReceivableComponent },

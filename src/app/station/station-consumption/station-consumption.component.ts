@@ -22,14 +22,16 @@ import { Title } from '@angular/platform-browser';
 })
 export class StationConsumptionComponent implements OnInit {
 
-  searchConsumos: EntConsumptionClient[];
+  searchConsumos: EntConsumptionClient[] = [];
   codEstation;
   stationsAll: EntStation[];
   client: EntClient;
   searchConsumoFechaIni;
   searchConsumoFechaFin;
   id;
+  nombreCliente: string;
   booleanClient = false;
+  estilos: string = 'form-group col-sm-12 p-0 form-inline mb-0 justify-content-center shadow pb-2'
 
   constructor(
     private nominaService: NominaService,
@@ -93,7 +95,13 @@ export class StationConsumptionComponent implements OnInit {
   getConsumptionSearch() {
     this.utilService.loader(true);
     this.carteraService.getConsumption(this.client.codCliente, this.searchConsumoFechaIni, this.searchConsumoFechaFin, null, this.codEstation).subscribe(consumptions =>
-      this.searchConsumos = consumptions,
+      {this.searchConsumos = consumptions;
+        if (this.searchConsumos.length > 0 && this.searchConsumos !== null) {
+            this.estilos ='form-group col-sm-12 p-0 form-inline mb-0 justify-content-center pb-2'
+        } else {
+            this.estilos ='form-group col-sm-12 p-0 form-inline mb-0 justify-content-center shadow pb-2'
+        }
+        },
       error => {
         console.log(error);
         this.utilService.loader(false);
@@ -155,6 +163,7 @@ export class StationConsumptionComponent implements OnInit {
 
   resultClient(client: EntClient) {
     this.client = client;
+    this.nombreCliente= client.nombre;
     this.booleanClient = false;
     focusById('btnSearch');
   }
@@ -167,13 +176,15 @@ export class StationConsumptionComponent implements OnInit {
   }
 
   csvConsumptionSearch() {
-    let title = ['fechaConsumo', 'horaConsumo', 'ConsecutivoEstacion', 'cantidad', 'placa', 'valor', 'idPedido', 'estacionConsumo', 'cuentaCobro'];
-    let titleB = ['Fecha', 'Hora', 'Tiquete', 'Cantidad', 'Placa', 'Valor', 'Pedido', 'Estación', 'Cuenta de Cobro'];
+    let title = ['fechaConsumo', 'horaConsumo', 'ConsecutivoEstacion', 'cantidad', 'DESCRIPCION', 'placa', 'valor', 'idPedido', 'estacionConsumo', 'cuentaCobro'];
+    let titleB = ['Fecha', 'Hora', 'Tiquete', 'Cantidad',  'Combustible', 'Placa', 'Valor', 'Pedido', 'Estación', 'Cuenta de Cobro'];
     let item = JSON.parse(JSON.stringify(this.searchConsumos));
+    console.log(item);
     item.map(e => {
       e.fechaConsumo = formatDate(e.fechaConsumo, 'dd/MM/yyyy', 'en-US', '+0000');
       e.horaConsumo = formatDate(e.horaConsumo, 'mediumTime', 'en-US', '+0000');
     });
-    this.printService.downloadCSV(ObjToCSV(item, title, titleB), 'consumos');
+    console.log(item);
+    this.printService.downloadCSV(ObjToCSV(item, title, titleB), 'CONSUMOS ' + this.nombreCliente);
   }
 }
