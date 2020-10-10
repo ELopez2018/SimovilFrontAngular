@@ -38,7 +38,7 @@
       <tbody>
         <tr *ngFor="let client of clients" [@fade]="'in'">
           <td data-title="Nit" class="text-center">{{client.codCliente}}</td>
-          <td data-title="Nombre" class="text-center">{{client.nombre}}</td>
+          <td data-title="Nombre" class="">{{client.nombre}}</td>
           <td data-title="Estado Cupo" class="text-center">{{client.estadoCupo == true ? 'Activo' : 'Inactivo'}}</td>
           <td data-title="Tipo Cupo" class="text-center">{{client.detalleTipoCupo}}</td>
           <td data-title="Cupo Asignado" class="text-right">{{client.cupoAsignado | currency}}</td>

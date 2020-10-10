@@ -150,7 +150,7 @@ export class InvoiceAddComponent implements OnInit {
         //   return;
         let invoiceLocal = new EntInvoice();
         let rawValue = this.invoiceForm.getRawValue();
-        invoiceLocal.numero = Number(rawValue.numero);
+        invoiceLocal.numero = String(rawValue.numero);
         invoiceLocal.proveedor = Number(rawValue.proveedor);
         invoiceLocal.fecha = rawValue.fecha;
         invoiceLocal.fechaRec = rawValue.fechaRec;

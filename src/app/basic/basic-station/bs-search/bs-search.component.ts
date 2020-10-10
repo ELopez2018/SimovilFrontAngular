@@ -7,6 +7,7 @@ import { UtilService } from '../../../services/util.service';
 import { NominaService } from '../../../services/nomina.service';
 import { EntStationType } from '../../../Class/EntStationType';
 import { CarteraService } from '../../../services/cartera.service';
+import { dateToISOString, rangedate } from '../../../util/util-lib';
 
 @Component({
   selector: 'app-bs-search',
@@ -25,7 +26,7 @@ export class BsSearchComponent implements OnInit {
   stationSel: EntStation;
   types = [{ id: 'L', text: 'LIQUIDOS' }, { id: 'G', text: 'GAS' }];
   typeSel: { id, text };
-  fecha;
+  fecha = dateToISOString(new Date());
   editdaily = false;
 
   constructor(
@@ -36,6 +37,7 @@ export class BsSearchComponent implements OnInit {
     private utilService: UtilService
   ) {
     this.title.setTitle('Simovil - Buscar estación')
+    this.fecha = dateToISOString(new Date());
   }
 
   ngOnInit() {
@@ -48,6 +50,7 @@ export class BsSearchComponent implements OnInit {
       console.log(error);
       this.principal.showMsg('error', 'Error', error.error.message);
     });
+    this.fecha = dateToISOString(new Date());
   }
 
   getStation() {
@@ -113,6 +116,14 @@ export class BsSearchComponent implements OnInit {
     this.typeSel = null;
     this.boolEditDailySheet = true;
     this.stationSel = station;
+    console.log(station);
+    if (station.sisLiq){
+        this.typeSel= { id: 'L', text: 'LIQUIDOS' };
+    } else {
+        this.typeSel= { id: 'G', text: 'GAS' };
+    }
+    console.log(this.typeSel);
+    this.fecha = dateToISOString(new Date());
   }
 
   resEdit(res: { obj: EntStation, result: boolean }) {

@@ -4,7 +4,7 @@ import { EntPago_Pro } from './EntPago_Pro';
 
 export class EntInvoice {
   id: number;
-  numero: number;
+  numero: string;
   proveedor: number;
   subtotal: number;
   descuento: number;
