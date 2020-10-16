@@ -11,7 +11,7 @@ import { BasicDataService } from '../../services/basic-data.service';
 })
 export class ModalDialogComponent implements OnInit {
     @Input() visible: boolean;
-    @Input() width = 10;
+    @Input() width = 11;
     @Output() hide = new EventEmitter<boolean>();
     private numModal: number;
 

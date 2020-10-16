@@ -1,3 +1,4 @@
+<fieldset>
 <div class="form-group col-sm-12 p-0 form-inline mb-0 justify-content-center">
   <div class="row col-sm-12 pb-1">
     <div class="input-group col-sm-3">
@@ -7,37 +8,37 @@
         </button>
       </div>
       <input [(ngModel)]="client.codCliente" (keyup.enter)="searchClient()" [disabled]="id!=null" required class="form-control"
-        type="number" name="codclient" id="codclient">
+        type="number" name="codclient" id="codclient" placeholder="N.I.T.">
     </div>
-    <div class="input-group col-sm-6">
-      <span class="input-group-addon">
-        <i class="fas fa-user fa-fw"></i>
-      </span>
-      <input [(ngModel)]="client.nombre" disabled class="form-control" type="text" name="nameclient" id="nameclient">
+    <div class="input-group col-sm-6 ">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i></span>
+        </div>
+      <input [(ngModel)]="client.nombre" disabled class="form-control" type="text" name="nameclient" id="nameclient"placeholder="Nombre del Proveedor">
     </div>
     <div *ngIf="id!=null" class="col-sm-2">
       <button class="btn btn-danger btn-block" (click)="back()">
         <span class="fas fa-undo fa-fw"></span>&nbsp;Atras</button>
     </div>
-    <div *ngIf="id==null" class="col-sm-2">
+    <!-- <div *ngIf="id==null" class="col-sm-2">
       <button class="btn btn-info btn-block" (click)="searchClient()" [disabled]="client.codCliente==null">
         <span class="fas fa-search fa-fw"></span>&nbsp;Consultar</button>
-    </div>
+    </div> -->
   </div>
   <!-- <div class="row col-sm-12 pb-1" *ngIf="client.nombre != null"> -->
-  <div class="row col-sm-12 pb-1">
+  <div class="row col-sm-12 pb-1 mt-2">
     <label class="control-label col-sm-1 m-0">Desde:</label>
     <div class="input-group col-sm-3">
-      <span class="input-group-addon">
+      <!-- <span class="input-group-addon">
         <i class="fas fa-calendar fa-fw"></i>
-      </span>
+      </span> -->
       <input [(ngModel)]="searchFechaIni" required class="form-control" type="date" name="searchFechaIni" id="searchFechaIni">
     </div>
     <label class="control-label col-sm-1 m-0">Hasta:</label>
     <div class="input-group col-sm-3">
-      <span class="input-group-addon">
+      <!-- <span class="input-group-addon">
         <i class="fas fa-calendar fa-fw"></i>
-      </span>
+      </span> -->
       <input [(ngModel)]="searchFechaFin" required class="form-control" type="date" name="searchFechaFin" id="searchFechaFin">
     </div>
     <div class="form-check col-sm-1 p-0 input-check">
@@ -61,9 +62,10 @@
     </div>
   </div>
 </div>
-<div class="table-wrapper container" id="table-Consumption-Search">
+</fieldset>
+<div class="table-wrapper container mt-2 pb-4" id="table-Consumption-Search" *ngIf="searchReceivable != null">
   <div id="print-receivables">
-    <table class="table table-hover table-sm table-striped table-dark" *ngIf="searchReceivable != null">
+    <table class="table table-hover table-sm table-striped table-dark" >
       <thead>
         <tr class="text-center">
           <th scope="col">Activo</th>
@@ -78,7 +80,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let receivable of searchReceivable" [ngClass]="porCobrar(receivable)">
+        <tr *ngFor="let receivable of searchReceivable; index as i" [ngClass]="porCobrar(receivable)">
           <td data-title="Activo" class="text-center">
             <span *ngIf="receivable.estado == true" class="fab fa-font-awesome-flag fa-fw"></span>
           </td>
@@ -93,7 +95,7 @@
             <button title ="Imprimir PDF"  (click)="printReceivable(receivable)" class="btn btn-success btn-sm mr-1">
               <span class="fas fa-print fa-fw"></span>
             </button>
-            <button *ngIf="!codEstation" title ="Eliminar"  (click)="Eliminar( receivable.id )" class="btn btn-danger btn-sm">
+            <button *ngIf="!codEstation" title ="Eliminar"  (click)="Eliminar( receivable,i )" class="btn btn-danger btn-sm">
                 <span class="pi pi-trash fa-fw"></span>
               </button>
           </td>

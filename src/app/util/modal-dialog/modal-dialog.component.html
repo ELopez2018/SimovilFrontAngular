@@ -1,9 +1,16 @@
-<div id="overlay" [@fade]="'in'" *ngIf="visible">
-    <div id="bgOverlay" (click)="hideF()">
-    </div>
-    <div id="dialog" [class]="'col-md-' + width">
-        <div class="formDialog p-2">
-            <ng-content></ng-content>
+<div id="overlay" [@fade]="'in'" *ngIf="visible" class="">
+    <div id="bgOverlay" (click)="hideF()"></div>
+
+    <div id="dialog" [class]="' col-md-' + width">
+        <div class="row justify-content-md-center">
+            <div
+                [class]="
+                    'formDialog p-2 col-md-' +
+                    width
+                "
+            >
+                <ng-content></ng-content>
+            </div>
         </div>
     </div>
 </div>

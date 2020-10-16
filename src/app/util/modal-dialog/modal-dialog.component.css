@@ -36,7 +36,7 @@
     z-index: 10;
 }
 
-@media(min-width:768px) {
+@media (min-width: 768px) {
     .formDialog-right {
         min-width: 20rem;
     }

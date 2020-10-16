@@ -98,21 +98,31 @@
     </div>
 </div>
 
-<app-modal-dialog [visible]="boolCreateRec" (hide)="boolCreateRec = false">
-    <div class="row">
-        <div class="col-sm-3 form-group">
-            <label class="control-label mb-0">Nombre del cliente</label>
-            <input *ngIf="clientSel" type="text" class="form-control" disabled [(ngModel)]="clientSel.nombre">
+<app-modal-dialog [visible]="boolCreateRec" (hide)="boolCreateRec = false"  [width]=8>
+    <fieldset>
+    <div class="row mb-0">
+        <div class="col-sm-4 form-group ">
+            <label class="control-label mb-0">Fecha de la Cuenta de Cobro</label>
+            <input id="fechaCorte" type="date" [(ngModel)]="fechaCliFin" class="form-control">
         </div>
-        <div class="col-sm-3 form-group">
+        <div class="col-sm-8 form-group mb-0">
+            <label class="control-label mb-0">Nombre del cliente</label>
+            <input *ngIf="clientSel" type="text" class="form-control text-center font-weight-bold" disabled [(ngModel)]="clientSel.nombre">
+        </div>
+    </div>
+    <div class="row justify-content-md-center mt-0">
+
+    </div>
+    <div class="row">
+        <div class="col-sm-4 form-group">
             <label class="control-label mb-0">Fecha inicial</label>
             <input id="fechaIni" type="date" [(ngModel)]="fechaCliIni" class="form-control">
         </div>
-        <div class="col-sm-3 form-group">
+        <div class="col-sm-4 form-group">
             <label class="control-label mb-0">Fecha corte</label>
             <input id="fechaCorte" type="date" [(ngModel)]="fechaCliFin" class="form-control">
         </div>
-        <div class="col-sm-3 form-group">
+        <div class="col-sm-4 form-group">
             <button [disabled]="!valid" (click)="createReceivable()" class="btn btn-sm btn-primary btn-block">
                 <i class="fas fa-file-invoice"></i>&nbsp;Crear
             </button>
@@ -121,4 +131,5 @@
             </button>
         </div>
     </div>
+</fieldset>
 </app-modal-dialog>
