@@ -545,7 +545,7 @@ export class PrintService {
 
     printReceivable(receivable: EntReceivable, consumos: EntConsumptionClient[], station: EntStation, result?) {
         // console.log(station);
-        console.log(consumos);
+        // console.log(consumos);
         const currentCompany = this.empresas.find(e => e.nit === station.empresa);
         const SomosGranContr = (station.empresa == 900127676 ? '' : 'Somos grandes contribuyentes');
         const currenBank = this.bancos.find(e => e.idBanco === station.banco);
@@ -689,9 +689,24 @@ export class PrintService {
             firmaAdministrador2 = firmaEDS;
         } else {
             tableReceivable['pageBreak'] = 'before';
-            espacio = '\nANEXO RELACIÓN\n';
+            // espacio = '\nANEXO\n'
             firmaAdministrador1 = firmaEDS;
         }
+
+        // espacio = [{ stack: null, border: [true, true], rowSpan: 2 }, { text: '', border: [false, true], colSpan: 8 }, {}, {}, {}, {}, {}, {}, {}, { text: 'CUADRE DE CAJA PLANILLA DIARIA DE OPERACIONES ' + tipoPlanilla, style: 'center', colSpan: 4, rowSpan: 2, border: [false, true, true] }, {}, {}, {}]
+         var contenido = [{}, {}, {}, {}, {}, {}, {}, { text: 'texto', style: 'headerTable', border:[true, true, true, true] }, {}, {}, {}, {}, {}]
+
+         espacio = {
+             table: {
+               // widths: ['auto', 'auto'],
+               widths: [ '*','*','*' ],
+                 body: [
+                     [{text:' VALOR FACTURA ', alignment: 'center'}, {text:' DESCUENTO ', alignment: 'center'},{text:' VALOR TOTAL A PAGAR ', alignment: 'center'}],
+                     [{text:'$' + valorAnt.toLocaleString(), alignment: 'center'} , {text:'$' + descuento.toLocaleString(), alignment: 'center'},{text:'$' + (valorAnt - descuento).toLocaleString(), alignment: 'center'}],
+                 ],
+             },
+         };
+
         pdfMake.vfs = pdfFonts.pdfMake.vfs;
         var dd = {
             background: function (page) {
@@ -741,9 +756,13 @@ export class PrintService {
                     }],
                     style: 'piedepagina',
                     absolutePosition: { x: 85, y: 650 }
-                }, espacio,
+                },
+                {}
+                ,
+                 espacio,
                 firmaAdministrador1,
-                tableReceivable, firmaAdministrador2
+                tableReceivable,
+                firmaAdministrador2
             ],
             styles: {
                 header: {

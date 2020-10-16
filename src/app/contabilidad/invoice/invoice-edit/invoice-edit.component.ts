@@ -109,7 +109,7 @@ export class InvoiceEditComponent implements OnInit {
     let invoiceLocal = new EntInvoice();
     let rawValue = this.invoiceForm.getRawValue();
     invoiceLocal.id = this.invoice.id;
-    invoiceLocal.numero = Number(rawValue.numero);
+    invoiceLocal.numero = String(rawValue.numero);
     invoiceLocal.proveedor = Number(rawValue.proveedor);
     invoiceLocal.fecha = rawValue.fecha;
     invoiceLocal.fechaRec = rawValue.fechaRec;
@@ -189,7 +189,7 @@ export class InvoiceEditComponent implements OnInit {
 
   validarFactura() {
     this.utilService.loader(true);
-    let num = Number(this.invoiceForm.get('numero').value);
+    let num = String(this.invoiceForm.get('numero').value);
     let pro = Number(this.invoiceForm.get('proveedor').value);
     this.utilService.loader(false);
     this.carteraService.getInvoice(null, num, pro, null, null, null, null, null, null, null, null, true).subscribe(data => {

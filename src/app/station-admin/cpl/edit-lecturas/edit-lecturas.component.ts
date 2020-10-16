@@ -26,11 +26,13 @@ export class EditLecturasComponent implements OnInit {
         private _storageService: StorageService,
         private _NominaService: NominaService,
         public toast: PrincipalComponent
-    ) { }
+    ) {
+        this.GetEstaciones();
+     }
 
     ngOnInit() {
         this.GetDatosCalendario();
-        this.GetEstaciones();
+
     }
 
     GetDatosCalendario() {
@@ -54,6 +56,7 @@ export class EditLecturasComponent implements OnInit {
                 this.stationSel = this.stationsAll.find(e => e.idEstacion == this.stationCode);
                 this.GetTurnos();
                 this.GetIslas(this.stationSel.islas);
+                console.log(this.stationSel);
             }
         }, error => console.error(error.error.message));
     }
@@ -69,7 +72,10 @@ export class EditLecturasComponent implements OnInit {
             i = i + 1;
         }
     }
-    GetIslas(datos: any) {
+    GetIslas(datos: Array<any>) {
+        if (datos.length== 0 || !datos || datos == undefined) {
+            return;
+        }
         this.Islas = [{
             id: 0,
             value: 'TODAS '
@@ -80,6 +86,9 @@ export class EditLecturasComponent implements OnInit {
                 value: element.DETALLE
             });
         });
+    }
+    GetArticulos(Articulos: Array<any>) {
+    console.log(Articulos);
     }
     GetLecturas(idEstacion: number, Fecha: Date, Turno: Number, Isla: any) {
         if (Isla.id == 0) {

@@ -530,7 +530,7 @@ export class CarteraService {
         return this.http.get<EntBasicClient[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions);
     }
 
-    public getInvoice(id: number, num?: number, proveedor?: number, fechaIni?, fechaFin?, status?, station?, aprox?: boolean, val?: number, novedad = true, historial = false, articulo = false): Observable<EntInvoice[]> {
+    public getInvoice(id: number, num?: string, proveedor?: number, fechaIni?, fechaFin?, status?, station?, aprox?: boolean, val?: number, novedad = true, historial = false, articulo = false): Observable<EntInvoice[]> {
         const query = '/api/invoice';
         const parameters = [
             [id, 'id'],

@@ -260,7 +260,7 @@ export class InvoiceAddComponent implements OnInit {
 
     validarFactura() {
         this.utilService.loader(true);
-        let num = Number(this.invoiceForm.get('numero').value);
+        let num = String(this.invoiceForm.get('numero').value);
         let pro = Number(this.invoiceForm.get('proveedor').value);
         this.utilService.loader(false);
         this.carteraService.getInvoice(null, num, pro).subscribe(data => {
