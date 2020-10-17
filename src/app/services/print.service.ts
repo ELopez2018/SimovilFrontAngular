@@ -91,7 +91,7 @@ export class PrintService {
         let obj = {};
         keys.forEach(e => {
 
-            if (isArray(obj1[e]) && isArray(obj2[e])) {
+            if (obj1[e].isArray && obj2[e].isArray) {
                 null;
             } else {
                 obj[e] = obj1[e] + obj2[e];
@@ -146,7 +146,11 @@ export class PrintService {
     }
 
     private printSheetDaily(planilla: EntDailySheet, station: EntStation, company: EntCompany, acum: EntDailySheet, open?: boolean, callback?) {
+
+        console.log('PLANILLA :', planilla);
+        console.log('ACUMULADOS :',acum);
         const acum2 = this.sumObj(planilla, acum) as EntDailySheet;
+        console.log('ACUMULADOS 2:',acum2);
         acum2.PLA_DIA_TUR = [];
         let facPag = '';
         let ArrayPagoProveedor: any[] = [];
@@ -228,10 +232,11 @@ export class PrintService {
 
 
         if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
-
             planilla.PLA_DIA_TUR.map(e => {
+
                 const a = acum.PLA_DIA_TUR.find(f => f.NUM_TUR == e.NUM_TUR);
                 var arr: EntDailySheetTurnDet[] = [];
+
                 if (a) {
                     e.PLA_DIA_TUR_VEN.map(s => {
                         const b = a.PLA_DIA_TUR_VEN.find(f => f.COD_ART == s.COD_ART);
@@ -248,11 +253,9 @@ export class PrintService {
                 }
             });
         } else {
-
-
-
             acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
         }
+
         const yesterday = addDays(planilla.FECHA, -1);
         const arrayLineA: boolean[] = [];
         const mes = getNameMonth(yesterday.getUTCMonth() + 1).toUpperCase();
