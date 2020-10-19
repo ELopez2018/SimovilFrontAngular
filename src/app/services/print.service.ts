@@ -147,10 +147,10 @@ export class PrintService {
 
     private printSheetDaily(planilla: EntDailySheet, station: EntStation, company: EntCompany, acum: EntDailySheet, open?: boolean, callback?) {
 
-        // console.log('PLANILLA :', planilla);
-        // console.log('ACUMULADOS :',acum);
+        // console.log('PLANILLA :', planilla)
+        console.log('ACUMULADOS ACUM 1:',acum.PLA_DIA_TUR);
         const acum2 = this.sumObj(planilla, acum) as EntDailySheet;
-        console.log('ACUMULADOS 2:',acum2);
+        console.log('ACUMULADOS ACUM2 2:',acum2.PLA_DIA_TUR);
         acum2.PLA_DIA_TUR = [];
         let facPag = '';
         let ArrayPagoProveedor: any[] = [];
@@ -231,12 +231,11 @@ export class PrintService {
         }
 
 
+        //===> SUMA LOS TURNOS ACTUALES AL ACUMULADO
         // if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
         //     planilla.PLA_DIA_TUR.map(e => {
-
         //         const a = acum.PLA_DIA_TUR.find(f => f.NUM_TUR == e.NUM_TUR);
         //         var arr: EntDailySheetTurnDet[] = [];
-
         //         if (a) {
         //             e.PLA_DIA_TUR_VEN.map(s => {
         //                 const b = a.PLA_DIA_TUR_VEN.find(f => f.COD_ART == s.COD_ART);
@@ -255,18 +254,18 @@ export class PrintService {
         // } else {
         //     acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
         // }
+        // console.log('ACUMULADOS DESPUES ACUM2:',acum2.PLA_DIA_TUR);
+
+        //=================> Código Nuevo
+        //===> SUMA LOS TURNOS ACTUALES AL ACUMULADO
         if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
+
             acum.PLA_DIA_TUR.map(e => {
-
                 const a = planilla.PLA_DIA_TUR.find(f => f.NUM_TUR == e.NUM_TUR);
-
                 var arr: EntDailySheetTurnDet[] = [];
-
                 if (a) {
                     e.PLA_DIA_TUR_VEN.map(s => {
-
                         const b = a.PLA_DIA_TUR_VEN.find(f => f.COD_ART == s.COD_ART);
-
                         if (b != null) {
                             var g = (this.sumObj(s, b) as EntDailySheetTurnDet)
                             g.COD_ART = s.COD_ART;
@@ -274,17 +273,18 @@ export class PrintService {
                         } else {
                             arr.push(s);
                         }
-
                     });
                     acum2.PLA_DIA_TUR.push({ NUM_TUR: e.NUM_TUR, CANT_VENTA: e.CANT_VENTA + a.CANT_VENTA, TOTAL: e.TOTAL + a.TOTAL, PLA_DIA_TUR_VEN: arr });
                     arr = [];
                 } else   {
-                    acum2.PLA_DIA_TUR.push({ NUM_TUR: e.NUM_TUR, CANT_VENTA: e.CANT_VENTA , TOTAL: e.TOTAL , PLA_DIA_TUR_VEN: arr });
+                    acum2.PLA_DIA_TUR.push({ NUM_TUR: e.NUM_TUR, CANT_VENTA: e.CANT_VENTA , TOTAL: e.TOTAL , PLA_DIA_TUR_VEN: e.PLA_DIA_TUR_VEN });
                 }
+
             });
         } else {
             acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
         }
+        console.log('ACUMULADOS DESPUES NEW ACUM2:',acum2.PLA_DIA_TUR);
 
         const yesterday = addDays(planilla.FECHA, -1);
         const arrayLineA: boolean[] = [];
@@ -295,29 +295,50 @@ export class PrintService {
 
         if (planilla.TIPO == 'L') {
 
+            let acumItem;
+
             acum2.PLA_DIA_TUR.map(e => {
-                let acumItem;
+                // SI EL TURNO ACUMULADO ESTÁ EN LA PLANILLA ACTUAL LO INGRESA EN UNA VARIABLE
                 if (planilla.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR) !== null) {
-                    acumItem = acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR);
+                    acumItem = planilla.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR);
                 }
 
+
+                // Encabezados
                 ingresosObj.push(
                     [{ text: 'TURNO ' + e.NUM_TUR, border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 3 }, {}, {}, { text: 'VTA GL', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'PRECIO x GL', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'VENTA $ TURNO ' + e.NUM_TUR, fillColor: '#ddebf7', style: 'center', border: [false, true, true, false] }, {}, { text: '', border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 2 }, {}, { text: 'ACUM. VTA GL.', style: 'center', border: [false, true, false, false], fillColor: '#ddebf7' }, { text: 'ACUM VTA $ TURNO ' + e.NUM_TUR, style: 'center', border: [false, true, true, false], fillColor: '#ddebf7' }]
                 );
+
+                // Linea
                 arrayLineA.push(true);
 
-                e.PLA_DIA_TUR_VEN.map(r => {
+                // MUESTRA LOS DATOS
+                e.PLA_DIA_TUR_VEN.map((r: any) => {
+                    let  acItm;
+                    if ( acumItem  != undefined ) {
+                        acItm = acumItem.PLA_DIA_TUR_VEN.find(pdt => pdt.COD_ART == r.COD_ART);
+                        if (acItm == undefined) {
+                            acItm={ NOM_ART:  r.NOM_ART_ACUM, CANTIDAD:0, PRECIO:0, VENTA:0 }
+                        }
+                    } else {
+                        acItm={ NOM_ART:  r.NOM_ART_ACUM, CANTIDAD:0, PRECIO:0, VENTA:0 }
+                    }
 
-
-                    const acItm = acumItem.PLA_DIA_TUR_VEN.find(pdt => pdt.COD_ART == r.COD_ART);
                     ingresosObj.push(
-                        [{ text: r.NOM_ART, colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: r.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: r.PRECIO.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: r.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: r.NOM_ART, colSpan: 2, border: [true, false, false, false] }, {}, { text: acItm.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, { text: acItm.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }]
+                        [{ text:acItm.NOM_ART, colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acItm.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: acItm.PRECIO.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: acItm.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: acItm.NOM_ART, colSpan: 2, border: [true, false, false, false] }, {}, { text: r.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, { text: r.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }]
                     );
                     arrayLineA.push(false);
                 });
+
+                // Linea
                 arrayLineA.push(true);
+
+                console.log(acumItem);
+                if ( acumItem === undefined ){
+                    acumItem={CANT_VENTA:0, TOTAL: 0, PLA_DIA_TUR_VEN: []}
+                }
                 ingresosObj.push(
-                    [{ text: '', border: [true], colSpan: 2 }, {}, {}, { text: e.CANT_VENTA.toLocaleString(), style: 'right' }, {}, {}, {}, { text: e.TOTAL.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: '', border: [true], colSpan: 2 }, {}, { text: acumItem.CANT_VENTA.toLocaleString(), style: 'right' }, { text: acumItem.TOTAL.toLocaleString(), style: 'right', border: [false, false, true, true] }],
+                    [{ text: '', border: [true], colSpan: 2 }, {}, {}, { text: acumItem.CANT_VENTA.toLocaleString(), style: 'right' }, {}, {}, {}, { text: acumItem.TOTAL.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: '', border: [true], colSpan: 2 }, {}, { text: e.CANT_VENTA.toLocaleString(), style: 'right' }, { text:e.TOTAL.toLocaleString(), style: 'right', border: [false, false, true, true] }],
                 );
 
             });
@@ -341,6 +362,67 @@ export class PrintService {
                 });
             });
         }
+
+
+
+
+        //=========> CODIGO ACTUAL
+        // if (planilla.TIPO == 'L') {
+
+        //     planilla.PLA_DIA_TUR.map(e => {
+        //         let acumItem;
+
+        //         // SI EL TURNO ACUMULADO ESTÁ EN LA PLANILLA ACTUAL LO INGRESA EN UNA VARIABLE
+        //         if (acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR) !== null) {
+        //             acumItem = acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR);
+        //         }
+
+        //         // Encabezados
+        //         ingresosObj.push(
+        //             [{ text: 'TURNO ' + e.NUM_TUR, border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 3 }, {}, {}, { text: 'VTA GL', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'PRECIO x GL', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'VENTA $ TURNO ' + e.NUM_TUR, fillColor: '#ddebf7', style: 'center', border: [false, true, true, false] }, {}, { text: '', border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 2 }, {}, { text: 'ACUM. VTA GL.', style: 'center', border: [false, true, false, false], fillColor: '#ddebf7' }, { text: 'ACUM VTA $ TURNO ' + e.NUM_TUR, style: 'center', border: [false, true, true, false], fillColor: '#ddebf7' }]
+        //         );
+
+        //         // Linea
+        //         arrayLineA.push(true);
+
+        //         // MUESTRA LOS DATOS
+        //         e.PLA_DIA_TUR_VEN.map(r => {
+        //             const acItm = acumItem.PLA_DIA_TUR_VEN.find(pdt => pdt.COD_ART == r.COD_ART);
+        //             ingresosObj.push(
+        //                 [{ text: r.NOM_ART, colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: r.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: r.PRECIO.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: r.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: r.NOM_ART, colSpan: 2, border: [true, false, false, false] }, {}, { text: acItm.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, { text: acItm.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }]
+        //             );
+        //             arrayLineA.push(false);
+        //         });
+
+        //         // Linea
+        //         arrayLineA.push(true);
+
+        //         ingresosObj.push(
+        //             [{ text: '', border: [true], colSpan: 2 }, {}, {}, { text: e.CANT_VENTA.toLocaleString(), style: 'right' }, {}, {}, {}, { text: e.TOTAL.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: '', border: [true], colSpan: 2 }, {}, { text: acumItem.CANT_VENTA.toLocaleString(), style: 'right' }, { text: acumItem.TOTAL.toLocaleString(), style: 'right', border: [false, false, true, true] }],
+        //         );
+
+        //     });
+
+        //     arrayLineA.push(true);
+
+        // } else if (planilla.TIPO == 'G') {
+        //     ingresosObj.push(
+        //         [{ text: '', border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 2 }, {}, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'VTA MT', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'PRECIO x MT', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'VENTA $', fillColor: '#ddebf7', style: 'center', border: [false, true, true, false] }, {}, { text: '', border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 2 }, {}, { text: 'ACUM. VTA MT.', style: 'center', border: [false, true, false, false], fillColor: '#ddebf7' }, { text: 'ACUM VTA $', style: 'center', border: [false, true, true, false], fillColor: '#ddebf7' }],
+        //         [{ text: ' ', colSpan: 8, border: [true, false, true] }, {}, {}, {}, {}, {}, {}, {}, {}, { text: '', colSpan: 4, border: [true, false, true] }, {}, {}, {}]
+        //     );
+
+        //     planilla.PLA_DIA_TUR.map(e => {
+        //         const acitem = acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR);
+        //         e.PLA_DIA_TUR_VEN.map(r => {
+        //             const pdtv = acitem.PLA_DIA_TUR_VEN.find(it => it.COD_ART == r.COD_ART);
+        //             ingresosObj.push(
+        //                 [{ text: 'TURNO ' + e.NUM_TUR, border: [true, false, false, false], colSpan: 3 }, {}, {}, { text: r.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: r.PRECIO.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: r.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: 'TURNO ' + e.NUM_TUR, border: [true, false, false, false], colSpan: 2 }, {}, { text: pdtv.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, { text: pdtv.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }]
+        //             );
+        //             arrayLineA.push(false);
+        //         });
+        //     });
+        // }
+
         if (this.isfirtsAcum(acum)) {
             acum2.CAJ_CUST_SALDO = planilla.CAJ_CUST_SALDO;
         } else {
