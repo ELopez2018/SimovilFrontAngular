@@ -32,6 +32,7 @@ export class InvoiceHistoryComponent implements OnInit {
 
   assigninvoice() {
     if (this.invoice) {
+    console.log(this.invoice);
       this.util.loader()
       this.cartera.getInvoice(this.invoice.id).subscribe(res => {
         this.invoice = res[0];
