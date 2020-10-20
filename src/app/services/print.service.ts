@@ -324,9 +324,11 @@ export class PrintService {
                         acItm={ NOM_ART:  r.NOM_ART_ACUM, CANTIDAD:0, PRECIO:0, VENTA:0 }
                     }
 
+
                     ingresosObj.push(
                         [{ text:acItm.NOM_ART, colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acItm.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: acItm.PRECIO.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: acItm.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: acItm.NOM_ART, colSpan: 2, border: [true, false, false, false] }, {}, { text: r.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, { text: r.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }]
                     );
+
                     arrayLineA.push(false);
                 });
 
@@ -750,7 +752,7 @@ export class PrintService {
                 dateconsumption.toLocaleDateString(),
                 element.placa,
                 { text: element.cantidad.toLocaleString(), alignment: 'right' },
-                element.combustible == 0 ? 'Gasolina' : element.combustible == 1 ? 'Diesel' : element.combustible == 2 ? 'Gas' : element.combustible == 3 ? 'Lubricantes' : '',
+                element.combustible == 0 ? 'Gasolina' : element.combustible == 1 ? 'Diesel' : element.combustible == 2 ? 'Gas' : element.combustible == 3 ? 'Lubricantes' : element.combustible == 4 ? 'Filtros':'',
                 element.ConsecutivoEstacion.toString(),
                 { text: element.valor.toLocaleString(), alignment: 'right' }]);
         });
