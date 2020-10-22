@@ -1,13 +1,13 @@
 <div class="form-group form-row p-0 form-inline mb-1 justify-content-center">
-  <label *ngIf="stationCode==null" class="control-label col-sm-1 m-0">Estación</label>
-  <div *ngIf="stationCode==null" class="input-group col-sm-3">
-    <select class="form-control" [(ngModel)]="stationSel">
+  <label  class="control-label col-sm-1 m-0">Estación</label>
+  <div  class="input-group col-sm-3">
+    <select class="form-control" [(ngModel)]="stationSel" [disabled]="stationCode">
       <option *ngFor="let item of stationsAll" [ngValue]="item">{{item.nombreEstacion}}</option>
     </select>
   </div>
   <label class="control-label col-sm-1">Tipo</label>
   <div class="input-group col-sm-2">
-    <select class="form-control" [(ngModel)]="typeSel">
+    <select class="form-control" [(ngModel)]="typeSel"  >
       <option *ngFor="let item2 of types" [ngValue]="item2">{{item2.text}}</option>
     </select>
   </div>

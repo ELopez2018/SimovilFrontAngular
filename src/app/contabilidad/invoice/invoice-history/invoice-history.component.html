@@ -1,27 +1,46 @@
-<h5 *ngIf="invoice" class="text-center">Factura #{{invoice.numero}}</h5>
-<div class="table-wrapper" id="table-Search" *ngIf="show">
-  <div class="align-self-center no-more-tables">
-    <table class="table table-hover table-sm table-striped table-bordered">
-      <thead class="thead-light">
-        <tr class="text-center">
-          <th scope="col">Tipo</th>
-          <th scope="col">Usuario</th>
-          <th scope="col">Area</th>
-          <th scope="col">Fecha</th>
-          <th scope="col">Detalle</th>
-          <th scope="col" *ngIf="boolDev">Fac. Dev</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let novedad of invoice.novedadFactura">
-          <td data-title="Tipo" class="text-center">{{getNameNovelty(novedad.tipoNovedad)}}</td>
-          <td data-title="Usuario" class="text-center">{{novedad.usuario}}</td>
-          <td data-title="Area" class="text-center">{{novedad.perfil}}</td>
-          <td data-title="Fecha" class="text-center">{{novedad.fecha | date: 'dd/MM/yyyy hh:mm:ss a' : '-0500'}}</td>
-          <td data-title="Detalle" class="text-center">{{novedad.detalle}}</td>
-          <td data-title="Fac. Dev." class="text-center" *ngIf="boolDev">{{novedad.facturaDev}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<h5 *ngIf="invoice" class="text-center py-2">Factura #{{ invoice.numero }}</h5>
+<div class="table-wrappep" id="table-Search" *ngIf="show">
+    <div class="align-self-center no-more-tables">
+        <table class="table table-hover table-sm table-striped table-bordered">
+            <thead class="thead-light">
+                <tr class="text-center">
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Area</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Detalle</th>
+                    <th scope="col" *ngIf="boolDev">Fac. Dev</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let novedad of invoice.novedadFactura">
+                    <td data-title="Tipo" class="text-center">
+                        {{ getNameNovelty(novedad.tipoNovedad) }}
+                    </td>
+                    <td data-title="Usuario" class="text-center">
+                        {{ novedad.usuario }}
+                    </td>
+                    <td data-title="Area" class="text-center">
+                        {{ novedad.perfil }}
+                    </td>
+                    <td data-title="Fecha" class="text-center">
+                        {{
+                            novedad.fecha
+                                | date: 'dd/MM/yyyy hh:mm:ss a':'-0500'
+                        }}
+                    </td>
+                    <td data-title="Detalle" class="text-center">
+                        {{ novedad.detalle }}
+                    </td>
+                    <td
+                        data-title="Fac. Dev."
+                        class="text-center"
+                        *ngIf="boolDev"
+                    >
+                        {{ novedad.facturaDev }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

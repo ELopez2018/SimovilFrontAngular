@@ -9,8 +9,7 @@ import { UtilService } from '../../../services/util.service';
 import { PrintService } from '../../../services/print.service';
 import { StorageService } from '../../../services/storage.service';
 import { fadeTransition } from '../../../routerAnimation';
-import { addDays, dateToISOString } from '../../../util/util-lib';
-import { forkJoin, Observable } from 'rxjs';
+import {  Observable } from 'rxjs';
 import { iParamRPTCartera } from '../../../Class/iRPT';
 import { EntDailySheetSupport } from '../../../Class/EntDailySheetSupport';
 
@@ -24,7 +23,7 @@ export class SheetDailySearchComponent implements OnInit {
 
   dailySheets: EntDailySheet[];
   types = [{ id: null, text: 'TODOS' }, { id: 'L', text: 'LIQUIDOS' }, { id: 'G', text: 'GAS' }];
-  typeSel: { id, text };
+  typeSel: { id: string, text: string }= null;
   fechaIni;
   fechaFin;
   searchStation: number = null;
@@ -37,7 +36,7 @@ export class SheetDailySearchComponent implements OnInit {
   paramCartera: iParamRPTCartera
   boolAttached = false;
   dailyAttachedSelected: EntDailySheetSupport[];
-
+  typeDisabled: boolean = true;
   constructor(
     private carteraService: CarteraService,
     private nominaService: NominaService,
@@ -52,13 +51,30 @@ export class SheetDailySearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.nominaService.GetStations().subscribe(data => {
-      this.stationsAll = data;
-    }, error => console.log(error));
+    this.GetEstaciones();
   }
-
+  GetEstaciones() {
+    this.nominaService.GetStations().subscribe(data => {
+        this.stationsAll = data;
+        if (this.stationCode) {
+            this.stationSel = this.stationsAll.find(e => e.idEstacion == this.stationCode);
+            switch (this.stationSel.tipoEstacion) {
+                case 1:
+                    this.typeSel = { id: 'G', text: 'GAS' }
+                break;
+                case 2:
+                    this.typeSel ={ id: 'L', text: 'LIQUIDOS' }
+                break;
+                default :
+                this.typeSel = {id: null, text: 'TODOS'}
+            }
+        }
+        console.log(this.stationSel, this.typeSel);
+    }, error => console.error(error.error.message));
+}
   getDailySheets() {
       // OBTIENE UNA LISTA CON LAS PLANILLAS
+      console.log(this.typeSel);
     this.utilService.loader(true);
     let staionCod = this.stationCode ? this.stationCode : this.stationSel ? this.stationSel.idEstacion : null;
     this.carteraService.getDailySheet(staionCod, this.typeSel ? this.typeSel.id : null, this.fechaIni, this.fechaFin, null, false).subscribe(result => {
