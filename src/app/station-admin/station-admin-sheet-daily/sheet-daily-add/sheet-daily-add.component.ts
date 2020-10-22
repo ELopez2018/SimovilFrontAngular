@@ -1182,8 +1182,21 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     }
 
     assignProvider(val: EntInvoice) {
+        // if (this.existItem(val) == -1) {
+        //     let a = this.proveedorList.controls[this.indexselProvider] as FormGroup;
+        //     a.get('nombre').setValue(val.nombre, this.emitFalse);
+        //     a.get('numero').setValue(val.numero, this.emitFalse);
+        //     a.get('id').setValue(val.id, this.emitFalse);
+        //     a.get('val').setValue(val.saldo);
+        //     focusById('ValPro-' + this.indexselProvider);
+        //     this.boolSearchProvider = false;
+        //     this.indexselProvider = null;
+        // } else {
+        //     this.principalComponent.showMsg('info', 'Información', 'Esta factura ya fue agregada');
+        // }
+
         if (this.existItem(val) == -1) {
-            let a = this.proveedorList.controls[this.indexselProvider] as FormGroup;
+            const a = this.proveedorList.controls[this.indexselProvider] as FormGroup;
             a.get('nombre').setValue(val.nombre, this.emitFalse);
             a.get('numero').setValue(val.numero, this.emitFalse);
             a.get('id').setValue(val.id, this.emitFalse);
@@ -1192,7 +1205,31 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
             this.boolSearchProvider = false;
             this.indexselProvider = null;
         } else {
-            this.principalComponent.showMsg('info', 'Información', 'Esta factura ya fue agregada');
+            Swal.fire({
+                title: '¿ESTA SEGURO?',
+                text: 'La factura ya está agregada en la planilla, ¿Desea hacer otro pago a la misma factura?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'No',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.value) {
+                    const a = this.proveedorList.controls[this.indexselProvider] as FormGroup;
+                    a.get('nombre').setValue(val.nombre, this.emitFalse);
+                    a.get('numero').setValue(val.numero, this.emitFalse);
+                    a.get('id').setValue(val.id, this.emitFalse);
+                    a.get('val').setValue(val.saldo);
+                    focusById('ValPro-' + this.indexselProvider);
+                    this.boolSearchProvider = false;
+                    this.indexselProvider = null;
+                    this.principalComponent.showMsg('success', 'Información', 'Factura incluida');
+                } else {
+                    this.principalComponent.showMsg('info', 'Información', 'Esta factura ya fue agregada');
+                }
+            });
+
         }
     }
 

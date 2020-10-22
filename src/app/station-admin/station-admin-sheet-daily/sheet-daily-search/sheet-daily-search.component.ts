@@ -23,7 +23,7 @@ export class SheetDailySearchComponent implements OnInit {
 
   dailySheets: EntDailySheet[];
   types = [{ id: null, text: 'TODOS' }, { id: 'L', text: 'LIQUIDOS' }, { id: 'G', text: 'GAS' }];
-  typeSel: { id: string, text: string }= null;
+  typeSel: { id: string, text: string }= { id: null, text: 'TODOS' };
   fechaIni;
   fechaFin;
   searchStation: number = null;
@@ -56,25 +56,38 @@ export class SheetDailySearchComponent implements OnInit {
   GetEstaciones() {
     this.nominaService.GetStations().subscribe(data => {
         this.stationsAll = data;
+        // console.log(this.stationsAll);
         if (this.stationCode) {
             this.stationSel = this.stationsAll.find(e => e.idEstacion == this.stationCode);
             switch (this.stationSel.tipoEstacion) {
                 case 1:
-                    this.typeSel = { id: 'G', text: 'GAS' }
+                    this.typeSel = this.types.find(e => e.id === 'G')
                 break;
                 case 2:
-                    this.typeSel ={ id: 'L', text: 'LIQUIDOS' }
+                    this.typeSel =this.types.find(e => e.id === 'L')
                 break;
                 default :
-                this.typeSel = {id: null, text: 'TODOS'}
+                this.typeSel = this.types.find(e => e.id === null)
             }
         }
-        console.log(this.stationSel, this.typeSel);
+        // console.log(this.stationSel, this.typeSel, this.types);
     }, error => console.error(error.error.message));
+}
+cambiaEstacion() {
+    switch (this.stationSel.tipoEstacion) {
+        case 1:
+            this.typeSel = this.types.find(e => e.id === 'G')
+        break;
+        case 2:
+            this.typeSel =this.types.find(e => e.id === 'L')
+        break;
+        default :
+        this.typeSel = this.types.find(e => e.id === null)
+    }
 }
   getDailySheets() {
       // OBTIENE UNA LISTA CON LAS PLANILLAS
-      console.log(this.typeSel);
+    //   console.log(this.typeSel);
     this.utilService.loader(true);
     let staionCod = this.stationCode ? this.stationCode : this.stationSel ? this.stationSel.idEstacion : null;
     this.carteraService.getDailySheet(staionCod, this.typeSel ? this.typeSel.id : null, this.fechaIni, this.fechaFin, null, false).subscribe(result => {

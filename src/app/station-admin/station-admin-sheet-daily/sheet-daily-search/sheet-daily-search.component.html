@@ -1,15 +1,17 @@
 <div class="form-group form-row p-0 form-inline mb-1 justify-content-center">
   <label  class="control-label col-sm-1 m-0">Estación</label>
   <div  class="input-group col-sm-3">
-    <select class="form-control" [(ngModel)]="stationSel" [disabled]="stationCode">
+    <select class="form-control" (change)="cambiaEstacion()" [(ngModel)]="stationSel" [disabled]="stationCode">
       <option *ngFor="let item of stationsAll" [ngValue]="item">{{item.nombreEstacion}}</option>
     </select>
   </div>
-  <label class="control-label col-sm-1">Tipo</label>
-  <div class="input-group col-sm-2">
-    <select class="form-control" [(ngModel)]="typeSel"  >
+  <label class="control-label col-sm-1" *ngIf="this.stationSel.tipoEstacion !== 4">Tipo</label>
+  <div class="input-group col-sm-2" *ngIf="this.stationSel.tipoEstacion !== 4">
+
+    <select class="form-control" [(ngModel)]="typeSel" [disabled]="this.stationSel.tipoEstacion !==3" >
       <option *ngFor="let item2 of types" [ngValue]="item2">{{item2.text}}</option>
     </select>
+
   </div>
   <div class="input-group col-sm-2">
     <button (click)="searchAdvance = !searchAdvance" class="btn btn-block btn-primary"><span

@@ -1413,7 +1413,31 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
             this.boolSearchProvider = false;
             this.indexselProvider = null;
         } else {
-            this.principalComponent.showMsg('info', 'Información', 'Esta factura ya fue agregada');
+            Swal.fire({
+                title: '¿ESTA SEGURO?',
+                text: 'La factura ya está agregada en la planilla, ¿Desea hacer otro pago a la misma factura?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'No',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.value) {
+                    const a = this.proveedorList.controls[this.indexselProvider] as FormGroup;
+                    a.get('nombre').setValue(val.nombre, this.emitFalse);
+                    a.get('numero').setValue(val.numero, this.emitFalse);
+                    a.get('id').setValue(val.id, this.emitFalse);
+                    a.get('val').setValue(val.saldo);
+                    focusById('ValPro-' + this.indexselProvider);
+                    this.boolSearchProvider = false;
+                    this.indexselProvider = null;
+                    this.principalComponent.showMsg('success', 'Información', 'La Factura fué incluida');
+                } else {
+                    this.principalComponent.showMsg('info', 'Información', 'Esta factura ya fue agregada');
+                }
+            });
+
         }
     }
 
