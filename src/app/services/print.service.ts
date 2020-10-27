@@ -974,9 +974,7 @@ export class PrintService {
 
                 // MUESTRA LOS DATOS
                 e.PLA_DIA_TUR_VEN.map((r: any) => {
-
                     let acItm;
-
                     if (acumItem != undefined) {
                         acItm = acumItem.PLA_DIA_TUR_VEN.find(
                             (pdt) => pdt.COD_ART == r.COD_ART
@@ -997,7 +995,6 @@ export class PrintService {
                             VENTA: 0,
                         };
                     }
-
                     if (acItm.VENTA == 0 && r.VENTA == 0) {
                     } else {
                         ingresosObj.push([
