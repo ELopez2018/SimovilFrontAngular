@@ -919,7 +919,7 @@ export class NominaService {
     public GetClasificacionInvoice(): Observable<EntClasificacionInvoice[]> {
         const query = '/api/invoiceclassification';
         return this.http.get<EntClasificacionInvoice[]>(Parametros.GetParametros().servidorLocal + query , this.httpOptions).pipe(
-            tap(data => console.log('clasificaciones de Facturas', data))
+            // tap(data => console.log('clasificaciones de Facturas'))
         );
     }
 }

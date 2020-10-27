@@ -865,7 +865,8 @@
         </div>
     </form>
 </app-fieldset>
-<app-fieldset cTitle="Documentos adjuntos" [(show)]="show[5]">
+
+<app-fieldset *ngIf="false" cTitle="Documentos adjuntos" [(show)]="show[5]">
     <form [formGroup]="attachedForm" class="max-750">
         <div [@fade]="'in'" formArrayName="attachedTypes" *ngFor="
                 let item of attachedForm.get('attachedTypes')['controls'];
@@ -907,6 +908,7 @@
         </div>
     </form>
 </app-fieldset>
+
 <fieldset>
     <div class="col-sm-12">
         <div class="row">
@@ -959,6 +961,7 @@
         </div>
     </div>
 </fieldset>
+
 <app-modal-dialog [visible]="boolEdit" (hide)="hide()">
     <div class="table-wrapper" id="table-edit">
         <div class="align-self-center no-more-tables" id="table-edit">

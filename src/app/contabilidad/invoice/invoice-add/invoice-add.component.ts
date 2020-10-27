@@ -13,7 +13,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { EntAdvance } from '../../../Class/EntAdvance';
 import { EntProvider } from '../../../Class/EntProvider';
-import { focusById, currencyNotDecimal, dateToISOString } from '../../../util/util-lib';
+import {
+    focusById,
+    currencyNotDecimal,
+    dateToISOString,
+} from '../../../util/util-lib';
 import { forkJoin } from 'rxjs';
 import { EntPlant } from '../../../Class/EntPlant';
 import { EntClasificacionInvoice } from '../../../Class/EntClasificacionInvoice';
@@ -22,7 +26,7 @@ import { EntClasificacionInvoice } from '../../../Class/EntClasificacionInvoice'
     selector: 'app-invoice-add',
     templateUrl: './invoice-add.component.html',
     styleUrls: ['./invoice-add.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
 })
 export class InvoiceAddComponent implements OnInit {
     invoiceForm: FormGroup;
@@ -46,6 +50,7 @@ export class InvoiceAddComponent implements OnInit {
     emitFalse = { emitEvent: false };
     mostrarItems = false;
     clasificacionInvoiceAll: EntClasificacionInvoice[] = [];
+    saldo: number = 0;
     constructor(
         private fb: FormBuilder,
         private carteraService: CarteraService,
@@ -75,35 +80,50 @@ export class InvoiceAddComponent implements OnInit {
         if (id != null) {
             this.idReturnedInvoice = atob(id);
             this.utilService.loader(true);
-            this.carteraService.getInvoice(this.idReturnedInvoice).subscribe(data => {
-                this.utilService.loader(false);
-                if (data.length == 1) {
-                    this.invoiceReturned = data[0];
-                    this.assignReturned();
-                } else {
-                    this.principalComponent.showMsg('error', 'Error', 'Error al cargar la factura devuelta');
+            this.carteraService.getInvoice(this.idReturnedInvoice).subscribe(
+                (data) => {
+                    this.utilService.loader(false);
+                    if (data.length == 1) {
+                        this.invoiceReturned = data[0];
+                        this.assignReturned();
+                    } else {
+                        this.principalComponent.showMsg(
+                            'error',
+                            'Error',
+                            'Error al cargar la factura devuelta'
+                        );
+                    }
+                },
+                (error) => {
+                    this.utilService.loader(false);
+                    console.log(error);
+                    this.principalComponent.showMsg(
+                        'error',
+                        'Error',
+                        error.error.message
+                    );
                 }
-            }, error => {
-                this.utilService.loader(false);
-                console.log(error);
-                this.principalComponent.showMsg('error', 'Error', error.error.message);
-            });
+            );
         }
     }
     FormatoFecha(fecha: Date): string {
         var dia = fecha.getDate() + '';
-        var mes = (fecha.getMonth() + 1) + '';
+        var mes = fecha.getMonth() + 1 + '';
         if (fecha.getDate() < 10) {
             dia = '0' + fecha.getDate();
         }
-        if ((fecha.getMonth() + 1) < 10) {
+        if (fecha.getMonth() + 1 < 10) {
             mes = '0' + (fecha.getMonth() + 1);
         }
         return fecha.getFullYear() + '-' + mes + '-' + dia;
     }
     assignReturned() {
-        this.invoiceForm.get('devueltaFac').setValue(this.invoiceReturned.numero);
-        this.invoiceForm.get('devueltaPro').setValue(this.invoiceReturned.proveedor);
+        this.invoiceForm
+            .get('devueltaFac')
+            .setValue(this.invoiceReturned.numero);
+        this.invoiceForm
+            .get('devueltaPro')
+            .setValue(this.invoiceReturned.proveedor);
     }
 
     buildForm() {
@@ -128,14 +148,24 @@ export class InvoiceAddComponent implements OnInit {
             cargado: ['', Validators.required],
             planta: ['', Validators.required],
             pagaEstacion: [false, Validators.required],
-            guia: ['', [Validators.required, Validators.pattern(/^[0-9]+([-][0-9]+)?$/)]],
+            guia: [
+                '',
+                [
+                    Validators.required,
+                    Validators.pattern(/^[0-9]+([-][0-9]+)?$/),
+                ],
+            ],
             listCantArt: this.fb.array([]),
-            clasificacionId: [null, Validators.required]
-
+            clasificacionId: [null, Validators.required],
         });
         this.formEdit(0);
-        this.invoiceForm.get('estacion').valueChanges.subscribe(e => {
-            if (this.stationCode == null && e && this.providerSel && this.providerSel.tipo == 1) {
+        this.invoiceForm.get('estacion').valueChanges.subscribe((e) => {
+            if (
+                this.stationCode == null &&
+                e &&
+                this.providerSel &&
+                this.providerSel.tipo == 1
+            ) {
                 this.uploadArtTypeList((e as EntStation).idEstacion);
             }
         });
@@ -165,13 +195,19 @@ export class InvoiceAddComponent implements OnInit {
         invoiceLocal.saldo = invoiceLocal.valor - invoiceLocal.anticipo;
         invoiceLocal.estado = 0;
         invoiceLocal.rol = this.rol;
-        invoiceLocal.estacion = this.stationCode || rawValue.estacion.idEstacion;
+        invoiceLocal.estacion =
+            this.stationCode || rawValue.estacion.idEstacion;
         invoiceLocal.clasificacionId = rawValue.clasificacionId;
         if (this.providerSel && this.providerSel.tipo == 1) {
-            invoiceLocal.cargado = rawValue.cargado != null ? rawValue.cargado.idEstacion : null;
+            invoiceLocal.cargado =
+                rawValue.cargado != null ? rawValue.cargado.idEstacion : null;
             invoiceLocal.guia = rawValue.guia;
-            invoiceLocal.planta = rawValue.planta != null ? rawValue.planta.ID : null;
-            invoiceLocal['listCantArt'] = rawValue.listCantArt && rawValue.listCantArt.length > 0 ? rawValue.listCantArt : null;
+            invoiceLocal.planta =
+                rawValue.planta != null ? rawValue.planta.ID : null;
+            invoiceLocal['listCantArt'] =
+                rawValue.listCantArt && rawValue.listCantArt.length > 0
+                    ? rawValue.listCantArt
+                    : null;
             invoiceLocal.pagaEstacion = rawValue.pagaEstacion;
         }
         invoiceLocal.detalle = rawValue.detalle;
@@ -180,9 +216,7 @@ export class InvoiceAddComponent implements OnInit {
         }
         if (this.advanceSel && this.advanceSel.length > 0) {
             let arraytemp = [];
-            this.advanceSel.forEach(e =>
-                arraytemp.push(e.idAnticipo)
-            );
+            this.advanceSel.forEach((e) => arraytemp.push(e.idAnticipo));
             invoiceLocal['listAnt'] = arraytemp.join();
         }
         this.verifyInsertInvoice(invoiceLocal);
@@ -192,7 +226,11 @@ export class InvoiceAddComponent implements OnInit {
         if (date) {
             let dateNew = new Date(date);
             if (dateNew > new Date()) {
-                this.principalComponent.showMsg('error', 'Error', 'La fecha es mayor a la fecha actual.');
+                this.principalComponent.showMsg(
+                    'error',
+                    'Error',
+                    'La fecha es mayor a la fecha actual.'
+                );
                 return false;
             }
             return true;
@@ -202,60 +240,114 @@ export class InvoiceAddComponent implements OnInit {
 
     getData() {
         this.utilService.loader();
-        forkJoin(this.nominaService.GetStations(),
-            this.carteraService.getPlant())
-            .subscribe(([stations, plants]) => {
+        forkJoin(
+            this.nominaService.GetStations(),
+            this.carteraService.getPlant()
+        ).subscribe(
+            ([stations, plants]) => {
                 this.utilService.loader(false);
                 this.stationsAll = stations;
-                this.stations = stations.filter(e => e.listoSimovil == true);
+                this.stations = stations.filter((e) => e.listoSimovil == true);
                 this.plants = plants;
-            }, error => {
+            },
+            (error) => {
                 this.utilService.loader(false);
                 console.log(error);
-            });
+            }
+        );
     }
-  getClasificacionInvoice() {
-      this.nominaService.GetClasificacionInvoice().subscribe( resp => this.clasificacionInvoiceAll = resp )
-  }
+    getClasificacionInvoice() {
+        this.nominaService
+            .GetClasificacionInvoice()
+            .subscribe((resp) => (this.clasificacionInvoiceAll = resp));
+    }
     InsertInvoice(invoice: EntInvoice): void {
         setTimeout(() => {
-            this.utilService.confirm('Creará la factura #' + invoice.numero + ' con valor: $' + invoice.saldo.toLocaleString() + ' ¿Desea continuar?', result => {
-                if (result) {
-                    this.utilService.loader(true);
-                    this.carteraService.InsertInvoice(invoice).subscribe(data => {
-                        this.utilService.loader(false);
-                        this.reset();
-                        if (this.idReturnedInvoice) {
-                            this.location.back();
-                        }
-                        this.principalComponent.showMsg('success', 'Éxito', 'Factura #' + invoice.numero + ' registrada correctamente.');
-                        this.advanceSel = [];
-                        this.valorAnticipo = 0;
-                    }, error => {
-                        console.log(error);
-                        this.utilService.loader(false);
-                        this.principalComponent.showMsg('error', 'Error', error.error.message);
-                    });
+            this.utilService.confirm(
+                'Creará la factura #' +
+                    invoice.numero +
+                    ' con valor: $' +
+                    invoice.saldo.toLocaleString() +
+                    ' ¿Desea continuar?',
+                (result) => {
+                    if (result) {
+                        this.utilService.loader(true);
+                        this.carteraService.InsertInvoice(invoice).subscribe(
+                            (data) => {
+                                this.utilService.loader(false);
+                                this.reset();
+                                if (this.idReturnedInvoice) {
+                                    this.location.back();
+                                }
+                                this.principalComponent.showMsg(
+                                    'success',
+                                    'Éxito',
+                                    'Factura #' +
+                                        invoice.numero +
+                                        ' registrada correctamente.'
+                                );
+                                this.advanceSel = [];
+                                this.valorAnticipo = 0;
+                            },
+                            (error) => {
+                                console.log(error);
+                                this.utilService.loader(false);
+                                this.principalComponent.showMsg(
+                                    'error',
+                                    'Error',
+                                    error.error.message
+                                );
+                            }
+                        );
+                    }
                 }
-            });
+            );
         }, 1);
     }
 
     verifyInsertInvoice(invoice: EntInvoice) {
-        this.carteraService.getInvoice(null, null, invoice.proveedor, null, null, null, null, null, invoice.valor).subscribe(res => {
-            if (res.length > 0) {
-                this.utilService.confirm('Existe la factura #' + res[res.length - 1].numero + ' del ' + new Date(res[res.length - 1].fecha).toLocaleDateString() + ' con ese mismo valor, ¿Desea continuar?', result => {
-                    if (result) {
+        this.carteraService
+            .getInvoice(
+                null,
+                null,
+                invoice.proveedor,
+                null,
+                null,
+                null,
+                null,
+                null,
+                invoice.valor
+            )
+            .subscribe(
+                (res) => {
+                    if (res.length > 0) {
+                        this.utilService.confirm(
+                            'Existe la factura #' +
+                                res[res.length - 1].numero +
+                                ' del ' +
+                                new Date(
+                                    res[res.length - 1].fecha
+                                ).toLocaleDateString() +
+                                ' con ese mismo valor, ¿Desea continuar?',
+                            (result) => {
+                                if (result) {
+                                    this.InsertInvoice(invoice);
+                                }
+                            }
+                        );
+                    } else {
                         this.InsertInvoice(invoice);
                     }
-                });
-            } else {
-                this.InsertInvoice(invoice);
-            }
-        }, error => {
-            console.log(error);
-            this.principalComponent.showMsg('error', 'Error', error.error.message);
-        });
+                },
+                (error) => {
+                    console.log(error);
+                    this.principalComponent.showMsg(
+                        'error',
+                        'Error',
+                        error.error.message
+                    );
+                }
+            );
     }
 
     validarFactura() {
@@ -263,19 +355,34 @@ export class InvoiceAddComponent implements OnInit {
         let num = String(this.invoiceForm.get('numero').value);
         let pro = Number(this.invoiceForm.get('proveedor').value);
         this.utilService.loader(false);
-        this.carteraService.getInvoice(null, num, pro).subscribe(data => {
-            if (data.length > 0) {
-                this.principalComponent.showMsg('info', 'Información', 'Factura ya registrada');
-                this.formEdit(0);
-            } else {
-                this.principalComponent.showMsg('success', 'FACTURA NUEVA', 'Factura validada');
-                this.formEdit(1);
-                focusById('fechaFactura');
+        this.carteraService.getInvoice(null, num, pro).subscribe(
+            (data) => {
+                if (data.length > 0) {
+                    this.principalComponent.showMsg(
+                        'info',
+                        'Información',
+                        'Factura ya registrada'
+                    );
+                    this.formEdit(0);
+                } else {
+                    this.principalComponent.showMsg(
+                        'success',
+                        'FACTURA NUEVA',
+                        'Factura validada'
+                    );
+                    this.formEdit(1);
+                    focusById('fechaFactura');
+                }
+            },
+            (error) => {
+                this.principalComponent.showMsg(
+                    'error',
+                    'Error',
+                    error.error.message
+                );
+                console.log(error);
             }
-        }, error => {
-            this.principalComponent.showMsg('error', 'Error', error.error.message);
-            console.log(error);
-        });
+        );
     }
 
     reset() {
@@ -288,7 +395,9 @@ export class InvoiceAddComponent implements OnInit {
         this.invoiceForm.get('anticipo').setValue(0, this.emitFalse);
         this.invoiceForm.get('pagoPlanilla').setValue(0, this.emitFalse);
         this.invoiceForm.get('pagaEstacion').setValue(false, this.emitFalse);
-        this.invoiceForm.get('fechaRec').setValue(this.FormatoFecha(new Date()));
+        this.invoiceForm
+            .get('fechaRec')
+            .setValue(this.FormatoFecha(new Date()));
         this.formEdit(0);
         if (this.idReturnedInvoice) {
             this.assignReturned();
@@ -302,22 +411,38 @@ export class InvoiceAddComponent implements OnInit {
                 return;
             }
             this.utilService.loader(true);
-            this.carteraService.getProvider(this.invoiceForm.get('proveedor').value).subscribe(data => {
-                this.utilService.loader(false);
-                if (data.length == 1) {
-                    this.invoiceForm.get('nombreProveedor').setValue(data[0].nombre);
-                    this.providerSel = data[0];
-                    this.validarFactura();
-                }
-                else {
-                    this.principalComponent.showMsg('info', 'Información', 'El proveedor no existe.');
-                    this.invoiceForm.get('nombreProveedor').setValue('');
-                    this.formEdit(0);
-                }
-            }, error => {
-                this.principalComponent.showMsg('error', 'Error', error.error.message);
-                this.utilService.loader(false);
-            });
+            this.carteraService
+                .getProvider(varpro)
+                .subscribe(
+                    (data) => {
+                        this.utilService.loader(false);
+                        if (data.length == 1) {
+                            this.invoiceForm
+                                .get('nombreProveedor')
+                                .setValue(data[0].nombre);
+                            this.providerSel = data[0];
+                            this.validarFactura();
+                        } else {
+                            this.principalComponent.showMsg(
+                                'info',
+                                'Información',
+                                'El proveedor no existe.'
+                            );
+                            this.invoiceForm
+                                .get('nombreProveedor')
+                                .setValue('');
+                            this.formEdit(0);
+                        }
+                    },
+                    (error) => {
+                        this.principalComponent.showMsg(
+                            'error',
+                            'Error',
+                            error.error.message
+                        );
+                        this.utilService.loader(false);
+                    }
+                );
         } else {
             this.validarFactura();
         }
@@ -326,20 +451,29 @@ export class InvoiceAddComponent implements OnInit {
     getAdvances() {
         this.utilService.loader(true);
         let provider = this.invoiceForm.get('proveedor').value;
-        this.carteraService.getAdvance(null, provider, null, null, 3, null, this.stationCode).subscribe(result => {
-            this.utilService.loader(false);
-            if (result.length > 0) {
-                console.log(result);
-                this.boolAdvanceForm = true;
-                this.advances = result;
-                this.validSelected();
-            } else {
-                this.principalComponent.showMsg('info', 'Información', 'El proveedor ' + provider + ' no tiene anticipos');
-            }
-        }, error => {
-            this.utilService.loader(false);
-            console.log(error);
-        });
+        this.carteraService
+            .getAdvance(null, provider, null, null, 3, null, this.stationCode)
+            .subscribe(
+                (result) => {
+                    this.utilService.loader(false);
+                    if (result.length > 0) {
+
+                        this.boolAdvanceForm = true;
+                        this.advances = result;
+                        this.validSelected();
+                    } else {
+                        this.principalComponent.showMsg(
+                            'info',
+                            'Información',
+                            'El proveedor ' + provider + ' no tiene anticipos'
+                        );
+                    }
+                },
+                (error) => {
+                    this.utilService.loader(false);
+                    console.log(error);
+                }
+            );
     }
 
     addAdvance(advance: EntAdvance) {
@@ -349,7 +483,7 @@ export class InvoiceAddComponent implements OnInit {
     }
 
     removeAdvance(advance: EntAdvance) {
-        let index = this.advanceSel.findIndex(E => E == advance);
+        let index = this.advanceSel.findIndex((E) => E == advance);
         this.advanceSel.splice(index, 1);
         advance['Sel'] = false;
         this.updateValueAnticipo();
@@ -357,8 +491,10 @@ export class InvoiceAddComponent implements OnInit {
 
     validSelected() {
         if (this.advanceSel && this.advances.length > 0) {
-            this.advanceSel.forEach(element => {
-                let index = this.advances.findIndex(e => e.idAnticipo == element.idAnticipo);
+            this.advanceSel.forEach((element) => {
+                let index = this.advances.findIndex(
+                    (e) => e.idAnticipo == element.idAnticipo
+                );
                 this.advances[index]['Sel'] = true;
             });
         }
@@ -367,13 +503,9 @@ export class InvoiceAddComponent implements OnInit {
     updateValueAnticipo() {
         this.valorAnticipo = 0;
         if (this.advanceSel && this.advanceSel.length > 0) {
-            this.advanceSel.forEach(e =>
-                this.valorAnticipo += e.valor
-            );
+            this.advanceSel.forEach((e) => (this.valorAnticipo += e.valor));
         }
     }
-
-
 
     formEdit(number: number) {
         switch (number) {
@@ -404,7 +536,13 @@ export class InvoiceAddComponent implements OnInit {
                         this.invoiceForm.get('guia').disable();
                     }
                     if (this.stationNow) {
-                        this.invoiceForm.get('planta').setValue(this.plants.find(e => this.stationNow.planta == e.ID));
+                        this.invoiceForm
+                            .get('planta')
+                            .setValue(
+                                this.plants.find(
+                                    (e) => this.stationNow.planta == e.ID
+                                )
+                            );
                     }
                 } else {
                     this.invoiceForm.get('cargado').disable();
@@ -429,8 +567,8 @@ export class InvoiceAddComponent implements OnInit {
         let desc = Number(this.invoiceForm.get('descuento').value);
         let plan = Number(this.invoiceForm.get('pagoPlanilla').value);
         let Ant = Number(this.invoiceForm.get('anticipo').value);
-
-        this.invoiceForm.get('valor').setValue(subt + iva - rete - desc - plan - Ant);
+        this.invoiceForm.get('valor').setValue(subt + iva - rete - desc - plan);
+        this.saldo = subt + iva - rete - desc - plan - Ant;
     }
     selectedAdvances() {
         this.boolAdvanceForm = false;
@@ -438,7 +576,10 @@ export class InvoiceAddComponent implements OnInit {
         this.calcularValor();
     }
     validFirt() {
-        return !((this.invoiceForm.get('proveedor').valid || this.providerSel) && this.invoiceForm.get('numero').valid);
+        return !(
+            (this.invoiceForm.get('proveedor').valid || this.providerSel) &&
+            this.invoiceForm.get('numero').valid
+        );
     }
 
     return() {
@@ -462,15 +603,25 @@ export class InvoiceAddComponent implements OnInit {
     }
 
     get stationFilter(): EntStation[] {
-        return this.stationNow ? this.stationsAll.
-            filter(e => e.ciudadEstacion == this.stationNow.ciudadEstacion && e.idEstacion != 90 && e.idEstacion != 13 && e.idEstacion != 14) :
-            this.stationsAll;
+        return this.stationNow
+            ? this.stationsAll.filter(
+                  (e) =>
+                      e.ciudadEstacion == this.stationNow.ciudadEstacion &&
+                      e.idEstacion != 90 &&
+                      e.idEstacion != 13 &&
+                      e.idEstacion != 14
+              )
+            : this.stationsAll;
     }
 
     get stationNow(): EntStation {
         try {
-            return this.stationsAll.find(e =>
-                e.idEstacion == (this.stationCode || this.invoiceForm.get('estacion').value.idEstacion))
+            return this.stationsAll.find(
+                (e) =>
+                    e.idEstacion ==
+                    (this.stationCode ||
+                        this.invoiceForm.get('estacion').value.idEstacion)
+            );
         } catch (error) {
             return null;
         }
@@ -478,23 +629,37 @@ export class InvoiceAddComponent implements OnInit {
 
     uploadArtTypeList(stationCode?: number) {
         this.utilService.loader();
-        this.carteraService.getArticleTypes2(this.stationCode || stationCode, this.providerSel.tipoMayorista).subscribe(res => {
-            this.list.controls = [];
-            res.map(e => {
-                this.list.push(
-                    this.fb.group({
-                        id: e.ID,
-                        descripcion: e.DESCRIPCION,
-                        cantidad: [null, [Validators.required, Validators.min(0)]]
-                    }));
-            });
-            this.utilService.loader(false);
-            if (this.stationFilter.length == 1) {
-                this.invoiceForm.get('cargado').setValue(this.stationFilter[0]);
-            }
-        }, error => {
-            console.log(error);
-            this.utilService.loader(false);
-        });
+        this.carteraService
+            .getArticleTypes2(
+                this.stationCode || stationCode,
+                this.providerSel.tipoMayorista
+            )
+            .subscribe(
+                (res) => {
+                    this.list.controls = [];
+                    res.map((e) => {
+                        this.list.push(
+                            this.fb.group({
+                                id: e.ID,
+                                descripcion: e.DESCRIPCION,
+                                cantidad: [
+                                    null,
+                                    [Validators.required, Validators.min(0)],
+                                ],
+                            })
+                        );
+                    });
+                    this.utilService.loader(false);
+                    if (this.stationFilter.length == 1) {
+                        this.invoiceForm
+                            .get('cargado')
+                            .setValue(this.stationFilter[0]);
+                    }
+                },
+                (error) => {
+                    console.log(error);
+                    this.utilService.loader(false);
+                }
+            );
     }
 }

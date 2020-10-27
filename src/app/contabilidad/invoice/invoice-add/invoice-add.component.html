@@ -167,7 +167,8 @@
                     <input id="subtotal" (blur)="calcularValor()" currencyMask appLatestFocus type="text"
                         class="form-control" placeholder="$ 0" formControlName="subtotal" />
                 </div>
-                <label class="control-label col-sm-2 text-dark">IVA:</label>
+
+                <label class="control-label col-sm-2 text-dark">Retención:</label>
                 <div class="input-group col-sm-4">
                     <div class="input-group-prepend">
                         <span class="input-group-text dinero">
@@ -175,8 +176,9 @@
                         </span>
                     </div>
                     <input (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control"
-                        placeholder="$ 0" formControlName="iva" />
+                        placeholder="$ 0" formControlName="retencion" />
                 </div>
+
             </div>
             <div class="form-group form-inline">
                 <label class="control-label col-sm-2 text-dark">Descuento:</label>
@@ -189,7 +191,23 @@
                     <input (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control"
                         placeholder="$ 0" formControlName="descuento" />
                 </div>
-                <label class="control-label col-sm-2 text-dark">Retención:</label>
+
+                <label class="control-label col-sm-2 text-dark">Total:</label>
+                <div class="input-group col-sm-4">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text dinero">
+                            <i class="fa fa-usd fa-fw"></i>
+                        </span>
+                    </div>
+                    <input readonly currencyMask appLatestFocus type="text" class="form-control" placeholder="$ 0"
+                        formControlName="valor" />
+                </div>
+
+
+            </div>
+
+            <div class="form-group form-inline">
+                <label class="control-label col-sm-2 text-dark">IVA:</label>
                 <div class="input-group col-sm-4">
                     <div class="input-group-prepend">
                         <span class="input-group-text dinero">
@@ -197,10 +215,8 @@
                         </span>
                     </div>
                     <input (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control"
-                        placeholder="$ 0" formControlName="retencion" />
+                        placeholder="$ 0" formControlName="iva" />
                 </div>
-            </div>
-            <div class="form-group form-inline">
                 <label class="control-label col-sm-2 text-dark">Anticípo:</label>
                 <div class="input-group col-sm-4">
                     <div class="input-group-prepend">
@@ -212,17 +228,24 @@
                     <input (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control"
                         placeholder="$ 0" formControlName="anticipo" />
                 </div>
-                <label class="control-label col-sm-2 text-dark">Total:</label>
+            </div>
+            <div class="form-group form-inline">
+                <label class="control-label col-sm-2 text-dark"></label>
+                <div class="input-group col-sm-4">
+
+                </div>
+                <label class="control-label col-sm-2 text-dark">Saldo</label>
                 <div class="input-group col-sm-4">
                     <div class="input-group-prepend">
                         <span class="input-group-text dinero">
                             <i class="fa fa-usd fa-fw"></i>
                         </span>
                     </div>
-                    <input readonly currencyMask appLatestFocus type="text" class="form-control" placeholder="$ 0"
-                        formControlName="valor" />
+                    <input (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control"
+                        placeholder="$ 0" [(ngModel)]="saldo" [ngModelOptions]="{standalone: true}" />
                 </div>
             </div>
+
         </fieldset>
         <div class="form-group form-inline">
             <label class="control-label col-sm-2">Tipo de Factura</label>

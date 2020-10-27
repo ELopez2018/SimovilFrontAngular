@@ -104,8 +104,8 @@ export class PrincipalComponent implements OnInit {
 
     /**
      *
-     * @param sev success, info, warn, error
-     * @param sum title
+     * @param sev opciones: success, info, warn, error
+     * @param sum Titulo
      * @param det detalle
      */
     showMsg(sev, sum, det) {
@@ -118,13 +118,13 @@ export class PrincipalComponent implements OnInit {
                 tiempo = 2000;
                 break;
             case 'info':
-                tiempo = 2000;
+                tiempo = 4000;
                 break;
             case 'warn':
-                tiempo = 3000;
+                tiempo = 4000;
                 break;
             default:
-                tiempo = 3000;
+                tiempo = 4000;
 
         }
         this.messageService.add({ severity: sev, summary: sum, detail: det, life: tiempo });

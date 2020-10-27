@@ -174,11 +174,12 @@ export class PrintService {
         open?: boolean,
         callback?
     ) {
-        // console.log('PLANILLA :', planilla)
+        console.log('ACUMULADOS PLANI :', planilla.PLA_DIA_TUR)
         console.log('ACUMULADOS ACUM 1:', acum.PLA_DIA_TUR);
         const acum2 = this.sumObj(planilla, acum) as EntDailySheet;
         console.log('ACUMULADOS ACUM2 2:', acum2.PLA_DIA_TUR);
         acum2.PLA_DIA_TUR = [];
+
         let facPag = '';
         let ArrayPagoProveedor: any[] = [];
         let ArrayAnticiposProveedor: any[] = [];
@@ -710,8 +711,8 @@ export class PrintService {
             planilla.TIPO == 'L'
                 ? 'LIQUIDOS'
                 : planilla.TIPO == 'G'
-                ? 'GAS'
-                : 'NULL';
+                    ? 'GAS'
+                    : 'NULL';
         let ingresosObj = [];
 
         if (planilla.TIPO == 'L') {
@@ -914,6 +915,8 @@ export class PrintService {
 
             arrayLineA.push(true);
         } else if (planilla.TIPO == 'G') {
+
+            // Encabezados
             ingresosObj.push(
                 [
                     {
@@ -994,14 +997,41 @@ export class PrintService {
                 ]
             );
 
-            planilla.PLA_DIA_TUR.map((e) => {
-                const acitem = acum2.PLA_DIA_TUR.find(
+                console.log(acum2);
+            // MUESTRA LOS DATOS = VA MOSTRANDO LOS TURNOS
+            acum2.PLA_DIA_TUR.map((e) => {
+                let acitem = planilla.PLA_DIA_TUR.find(
                     (ac) => ac.NUM_TUR == e.NUM_TUR
                 );
-                e.PLA_DIA_TUR_VEN.map((r) => {
-                    const pdtv = acitem.PLA_DIA_TUR_VEN.find(
+
+                // MUESTRA LAS VENTAS DE CADA TURNO
+                e.PLA_DIA_TUR_VEN.map((r: any) => {
+                    let pdtv = acitem.PLA_DIA_TUR_VEN.find(
                         (it) => it.COD_ART == r.COD_ART
                     );
+                    if (acitem != undefined) {
+                        pdtv = acitem.PLA_DIA_TUR_VEN.find(
+                            (pdt) => pdt.COD_ART == r.COD_ART
+                        );
+                        if (pdtv == undefined) {
+                            pdtv = {
+                                COD_ART: r.COD_ART,
+                                NOM_ART: r.NOM_ART_ACUM,
+                                CANTIDAD: 0,
+                                PRECIO: 0,
+                                VENTA: 0,
+                            };
+                        }
+                    } else {
+                        pdtv = {
+                            COD_ART: r.COD_ART,
+                            NOM_ART: r.NOM_ART_ACUM,
+                            CANTIDAD: 0,
+                            PRECIO: 0,
+                            VENTA: 0,
+                        };
+                    }
+
                     ingresosObj.push([
                         {
                             text: 'TURNO ' + e.NUM_TUR,
@@ -1011,19 +1041,19 @@ export class PrintService {
                         {},
                         {},
                         {
-                            text: r.CANTIDAD.toLocaleString(),
+                            text: pdtv.CANTIDAD.toLocaleString(),
                             style: 'right',
                             border: [false, false, false, true],
                         },
                         {},
                         {
-                            text: r.PRECIO.toLocaleString(),
+                            text: pdtv.PRECIO.toLocaleString(),
                             style: 'right',
                             border: [false, false, false, true],
                         },
                         {},
                         {
-                            text: r.VENTA.toLocaleString(),
+                            text: pdtv.VENTA.toLocaleString(),
                             style: 'right',
                             border: [false, false, true, true],
                         },
@@ -1035,12 +1065,12 @@ export class PrintService {
                         },
                         {},
                         {
-                            text: pdtv.CANTIDAD.toLocaleString(),
+                            text: r.CANTIDAD.toLocaleString(),
                             style: 'right',
                             border: [false, false, false, true],
                         },
                         {
-                            text: pdtv.VENTA.toLocaleString(),
+                            text: r.VENTA.toLocaleString(),
                             style: 'right',
                             border: [false, false, true, true],
                         },
@@ -1049,6 +1079,64 @@ export class PrintService {
                 });
             });
         }
+
+
+        // =====> Codigo Actual para GAS
+        //     planilla.PLA_DIA_TUR.map((e) => {
+        //         const acitem = acum2.PLA_DIA_TUR.find(
+        //             (ac) => ac.NUM_TUR == e.NUM_TUR
+        //         );
+        //         e.PLA_DIA_TUR_VEN.map((r) => {
+        //             const pdtv = acitem.PLA_DIA_TUR_VEN.find(
+        //                 (it) => it.COD_ART == r.COD_ART
+        //             );
+        //             ingresosObj.push([
+        //                 {
+        //                     text: 'TURNO ' + e.NUM_TUR,
+        //                     border: [true, false, false, false],
+        //                     colSpan: 3,
+        //                 },
+        //                 {},
+        //                 {},
+        //                 {
+        //                     text: r.CANTIDAD.toLocaleString(),
+        //                     style: 'right',
+        //                     border: [false, false, false, true],
+        //                 },
+        //                 {},
+        //                 {
+        //                     text: r.PRECIO.toLocaleString(),
+        //                     style: 'right',
+        //                     border: [false, false, false, true],
+        //                 },
+        //                 {},
+        //                 {
+        //                     text: r.VENTA.toLocaleString(),
+        //                     style: 'right',
+        //                     border: [false, false, true, true],
+        //                 },
+        //                 {},
+        //                 {
+        //                     text: 'TURNO ' + e.NUM_TUR,
+        //                     border: [true, false, false, false],
+        //                     colSpan: 2,
+        //                 },
+        //                 {},
+        //                 {
+        //                     text: pdtv.CANTIDAD.toLocaleString(),
+        //                     style: 'right',
+        //                     border: [false, false, false, true],
+        //                 },
+        //                 {
+        //                     text: pdtv.VENTA.toLocaleString(),
+        //                     style: 'right',
+        //                     border: [false, false, true, true],
+        //                 },
+        //             ]);
+        //             arrayLineA.push(false);
+        //         });
+        //     });
+        // }
 
         //=========> CODIGO ACTUAL
         // if (planilla.TIPO == 'L') {
@@ -3809,14 +3897,14 @@ export class PrintService {
                 element.combustible == 0
                     ? 'Gasolina'
                     : element.combustible == 1
-                    ? 'Diesel'
-                    : element.combustible == 2
-                    ? 'Gas'
-                    : element.combustible == 3
-                    ? 'Lubricantes'
-                    : element.combustible == 4
-                    ? 'Filtros'
-                    : '',
+                        ? 'Diesel'
+                        : element.combustible == 2
+                            ? 'Gas'
+                            : element.combustible == 3
+                                ? 'Lubricantes'
+                                : element.combustible == 4
+                                    ? 'Filtros'
+                                    : '',
                 element.ConsecutivoEstacion.toString(),
                 { text: element.valor.toLocaleString(), alignment: 'right' },
             ]);
@@ -3960,12 +4048,12 @@ export class PrintService {
             pageMargins: [85, 110, 57, 100],
             content: [
                 'Villavicencio, ' +
-                    date.getUTCDate() +
-                    ' de ' +
-                    this.mesEnLetra(date.getUTCMonth()).toLowerCase() +
-                    ' del ' +
-                    date.getUTCFullYear() +
-                    '.',
+                date.getUTCDate() +
+                ' de ' +
+                this.mesEnLetra(date.getUTCMonth()).toLowerCase() +
+                ' del ' +
+                date.getUTCFullYear() +
+                '.',
                 {
                     text: 'CTA. DE COBRO No. ' + cuentacobro + '\n\n',
                     alignment: 'right',
@@ -4003,14 +4091,14 @@ export class PrintService {
                     text: [
                         { text: 'POR CONCEPTO DE', bold: true },
                         ': Suministro de combustible del ' +
-                            dayIni +
-                            ' al ' +
-                            dayEnd +
-                            ' del mes de ' +
-                            this.mesEnLetra(month).toLowerCase() +
-                            ' de ' +
-                            year +
-                            '.',
+                        dayIni +
+                        ' al ' +
+                        dayEnd +
+                        ' del mes de ' +
+                        this.mesEnLetra(month).toLowerCase() +
+                        ' de ' +
+                        year +
+                        '.',
                     ],
                     style: 'body',
                 },

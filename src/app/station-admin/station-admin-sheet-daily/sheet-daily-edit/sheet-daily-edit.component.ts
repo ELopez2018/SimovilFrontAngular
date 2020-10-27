@@ -1,34 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { EntStation } from '../../../Class/EntStation';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { EntSalesTurn } from '../../../Class/EntSalesTurn';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+
+import { forkJoin } from 'rxjs';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+import { EntAdvance } from '../../../Class/EntAdvance';
 import { EntArticle } from '../../../Class/EntArticle';
-import { EntSalesTurnDetail } from '../../../Class/EntSalesTurnDetail';
+import { EntCPL } from '../../../Class/EntCPL';
 import { EntCPL_Detalle } from '../../../Class/EntCPL_Detalle';
 import { EntDailySheet } from '../../../Class/EntDailySheet';
-import { CarteraService } from '../../../services/cartera.service';
-import { NominaService } from '../../../services/nomina.service';
-import { Title } from '@angular/platform-browser';
-import { PrincipalComponent } from '../../../principal/principal.component';
-import { UtilService } from '../../../services/util.service';
-import { StorageService } from '../../../services/storage.service';
-import { PrintService } from '../../../services/print.service';
-import { forkJoin } from 'rxjs';
+import { EntDailySheetPagCli } from '../../../Class/EntDailySheetPagCli';
+import { EntDailySheetPagPro } from '../../../Class/EntDailySheetPagPro';
 import { EntDailySheetTurn } from '../../../Class/EntDailySheetTurn';
 import { EntDailySheetTurnDet } from '../../../Class/EntDailySheetTurnDet';
-import { EntDailySheetPagCli } from '../../../Class/EntDailySheetPagCli';
-import { cleanString, currencyNotDecimal, focusById, dateToISOString, addDays } from '../../../util/util-lib';
 import { EntDailySheetVenCli } from '../../../Class/EntDailySheetVenCli';
-import { EntDailySheetPagPro } from '../../../Class/EntDailySheetPagPro';
 import { EntHose } from '../../../Class/EntHose';
-import { EntCPL } from '../../../Class/EntCPL';
-import { EntProvider } from '../../../Class/EntProvider';
-import { fadeTransition } from '../../../routerAnimation';
-import { ComponentCanDeactivate } from '../../../guards/component-can-deactivate';
 import { EntInvoice } from '../../../Class/EntInvoice';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { EntOtrosPagos } from '../../../Class/EntOtrosPagos';
-import { EntAdvance } from '../../../Class/EntAdvance';
+import { EntSalesTurn } from '../../../Class/EntSalesTurn';
+import { EntSalesTurnDetail } from '../../../Class/EntSalesTurnDetail';
+import { EntStation } from '../../../Class/EntStation';
+import { ComponentCanDeactivate } from '../../../guards/component-can-deactivate';
+import { PrincipalComponent } from '../../../principal/principal.component';
+import { fadeTransition } from '../../../routerAnimation';
+import { CarteraService } from '../../../services/cartera.service';
+import { NominaService } from '../../../services/nomina.service';
+import { PrintService } from '../../../services/print.service';
+import { StorageService } from '../../../services/storage.service';
+import { UtilService } from '../../../services/util.service';
+import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-lib';
 
 @Component({
     selector: 'app-sheet-daily-edit',
@@ -443,7 +444,9 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         planilla.NOM_ADM = this.station.administrador;
         let sumaTurn = 0;
         let sumaCTurn = 0;
+
         // VENTAS
+        // Valida si es CPL
         planilla.PLA_DIA_TUR = [];
         if (this.CplDetail && this.CplDetail.length > 0) {
             planilla.PLA_DIA_TUR = this.CPL_TO_SHEET();
@@ -451,6 +454,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
             planilla.V_TOTAL = this.cplSum;
             planilla.V_CANT = planilla.PLA_DIA_TUR.reduce((a, b) => a + b.CANT_VENTA, 0);
         } else if (this.salesTurn && this.salesTurn.DETALLE && this.salesTurn.DETALLE.length > 0) {
+
             // agregar validacion de numeros de turnos editados.
             for (let index = 1; index <= this.station.turno; index++) {
                 const element = this.salesTurn.DETALLE.filter(e => e.NUM_TURNO == index);
@@ -464,7 +468,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 });
                 planilla.PLA_DIA_TUR.push({ NUM_TUR: index, CANT_VENTA: sumaCTurn, TOTAL: sumaTurn, PLA_DIA_TUR_VEN: turn_det });
             }
-
+            console.log(planilla.PLA_DIA_TUR);
             this.salesTurn.VALOR = Math.round(this.salesTurn.VALOR);
             planilla.V_TOTAL = this.salesTurn.VALOR;
         }
@@ -562,10 +566,8 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         let listOtrosPagos: EntOtrosPagos[] = [];
         var TotalOtros = 0;
         let DetallesOtros: string;
-        let sum = 0;
         DetallesOtros = DE.OtrosList.length > 0 ? 'DETALLES: ' : null;
         DE.proveedorList.map(e => {
-            sum += e.val;
             listprovider.push({ ID_FACTURA: e.id, NOMBRE: e.nombre, NUMERO: e.numero, VALOR: e.val });
         });
 
@@ -655,7 +657,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 if (res.length == 1) {
                     planilla.NOM_REA = res[0].NOMBRE;
                     this.utilService.loader(true);
-                    this.carteraService.UpdateDailySheet(planilla).subscribe(result => {
+                    this.carteraService.UpdateDailySheet(planilla).subscribe(() => {
                         this.utilService.loader(false);
                         this.resetPlanilla(false);
                         this.principalComponent.showMsg('success', 'Éxito', 'Planilla Actualizada Exitosamente');
@@ -804,7 +806,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
             recaudo: [0, [Validators.required, Validators.min(0)]],
             total: [0, [Validators.required, Validators.min(0)]]
         });
-        this.otherForm.valueChanges.subscribe(e => {
+        this.otherForm.valueChanges.subscribe(() => {
             setTimeout(() => {
                 const a = this.otherForm.getRawValue();
                 let resCli = 0;
@@ -813,7 +815,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 this.otherForm.get('total').setValue(a.aprovVal + resCli + a.lubricante + a.otroVal + a.premio + a.prestamoVal + a.soatCom + a.soatValue + a.presLiq + a.cusiana, this.emitFalse);
             }, 10);
         });
-        this.paymentForm.valueChanges.subscribe(e => {
+        this.paymentForm.valueChanges.subscribe(() => {
             setTimeout(() => {
                 const a = this.paymentForm.getRawValue();
                 let resCli2 = a.clienteList.reduce((a, b) => a + b.val, 0);
@@ -821,7 +823,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 this.paymentForm.get('total').setValue((a.bonoSoat || 0) + (a.calibracion || 0) + (resCli2 || 0) + (a.datafono || 0) + (a.descuento || 0) + (a.devolucion || 0) + (a.donacion || 0) + (a.mantenimiento || 0) + (a.prestamo || 0) + (a.otro || 0) + (a.bonoCumple || 0) + (a.bonoPunto || 0), this.emitFalse);
             }, 10);
         });
-        this.cashForm.valueChanges.subscribe(e => {
+        this.cashForm.valueChanges.subscribe(() => {
             let sum = 0;
             var sum2 = 0;
             var otroVal = 0;
@@ -842,7 +844,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 this.cashForm.get('total').setValue(sum + sum2 + this.cashForm.get('totalEfe').value, this.emitFalse);
             }, 10);
         });
-        this.bankForm.valueChanges.subscribe(e => {
+        this.bankForm.valueChanges.subscribe(() => {
             setTimeout(() => {
                 const a = this.bankForm.getRawValue();
                 this.bankForm.get('total').setValue(a.lubricanteVal + a.liquidoVal + a.gasVal + a.cusianaVal + a.seguroVal + a.recaudo, this.emitFalse);

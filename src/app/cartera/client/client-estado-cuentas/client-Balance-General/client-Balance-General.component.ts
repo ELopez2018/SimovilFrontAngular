@@ -87,7 +87,7 @@ export class ClientBalanceGeneralComponent implements OnInit {
                 this.pagos = resp[0].PAGOS || [];
                 this.descuentos = resp[0].DESCUENTOS || [];
                 this.saldoInicial = resp[0].SALDOINICIAL || 0;
-
+                
                 if (this.consumos.length > 0) {
                     this.consumos.forEach(item => {
                         this.totalValorConsumo += item.valor;
