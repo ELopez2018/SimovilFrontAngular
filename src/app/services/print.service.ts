@@ -165,7 +165,100 @@ export class PrintService {
             }
         );
     }
+    /**
+     *
+     * @param acumulados acumulados es un Array que contiene los turnos acumulados durante el mes
+     * @param planilla planilla es un Array que contiene los turnos de la planilla Actual
+     */
+    private SumaVentasActualYAcumulados1(acumulados, planilla): Array<any> {
+        let acum2 = acumulados;
+        acum2.PLA_DIA_TUR = [];
+        console.log('acumulados', acumulados);
+        let acum = acumulados;
+        if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
+            console.log('entró 1');
+            acum.PLA_DIA_TUR.map((e) => {
+                console.log('1');
+                const a = planilla.PLA_DIA_TUR.find(
+                    (f) => f.NUM_TUR == e.NUM_TUR
+                );
+                var arr: EntDailySheetTurnDet[] = [];
+                if (a) {
+                    e.PLA_DIA_TUR_VEN.map((s) => {
+                        const b = a.PLA_DIA_TUR_VEN.find(
+                            (f) => f.COD_ART == s.COD_ART
+                        );
+                        if (b != null) {
+                            var g = this.sumObj(s, b) as EntDailySheetTurnDet;
+                            g.COD_ART = s.COD_ART;
+                            arr.push(g);
+                        } else {
+                            arr.push(s);
+                        }
+                    });
+                    acum2.PLA_DIA_TUR.push({
+                        NUM_TUR: e.NUM_TUR,
+                        CANT_VENTA: e.CANT_VENTA + a.CANT_VENTA,
+                        TOTAL: e.TOTAL + a.TOTAL,
+                        PLA_DIA_TUR_VEN: arr,
+                    });
+                    arr = [];
+                } else {
+                    acum2.PLA_DIA_TUR.push({
+                        NUM_TUR: e.NUM_TUR,
+                        CANT_VENTA: e.CANT_VENTA,
+                        TOTAL: e.TOTAL,
+                        PLA_DIA_TUR_VEN: e.PLA_DIA_TUR_VEN,
+                    });
+                }
+            });
+        } else {
+            acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
+        }
 
+        return acum2.PLA_DIA_TUR;
+    }
+
+    /**
+     *
+     * @param acum Array que contiene los turnos acumulados durante el mes
+     * @param planilla Array que contiene los turnos de la planilla Actual
+     */
+    private SumaVentasActualYAcumulados2(acum, planilla): Array<any> {
+        let acum2;
+        if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
+            planilla.PLA_DIA_TUR.map((e) => {
+                const a = acum.PLA_DIA_TUR.find((f) => f.NUM_TUR == e.NUM_TUR);
+                var arr: EntDailySheetTurnDet[] = [];
+                if (a) {
+                    e.PLA_DIA_TUR_VEN.map((s) => {
+                        const b = a.PLA_DIA_TUR_VEN.find(
+                            (f) => f.COD_ART == s.COD_ART
+                        );
+                        if (b != null) {
+                            var g = this.sumObj(s, b) as EntDailySheetTurnDet;
+                            g.COD_ART = s.COD_ART;
+                            arr.push(g);
+                        } else {
+                            arr.push(s);
+                        }
+                    });
+                    acum2.PLA_DIA_TUR.push({
+                        NUM_TUR: e.NUM_TUR,
+                        CANT_VENTA: e.CANT_VENTA + a.CANT_VENTA,
+                        TOTAL: e.TOTAL + a.TOTAL,
+                        PLA_DIA_TUR_VEN: arr,
+                    });
+                    arr = [];
+                }
+            });
+        } else {
+            acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
+        }
+        console.log('ACUMULADOS DESPUES ACUM2:', acum2.PLA_DIA_TUR);
+
+        return acum2;
+    }
     private printSheetDaily(
         planilla: EntDailySheet,
         station: EntStation,
@@ -174,7 +267,7 @@ export class PrintService {
         open?: boolean,
         callback?
     ) {
-        console.log('ACUMULADOS PLANI :', planilla.PLA_DIA_TUR)
+        console.log('ACUMULADOS PLANI :', planilla.PLA_DIA_TUR);
         console.log('ACUMULADOS ACUM 1:', acum.PLA_DIA_TUR);
         const acum2 = this.sumObj(planilla, acum) as EntDailySheet;
         console.log('ACUMULADOS ACUM2 2:', acum2.PLA_DIA_TUR);
@@ -661,46 +754,132 @@ export class PrintService {
         // }
         // console.log('ACUMULADOS DESPUES ACUM2:',acum2.PLA_DIA_TUR);
 
-        //=================> Código Nuevo
-        //===> SUMA LOS TURNOS ACTUALES AL ACUMULADO
+        // //=================> Código Nuevo
+        // //===> SUMA LOS TURNOS ACTUALES AL ACUMULADO
+        // if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
+        //     acum.PLA_DIA_TUR.map((e) => {
+        //         const a = planilla.PLA_DIA_TUR.find(
+        //             (f) => f.NUM_TUR == e.NUM_TUR
+        //         );
+        //         var arr: EntDailySheetTurnDet[] = [];
+        //         if (a) {
+        //             e.PLA_DIA_TUR_VEN.map((s) => {
+        //                 const b = a.PLA_DIA_TUR_VEN.find(
+        //                     (f) => f.COD_ART == s.COD_ART
+        //                 );
+        //                 if (b != null) {
+        //                     var g = this.sumObj(s, b) as EntDailySheetTurnDet;
+        //                     g.COD_ART = s.COD_ART;
+        //                     arr.push(g);
+        //                 } else {
+        //                     arr.push(s);
+        //                 }
+        //             });
+        //             acum2.PLA_DIA_TUR.push({
+        //                 NUM_TUR: e.NUM_TUR,
+        //                 CANT_VENTA: e.CANT_VENTA + a.CANT_VENTA,
+        //                 TOTAL: e.TOTAL + a.TOTAL,
+        //                 PLA_DIA_TUR_VEN: arr,
+        //             });
+        //             arr = [];
+        //         } else {
+        //             acum2.PLA_DIA_TUR.push({
+        //                 NUM_TUR: e.NUM_TUR,
+        //                 CANT_VENTA: e.CANT_VENTA,
+        //                 TOTAL: e.TOTAL,
+        //                 PLA_DIA_TUR_VEN: e.PLA_DIA_TUR_VEN,
+        //             });
+        //         }
+        //     });
+        // } else {
+        //     acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
+        // }
+        //console.log(acum.PLA_DIA_TUR.length, planilla.PLA_DIA_TUR.length);
+
         if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
-            acum.PLA_DIA_TUR.map((e) => {
-                const a = planilla.PLA_DIA_TUR.find(
-                    (f) => f.NUM_TUR == e.NUM_TUR
-                );
-                var arr: EntDailySheetTurnDet[] = [];
-                if (a) {
-                    e.PLA_DIA_TUR_VEN.map((s) => {
-                        const b = a.PLA_DIA_TUR_VEN.find(
-                            (f) => f.COD_ART == s.COD_ART
-                        );
-                        if (b != null) {
-                            var g = this.sumObj(s, b) as EntDailySheetTurnDet;
-                            g.COD_ART = s.COD_ART;
-                            arr.push(g);
-                        } else {
-                            arr.push(s);
-                        }
-                    });
-                    acum2.PLA_DIA_TUR.push({
-                        NUM_TUR: e.NUM_TUR,
-                        CANT_VENTA: e.CANT_VENTA + a.CANT_VENTA,
-                        TOTAL: e.TOTAL + a.TOTAL,
-                        PLA_DIA_TUR_VEN: arr,
-                    });
-                    arr = [];
-                } else {
-                    acum2.PLA_DIA_TUR.push({
-                        NUM_TUR: e.NUM_TUR,
-                        CANT_VENTA: e.CANT_VENTA,
-                        TOTAL: e.TOTAL,
-                        PLA_DIA_TUR_VEN: e.PLA_DIA_TUR_VEN,
-                    });
-                }
-            });
+            if (acum.PLA_DIA_TUR.length > planilla.PLA_DIA_TUR.length) {
+                console.log('ACUM ES MAYOR A PLANILLA');
+                acum.PLA_DIA_TUR.map((e) => {
+                    const a = planilla.PLA_DIA_TUR.find(
+                        (f) => f.NUM_TUR == e.NUM_TUR
+                    );
+                    var arr: EntDailySheetTurnDet[] = [];
+                    if (a) {
+                        e.PLA_DIA_TUR_VEN.map((s) => {
+                            const b = a.PLA_DIA_TUR_VEN.find(
+                                (f) => f.COD_ART == s.COD_ART
+                            );
+                            if (b != null) {
+                                var g = this.sumObj(
+                                    s,
+                                    b
+                                ) as EntDailySheetTurnDet;
+                                g.COD_ART = s.COD_ART;
+                                arr.push(g);
+                            } else {
+                                arr.push(s);
+                            }
+                        });
+                        acum2.PLA_DIA_TUR.push({
+                            NUM_TUR: e.NUM_TUR,
+                            CANT_VENTA: e.CANT_VENTA + a.CANT_VENTA,
+                            TOTAL: e.TOTAL + a.TOTAL,
+                            PLA_DIA_TUR_VEN: arr,
+                        });
+                        arr = [];
+                    } else {
+                        acum2.PLA_DIA_TUR.push({
+                            NUM_TUR: e.NUM_TUR,
+                            CANT_VENTA: e.CANT_VENTA,
+                            TOTAL: e.TOTAL,
+                            PLA_DIA_TUR_VEN: e.PLA_DIA_TUR_VEN,
+                        });
+                    }
+                });
+            } else {
+                console.warn('PLANILLA ES MAYOR A ACUM');
+                planilla.PLA_DIA_TUR.map((e) => {
+                    const a = acum.PLA_DIA_TUR.find(
+                        (f) => f.NUM_TUR == e.NUM_TUR
+                    );
+                    var arr: EntDailySheetTurnDet[] = [];
+                    if (a) {
+                        e.PLA_DIA_TUR_VEN.map((s) => {
+                            const b = a.PLA_DIA_TUR_VEN.find(
+                                (f) => f.COD_ART == s.COD_ART
+                            );
+                            if (b != null) {
+                                var g = this.sumObj(
+                                    s,
+                                    b
+                                ) as EntDailySheetTurnDet;
+                                g.COD_ART = s.COD_ART;
+                                arr.push(g);
+                            } else {
+                                arr.push(s);
+                            }
+                        });
+                        acum2.PLA_DIA_TUR.push({
+                            NUM_TUR: e.NUM_TUR,
+                            CANT_VENTA: e.CANT_VENTA + a.CANT_VENTA,
+                            TOTAL: e.TOTAL + a.TOTAL,
+                            PLA_DIA_TUR_VEN: arr,
+                        });
+                        arr = [];
+                    } else {
+                        acum2.PLA_DIA_TUR.push({
+                            NUM_TUR: e.NUM_TUR,
+                            CANT_VENTA: e.CANT_VENTA,
+                            TOTAL: e.TOTAL,
+                            PLA_DIA_TUR_VEN: e.PLA_DIA_TUR_VEN,
+                        });
+                    }
+                });
+            }
         } else {
             acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
         }
+
         console.log('ACUMULADOS DESPUES NEW ACUM2:', acum2.PLA_DIA_TUR);
 
         const yesterday = addDays(planilla.FECHA, -1);
@@ -711,8 +890,8 @@ export class PrintService {
             planilla.TIPO == 'L'
                 ? 'LIQUIDOS'
                 : planilla.TIPO == 'G'
-                    ? 'GAS'
-                    : 'NULL';
+                ? 'GAS'
+                : 'NULL';
         let ingresosObj = [];
 
         if (planilla.TIPO == 'L') {
@@ -795,7 +974,9 @@ export class PrintService {
 
                 // MUESTRA LOS DATOS
                 e.PLA_DIA_TUR_VEN.map((r: any) => {
+
                     let acItm;
+
                     if (acumItem != undefined) {
                         acItm = acumItem.PLA_DIA_TUR_VEN.find(
                             (pdt) => pdt.COD_ART == r.COD_ART
@@ -915,7 +1096,6 @@ export class PrintService {
 
             arrayLineA.push(true);
         } else if (planilla.TIPO == 'G') {
-
             // Encabezados
             ingresosObj.push(
                 [
@@ -997,18 +1177,23 @@ export class PrintService {
                 ]
             );
 
-                console.log(acum2);
+            //console.log(acum2);
             // MUESTRA LOS DATOS = VA MOSTRANDO LOS TURNOS
             acum2.PLA_DIA_TUR.map((e) => {
                 let acitem = planilla.PLA_DIA_TUR.find(
                     (ac) => ac.NUM_TUR == e.NUM_TUR
                 );
 
+
                 // MUESTRA LAS VENTAS DE CADA TURNO
                 e.PLA_DIA_TUR_VEN.map((r: any) => {
-                    let pdtv = acitem.PLA_DIA_TUR_VEN.find(
-                        (it) => it.COD_ART == r.COD_ART
-                    );
+                    // if (acitem !== undefined) {
+
+                    // }
+                    // let pdtv = acitem.PLA_DIA_TUR_VEN.find(
+                    //     (it) => it.COD_ART == r.COD_ART
+                    // );
+                    let pdtv;
                     if (acitem != undefined) {
                         pdtv = acitem.PLA_DIA_TUR_VEN.find(
                             (pdt) => pdt.COD_ART == r.COD_ART
@@ -1079,7 +1264,6 @@ export class PrintService {
                 });
             });
         }
-
 
         // =====> Codigo Actual para GAS
         //     planilla.PLA_DIA_TUR.map((e) => {
@@ -3897,14 +4081,14 @@ export class PrintService {
                 element.combustible == 0
                     ? 'Gasolina'
                     : element.combustible == 1
-                        ? 'Diesel'
-                        : element.combustible == 2
-                            ? 'Gas'
-                            : element.combustible == 3
-                                ? 'Lubricantes'
-                                : element.combustible == 4
-                                    ? 'Filtros'
-                                    : '',
+                    ? 'Diesel'
+                    : element.combustible == 2
+                    ? 'Gas'
+                    : element.combustible == 3
+                    ? 'Lubricantes'
+                    : element.combustible == 4
+                    ? 'Filtros'
+                    : '',
                 element.ConsecutivoEstacion.toString(),
                 { text: element.valor.toLocaleString(), alignment: 'right' },
             ]);
@@ -4048,12 +4232,12 @@ export class PrintService {
             pageMargins: [85, 110, 57, 100],
             content: [
                 'Villavicencio, ' +
-                date.getUTCDate() +
-                ' de ' +
-                this.mesEnLetra(date.getUTCMonth()).toLowerCase() +
-                ' del ' +
-                date.getUTCFullYear() +
-                '.',
+                    date.getUTCDate() +
+                    ' de ' +
+                    this.mesEnLetra(date.getUTCMonth()).toLowerCase() +
+                    ' del ' +
+                    date.getUTCFullYear() +
+                    '.',
                 {
                     text: 'CTA. DE COBRO No. ' + cuentacobro + '\n\n',
                     alignment: 'right',
@@ -4091,14 +4275,14 @@ export class PrintService {
                     text: [
                         { text: 'POR CONCEPTO DE', bold: true },
                         ': Suministro de combustible del ' +
-                        dayIni +
-                        ' al ' +
-                        dayEnd +
-                        ' del mes de ' +
-                        this.mesEnLetra(month).toLowerCase() +
-                        ' de ' +
-                        year +
-                        '.',
+                            dayIni +
+                            ' al ' +
+                            dayEnd +
+                            ' del mes de ' +
+                            this.mesEnLetra(month).toLowerCase() +
+                            ' de ' +
+                            year +
+                            '.',
                     ],
                     style: 'body',
                 },
