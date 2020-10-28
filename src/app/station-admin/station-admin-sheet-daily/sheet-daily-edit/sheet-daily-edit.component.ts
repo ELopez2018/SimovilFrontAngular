@@ -456,7 +456,9 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         } else if (this.salesTurn && this.salesTurn.DETALLE && this.salesTurn.DETALLE.length > 0) {
 
             // agregar validacion de numeros de turnos editados.
-            for (let index = 1; index <= this.station.turno; index++) {
+            // console.log(this.station.turno)
+            // console.log(this.salesTurn);
+            for (let index = 1; index <= this.salesTurn.DETALLE.length; index++) {
                 const element = this.salesTurn.DETALLE.filter(e => e.NUM_TURNO == index);
                 const turn_det: EntDailySheetTurnDet[] = [];
                 sumaTurn = 0;
@@ -468,10 +470,12 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 });
                 planilla.PLA_DIA_TUR.push({ NUM_TUR: index, CANT_VENTA: sumaCTurn, TOTAL: sumaTurn, PLA_DIA_TUR_VEN: turn_det });
             }
-            console.log(planilla.PLA_DIA_TUR);
+            // console.log(planilla.PLA_DIA_TUR);
             this.salesTurn.VALOR = Math.round(this.salesTurn.VALOR);
             planilla.V_TOTAL = this.salesTurn.VALOR;
         }
+
+       console.log( planilla.PLA_DIA_TUR);
 
         planilla.V_CANT = planilla.PLA_DIA_TUR.reduce((a, b) => a + b.CANT_VENTA, 0);
 
