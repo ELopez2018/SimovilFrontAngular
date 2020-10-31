@@ -11,20 +11,21 @@ import { NominaService } from '../../services/nomina.service';
 import { PrintService } from '../../services/print.service';
 import { fadeTransition } from '../../routerAnimation';
 import { UtilService } from '../../services/util.service';
-import { rangedate, dateToISOString, focusById, ObjToCSV } from '../../util/util-lib';
+import {
+    rangedate,
+    dateToISOString,
+    focusById,
+    ObjToCSV,
+} from '../../util/util-lib';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-
-
-
 
 @Component({
     selector: 'app-station-receivable',
     templateUrl: './station-receivable.component.html',
     styleUrls: ['./station-receivable.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
 })
 export class StationReceivableComponent implements OnInit {
-
     searchReceivable: EntReceivable[];
     codEstation;
     client: EntClient;
@@ -54,9 +55,12 @@ export class StationReceivableComponent implements OnInit {
         this.searchFechaIni = dateToISOString(fechas[0]);
         this.searchFechaFin = dateToISOString(fechas[1]);
         this.client = new EntClient();
-        this.nominaService.GetStations().subscribe(data => {
-            this.stationsAll = data;
-        }, error => console.log(error));
+        this.nominaService.GetStations().subscribe(
+            (data) => {
+                this.stationsAll = data;
+            },
+            (error) => console.log(error)
+        );
         this.GetParam();
         focusById('btnSearch');
     }
@@ -68,59 +72,100 @@ export class StationReceivableComponent implements OnInit {
             this.searchByParam(id);
         }
     }
-    Eliminar(CuentaCobro) {
-        this.carteraService.DeleteRecievable(CuentaCobro).subscribe(resp => {
-
-            Swal.fire({
-                title: 'CUENTA DE COBRO BORRADA',
-                icon: 'success',
-                text: resp[0].resp
-            });
-
-            console.log(resp);
-        })
+    Eliminar(CuentaCobro, i) {
+        Swal.fire({
+            title: '¿ESTA SEGURO?',
+            text:
+                `Está a punto de eliminar la cuenta de cobro N° ${this.searchReceivable[i].num} de ${this.searchReceivable[i].nombre}. ¿Desea Continuar`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si',
+        }).then((result) => {
+            if (result.value) {
+                this.carteraService
+                    .DeleteRecievable(CuentaCobro)
+                    .subscribe((resp) => {
+                        this.principal.showMsg(
+                            'success',
+                            'CUENTA COBRO ELIMINADA',
+                            resp[0].resp
+                        );
+                        this.searchReceivable.splice(i, 1);
+                    });
+            } else {
+                return;
+            }
+        });
     }
     searchByParam(id) {
-        this.carteraService.GetClient(id).subscribe(client => {
-            this.client = client[0];
-        }, error => {
-            console.log(error);
-            this.location.back();
-        });
+        this.carteraService.GetClient(id).subscribe(
+            (client) => {
+                this.client = client[0];
+            },
+            (error) => {
+                console.log(error);
+                this.location.back();
+            }
+        );
     }
 
     searchClient() {
         if (this.client.codCliente == null) {
             return;
         }
-        this.carteraService.GetClient(this.client.codCliente).subscribe(client => {
-            if (client.length != 0) {
-                this.client = client[0];
-            } else {
-                this.principal.showMsg('info', 'Información', 'Cliente no encontrado.')
+        this.carteraService.GetClient(this.client.codCliente).subscribe(
+            (client) => {
+                if (client.length != 0) {
+                    this.client = client[0];
+                } else {
+                    this.principal.showMsg(
+                        'info',
+                        'Información',
+                        'Cliente no encontrado.'
+                    );
+                }
+            },
+            (error) => {
+                console.log(error);
+                this.principal.showMsg('error', 'Error', error.error.message);
             }
-        }, error => {
-            console.log(error);
-            this.principal.showMsg('error', 'Error', error.error.message);
-        });
+        );
     }
 
     getReceivableSearch() {
         this.utilService.loader(true);
-        this.carteraService.getReceivable(this.client.codCliente, this.searchStatus, this.searchFechaIni, this.searchFechaFin, null, this.codEstation).subscribe(receivable =>
-            this.searchReceivable = receivable,
-            error => {
-                console.log(error);
-                this.utilService.loader(false);
-                this.principal.showMsg('error', 'Error', error.error.message);
-            }, () => this.utilService.loader(false));
+        this.carteraService
+            .getReceivable(
+                this.client.codCliente,
+                this.searchStatus,
+                this.searchFechaIni,
+                this.searchFechaFin,
+                null,
+                this.codEstation
+            )
+            .subscribe(
+                (receivable) => (this.searchReceivable = receivable),
+                (error) => {
+                    console.log(error);
+                    this.utilService.loader(false);
+                    this.principal.showMsg(
+                        'error',
+                        'Error',
+                        error.error.message
+                    );
+                },
+                () => this.utilService.loader(false)
+            );
     }
 
     sumReceivables() {
         let array: EntReceivable[];
         var suma = 0;
         array = this.searchReceivable;
-        array.forEach(element => {
+        array.forEach((element) => {
             suma += element.valor;
         });
         return suma;
@@ -136,7 +181,11 @@ export class StationReceivableComponent implements OnInit {
     printReceivableSearch(): void {
         let printContents, popupWin;
         printContents = document.getElementById('print-receivables').innerHTML;
-        popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+        popupWin = window.open(
+            '',
+            '_blank',
+            'top=0,left=0,height=100%,width=auto'
+        );
         popupWin.document.open();
         popupWin.document.write(`
       <html>
@@ -151,8 +200,7 @@ export class StationReceivableComponent implements OnInit {
           <h4 class="text-center mt-3">Cuentas de cobro del ${this.searchFechaIni} al ${this.searchFechaFin}</h4>
           ${printContents}
         </body>
-      </html>`
-        );
+      </html>`);
         popupWin.document.close();
     }
 
@@ -180,15 +228,31 @@ export class StationReceivableComponent implements OnInit {
     printReceivable(receivable: EntReceivable) {
         this.utilService.loader(true);
         var consumosC: EntConsumptionClient[];
-        this.carteraService.getConsumption(receivable.codCliente, null, null, receivable.id, null).subscribe(consumos => {
-            consumosC = consumos
-            // console.log('receivable', consumos);
-            this.printService.printReceivable(receivable, consumosC,
-                this.stationsAll.find(e => e.idEstacion == receivable.idEstacion), result => {
-                    this.utilService.loader(false);
-                });
-        }, error =>
-            console.log(error));
+        this.carteraService
+            .getConsumption(
+                receivable.codCliente,
+                null,
+                null,
+                receivable.id,
+                null
+            )
+            .subscribe(
+                (consumos) => {
+                    consumosC = consumos;
+                    // console.log('receivable', consumos);
+                    this.printService.printReceivable(
+                        receivable,
+                        consumosC,
+                        this.stationsAll.find(
+                            (e) => e.idEstacion == receivable.idEstacion
+                        ),
+                        (result) => {
+                            this.utilService.loader(false);
+                        }
+                    );
+                },
+                (error) => console.log(error)
+            );
     }
 
     porCobrar(receivable: EntReceivable) {
@@ -221,15 +285,47 @@ export class StationReceivableComponent implements OnInit {
     }
 
     csvReceivableSearch() {
-        let title = ['num', 'fecha', 'codCliente', 'nombre', 'periodoIni', 'periodoFin', 'estado', 'valor', 'saldo'];
-        let titleB = ['Número', 'Fecha', 'Nit', 'Nombre', 'Desde', 'Hasta', 'Estado', 'Valor', 'Saldo'];
+        let title = [
+            'num',
+            'fecha',
+            'codCliente',
+            'nombre',
+            'periodoIni',
+            'periodoFin',
+            'estado',
+            'valor',
+            'saldo',
+        ];
+        let titleB = [
+            'Número',
+            'Fecha',
+            'Nit',
+            'Nombre',
+            'Desde',
+            'Hasta',
+            'Estado',
+            'Valor',
+            'Saldo',
+        ];
         let item = JSON.parse(JSON.stringify(this.searchReceivable));
-        item.map(e => {
+        item.map((e) => {
             e.fecha = formatDate(e.fecha, 'dd/MM/yyyy', 'en-US', '+0000');
-            e.periodoIni = formatDate(e.periodoIni, 'dd/MM/yyyy', 'en-US', '+0000');
-            e.periodoFin = formatDate(e.periodoFin, 'dd/MM/yyyy', 'en-US', '+0000');
+            e.periodoIni = formatDate(
+                e.periodoIni,
+                'dd/MM/yyyy',
+                'en-US',
+                '+0000'
+            );
+            e.periodoFin = formatDate(
+                e.periodoFin,
+                'dd/MM/yyyy',
+                'en-US',
+                '+0000'
+            );
         });
-        this.printService.downloadCSV(ObjToCSV(item, title, titleB), 'cuenta_cobro');
+        this.printService.downloadCSV(
+            ObjToCSV(item, title, titleB),
+            'cuenta_cobro'
+        );
     }
-
 }

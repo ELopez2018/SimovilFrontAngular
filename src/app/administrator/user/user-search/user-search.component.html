@@ -28,6 +28,7 @@
           <th scope="col">Usuario</th>
           <th scope="col">Nombres</th>
           <th scope="col">Apellidos</th>
+          <th scope="col">Email</th>
           <th scope="col">Estado</th>
           <th scope="col">Rol</th>
           <th scope="col">Acciones</th>
@@ -36,8 +37,9 @@
       <tbody>
         <tr *ngFor="let user of users">
           <td data-title="Usuario" class="text-center">{{user.idUsuario}}</td>
-          <td data-title="Nombres" class="text-center">{{user.primerNombre}} {{user.segundoNombre}}</td>
-          <td data-title="Apellidos" class="text-center">{{user.primerApellido}} {{user.segundoApellido}}</td>
+          <td data-title="Nombres" class="">{{user.primerNombre}} {{user.segundoNombre}}</td>
+          <td data-title="Apellidos" class="">{{user.primerApellido}} {{user.segundoApellido}}</td>
+          <td data-title="Apellidos" class="">{{user.email }}</td>
           <td data-title="Estado" class="text-center">{{user.estado == true ? 'Activo' : 'Inactivo'}}</td>
           <td data-title="Rol" class="text-center">{{getNameRole(user.rol)}}</td>
           <td data-title="Acciones" class="text-center">

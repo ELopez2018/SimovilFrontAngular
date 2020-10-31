@@ -78,7 +78,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let receivable of searchReceivable" [ngClass]="porCobrar(receivable)">
+        <tr *ngFor="let receivable of searchReceivable; index as i " [ngClass]="porCobrar(receivable)">
           <td data-title="Activo" class="text-center">
             <span *ngIf="receivable.estado == true" class="fab fa-font-awesome-flag fa-fw"></span>
           </td>
@@ -93,7 +93,7 @@
             <button title ="Imprimir PDF"  (click)="printReceivable(receivable)" class="btn btn-success btn-sm mr-1">
               <span class="fas fa-print fa-fw"></span>
             </button>
-            <button *ngIf="!codEstation" title ="Eliminar"  (click)="Eliminar( receivable.id )" class="btn btn-danger btn-sm">
+            <button *ngIf="!codEstation" title ="Eliminar"  (click)="Eliminar( receivable.id, i )" class="btn btn-danger btn-sm">
                 <span class="pi pi-trash fa-fw"></span>
               </button>
           </td>

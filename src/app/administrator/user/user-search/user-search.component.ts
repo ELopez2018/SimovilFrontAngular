@@ -44,6 +44,7 @@ export class UserSearchComponent implements OnInit {
   }
 
   getUsers() {
+    console.log('entro')
     this.utilService.loader(true);
     let buscar = '';
     if (this.searchUserid.trim() == '')
@@ -52,6 +53,7 @@ export class UserSearchComponent implements OnInit {
       buscar = this.searchUserid.trim().replace(' ', "%");
     this.carteraService.GetUser(buscar, null, this.searchUserStatus, null).subscribe(result => {
       this.users = result;
+      console.log(this.users);
       this.utilService.loader(false);
     }, error => {
       console.log(error);
