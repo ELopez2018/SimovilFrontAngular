@@ -346,7 +346,7 @@ export class CarteraService {
         return this.http.get<EntSalesTurn[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
 
             tap(result => {
-                console.log('Realizado con éxito');
+                console.log(result);
                 result.map(e => {
                     e.DETALLE = JSON.parse(String(e.DETALLE));
                 });

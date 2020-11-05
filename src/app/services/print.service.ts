@@ -259,6 +259,7 @@ export class PrintService {
 
         return acum2;
     }
+
     private printSheetDaily(
         planilla: EntDailySheet,
         station: EntStation,
@@ -4236,7 +4237,7 @@ export class PrintService {
                     date.getUTCFullYear() +
                     '.',
                 {
-                    text: 'CTA. DE COBRO No. ' + cuentacobro + '\n\n',
+                    text: 'RELACION DE CONSUMOS No. ' + cuentacobro + '\n\n',
                     alignment: 'right',
                 },
                 {

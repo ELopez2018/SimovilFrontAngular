@@ -299,7 +299,6 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         }
         this.utilService.loader(true);
         this.carteraService.getDailySheet(this.station.idEstacion, this.planilla, this.fecha).subscribe(res => {
-
             this.utilService.loader(false);
             this.deleteAllClient();
             this.deleteAllProvider();
@@ -457,8 +456,13 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
 
             // agregar validacion de numeros de turnos editados.
             // console.log(this.station.turno)
-            // console.log(this.salesTurn);
-            for (let index = 1; index <= this.salesTurn.DETALLE.length; index++) {
+            //  console.log(this.salesTurn);
+            let turnoMax: number=0;
+            this.salesTurn.DETALLE.forEach( e =>{
+                if (turnoMax<e.NUM_TURNO)turnoMax=e.NUM_TURNO
+            })
+
+            for (let index = 1; index <= turnoMax; index++) {
                 const element = this.salesTurn.DETALLE.filter(e => e.NUM_TURNO == index);
                 const turn_det: EntDailySheetTurnDet[] = [];
                 sumaTurn = 0;
@@ -1283,6 +1287,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 this.cant = result[0].DETALLE.reduce((a, b) => a + b.CANTIDAD, 0);
                 this.cant = Math.round(this.cant);
                 this.salesTurn = result[0];
+                console.log(this.salesTurn)
                 this.salesTurn.VALOR = Math.round(this.salesTurn.VALOR);
                 this.show[0] = true;
                 this.salesTurnBefore = JSON.parse(JSON.stringify(result[0]));
