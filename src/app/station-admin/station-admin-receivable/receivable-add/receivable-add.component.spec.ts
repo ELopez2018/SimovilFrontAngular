@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ReceivableAddComponent } from './receivable-add.component';
 
 describe('ReceivableAddComponent', () => {
