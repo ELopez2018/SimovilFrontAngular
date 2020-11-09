@@ -18,6 +18,12 @@ export class ReceivableAddComponent implements OnInit {
     cols: any[];
     estacion: number;
     consumosAll: EntConsumptionClient[]=[]
+    totalCantidad: number;
+    totalValor: number;
+    totalTickets: number;
+    retenciones:boolean=null;
+    classRet: string ="p-button-rounded p-button-secondary";
+    iconRetn: string="pi pi-question";
   constructor(
       public carteraService : CarteraService,
       public storageService : StorageService
@@ -45,15 +51,35 @@ export class ReceivableAddComponent implements OnInit {
     this.carteraService.getConsumption(this.cliente.codCliente,this.fechaIni,this.fechaFin,null, this.estacion)
     .subscribe(consumos =>{
         this.consumosAll = consumos;
+        this.totales();
         console.log(consumos);
-
     })
  }
-
+ totales() {
+    this.totalTickets=0;
+    this.totalCantidad= 0;
+    this.totalValor= 0;
+     this.consumosAll.forEach(items=>{
+        this.totalCantidad+= items.cantidad
+        this.totalValor+= items.valor
+        this.totalTickets++
+     })
+ }
  ConsultaMock() {
     this.cliente.codCliente=860002566;
     this.fechaIni='2020-10-01'; //new Date(2020,10,1);
     this.fechaFin='2020-10-02'; //new Date(2020,10,5);
     this.estacion=96
+ }
+ Retenciones(){
+    this.retenciones = !this.retenciones;
+
+    if (this.retenciones ) {
+        this.classRet ="p-button-rounded";
+    //    this.iconRetn="pi pi-check";
+    } else {
+         this.classRet ='p-button-rounded p-button-danger';
+        // this.iconRetn='pi pi-times';
+    }
  }
 }
