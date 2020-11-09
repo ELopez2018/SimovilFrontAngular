@@ -2,3 +2,4 @@
 [0902/162935.185:ERROR:exception_snapshot_win.cc(99)] thread ID 296464 not found in process
 [1019/074950.600:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
 [1109/071638.711:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
+[1109/085849.191:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
