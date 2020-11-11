@@ -1,7 +1,8 @@
-<div class="main mb-4 pb-4">
+<div class="main pb-1" *ngIf="cliente">
     <div class="container-fluid">
+
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-5">
                 <div class="form-group">
                     <label class="control-label">Nombre del cliente</label>
                     <input
@@ -12,7 +13,7 @@
                     />
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="form-group">
                     <label class="control-label">Fecha inicial</label>
                     <input
@@ -23,7 +24,7 @@
                     />
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="form-group">
                     <label class="control-label">Fecha corte</label>
                     <input
@@ -34,69 +35,117 @@
                     />
                 </div>
             </div>
-            <div class="col-sm-3">
-                <label class="control-label mb-1"></label>
+            <div class="col-sm-3 pt-2">
+                <label class="control-label mb-2"></label>
                 <button
                     [disabled]="false"
                     (click)="consultarConsumos()"
-                    class="btn btn-primary btn-block mt-2"
+                    class="btn btn-primary mt-4"
                 >
                     <i class="fas fa-file-invoice"></i>&nbsp;Consultar
                 </button>
+                <button
+                    pButton
+                    pRipple
+                    type="button"
+                    class="p-button-secondary mt-4"
+                    (click)="Retenciones()"
+                    label="Retenciones"
+                    *ngIf="consumosAll && consumosAll.length > 0"
+                ></button>
             </div>
         </div>
-        <div class="row mb-3">
 
+        <div class="row mb-3">
             <div class="col-sm-5" *ngIf="retenciones">
-                <input
-                    type="text"
+                <select
                     class="form-control"
-                    disabled
-                    [(ngModel)]="cliente.nombre"
-                />
+                    [(ngModel)]="impuesto"
+                    (change)="CalculoRet()"
+                >
+                    <option
+                        *ngFor="let item of tiposImpuestos"
+                        [ngValue]="item"
+                    >
+                        {{ item.text }}
+                    </option>
+                </select>
             </div>
             <div class="col-sm-3" *ngIf="retenciones">
                 <input
                     type="text"
                     class="form-control"
-                    disabled
-                    [(ngModel)]="cliente.nombre"
+                    currencyMask
+                    [disabled]="impuesto.id !== 8"
+                    [(ngModel)]="impuestoValor"
                 />
             </div>
-            <div class="col-sm-4" >
-                <button type="button" class="btn btn-secondary mr-1" *ngIf="retenciones"><i class="fas fa-plus"></i></button>
-                <button *ngIf="retenciones==null" pButton pRipple type="button" icon="pi pi-question" class="p-button-rounded p-button-secondary mr-2" (click)="Retenciones()"></button>
-                <button *ngIf="retenciones" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="Retenciones()"></button>
-                <button *ngIf="retenciones!== null && retenciones==false" pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded mr-2" (click)="Retenciones()"></button>
-                <label id="lblRetencion" *ngIf="!retenciones" (click)="Retenciones()">Agregar Retencion</label>
+            <div class="col-sm-2">
+                <button
+                    type="button"
+                    class="btn btn-secondary mr-1"
+                    *ngIf="retenciones"
+                    (click)="AgregarRetencion()"
+                >
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button
+                    *ngIf="retenciones"
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-danger"
+                    (click)="Retenciones()"
+                ></button>
             </div>
-
+            <div class="col-sm-2">
+             <ng-template> <span> {{ mensaje }} </span> </ng-template>
+            </div>
         </div>
-        <div class="row">
+        <div
+            class="card mb-4 text-center"
+            *ngIf="retencionesAll && retencionesAll.length > 0"
+        >
+            <p-table
+                [value]="retencionesAll"
+                [scrollable]="true"
+                scrollHeight="200px"
+                [responsive]="true"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 80px" class="text-center">Id</th>
+                        <th style="width: 90px" class="text-center">
+                            Descripcion
+                        </th>
+                        <th style="width: 90px" class="text-center">Valor</th>
+                        <th style="width: 60px" class="text-center">Opc</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+                    <tr>
+                        <td style="width: 80px" class="text-center">
+                            {{ customer.id }}
+                        </td>
+                        <td style="width: 90px" class="text-center">
+                            {{ customer.DETALLE }}
+                        </td>
+                        <td style="width: 90px" class="text-center">
+                            {{ customer.valor | currency }}
+                        </td>
+                        <td style="width: 60px" class="text-center">
+                            <button class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="row" *ngIf="consumosAll && consumosAll.length > 0">
             <div class="col-sm-12">
-                <!-- <div class="card">
-                    <h5>CONSUMOS</h5>
-                    <p-table [columns]="cols" [value]="consumosAll" [scrollable]="true" [rows]="100" scrollHeight="250px"
-                        [virtualScroll]="true" [virtualRowHeight]="34">
-                        <ng-template pTemplate="header" let-columns>
-                            <tr>
-                                <th *ngFor="let col of columns">
-                                    {{col.header}}
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-columns="columns">
-                            <tr style="height:34px">
-                                <td *ngFor="let col of columns">
-                                    {{rowData[col.field]}}
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div> -->
-
                 <div class="card text-center">
-                    <h5>CONSUMOS</h5>
                     <p-table
                         [value]="consumosAll"
                         [scrollable]="true"
@@ -127,7 +176,9 @@
                                 <th style="width: 120px" class="text-center">
                                     Valor
                                 </th>
-                                <th style="width: 60px">Opc</th>
+                                <th style="width: 60px" class="text-center">
+                                    Opc
+                                </th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-customer>
@@ -140,14 +191,11 @@
                                 </td>
                                 <td style="width: 95px" class="text-center">
                                     {{
-                                        customer.fechaConsumo | date: 'dd/MM/yy'
+                                        customer.fechaConsumo | date: 'dd-MM-yy'
                                     }}
                                 </td>
                                 <td style="width: 120px" class="text-center">
-                                    {{
-                                        customer.horaConsumo
-                                            | date: 'mediumTime'
-                                    }}
+                                    {{ customer.horaConsumo }}
                                 </td>
                                 <td style="width: 95px" class="text-center">
                                     {{ customer.placa }}
@@ -159,39 +207,53 @@
                                 <td style="width: 120px" class="text-right">
                                     {{ customer.valor | currency }}
                                 </td>
-                                <td style="width: 60px">
+                                <td style="width: 60px" class="text-center">
                                     <button class="btn btn-danger btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="footer">
-                            <div class="row">
-                                <div class="col-sm-4"><h5>Total Tickets: {{ totalTickets }}</h5></div>
-                                <!-- <div class="col-sm-2"><h5></h5></div> -->
-                                <div class="col-sm-4"><h5>Total Galones: {{ totalCantidad }}</h5></div>
-                                <div class="col-sm-4"><h5>Total Valor: {{ totalValor | currency }}</h5></div>
-
-                            </div>
-                        </ng-template>
                     </p-table>
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h5>Total Tickets: {{ totalTickets }}</h5>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <h5>
+                                    Total Galones:
+                                    {{ totalCantidad | number: '.2-2' }}
+                                </h5>
+                            </div>
+                            <div class="col-sm-4">
+                                <h5>
+                                    Total Valor: {{ totalValor | currency }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row pt-3">
+        <div class="row pt-1">
+            <div class="col-sm-3"></div>
             <div class="col-sm-3">
-                <!-- <button type="button" class="btn btn-primary btn-block"></button>  -->
+                <button type="button" class="btn btn-primary btn-block shadow">
+                    Crear Cuenta de Cobro
+                </button>
             </div>
             <div class="col-sm-3">
-                <button type="button" class="btn btn-primary btn-block">Crear Cuenta de Cobro </button>
+                <button
+                    type="button"
+                    class="btn btn-danger btn-block shadow"
+                    (click)="Cancel()"
+                >
+                    Cancelar
+                </button>
             </div>
-            <div class="col-sm-3">
-                <button type="button" class="btn btn-danger btn-block">Cancelar</button>
-            </div>
-            <div class="col-sm-3">
-                <!-- <button type="button" class="btn btn-primary btn-block"></button>  -->
-            </div>
+            <div class="col-sm-3"></div>
         </div>
     </div>
 </div>

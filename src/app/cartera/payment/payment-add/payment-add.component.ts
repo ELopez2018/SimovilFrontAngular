@@ -87,7 +87,6 @@ export class PaymentAddComponent implements OnInit {
     GetTipoImpuestos() {
         this.NominaService.GetTiposImpuestos().subscribe(resp => {
             this.tiposImpuestos = resp;
-
         });
     }
     DateToLocalString(date: any) {

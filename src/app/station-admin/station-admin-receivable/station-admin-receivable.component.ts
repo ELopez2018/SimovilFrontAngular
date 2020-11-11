@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { CarteraService } from '../../services/cartera.service';
 import { dateToISOString, isoDateToLocalString, focusById, addDays } from '../../util/util-lib';
 import { PrincipalComponent } from '../../principal/principal.component';
@@ -85,7 +85,6 @@ export class StationAdminReceivableComponent implements OnInit {
   SelectClient(val: EntBasicClient) {
     this.boolCreateRec = true;
     this.clientSel = val;
-    console.log(val);
     this.fechaCliIni = dateToISOString(val['FECHA_MIN']);
     this.fechaCliFin = dateToISOString(val['FECHA_MAX']);
     setTimeout(() => {
@@ -166,7 +165,10 @@ export class StationAdminReceivableComponent implements OnInit {
       }
     });
   }
-
+  Datos(event$) {
+    this.boolCreateRec=false;
+    console.log(event$);
+  }
   get valid() {
     return (this.clientSel && this.clientSel.codCliente && this.fechaCliIni && this.fechaCliFin) ? true : false;
   }
