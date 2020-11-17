@@ -1,13 +1,13 @@
-import { EntClient } from './../../../Class/EntClient';
+import { PrincipalComponent } from './../../../principal/principal.component';
+import { UtilService } from './../../../services/util.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CarteraService } from '../../../services/cartera.service';
 import { StorageService } from '../../../services/storage.service';
 import { EntConsumptionClient } from '../../../Class/EntConsumptionClient';
 import { EntBasicClient } from '../../../Class/EntBasicClient';
-import { ReturnStatement } from '@angular/compiler';
-import { RetencionModel } from '../../../Class/EntRetencion';
 import { NominaService } from '../../../services/nomina.service';
 import { dateToISOString, rangedate } from '../../../util/util-lib';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
     selector: 'app-receivable-add',
@@ -16,8 +16,7 @@ import { dateToISOString, rangedate } from '../../../util/util-lib';
 })
 export class ReceivableAddComponent implements OnInit {
     @Input() cliente: EntBasicClient = new EntBasicClient();
-    @Output() emmiter = new EventEmitter<RetencionModel[]>();
-
+    @Output() retencionSubmitterAll = new EventEmitter<any>();
     public fechaIni: string;
     public fechaFin: string;
     public cols: any[];
@@ -37,7 +36,9 @@ export class ReceivableAddComponent implements OnInit {
     constructor(
         public carteraService: CarteraService,
         public storageService: StorageService,
-        public nominaService: NominaService
+        public nominaService: NominaService,
+        public utilService: UtilService,
+        public principalCompo: PrincipalComponent
     ) {
         this.cols = [
             { field: 'id', header: 'id' },
@@ -57,7 +58,7 @@ export class ReceivableAddComponent implements OnInit {
     }
     Cancel() {
         this.Reset();
-        this.emmiter.emit([]);
+        this.retencionSubmitterAll.emit([]);
     }
     Reset() {
         this.consumosAll = [];
@@ -72,6 +73,7 @@ export class ReceivableAddComponent implements OnInit {
         });
     }
     consultarConsumos() {
+        this.utilService.loader(true);
         this.consumosAll = [];
         this.carteraService
             .getConsumption(
@@ -81,9 +83,12 @@ export class ReceivableAddComponent implements OnInit {
                 null,
                 this.estacion
             )
+
             .subscribe((consumos) => {
+                this.utilService.loader(false);
                 this.consumosAll = consumos;
                 this.totales();
+                console.log(consumos);
             });
     }
     totales() {
@@ -109,8 +114,57 @@ export class ReceivableAddComponent implements OnInit {
     }
     Guardar() {
         if (this.retencionesAll && this.retencionesAll.length > 0) {
-            this.emmiter.emit(this.retencionesAll);
+            this.retencionSubmitterAll.emit({
+                retenciones: this.retencionesAll,
+                consumos: this.consumosAll,
+            });
+            this.Reset();
         }
+    }
+    EliminarRetencion(index: number) {
+        Swal.fire({
+            title: 'ELIMINAR RETENCION',
+            text:
+                'Está a punto de eliminar la retencion de esta lista, ¿Desea continuar?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si',
+        }).then((result) => {
+            if (result.value) {
+                this.retencionesAll.splice(index, 1);
+                this.principalCompo.showMsg("success","Eliminado","Retencion eliminada")
+            } else {
+                return;
+            }
+        });
+    }
+    EliminarConsumo(index: number) {
+        Swal.fire({
+            title: 'ELIMINAR CONSUMO',
+            text:
+                'Está a punto de eliminar un consumo de esta lista, ¿Desea continuar?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si',
+        }).then((result) => {
+            if (result.value) {
+                this.consumosAll.splice(index, 1);
+                this.totales();
+                if(this.retencionesAll && this.retencionesAll.length > 0) {
+                    this.retencionesAll =[];
+                    Swal.fire({icon:'info', title:'Retenciones', text: 'Debe volver a realizar las retenciones'});
+                }
+                this.principalCompo.showMsg("success","Eliminado","Consumo eliminado para restaurarlo vuelva a consultar")
+            } else {
+                return;
+            }
+        });
     }
     AgregarRetencion() {
         if (!this.impuesto || this.impuesto.formaPago === null) {

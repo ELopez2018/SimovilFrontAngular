@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Injectable } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
 import { AuthenticationService } from '../services/authentication.service';
 import { StorageService } from '../services/storage.service';
@@ -8,7 +8,7 @@ import { MenuItem } from '../Class/menu-item';
 import { BasicDataService } from '../services/basic-data.service';
 import { fadeAnimation } from '../animations';
 import { fadeTransition } from '../routerAnimation';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 
 @Component({
     selector: 'app-principal',
@@ -16,6 +16,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
     styleUrls: ['./principal.component.css'],
     animations: [fadeAnimation, fadeTransition()]
 })
+@Injectable()
 export class PrincipalComponent implements OnInit {
     msgs: Message[] = [];
     displayMenu = '';

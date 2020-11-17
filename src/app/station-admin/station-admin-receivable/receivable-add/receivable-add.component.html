@@ -114,7 +114,7 @@
                 [responsive]="true"
             >
                 <ng-template pTemplate="header">
-                    <tr>
+                    <tr >
                         <th style="width: 80px" class="text-center">Id</th>
                         <th style="width: 90px" class="text-center">
                             Descripcion
@@ -123,8 +123,8 @@
                         <th style="width: 60px" class="text-center">Opc</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-customer>
-                    <tr>
+                <ng-template pTemplate="body">
+                    <tr *ngFor="let customer of retencionesAll; index as i">
                         <td style="width: 80px" class="text-center">
                             {{ customer.id }}
                         </td>
@@ -135,7 +135,7 @@
                             {{ customer.valor | currency }}
                         </td>
                         <td style="width: 60px" class="text-center">
-                            <button class="btn btn-danger btn-sm">
+                            <button (click)="EliminarRetencion( i )" class="btn btn-danger btn-sm">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
@@ -181,8 +181,8 @@
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-customer>
-                            <tr>
+                        <ng-template pTemplate="body" >
+                            <tr *ngFor="let customer of consumosAll; index as i">
                                 <td style="width: 80px" class="text-center">
                                     {{ customer.id }}
                                 </td>
@@ -208,7 +208,7 @@
                                     {{ customer.valor | currency }}
                                 </td>
                                 <td style="width: 60px" class="text-center">
-                                    <button class="btn btn-danger btn-sm">
+                                    <button (click)="EliminarConsumo( i )"class="btn btn-danger btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
@@ -240,7 +240,7 @@
         <div class="row pt-1">
             <div class="col-sm-3"></div>
             <div class="col-sm-3">
-                <button type="button" class="btn btn-primary btn-block shadow">
+                <button type="button" (click)="Guardar()" class="btn btn-primary btn-block shadow">
                     Crear Cuenta de Cobro
                 </button>
             </div>

@@ -1,32 +1,37 @@
 <div class="col-sm-12">
     <ul class="nav nav-tabs nav-fill justify-content-center mb-1" id="myTab" role="tablist">
         <li class="nav-item" title="Resumen">
-            <a class="nav-link" (click)="tabClass(0)" [ngClass]="tabs[0].classTab" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+            <a class="nav-link" (click)="tabClass(0)" [ngClass]="tabs[0].classTab" id="home-tab" data-toggle="tab"
+                role="tab" aria-controls="home" aria-selected="true">
                 <span class="fas fa-home fa-fw"></span>&nbsp;
                 <span class="nameTab">Resumen</span>
             </a>
         </li>
         <li class="nav-item" title="Consultar">
-            <a class="nav-link" (click)="tabClass(1)" [ngClass]="tabs[1].classTab" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">
+            <a class="nav-link" (click)="tabClass(1)" [ngClass]="tabs[1].classTab" id="profile-tab" data-toggle="tab"
+                role="tab" aria-controls="profile" aria-selected="false">
                 <span class="fas fa-search fa-fw"></span>&nbsp;
                 <span class="nameTab">Consultar</span>
             </a>
         </li>
         <li class="nav-item" title="Pedidos">
-            <a class="nav-link" (click)="tabClass(2)" [ngClass]="tabs[2].classTab" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
+            <a class="nav-link" (click)="tabClass(2)" [ngClass]="tabs[2].classTab" id="contact-tab" data-toggle="tab"
+                role="tab" aria-controls="contact" aria-selected="false">
                 <span class="fas fa-shopping-cart fa-fw"></span>&nbsp;
                 <span class="nameTab">Pedidos</span>
             </a>
         </li>
         <li class="nav-item" title="Vehículos">
-            <a class="nav-link" (click)="tabClass(3)" [ngClass]="tabs[3].classTab" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
+            <a class="nav-link" (click)="tabClass(3)" [ngClass]="tabs[3].classTab" id="contact-tab" data-toggle="tab"
+                role="tab" aria-controls="contact" aria-selected="false">
                 <span class="fas fa-car fa-fw"></span>&nbsp;
                 <span class="nameTab">Vehículos</span>
             </a>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade" [ngClass]="tabs[0].classPane" id="Resumen" role="tabpanel" aria-labelledby="resumen-tab">
+        <div class="tab-pane fade" [ngClass]="tabs[0].classPane" id="Resumen" role="tabpanel"
+            aria-labelledby="resumen-tab">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="card border-light text-white bg-secondary mb-3">
@@ -51,7 +56,7 @@
                             </div>
                             <p class="title-card-light mb-0">Cupo</p>
                             <h2 class="card-text text-center text-truncate">
-                                ${{ homeClient.Cupo | number: "1.0-0" }}
+                                ${{ homeClient.Cupo | number: '1.0-0' }}
                             </h2>
                         </div>
                     </div>
@@ -65,7 +70,7 @@
                             </div>
                             <p class="title-card-light mb-0">Saldo</p>
                             <h2 class="card-text text-center text-truncate">
-                                ${{ homeClient.Saldo | number: "1.0-0" }}
+                                ${{ homeClient.Saldo | number: '1.0-0' }}
                             </h2>
                         </div>
                     </div>
@@ -107,10 +112,10 @@
                     <tbody>
                         <tr *ngFor="let consumo of consumos">
                             <td class="text-center">
-                                {{ consumo.fechaConsumo | date: "dd/MM/yyyy":"+0000" }}
+                                {{ consumo.fechaConsumo }}
                             </td>
                             <td class="text-center">
-                                {{ consumo.horaConsumo | date: "mediumTime":"+0000" }}
+                                {{ consumo.horaConsumo }}
                             </td>
                             <td class="text-center">
                                 {{ consumo.ConsecutivoEstacion }}
@@ -139,7 +144,8 @@
                 </table>
             </div>
         </div>
-        <div class="tab-pane fade" [ngClass]="tabs[1].classPane" id="consulta" role="tabpanel" aria-labelledby="consultar-tab">
+        <div class="tab-pane fade" [ngClass]="tabs[1].classPane" id="consulta" role="tabpanel"
+            aria-labelledby="consultar-tab">
             <ul class="nav nav-pills mb-1">
                 <li class="nav-item" title="Consumos">
                     <a class="nav-link" (click)="tabClassSearch(0)" [ngClass]="tabsSearch[0].classTab">
@@ -173,93 +179,55 @@
                 </li>
                 <li class="nav-item" title="Pedidos">
                     <a class="nav-link" (click)="tabClassSearch(5)" [ngClass]="tabsSearch[5].classTab">
-                        <span class="fas fa-hand-holding-usd fa-fw"></span
-                        >&nbsp;
+                        <span class="fas fa-hand-holding-usd fa-fw"></span>&nbsp;
                         <span class="nameTab">Pagos</span>
                     </a>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade" [ngClass]="tabsSearch[0].classPane" id="comsumptionSearch" role="tabpanel" aria-labelledby="comsumptionSearch-tab">
+                <div class="tab-pane fade" [ngClass]="tabsSearch[0].classPane" id="comsumptionSearch" role="tabpanel"
+                    aria-labelledby="comsumptionSearch-tab">
                     <div class="form-group col-sm-12 p-0 form-inline mb-0 justify-content-center">
-                        <label class="control-label col-sm-1 m-0">Fecha inicial:</label
-                        >
+                        <label class="control-label col-sm-1 m-0">Fecha inicial:</label>
                         <div class="input-group col-sm-3">
                             <span class="input-group-addon">
                                 <i class="fas fa-calendar fa-fw"></i>
                             </span>
-                            <input
-                                [(ngModel)]="searchConsumoFechaIni"
-                                required
-                                class="form-control"
-                                type="date"
-                                name="fechaIniConsumoSearch"
-                                id="fechaIniConsumoSearch"
-                            />
+                            <input [(ngModel)]="searchConsumoFechaIni" required class="form-control" type="date"
+                                name="fechaIniConsumoSearch" id="fechaIniConsumoSearch" />
                         </div>
-                        <label class="control-label col-sm-1 m-0"
-                            >Fecha final:</label
-                        >
+                        <label class="control-label col-sm-1 m-0">Fecha final:</label>
                         <div class="input-group col-sm-3">
                             <span class="input-group-addon">
                                 <i class="fas fa-calendar fa-fw"></i>
                             </span>
-                            <input
-                                [(ngModel)]="searchConsumoFechaFin"
-                                required
-                                class="form-control"
-                                type="date"
-                                name="fechaFinConsumoSearch"
-                                id="fechaFinConsumoSearch"
-                            />
+                            <input [(ngModel)]="searchConsumoFechaFin" required class="form-control" type="date"
+                                name="fechaFinConsumoSearch" id="fechaFinConsumoSearch" />
                         </div>
-                        <div
-                            class="col-sm-3 btn-group justify-content-center"
-                            role="group"
-                        >
-                            <button
-                                class="btn btn-info"
-                                (click)="getConsumptionSearch()"
-                            >
-                                <span class="fa fa-search fa-fw"></span
-                                >&nbsp;Consultar
+                        <div class="col-sm-3 btn-group justify-content-center" role="group">
+                            <button class="btn btn-info" (click)="getConsumptionSearch()">
+                                <span class="fa fa-search fa-fw"></span>&nbsp;Consultar
                             </button>
-                            <button
-                                class="btn btn-warning"
-                                (click)="cleanConsumptionSearch()"
-                            >
+                            <button class="btn btn-warning" (click)="cleanConsumptionSearch()">
                                 <span class="fas fa-eraser fa-fw"></span>
                             </button>
-                            <button
-                                class="btn btn-success"
-                                (click)="printConsumptionSearch()"
-                                [disabled]="
+                            <button class="btn btn-success" (click)="printConsumptionSearch()" [disabled]="
                                     searchConsumos == null ||
                                     searchConsumos.length == 0
-                                "
-                            >
+                                ">
                                 <span class="fa fa-print fa-fw"></span>
                             </button>
-                            <button
-                                class="btn btn-secondary"
-                                (click)="csvConsumptionSearch()"
-                                [disabled]="
+                            <button class="btn btn-secondary" (click)="csvConsumptionSearch()" [disabled]="
                                     searchConsumos == null ||
                                     searchConsumos.length == 0
-                                "
-                            >
+                                ">
                                 <span class="fas fa-file-download fa-fw"></span>
                             </button>
                         </div>
                     </div>
-                    <div
-                        class="table-wrapper container"
-                        id="table-Consumption-Search"
-                    >
+                    <div class="table-wrapper container" id="table-Consumption-Search">
                         <div id="print-consumption">
-                            <table
-                                class="table table-hover table-sm table-striped"
-                            >
+                            <table class="table table-hover table-sm table-striped">
                                 <thead>
                                     <tr class="text-center">
                                         <th scope="col">Fecha Consumo</th>
@@ -279,13 +247,13 @@
                                         <td class="text-center">
                                             {{
                                                 consumo.fechaConsumo
-                                                    | date: "dd/MM/yyyy":"+0000"
+                                                    | date: 'dd/MM/yyyy':'+0000'
                                             }}
                                         </td>
                                         <td class="text-center">
                                             {{
                                                 consumo.horaConsumo
-                                                    | date: "mediumTime":"+0000"
+                                                    | date: 'mediumTime':'+0000'
                                             }}
                                         </td>
                                         <td class="text-center">
@@ -333,358 +301,335 @@
                         </div>
                     </div>
                 </div>
-                <div
-                    class="tab-pane fade"
-                    [ngClass]="tabsSearch[1].classPane"
-                    id="receivableSearch"
-                    role="tabpanel"
-                    aria-labelledby="receivableSearch-tab"
-                >
+                <div class="tab-pane fade" [ngClass]="tabsSearch[1].classPane" id="receivableSearch" role="tabpanel"
+                    aria-labelledby="receivableSearch-tab">
                     <div class="form-group col-sm-12 p-0 form-inline mb-0">
-                        <label class="control-label col-sm-1 m-0"
-                            >Fecha inicial:</label
-                        >
+                        <label class="control-label col-sm-1 m-0">Fecha inicial:</label>
                         <div class="input-group col-sm-3">
                             <span class="input-group-addon">
                                 <i class="fas fa-calendar fa-fw"></i>
                             </span>
-                            <input
-                                [(ngModel)]="searchCuentaCobroFechaIni"
-                                required
-                                class="form-control"
-                                type="date"
-                                name="fechaIniPedidoSearch"
-                                id="fechaIniPedidoSearch"
-                            />
+                            <input [(ngModel)]="searchCuentaCobroFechaIni" required class="form-control" type="date"
+                                name="fechaIniPedidoSearch" id="fechaIniPedidoSearch" />
                         </div>
-                        <label class="control-label col-sm-1 m-0"
-                            >Fecha final:</label
-                        >
+                        <label class="control-label col-sm-1 m-0">Fecha final:</label>
                         <div class="input-group col-sm-3">
                             <span class="input-group-addon">
                                 <i class="fas fa-calendar fa-fw"></i>
                             </span>
-                            <input
-                                [(ngModel)]="searchCuentaCobroFechaFin"
-                                required
-                                class="form-control"
-                                type="date"
-                                name="fechaFinPedidoSearch"
-                                id="fechaFinPedidoSearch"
-                            />
+                            <input [(ngModel)]="searchCuentaCobroFechaFin" required class="form-control" type="date"
+                                name="fechaFinPedidoSearch" id="fechaFinPedidoSearch" />
                         </div>
                         <div class="form-check col-sm-1 p-0 input-check">
-                            <input
-                                [(ngModel)]="searchCuentaCobroEstado"
-                                class="mr-2"
-                                type="checkbox"
-                                value=""
-                                id="searchCuentaCobroEstado"
-                            />
-                            <label
-                                class="form-check-label m-0 text-truncate"
-                                for="searchCuentaCobroEstado"
-                            >
+                            <input [(ngModel)]="searchCuentaCobroEstado" class="mr-2" type="checkbox" value=""
+                                id="searchCuentaCobroEstado" />
+                            <label class="form-check-label m-0 text-truncate" for="searchCuentaCobroEstado">
                                 Activo
                             </label>
-                    </div>
-                    <div class="col-sm-3 btn-group justify-content-center" role="group">
-                        <button class="btn btn-info" (click)="getReceivableSearch()">
-                                <span class="fa fa-search fa-fw"></span
-                                >&nbsp;Consultar
+                        </div>
+                        <div class="col-sm-3 btn-group justify-content-center" role="group">
+                            <button class="btn btn-info" (click)="getReceivableSearch()">
+                                <span class="fa fa-search fa-fw"></span>&nbsp;Consultar
                             </button>
-                        <button class="btn btn-warning" (click)="cleanReceivableSearch()">
+                            <button class="btn btn-warning" (click)="cleanReceivableSearch()">
                                 <span class="fas fa-eraser fa-fw"></span>
                             </button>
-                        <button class="btn btn-success" (click)="printReceivableSearch()" [disabled]="
+                            <button class="btn btn-success" (click)="printReceivableSearch()" [disabled]="
                                     searchReceivables == null ||
                                     searchReceivables.length == 0
                                 ">
                                 <span class="fa fa-print fa-fw"></span>
                             </button>
-                        <button class="btn btn-secondary" (click)="csvReceivableSearch()" [disabled]="
+                            <button class="btn btn-secondary" (click)="csvReceivableSearch()" [disabled]="
                                     searchReceivables == null ||
                                     searchReceivables.length == 0
                                 ">
                                 <span class="fas fa-file-download fa-fw"></span>
                             </button>
+                        </div>
                     </div>
-                </div>
-                <div class="table-wrapper" id="table-Receivable-Search">
-                    <div id="print-receivables">
-                        <div class="align-self-center no-more-tables" id="table-Vehicles">
-                            <table class="table table-hover table-sm table-striped table-bordered">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th scope="col">Id</th>
-                                        <th scope="col">Creado</th>
-                                        <th scope="col">Vence</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Periodo de</th>
-                                        <th scope="col">Periodo a</th>
-                                        <th scope="col">Valor</th>
-                                        <th scope="col">Saldo</th>
-                                        <th scope="col">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="
+                    <div class="table-wrapper" id="table-Receivable-Search">
+                        <div id="print-receivables">
+                            <div class="align-self-center no-more-tables" id="table-Vehicles">
+                                <table class="table table-hover table-sm table-striped table-bordered">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Creado</th>
+                                            <th scope="col">Vence</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Periodo de</th>
+                                            <th scope="col">Periodo a</th>
+                                            <th scope="col">Valor</th>
+                                            <th scope="col">Saldo</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="
                                                 let receivable of searchReceivables
                                             ">
-                                        <td data-title="Id" class="text-right">
-                                            {{ receivable.num }}
-                                        </td>
-                                        <td data-title="Creado" class="text-center">
-                                            {{ receivable.fecha | date : "dd/MM/yyyy" : "+0000" }}
-                                        </td>
-                                        <td data-title="Vence" class="text-center">
-                                            {{ sumarDiaFecha( receivable.fecha ) | date : "dd/MM/yyyy" : "+0000" }}
-                                        </td>
-                                        <td data-title="Estado">
-                                            {{ receivable.estado == true ? "Activo" : "Inactivo" }}
-                                        </td>
-                                        <td data-title="Periodo de" class="text-center">
-                                            {{ receivable.periodoIni | date : "dd/MM/yyyy" : "+0000" }}
-                                        </td>
-                                        <td data-title="Periodo a" class="text-center">
-                                            {{ receivable.periodoFin | date : "dd/MM/yyyy" : "+0000" }}
-                                        </td>
-                                        <td data-title="Valor" class="text-right">
-                                            {{ receivable.valor | currency }}
-                                        </td>
-                                        <td data-title="Saldo" class="text-right">
-                                            {{ receivable.saldo | currency }}
-                                        </td>
-                                        <td data-title="Acciones" class="text-center">
-                                            <button class="btn btn-success btn-sm" (click)="
+                                            <td data-title="Id" class="text-right">
+                                                {{ receivable.num }}
+                                            </td>
+                                            <td data-title="Creado" class="text-center">
+                                                {{
+                                                    receivable.fecha
+                                                        | date
+                                                            : 'dd/MM/yyyy'
+                                                            : '+0000'
+                                                }}
+                                            </td>
+                                            <td data-title="Vence" class="text-center">
+                                                {{
+                                                    sumarDiaFecha(
+                                                        receivable.fecha
+                                                    )
+                                                        | date
+                                                            : 'dd/MM/yyyy'
+                                                            : '+0000'
+                                                }}
+                                            </td>
+                                            <td data-title="Estado">
+                                                {{
+                                                    receivable.estado == true
+                                                        ? 'Activo'
+                                                        : 'Inactivo'
+                                                }}
+                                            </td>
+                                            <td data-title="Periodo de" class="text-center">
+                                                {{
+                                                    receivable.periodoIni
+                                                        | date
+                                                            : 'dd/MM/yyyy'
+                                                            : '+0000'
+                                                }}
+                                            </td>
+                                            <td data-title="Periodo a" class="text-center">
+                                                {{
+                                                    receivable.periodoFin
+                                                        | date
+                                                            : 'dd/MM/yyyy'
+                                                            : '+0000'
+                                                }}
+                                            </td>
+                                            <td data-title="Valor" class="text-right">
+                                                {{
+                                                    receivable.valor | currency
+                                                }}
+                                            </td>
+                                            <td data-title="Saldo" class="text-right">
+                                                {{
+                                                    receivable.saldo | currency
+                                                }}
+                                            </td>
+                                            <td data-title="Acciones" class="text-center">
+                                                <button class="btn btn-success btn-sm" (click)="
                                                         printReceivable(
                                                             receivable
                                                         )
                                                     ">
-                                                    <span
-                                                        class="fas fa-print fa-fw"
-                                                    ></span>
+                                                    <span class="fas fa-print fa-fw"></span>
                                                 </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane fade" [ngClass]="tabsSearch[2].classPane" id="vehicleSearch" role="tabpanel" aria-labelledby="vehicleSearch-tab">
-                <div class="container">
-                    <div class="align-self-center no-more-tables" id="table-Vehicles">
-                        <table class="table table-hover table-sm table-striped table-bordered mb-2">
-                            <thead>
-                                <tr class="text-center">
-                                    <th scope="col">Placa</th>
-                                    <th scope="col">Marca</th>
-                                    <th scope="col">Modelo</th>
-                                    <th scope="col">Año</th>
-                                    <th scope="col">Combustible</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let vehicle of vehiclesAll">
-                                    <td data-title="Placa">
-                                        {{ vehicle.placa }}
-                                    </td>
-                                    <td data-title="Marca">
-                                        {{ vehicle.marca }}
-                                    </td>
-                                    <td data-title="Modelo">
-                                        {{ vehicle.modelo }}
-                                    </td>
-                                    <td data-title="Año">
-                                        {{ vehicle.ano }}
-                                    </td>
-                                    <td data-title="Combustible">
-                                        {{ getNameTyArticle( vehicle.combustible ) }}
-                                    </td>
-                                    <td data-title="Estado">
-                                        {{ vehicle.estado === true ? "Activo" : "Inactivo" }}
-                                    </td>
-                                    <td data-title="Acciones" class="d-flex justify-content-around">
-                                        <div class="col-sm">
-                                            <button class="btn btn-info btn-block btn-sm" (click)="
+                <div class="tab-pane fade" [ngClass]="tabsSearch[2].classPane" id="vehicleSearch" role="tabpanel"
+                    aria-labelledby="vehicleSearch-tab">
+                    <div class="container">
+                        <div class="align-self-center no-more-tables" id="table-Vehicles">
+                            <table class="table table-hover table-sm table-striped table-bordered mb-2">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">Placa</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Modelo</th>
+                                        <th scope="col">Año</th>
+                                        <th scope="col">Combustible</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let vehicle of vehiclesAll">
+                                        <td data-title="Placa">
+                                            {{ vehicle.placa }}
+                                        </td>
+                                        <td data-title="Marca">
+                                            {{ vehicle.marca }}
+                                        </td>
+                                        <td data-title="Modelo">
+                                            {{ vehicle.modelo }}
+                                        </td>
+                                        <td data-title="Año">
+                                            {{ vehicle.ano }}
+                                        </td>
+                                        <td data-title="Combustible">
+                                            {{
+                                                getNameTyArticle(
+                                                    vehicle.combustible
+                                                )
+                                            }}
+                                        </td>
+                                        <td data-title="Estado">
+                                            {{
+                                                vehicle.estado === true
+                                                    ? 'Activo'
+                                                    : 'Inactivo'
+                                            }}
+                                        </td>
+                                        <td data-title="Acciones" class="d-flex justify-content-around">
+                                            <div class="col-sm">
+                                                <button class="btn btn-info btn-block btn-sm" (click)="
                                                         actionSearchVehicle(
                                                             vehicle,
                                                             0
                                                         )
                                                     " title="Editar">
-                                                    <span
-                                                        class="fas fa-edit fa-fw"
-                                                    ></span>
+                                                    <span class="fas fa-edit fa-fw"></span>
                                                 </button>
-                                        </div>
-                                        <div class="col-sm">
-                                            <button class="btn btn-danger btn-block btn-sm" (click)="
+                                            </div>
+                                            <div class="col-sm">
+                                                <button class="btn btn-danger btn-block btn-sm" (click)="
                                                         actionSearchVehicle(
                                                             vehicle,
                                                             1
                                                         )
                                                     " title="Eliminar">
-                                                    <span
-                                                        class="fas fa-trash-alt fa-fw"
-                                                    ></span>
+                                                    <span class="fas fa-trash-alt fa-fw"></span>
                                                 </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <form [hidden]="!editControl[0]" [formGroup]="vehicleEditForm" (ngSubmit)="submitVehicleEditForm()" novalidate class="form-horizontal">
-                        <!-- <form *ngIf="editControl[0] == true" [ngClass]="tabsVehicle[0].classPane" [formGroup]="vehicleEditForm" (ngSubmit)="submitVehicleEditForm()" novalidate
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <form [hidden]="!editControl[0]" [formGroup]="vehicleEditForm"
+                            (ngSubmit)="submitVehicleEditForm()" novalidate class="form-horizontal">
+                            <!-- <form *ngIf="editControl[0] == true" [ngClass]="tabsVehicle[0].classPane" [formGroup]="vehicleEditForm" (ngSubmit)="submitVehicleEditForm()" novalidate
             class="form-horizontal"> -->
-                        <fieldset>
-                            <legend class="text-center">
-                                Editar Vehículo
-                            </legend>
-                            <div class="form-group form-inline">
-                                <label class="control-label col-sm-2">Placa:</label
-                                    >
+                            <fieldset>
+                                <legend class="text-center">
+                                    Editar Vehículos
+                                </legend>
+                                <div class="form-group form-inline">
+                                    <label class="control-label col-sm-2">Placa:</label>
                                     <div class="input-group col-sm-4">
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-car fa-fw"></i>
-                                        </span>
-                                        <input
-                                            type="text"
-                                            readonly
-                                            class="form-control"
-                                            #placa
-                                            placeholder="Placa"
-                                            name="placa"
-                                            formControlName="placa"
-                                        />
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i
+                                                    class="fas fa-car fa-fw"></i></span>
+                                        </div>
+                                        <input type="text" readonly class="form-control" #placa placeholder="Placa"
+                                            name="placa" formControlName="placa" />
                                     </div>
-                                    <label class="control-label col-sm-2"
-                                        >Marca:</label
-                                    >
+                                    <label class="control-label col-sm-2">Marca:</label>
                                     <div class="input-group col-sm-4">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-fw">M</i>
-                                        </span>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Marca"
-                                            name="marca"
-                                            formControlName="marca"
-                                        />
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i
+                                                    class="fa fa-fw">M</i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Marca" name="marca"
+                                            formControlName="marca" />
                                     </div>
                                 </div>
                                 <div class="form-group form-inline">
-                                    <label class="control-label col-sm-2"
-                                        >Modelo:</label
-                                    >
+                                    <label class="control-label col-sm-2">Modelo:</label>
                                     <div class="input-group col-sm-4">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-fw">M</i>
-                                        </span>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Modelo"
-                                            name="modelo"
-                                            formControlName="modelo"
-                                        />
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i
+                                                    class="fa fa-fw">M</i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Modelo" name="modelo"
+                                            formControlName="modelo" />
                                     </div>
-                                    <label class="control-label col-sm-2"
-                                        >Año:</label
-                                    >
+                                    <label class="control-label col-sm-2">Año:</label>
                                     <div class="input-group col-sm-4">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-calendar fa-fw"></i>
-                                        </span>
-                                        <input
-                                            type="number"
-                                            class="form-control"
-                                            placeholder="Año"
-                                            name="anio"
-                                            formControlName="anio"
-                                        />
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i
+                                                    class="fa fa-calendar fa-fw"></i></span>
+                                        </div>
+                                        <input type="number" class="form-control" placeholder="Año" name="anio"
+                                            formControlName="anio" />
                                     </div>
                                 </div>
                                 <div class="form-group form-inline">
-                                    <label class="control-label col-sm-2"
-                                        >Combustible:</label
-                                    >
+                                    <label class="control-label col-sm-2">Combustible:</label>
                                     <div class="input-group col-sm-4">
-                                        <span class="input-group-addon">
-                                            <i class="fas fa-burn fa-fw"></i>
-                                        </span>
-                                        <select
-                                            name="fuel"
-                                            class="form-control"
-                                            formControlName="fuelType"
-                                        >
-                                            <option
-                                                *ngFor="
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fas fa-burn fa-fw"></i></span>
+                                        </div>
+                                        <select name="fuel" class="form-control" formControlName="fuelType">
+                                            <option *ngFor="
                                                     let item of articlesTypes
-                                                "
-                                                [ngValue]="item"
-                                                >{{ item.DESCRIPCION }}</option
-                                            >
+                                                " [ngValue]="item">
+                                                {{ item.DESCRIPCION }}
+                                            </option>
                                         </select>
                                     </div>
                                     <label class="control-label col-sm-2">
                                         Estado:
                                     </label>
-                                <div class="form-check col-sm-4">
-                                    <input class="form-check-input" type="checkbox" name="estado" formControlName="estado" />
+                                    <div class="form-check col-sm-4">
+                                        <input class="form-check-input" type="checkbox" name="estado"
+                                            formControlName="estado" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-inline">
-                                <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-primary btn-block" [disabled]="!vehicleEditForm.valid">
-                                            <i class="fa fa-floppy-o"></i
-                                            >&nbsp;Guardar
+                                <div class="form-inline">
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-primary btn-block"
+                                            [disabled]="!vehicleEditForm.valid">
+                                            <i class="fa fa-floppy-o"></i>&nbsp;Guardar
                                         </button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <button type="reset" class="btn btn-danger btn-block" (click)="
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="reset" class="btn btn-danger btn-block" (click)="
                                                 this.editControl[0] = false
                                             ">
-                                            <i class="fas fa-undo-alt"></i
-                                            >&nbsp;Cancelar
+                                            <i class="fas fa-undo-alt"></i>&nbsp;Cancelar
                                         </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                    </form>
+                            </fieldset>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="tab-pane fade" [ngClass]="tabsSearch[3].classPane" id="identifierSearch" role="tabpanel" aria-labelledby="identifierSearch-tab">
-                <div class="container col-sm-8">
-                    <div class="align-self-center no-more-tables" id="table-identifiers">
-                        <table class="table table-hover table-sm table-striped table-bordered mb-2">
-                            <thead>
-                                <tr class="text-center">
-                                    <th scope="col">Código</th>
-                                    <th scope="col">Asignado a</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let identifier of identifiers">
-                                    <td data-title="Código">
-                                        {{ identifier.romIdentificador }}
-                                    </td>
-                                    <td data-title="Asignado a">
-                                        {{ identifier.placa }}
-                                    </td>
-                                    <td data-title="Estado">
-                                        {{ identifier.estado === true ? "Activo" : "Inactivo" }}
-                                    </td>
-                                    <td data-title="Acciones" class="d-flex justify-content-around">
-                                        <div class="col-sm">
-                                            <button *ngIf="
+                <div class="tab-pane fade" [ngClass]="tabsSearch[3].classPane" id="identifierSearch" role="tabpanel"
+                    aria-labelledby="identifierSearch-tab">
+                    <div class="container col-sm-8">
+                        <div class="align-self-center no-more-tables" id="table-identifiers">
+                            <table class="table table-hover table-sm table-striped table-bordered mb-2">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">Código</th>
+                                        <th scope="col">Asignado a</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let identifier of identifiers">
+                                        <td data-title="Código">
+                                            {{ identifier.romIdentificador }}
+                                        </td>
+                                        <td data-title="Asignado a">
+                                            {{ identifier.placa }}
+                                        </td>
+                                        <td data-title="Estado">
+                                            {{
+                                                identifier.estado === true
+                                                    ? 'Activo'
+                                                    : 'Inactivo'
+                                            }}
+                                        </td>
+                                        <td data-title="Acciones" class="d-flex justify-content-around">
+                                            <div class="col-sm">
+                                                <button *ngIf="
                                                         identifier.estado ===
                                                         false
                                                     " class="btn btn-success btn-block btn-sm" (click)="
@@ -693,11 +638,9 @@
                                                             0
                                                         )
                                                     " title="Activar">
-                                                    <span
-                                                        class="fas fa-check-circle fa-fw"
-                                                    ></span>
+                                                    <span class="fas fa-check-circle fa-fw"></span>
                                                 </button>
-                                            <button *ngIf="
+                                                <button *ngIf="
                                                         identifier.estado ===
                                                         true
                                                     " class="btn btn-secondary btn-block btn-sm" (click)="
@@ -706,13 +649,11 @@
                                                             0
                                                         )
                                                     " title="Inactivar">
-                                                    <span
-                                                        class="fas fa-times-circle fa-fw"
-                                                    ></span>
+                                                    <span class="fas fa-times-circle fa-fw"></span>
                                                 </button>
-                                        </div>
-                                        <div class="col-sm">
-                                            <button [disabled]="
+                                            </div>
+                                            <div class="col-sm">
+                                                <button [disabled]="
                                                         identifier.placa == null
                                                     " class="btn btn-info btn-block btn-sm" (click)="
                                                         actionSearchIdentifier(
@@ -720,135 +661,105 @@
                                                             1
                                                         )
                                                     " title="Desvincular">
-                                                    <span
-                                                        class="fas fa-fw icon-stack"
-                                                    >
+                                                    <span class="fas fa-fw icon-stack">
+                                                        <i class="fas fa-exchange-alt icon-stack-item fa-fw"></i>
                                                         <i
-                                                            class="fas fa-exchange-alt icon-stack-item fa-fw "
-                                                        ></i>
-                                                        <i
-                                                            class="fas fa-times my-red icon-stack-item fa-fw icon-stack-item-sub"
-                                                        ></i>
+                                                            class="fas fa-times my-red icon-stack-item fa-fw icon-stack-item-sub"></i>
                                                     </span>
                                                 </button>
-                                        </div>
-                                        <div class="col-sm">
-                                            <button class="btn btn-danger btn-block btn-sm" (click)="
+                                            </div>
+                                            <div class="col-sm">
+                                                <button class="btn btn-danger btn-block btn-sm" (click)="
                                                         actionSearchIdentifier(
                                                             identifier,
                                                             2
                                                         )
                                                     " title="Eliminar">
-                                                    <span
-                                                        class="fas fa-trash-alt fa-fw"
-                                                    ></span>
+                                                    <span class="fas fa-trash-alt fa-fw"></span>
                                                 </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane fade" [ngClass]="tabsSearch[4].classPane" id="orderSearch" role="tabpanel" aria-labelledby="orderSearch-tab">
-                <div class="form-group col-sm-12 p-0 form-inline mb-0">
-                    <label class="control-label col-sm-1 m-0">Fecha inicial:</label
-                        >
+                <div class="tab-pane fade" [ngClass]="tabsSearch[4].classPane" id="orderSearch" role="tabpanel"
+                    aria-labelledby="orderSearch-tab">
+                    <div class="form-group col-sm-12 p-0 form-inline mb-0">
+                        <label class="control-label col-sm-1 m-0">Fecha inicial:</label>
                         <div class="input-group col-sm-3">
                             <span class="input-group-addon">
                                 <i class="fas fa-calendar fa-fw"></i>
                             </span>
-                            <input
-                                [(ngModel)]="searchPedidoFechaIni"
-                                required
-                                class="form-control"
-                                type="date"
-                                name="fechaIniPedidoSearch"
-                                id="fechaIniPedidoSearch"
-                            />
+                            <input [(ngModel)]="searchPedidoFechaIni" required class="form-control" type="date"
+                                name="fechaIniPedidoSearch" id="fechaIniPedidoSearch" />
                         </div>
-                        <label class="control-label col-sm-1 m-0"
-                            >Fecha final:</label
-                        >
+                        <label class="control-label col-sm-1 m-0">Fecha final:</label>
                         <div class="input-group col-sm-3">
                             <span class="input-group-addon">
                                 <i class="fas fa-calendar fa-fw"></i>
                             </span>
-                            <input
-                                [(ngModel)]="searchPedidoFechaFin"
-                                required
-                                class="form-control"
-                                type="date"
-                                name="fechaFinPedidoSearch"
-                                id="fechaFinPedidoSearch"
-                            />
+                            <input [(ngModel)]="searchPedidoFechaFin" required class="form-control" type="date"
+                                name="fechaFinPedidoSearch" id="fechaFinPedidoSearch" />
                         </div>
                         <div class="form-check col-sm-1 p-0 input-check">
-                            <input
-                                [(ngModel)]="searchPedidoEstado"
-                                class="mr-2"
-                                type="checkbox"
-                                value=""
-                                id="searchPedidoEstado"
-                            />
-                            <label
-                                class="form-check-label m-0 text-truncate"
-                                for="searchPedidoEstado"
-                            >
+                            <input [(ngModel)]="searchPedidoEstado" class="mr-2" type="checkbox" value=""
+                                id="searchPedidoEstado" />
+                            <label class="form-check-label m-0 text-truncate" for="searchPedidoEstado">
                                 Activo
                             </label>
-                </div>
-                <div class="col-sm-3 btn-group justify-content-center" role="group">
-                    <button class="btn btn-info" (click)="getOrderSearch()">
-                                <span class="fa fa-search fa-fw"></span
-                                >&nbsp;Consultar
+                        </div>
+                        <div class="col-sm-3 btn-group justify-content-center" role="group">
+                            <button class="btn btn-info" (click)="getOrderSearch()">
+                                <span class="fa fa-search fa-fw"></span>&nbsp;Consultar
                             </button>
-                    <button class="btn btn-warning" (click)="cleanOrderSearch()">
+                            <button class="btn btn-warning" (click)="cleanOrderSearch()">
                                 <span class="fas fa-eraser fa-fw"></span>
                             </button>
-                    <button class="btn btn-success" (click)="printOrderSearch()" [disabled]="
+                            <button class="btn btn-success" (click)="printOrderSearch()" [disabled]="
                                     searchOrders == null ||
                                     searchOrders.length == 0
                                 ">
                                 <span class="fa fa-print fa-fw"></span>
                             </button>
-                    <button class="btn btn-secondary" (click)="csvOrderSearch()" [disabled]="
+                            <button class="btn btn-secondary" (click)="csvOrderSearch()" [disabled]="
                                     searchOrders == null ||
                                     searchOrders.length == 0
                                 ">
                                 <span class="fas fa-file-download fa-fw"></span>
                             </button>
-                </div>
-            </div>
-            <div class="table-wrapper" id="table-Receivable-Search">
-                <div class="align-self-center no-more-tables" id="table-Consumption-Search">
-                    <!-- <div class="table-wrapper" id="table-Consumption-Search"> -->
-                    <div id="print-orders">
-                        <table class="table table-hover table-sm table-striped">
-                            <thead>
-                                <tr class="text-center">
-                                    <th scope="col"></th>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Tipo</th>
-                                    <th scope="col">Estaciones</th>
-                                    <th scope="col">Vehículos</th>
-                                    <th scope="col">Vigencia</th>
-                                    <th scope="col">Valor</th>
-                                    <th scope="col">Saldo</th>
-                                    <th scope="col">Consumido</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <ng-container *ngFor="
+                        </div>
+                    </div>
+                    <div class="table-wrapper" id="table-Receivable-Search">
+                        <div class="align-self-center no-more-tables" id="table-Consumption-Search">
+                            <!-- <div class="table-wrapper" id="table-Consumption-Search"> -->
+                            <div id="print-orders">
+                                <table class="table table-hover table-sm table-striped">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col"></th>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Tipo</th>
+                                            <th scope="col">Estaciones</th>
+                                            <th scope="col">Vehículos</th>
+                                            <th scope="col">Vigencia</th>
+                                            <th scope="col">Valor</th>
+                                            <th scope="col">Saldo</th>
+                                            <th scope="col">Consumido</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="
                                                 let order of searchOrders;
                                                 let i = index
                                             ">
-                                    <tr>
-                                        <div *ngIf="
+                                            <tr>
+                                                <div *ngIf="
                                                         (order.PedidoDetalleAuto ==
                                                             null &&
                                                             order.PedidoDetalleEstacion ==
@@ -863,12 +774,12 @@
                                                         then content;
                                                         else other
                                                     "></div>
-                                        <ng-template #content>
-                                            <td></td>
-                                        </ng-template>
-                                        <ng-template #other>
-                                            <td>
-                                                <span *ngIf="
+                                                <ng-template #content>
+                                                    <td></td>
+                                                </ng-template>
+                                                <ng-template #other>
+                                                    <td>
+                                                        <span *ngIf="
                                                                 controlSearchOrder[
                                                                     i
                                                                 ] != null
@@ -877,11 +788,9 @@
                                                                     i
                                                                 ] = null
                                                             " class="badge badge-pill badge-secondary">
-                                                            <span
-                                                                class="fas fa-minus fa-fw"
-                                                            ></span>
-                                                </span>
-                                                <span *ngIf="
+                                                            <span class="fas fa-minus fa-fw"></span>
+                                                        </span>
+                                                        <span *ngIf="
                                                                 controlSearchOrder[
                                                                     i
                                                                 ] == null
@@ -890,257 +799,292 @@
                                                                     i
                                                                 ] = true
                                                             " class="badge badge-pill badge-primary">
-                                                            <span
-                                                                class="fas fa-plus fa-fw"
-                                                            ></span>
-                                                </span>
-                                            </td>
-                                        </ng-template>
-                                        <td data-title="Id">
-                                            {{ order.idPedido }}
-                                        </td>
-                                        <td data-title="Tipo">
-                                            {{ order.controlado == true ? "Controlado" : "No Controlado" }}
-                                        </td>
-                                        <td data-title="Estaciones">
-                                            {{ order.todaEstacion == true || order.controlado == false ? "Todas" : "Algunas" }}
-                                        </td>
-                                        <td data-title="Vehículos">
-                                            {{ order.todoVehiculo == true || order.controlado == false ? "Todos" : "Algunos" }}
-                                        </td>
-                                        <td class="text-center" data-title="Vigencia">
-                                            {{ order.vigencia }}
-                                        </td>
-                                        <td class="text-right" data-title="Valor">
-                                            {{ order.valor | currency }}
-                                        </td>
-                                        <td class="text-right" data-title="Saldo">
-                                            {{ order.saldo | currency }}
-                                        </td>
-                                        <td class="text-right" data-title="Consumo">
-                                            {{ order.consumido | currency }}
-                                        </td>
-                                        <td data-title="Estado">
-                                            {{ order.estado == true ? "Activo" : "Inactivo" }}
-                                        </td>
-                                        <td class="text-center" data-title="Fecha">
-                                            {{ order.fechaCreacion | date : "dd/MM/yyyy" : "+0000" }}
-                                        </td>
-                                        <td data-title="Acciones" class="text-center">
-                                            <button [disabled]="
+                                                            <span class="fas fa-plus fa-fw"></span>
+                                                        </span>
+                                                    </td>
+                                                </ng-template>
+                                                <td data-title="Id">
+                                                    {{ order.idPedido }}
+                                                </td>
+                                                <td data-title="Tipo">
+                                                    {{
+                                                        order.controlado == true
+                                                            ? 'Controlado'
+                                                            : 'No Controlado'
+                                                    }}
+                                                </td>
+                                                <td data-title="Estaciones">
+                                                    {{
+                                                        order.todaEstacion ==
+                                                            true ||
+                                                        order.controlado ==
+                                                            false
+                                                            ? 'Todas'
+                                                            : 'Algunas'
+                                                    }}
+                                                </td>
+                                                <td data-title="Vehículos">
+                                                    {{
+                                                        order.todoVehiculo ==
+                                                            true ||
+                                                        order.controlado ==
+                                                            false
+                                                            ? 'Todos'
+                                                            : 'Algunos'
+                                                    }}
+                                                </td>
+                                                <td class="text-center" data-title="Vigencia">
+                                                    {{ order.vigencia }}
+                                                </td>
+                                                <td class="text-right" data-title="Valor">
+                                                    {{ order.valor | currency }}
+                                                </td>
+                                                <td class="text-right" data-title="Saldo">
+                                                    {{ order.saldo | currency }}
+                                                </td>
+                                                <td class="text-right" data-title="Consumo">
+                                                    {{
+                                                        order.consumido
+                                                            | currency
+                                                    }}
+                                                </td>
+                                                <td data-title="Estado">
+                                                    {{
+                                                        order.estado == true
+                                                            ? 'Activo'
+                                                            : 'Inactivo'
+                                                    }}
+                                                </td>
+                                                <td class="text-center" data-title="Fecha">
+                                                    {{
+                                                        order.fechaCreacion
+                                                            | date
+                                                                : 'dd/MM/yyyy'
+                                                                : '+0000'
+                                                    }}
+                                                </td>
+                                                <td data-title="Acciones" class="text-center">
+                                                    <button [disabled]="
                                                             order.estado != true
                                                         " class="btn btn-danger btn-sm" (click)="
                                                             deleteOrder(order)
                                                         " title="Inactivar">
-                                                        <span
-                                                            class="fas fa-times fa-fw"
-                                                        ></span>
+                                                        <span class="fas fa-times fa-fw"></span>
                                                     </button>
-                                        </td>
-                                    </tr>
-                                    <ng-container *ngIf="
+                                                </td>
+                                            </tr>
+                                            <ng-container *ngIf="
                                                     controlSearchOrder[i] !=
                                                     null
                                                 ">
-                                        <tr *ngFor="
+                                                <tr *ngFor="
                                                         let item of arrayOrderAutoStation[
                                                             i
                                                         ][0];
                                                         let j = index
                                                     ">
-                                            <td colspan="3"></td>
-                                            <td data-title="Estacion">
-                                                {{ getNameStation( arrayOrderAutoStation[ i ][0][j] ) }}
-                                            </td>
-                                            <!-- <td>{{arrayOrderAutoStation[i][0][j]}}</td> -->
-                                            <td data-title="Vehículo">
-                                                {{ arrayOrderAutoStation[ i ][1][j] }}
-                                            </td>
-                                            <td class="text-center" data-title="Vigencia">
-                                                {{ arrayOrderAutoStation[ i ][2][j] }}
-                                            </td>
-                                            <td class="text-right" data-title="Valor">
-                                                {{ arrayOrderAutoStation[ i ][3][j] | currency }}
-                                            </td>
-                                            <td colspan="3"></td>
-                                        </tr>
-                                    </ng-container>
-                                </ng-container>
-                            </tbody>
-                        </table>
+                                                    <td colspan="3"></td>
+                                                    <td data-title="Estacion">
+                                                        {{
+                                                            getNameStation(
+                                                                arrayOrderAutoStation[
+                                                                    i
+                                                                ][0][j]
+                                                            )
+                                                        }}
+                                                    </td>
+                                                    <!-- <td>{{arrayOrderAutoStation[i][0][j]}}</td> -->
+                                                    <td data-title="Vehículo">
+                                                        {{
+                                                            arrayOrderAutoStation[
+                                                                i
+                                                            ][1][j]
+                                                        }}
+                                                    </td>
+                                                    <td class="text-center" data-title="Vigencia">
+                                                        {{
+                                                            arrayOrderAutoStation[
+                                                                i
+                                                            ][2][j]
+                                                        }}
+                                                    </td>
+                                                    <td class="text-right" data-title="Valor">
+                                                        {{
+                                                            arrayOrderAutoStation[
+                                                                i
+                                                            ][3][j] | currency
+                                                        }}
+                                                    </td>
+                                                    <td colspan="3"></td>
+                                                </tr>
+                                            </ng-container>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="tab-pane fade" [ngClass]="tabsSearch[5].classPane" id="paymentSearch" role="tabpanel" aria-labelledby="paymentSearch-tab">
-            <div class="form-group col-sm-12 p-0 form-inline mb-0">
-                <label class="control-label col-sm-1 m-0">Fecha inicial:</label
-                        >
+                <div class="tab-pane fade" [ngClass]="tabsSearch[5].classPane" id="paymentSearch" role="tabpanel"
+                    aria-labelledby="paymentSearch-tab">
+                    <div class="form-group col-sm-12 p-0 form-inline mb-0">
+                        <label class="control-label col-sm-1 m-0">Fecha inicial:</label>
                         <div class="input-group col-sm-3">
                             <span class="input-group-addon">
                                 <i class="fas fa-calendar fa-fw"></i>
                             </span>
-                            <input
-                                [(ngModel)]="searchPagoFechaIni"
-                                required
-                                class="form-control"
-                                type="date"
-                                name="fechaIniPagoSearch"
-                                id="fechaIniPagoSearch"
-                            />
+                            <input [(ngModel)]="searchPagoFechaIni" required class="form-control" type="date"
+                                name="fechaIniPagoSearch" id="fechaIniPagoSearch" />
                         </div>
-                        <label class="control-label col-sm-1 m-0"
-                            >Fecha final:</label
-                        >
+                        <label class="control-label col-sm-1 m-0">Fecha final:</label>
                         <div class="input-group col-sm-3">
                             <span class="input-group-addon">
                                 <i class="fas fa-calendar fa-fw"></i>
                             </span>
-                            <input
-                                [(ngModel)]="searchPagoFechaFin"
-                                required
-                                class="form-control"
-                                type="date"
-                                name="fechaFinPagoSearch"
-                                id="fechaFinPagoSearch"
-                            />
+                            <input [(ngModel)]="searchPagoFechaFin" required class="form-control" type="date"
+                                name="fechaFinPagoSearch" id="fechaFinPagoSearch" />
                         </div>
                         <div class="form-check col-sm-1 p-0 input-check">
-                            <input
-                                [(ngModel)]="searchPagoEstado"
-                                class="mr-2"
-                                type="checkbox"
-                                value=""
-                                id="searchPagoEstado"
-                            />
-                            <label
-                                class="form-check-label m-0 text-truncate"
-                                for="searchPedidoEstado"
-                            >
+                            <input [(ngModel)]="searchPagoEstado" class="mr-2" type="checkbox" value=""
+                                id="searchPagoEstado" />
+                            <label class="form-check-label m-0 text-truncate" for="searchPedidoEstado">
                                 Activo
                             </label>
-            </div>
-            <div class="col-sm-3 btn-group justify-content-center" role="group">
-                <button class="btn btn-info" (click)="getPaymentSearch()">
-                                <span class="fa fa-search fa-fw"></span
-                                >&nbsp;Consultar
+                        </div>
+                        <div class="col-sm-3 btn-group justify-content-center" role="group">
+                            <button class="btn btn-info" (click)="getPaymentSearch()">
+                                <span class="fa fa-search fa-fw"></span>&nbsp;Consultar
                             </button>
-                <button class="btn btn-warning" (click)="cleanPaymentSearch()">
+                            <button class="btn btn-warning" (click)="cleanPaymentSearch()">
                                 <span class="fas fa-eraser fa-fw"></span>
                             </button>
-                <button class="btn btn-success" (click)="printPaymentSearch()" [disabled]="
+                            <button class="btn btn-success" (click)="printPaymentSearch()" [disabled]="
                                     searchPayments == null ||
                                     searchPayments.length == 0
                                 ">
                                 <span class="fa fa-print fa-fw"></span>
                             </button>
-                <button class="btn btn-secondary" (click)="csvPaymentSearch()" [disabled]="
+                            <button class="btn btn-secondary" (click)="csvPaymentSearch()" [disabled]="
                                     searchPayments == null ||
                                     searchPayments.length == 0
                                 ">
                                 <span class="fas fa-file-download fa-fw"></span>
                             </button>
-            </div>
-        </div>
-        <div class="table-wrapper" id="table-Payment-Search">
-            <div class="align-self-center no-more-tables" id="table-Consumption-Search">
-                <!-- <div class="table-wrapper" id="table-Consumption-Search"> -->
-                <div id="print-payments" class="container">
-                    <table class="table table-hover table-sm table-striped">
-                        <thead>
-                            <tr class="text-center">
-                                <th scope="col">Id</th>
-                                <th scope="col">Registrado</th>
-                                <th scope="col">Fecha de pago</th>
-                                <th scope="col">Forma de pago</th>
-                                <th scope="col">Valor</th>
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Cuenta de cobro</th>
-                                <th scope="col">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="
+                        </div>
+                    </div>
+                    <div class="table-wrapper" id="table-Payment-Search">
+                        <div class="align-self-center no-more-tables" id="table-Consumption-Search">
+                            <!-- <div class="table-wrapper" id="table-Consumption-Search"> -->
+                            <div id="print-payments" class="container">
+                                <table class="table table-hover table-sm table-striped">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Registrado</th>
+                                            <th scope="col">Fecha de pago</th>
+                                            <th scope="col">Forma de pago</th>
+                                            <th scope="col">Valor</th>
+                                            <th scope="col">Usuario</th>
+                                            <th scope="col">Cuenta de cobro</th>
+                                            <th scope="col">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="
                                                 let payment of searchPayments
                                             ">
-                                <td data-title="Id">
-                                    {{ payment.idPago }}
-                                </td>
-                                <td class="text-center" data-title="Registrado">
-                                    {{ payment.fecha | date : "dd/MM/yyyy hh:mm:ss a" : "+0000" }}
-                                </td>
-                                <td class="text-center" data-title="Fecha de pago">
-                                    {{ payment.fechaPago | date : "dd/MM/yyyy" : "+0000" }}
-                                </td>
-                                <td class="text-center" data-title="Forma de pago">
-                                    {{ getFormaPago( payment.formaPago ) }}
-                                </td>
-                                <td class="text-right" data-title="Valor">
-                                    {{ payment.valor | currency }}
-                                </td>
-                                <td class="text-center" data-title="Usuario">
-                                    {{ payment.usuario }}
-                                </td>
-                                <td class="text-center" data-title="Cuenta de cobro">
-                                    {{ payment.numCuentaCobro }}
-                                </td>
-                                <td class="text-center" data-title="Estado">
-                                    {{ payment.estado == true ? "Activo" : "Inactivo" }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                            <td data-title="Id">
+                                                {{ payment.idPago }}
+                                            </td>
+                                            <td class="text-center" data-title="Registrado">
+                                                {{
+                                                    payment.fecha
+                                                        | date
+                                                            : 'dd/MM/yyyy hh:mm:ss a'
+                                                            : '+0000'
+                                                }}
+                                            </td>
+                                            <td class="text-center" data-title="Fecha de pago">
+                                                {{
+                                                    payment.fechaPago
+                                                        | date
+                                                            : 'dd/MM/yyyy'
+                                                            : '+0000'
+                                                }}
+                                            </td>
+                                            <td class="text-center" data-title="Forma de pago">
+                                                {{
+                                                    getFormaPago(
+                                                        payment.formaPago
+                                                    )
+                                                }}
+                                            </td>
+                                            <td class="text-right" data-title="Valor">
+                                                {{ payment.valor | currency }}
+                                            </td>
+                                            <td class="text-center" data-title="Usuario">
+                                                {{ payment.usuario }}
+                                            </td>
+                                            <td class="text-center" data-title="Cuenta de cobro">
+                                                {{ payment.numCuentaCobro }}
+                                            </td>
+                                            <td class="text-center" data-title="Estado">
+                                                {{
+                                                    payment.estado == true
+                                                        ? 'Activo'
+                                                        : 'Inactivo'
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</div>
-<div class="tab-pane fade" [ngClass]="tabs[2].classPane" id="pedido" role="tabpanel" aria-labelledby="pedidos-tab">
-    <form [formGroup]="orderForm" novalidate class="form-horizontal">
-        <legend class="text-center">
-            <span class="fa fa-shopping-cart fa-fw"></span>&nbsp;Crear Pedido
-        </legend>
-        <button class="btn btn-primary" (click)="this.controlShow[4] = !this.controlShow[4]" style="position: absolute;
-      z-index: 5;">
+        <div class="tab-pane fade" [ngClass]="tabs[2].classPane" id="pedido" role="tabpanel"
+            aria-labelledby="pedidos-tab">
+            <form [formGroup]="orderForm" novalidate class="form-horizontal">
+                <legend class="text-center">
+                    <span class="fa fa-shopping-cart fa-fw"></span>&nbsp;Crear
+                    Pedido
+                </legend>
+                <button class="btn btn-primary" (click)="this.controlShow[4] = !this.controlShow[4]"
+                    style="position: absolute; z-index: 5">
                     <span class="fa fa-question-circle fa-fw"></span>&nbsp;Ayuda
                 </button>
-        <div [ngClass]="
+                <div [ngClass]="
                         this.controlShow[4] == false
                             ? 'collapse show'
                             : 'collapse'
                     " id="collapseExample">
-            <div class="card card-body">
-                <p style="margin-left: 6rem">
-                    Selecione el tipo de cupo que de sea solicitar.
-                </p>
-                <ol class="font-italic">
-                    <span class="font-weight-bold">Pedido controlado:</span
-                            >
+                    <div class="card card-body">
+                        <p style="margin-left: 6rem">
+                            Selecione el tipo de cupo que de sea solicitar.
+                        </p>
+                        <ol class="font-italic">
+                            <span class="font-weight-bold">Pedido controlado:</span>
                             Permite seleccionar el vehículo, estación y valor
                             por vehículo.
                         </ol>
                         <ol class="font-italic">
-                            <span class="font-weight-bold"
-                                >Pedido no controlado:</span
-                            >
+                            <span class="font-weight-bold">Pedido no controlado:</span>
                             El pedido estará habilitado para todos los vehículos
                             y estaciones.
                         </ol>
                         <ol class="font-italic">
                             <span class="font-weight-bold">Importante:</span>
-                    <ol class="font-italic">
-                        <span class="font-weight-bold">Pedido no controlado:</span
-                                >
+                            <ol class="font-italic">
+                                <span class="font-weight-bold">Pedido no controlado:</span>
                                 <ol class="font-italic">
                                     No se puede crear mientras haya pedido
                                     controlado activo.
                                 </ol>
                             </ol>
                             <ol class="font-italic">
-                                <span class="font-weight-bold"
-                                    >Pedido controlado:</span
-                                >
+                                <span class="font-weight-bold">Pedido controlado:</span>
                                 <ol class="font-italic">
                                     No se puede crear mientras haya pedido no
                                     controlado activo.
@@ -1164,176 +1108,155 @@
                     </div>
                 </div>
                 <div class="form-group form-inline justify-content-center">
-                    <label class="control-label col-sm-2"
-                        >Tipo de pedido:</label
-                    >
+                    <label class="control-label col-sm-2">Tipo de pedido:</label>
                     <div class="input-group col-sm-4">
                         <span class="input-group-addon">
                             <i class="fa fa-shopping-cart fa-fw"></i>
                         </span>
-                        <select name="orderType" class="form-control" formControlName="orderType" (ngModelChange)="onChangeOrderType($event)">
-                            <option
-                                *ngFor="let item of orderTypes"
-                                [ngValue]="item"
-                                >{{ item.text }}</option
-                            >
+                        <select name="orderType" class="form-control" formControlName="orderType"
+                            (ngModelChange)="onChangeOrderType($event)">
+                            <option *ngFor="let item of orderTypes" [ngValue]="item">
+                                {{ item.text }}
+                            </option>
                         </select>
-            </div>
-        </div>
-        <div class="form-group form-inline" *ngIf="controlShow[0] == true">
-            <label class="control-label col-sm-2">Valor:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
+                    </div>
+                </div>
+                <div class="form-group form-inline" *ngIf="controlShow[0] == true">
+                    <label class="control-label col-sm-2">Valor:</label>
+                    <div class="input-group col-sm-4">
+                        <span class="input-group-addon">
                             <i class="fa fa-usd fa-fw"></i>
                         </span>
-                <input currencyMask [options]="notdecimal" appLatestFocus class="form-control" placeholder="$ 0" name="value" formControlName="value" />
-            </div>
-            <label class="control-label col-sm-2">Vigencia (# días):</label
-                    >
+                        <input currencyMask [options]="notdecimal" appLatestFocus class="form-control" placeholder="$ 0"
+                            name="value" formControlName="value" />
+                    </div>
+                    <label class="control-label col-sm-2">Vigencia (# días):</label>
                     <div class="input-group col-sm-4">
                         <span class="input-group-addon">
                             <i class="fa fa-fw">#</i>
                         </span>
-                        <input
-                            type="number"
-                            class="form-control"
-                            placeholder="Cantidad de días"
-                            name="vigencia"
-                            formControlName="validity"
-                        />
+                        <input type="number" class="form-control" placeholder="Cantidad de días" name="vigencia"
+                            formControlName="validity" />
                     </div>
                 </div>
                 <div *ngIf="controlShow[1] == true">
                     <div class="form-group form-inline justify-content-center">
                         <label class="control-label col-sm-2">Estación:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
-                                <i class="fas fa-map-marker-alt fa-fw"></i>
-                            </span>
-                <select name="stationSel" class="form-control" formControlName="stationType" (ngModelChange)="onChangeStationType($event)">
-                                <option
-                                    *ngFor="let itemStation of stationTypes"
-                                    [ngValue]="itemStation"
-                                    >{{ itemStation.text }}</option
-                                >
-                            </select>
-            </div>
-        </div>
-        <div id="selValueType" *ngIf="controlShow[2] == true" class="form-group justify-content-center" style="display:flex">
-            <div class="col-sm-5">
-                <div class="table-wrapper">
-                    <table class="table table-hover table-sm table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Sel</th>
-                                <th scope="col">Estacion</th>
-                                <th scope="col">Ciudad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let station of stations" (click)="addStation(station)">
-                                <td>
-                                    <i class="fa fa-check fa-fw"></i>
-                                </td>
-                                <td>
-                                    {{ station.nombreEstacion }}
-                                </td>
-                                <!-- <td>{{station.ciudadEstacion}}</td> -->
-                                <td>
-                                    {{ getNameCities( station.ciudadEstacion ) }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <div class="table-wrapper">
-                    <table class="table table-hover table-sm table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Sel</th>
-                                <th scope="col">Estacion</th>
-                                <th scope="col">Ciudad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="
-                                                let stationNew of stationsNews
-                                            " (click)="removeStation(stationNew)">
-                                <td>
-                                    <i class="fa fa-times fa-fw"></i>
-                                </td>
-                                <td>
-                                    {{ stationNew.nombreEstacion }}
-                                </td>
-                                <td>
-                                    {{ getNameCities( stationNew.ciudadEstacion ) }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="form-group form-inline justify-content-center">
-            <label class="control-label col-sm-2">Tipo de valor:</label
-                        >
                         <div class="input-group col-sm-4">
                             <span class="input-group-addon">
-                                <i class="fa fa-car fa-fw"></i>
+                                <i class="fas fa-map-marker-alt fa-fw"></i>
                             </span>
-                            <select
-                                id="valueType"
-                                name="valueType"
-                                class="form-control"
-                                formControlName="valueType"
-                                (ngModelChange)="onChangeValueType($event)"
-                            >
-                                <option
-                                    *ngFor="let itemValue of valueTypes"
-                                    [ngValue]="itemValue"
-                                    >{{ itemValue.text }}</option
-                                >
+                            <select name="stationSel" class="form-control" formControlName="stationType"
+                                (ngModelChange)="onChangeStationType($event)">
+                                <option *ngFor="let itemStation of stationTypes" [ngValue]="itemStation">
+                                    {{ itemStation.text }}
+                                </option>
                             </select>
                         </div>
                     </div>
-                    <div
-                        class="form-group form-inline"
-                        *ngIf="controlShow[3] == false"
-                    >
+                    <div id="selValueType" *ngIf="controlShow[2] == true" class="form-group justify-content-center"
+                        style="display: flex">
+                        <div class="col-sm-5">
+                            <div class="table-wrapper">
+                                <table class="table table-hover table-sm table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Sel</th>
+                                            <th scope="col">Estacion</th>
+                                            <th scope="col">Ciudad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let station of stations" (click)="addStation(station)">
+                                            <td>
+                                                <i class="fa fa-check fa-fw"></i>
+                                            </td>
+                                            <td>
+                                                {{ station.nombreEstacion }}
+                                            </td>
+                                            <!-- <td>{{station.ciudadEstacion}}</td> -->
+                                            <td>
+                                                {{
+                                                    getNameCities(
+                                                        station.ciudadEstacion
+                                                    )
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="table-wrapper">
+                                <table class="table table-hover table-sm table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Sel</th>
+                                            <th scope="col">Estacion</th>
+                                            <th scope="col">Ciudad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="
+                                                let stationNew of stationsNews
+                                            " (click)="removeStation(stationNew)">
+                                            <td>
+                                                <i class="fa fa-times fa-fw"></i>
+                                            </td>
+                                            <td>
+                                                {{ stationNew.nombreEstacion }}
+                                            </td>
+                                            <td>
+                                                {{
+                                                    getNameCities(
+                                                        stationNew.ciudadEstacion
+                                                    )
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-inline justify-content-center">
+                        <label class="control-label col-sm-2">Tipo de valor:</label>
+                        <div class="input-group col-sm-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-car fa-fw"></i></span>
+                            </div>
+
+                            <select id="valueType" name="valueType" class="form-control" formControlName="valueType"
+                                (ngModelChange)="onChangeValueType($event)">
+                                <option *ngFor="let itemValue of valueTypes" [ngValue]="itemValue">
+                                    {{ itemValue.text }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group form-inline" *ngIf="controlShow[3] == false">
                         <label class="control-label col-sm-2">Valor:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
+                        <div class="input-group col-sm-4">
+                            <span class="input-group-addon">
                                 <i class="fa fa-usd fa-fw"></i>
                             </span>
-                <input currencyMask [options]="notdecimal" appLatestFocus class="form-control" placeholder="$ 0" name="value2" formControlName="value2" />
-            </div>
-            <label class="control-label col-sm-2">Vigencia (# días):</label
-                        >
+                            <input currencyMask [options]="notdecimal" appLatestFocus class="form-control"
+                                placeholder="$ 0" name="value2" formControlName="value2" />
+                        </div>
+                        <label class="control-label col-sm-2">Vigencia (# días):</label>
                         <div class="input-group col-sm-4">
                             <span class="input-group-addon">
                                 <i class="fa fa-fw">#</i>
                             </span>
-                            <input
-                                type="number"
-                                class="form-control"
-                                placeholder="Cantidad de días"
-                                name="vigencia2"
-                                formControlName="validity2"
-                            />
+                            <input type="number" class="form-control" placeholder="Cantidad de días" name="vigencia2"
+                                formControlName="validity2" />
                         </div>
                     </div>
-                    <div
-                        *ngIf="controlShow[3] == true"
-                        class="form-group justify-content-center"
-                        style="display:flex"
-                    >
+                    <div *ngIf="controlShow[3] == true" class="form-group justify-content-center" style="display: flex">
                         <div class="col-sm-5">
                             <div class="table-wrapper">
-                                <table
-                                    class="table table-hover table-sm table-striped"
-                                >
+                                <table class="table table-hover table-sm table-striped">
                                     <thead>
                                         <tr>
                                             <th scope="col">Sel</th>
@@ -1343,14 +1266,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr
-                                            *ngFor="let vehicle of vehicles"
-                                            (click)="addVehicle(vehicle)"
-                                        >
+                                        <tr *ngFor="let vehicle of vehicles" (click)="addVehicle(vehicle)">
                                             <td>
-                                                <i
-                                                    class="fa fa-check fa-fw"
-                                                ></i>
+                                                <i class="fa fa-check fa-fw"></i>
                                             </td>
                                             <td>{{ vehicle.placa }}</td>
                                             <td>{{ vehicle.marca }}</td>
@@ -1362,9 +1280,7 @@
                         </div>
                         <div class="col-sm-5">
                             <div class="table-wrapper">
-                                <table
-                                    class="table table-hover table-sm table-striped"
-                                >
+                                <table class="table table-hover table-sm table-striped">
                                     <thead>
                                         <tr>
                                             <th scope="col">Sel</th>
@@ -1374,14 +1290,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr
-                                            *ngFor="let vehicle of vehiclesNews"
-                                            (click)="removeVehicle(vehicle)"
-                                        >
+                                        <tr *ngFor="let vehicle of vehiclesNews" (click)="removeVehicle(vehicle)">
                                             <td>
-                                                <i
-                                                    class="fa fa-times fa-fw"
-                                                ></i>
+                                                <i class="fa fa-times fa-fw"></i>
                                             </td>
                                             <td>{{ vehicle.placa }}</td>
                                             <td>{{ vehicle.marca }}</td>
@@ -1394,14 +1305,9 @@
                     </div>
                     <div *ngIf="controlShow[3] == true">
                         <div class="form-inline justify-content-center">
-                            <label class="control-label col-sm-5 text-center"
-                                >Asignar valor por Vehículo:</label
-                            >
+                            <label class="control-label col-sm-5 text-center">Asignar valor por Vehículo:</label>
                         </div>
-                        <div
-                            *ngIf="controlShow[3] == true"
-                            class="form-group justify-content-center"
-                        >
+                        <div *ngIf="controlShow[3] == true" class="form-group justify-content-center">
                             <!-- <div *ngFor="let vehicleNew of vehiclesNews; let i = index;" >
               <div [formGroupName]="i" class="form-inline">
                 <label class="control-label col-sm-1">Placa:</label>
@@ -1427,60 +1333,38 @@
             </div>
         </div>
 </div> -->
-<div *ngFor="
+                            <div *ngFor="
                                     let vehicleNew of vehiclesNews;
                                     let i = index
                                 ">
-    <div class="form-inline">
-        <label class="control-label col-sm-1">Placa:</label
-                                    >
+                                <div class="form-inline">
+                                    <label class="control-label col-sm-1">Placa:</label>
                                     <div class="input-group col-sm-2">
                                         <span class="input-group-addon">
                                             <i class="fa fa-car fa-fw"></i>
                                         </span>
-                                        <input
-                                            disabled
-                                            class="form-control"
-                                            value="{{ vehicleNew.placa }}"
-                                        />
+                                        <input disabled class="form-control" value="{{ vehicleNew.placa }}" />
                                     </div>
-                                    <label class="control-label col-sm-1"
-                                        >Valor:</label
-                                    >
+                                    <label class="control-label col-sm-1">Valor:</label>
                                     <div class="input-group col-sm-4">
                                         <span class="input-group-addon">
                                             <i class="fa fa-usd fa-fw"></i>
                                         </span>
-                                        <input
-                                            currencyMask
-                                            [options]="notdecimal"
-                                            appLatestFocus
-                                            class="form-control"
-                                            placeholder="$ 0"
-                                            name="value"
-                                            [(ngModel)]="vehicleNew.value"
+                                        <input currencyMask [options]="notdecimal" appLatestFocus class="form-control"
+                                            placeholder="$ 0" name="value" [(ngModel)]="vehicleNew.value"
                                             [ngModelOptions]="{
                                                 standalone: true
-                                            }"
-                                        />
+                                            }" />
                                     </div>
-                                    <label class="control-label col-sm-2"
-                                        >Vigencia (# días):</label
-                                    >
+                                    <label class="control-label col-sm-2">Vigencia (# días):</label>
                                     <div class="input-group col-sm-2">
                                         <span class="input-group-addon">
                                             <i class="fa fa-fw">#</i>
                                         </span>
-                                        <input
-                                            type="number"
-                                            class="form-control"
-                                            placeholder="Cantidad de días"
-                                            name="vigencia"
-                                            [(ngModel)]="vehicleNew.validity"
-                                            [ngModelOptions]="{
+                                        <input type="number" class="form-control" placeholder="Cantidad de días"
+                                            name="vigencia" [(ngModel)]="vehicleNew.validity" [ngModelOptions]="{
                                                 standalone: true
-                                            }"
-                                        />
+                                            }" />
                                     </div>
                                 </div>
                             </div>
@@ -1488,16 +1372,10 @@
                     </div>
                 </div>
                 <div id="anclaValue"></div>
-                <div
-                    id="valueVehicle"
-                    class="form-inline justify-content-center"
-                >
+                <div id="valueVehicle" class="form-inline justify-content-center">
                     <div class="col-sm-5">
-                        <button
-                            class="btn btn-primary btn-block"
-                            (click)="submitOrderForm()"
-                            [disabled]="!orderForm.valid"
-                        >
+                        <button class="btn btn-primary btn-block" (click)="submitOrderForm()"
+                            [disabled]="!orderForm.valid">
                             <span class="fa fa-save fa-fw"></span>&nbsp;Guardar
                         </button>
                     </div>
@@ -1508,241 +1386,185 @@
                 </div>
             </form>
         </div>
-        <div
-            class="tab-pane fade"
-            [ngClass]="tabs[3].classPane"
-            id="Vehiculos"
-            role="tabpanel"
-            aria-labelledby="Vehiculos-tab"
-        >
+        <div class="tab-pane fade" [ngClass]="tabs[3].classPane" id="Vehiculos" role="tabpanel"
+            aria-labelledby="Vehiculos-tab">
             <ul class="nav nav-pills mb-2">
                 <li class="nav-item" title="Crear vehículo">
-                    <a
-                        class="nav-link"
-                        (click)="tabClassVehicle(0)"
-                        [ngClass]="tabsVehicle[0].classTab"
-                    >
+                    <a class="nav-link" (click)="tabClassVehicle(0)" [ngClass]="tabsVehicle[0].classTab">
                         <span class="fas fa-car fa-fw"></span>&nbsp;
                         <span class="nameTab">Crear vehículo</span>
                     </a>
                 </li>
                 <li class="nav-item" title="Crear identificador">
-                    <a
-                        class="nav-link"
-                        (click)="tabClassVehicle(1)"
-                        [ngClass]="tabsVehicle[1].classTab"
-                    >
+                    <a class="nav-link" (click)="tabClassVehicle(1)" [ngClass]="tabsVehicle[1].classTab">
                         <span class="fas fa-microchip fa-fw"></span>&nbsp;
                         <span class="nameTab">Crear identificador</span>
                     </a>
                 </li>
                 <li class="nav-item" title="Asignar identificador">
-                    <a
-                        class="nav-link"
-                        (click)="tabClassVehicle(2)"
-                        [ngClass]="tabsVehicle[2].classTab"
-                    >
+                    <a class="nav-link" (click)="tabClassVehicle(2)" [ngClass]="tabsVehicle[2].classTab">
                         <span class="fas fa-exchange-alt fa-fw"></span>&nbsp;
                         <span class="nameTab">Asignar identificador</span>
                     </a>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
-                <div
-                    class="tab-pane fade"
-                    [ngClass]="tabsVehicle[0].classPane"
-                    id="vehicleNew"
-                    role="tabpanel"
-                    aria-labelledby="vehicleNew-tab"
-                >
-                    <form
-                        [ngClass]="tabsVehicle[0].classPane"
-                        [formGroup]="vehicleForm"
-                        (ngSubmit)="submitVehicleForm()"
-                        novalidate
-                        class="form-horizontal"
-                    >
+                <div class="tab-pane fade" [ngClass]="tabsVehicle[0].classPane" id="vehicleNew" role="tabpanel"
+                    aria-labelledby="vehicleNew-tab">
+                    <form [ngClass]="tabsVehicle[0].classPane" [formGroup]="vehicleForm"
+                        (ngSubmit)="submitVehicleForm()" novalidate class="form-horizontal">
                         <fieldset>
                             <legend class="text-center">
                                 Ingresar Vehículo
                             </legend>
                             <div class="form-group form-inline">
-                                <label class="control-label col-sm-2"
-                                    >Placa:</label
-                                >
+                                <label class="control-label col-sm-2">Placa:</label>
                                 <div class="input-group col-sm-4">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-car fa-fw"></i>
-                                    </span>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        #placa
-                                        (blur)="validarPlaca(placa.value)"
-                                        placeholder="Placa"
-                                        name="placa"
-                                        formControlName="placa"
-                                    />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fas fa-car fa-fw"></i></span>
+                                    </div>
+
+                                    <input type="text" class="form-control" #placa (blur)="validarPlaca(placa.value)"
+                                        placeholder="Placa" name="placa" formControlName="placa" />
                                 </div>
-                                <label class="control-label col-sm-2"
-                                    >Marca:</label
-                                >
+                                <label class="control-label col-sm-2">Marca:</label>
                                 <div class="input-group col-sm-4">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-fw">M</i>
-                                    </span>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Marca"
-                                        name="marca"
-                                        formControlName="marca"
-                                    />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-fw">M</i></span>
+                                    </div>
+
+                                    <input type="text" class="form-control" placeholder="Marca" name="marca"
+                                        formControlName="marca" />
                                 </div>
                             </div>
                             <div class="form-group form-inline">
-                                <label class="control-label col-sm-2"
-                                    >Modelo:</label
-                                >
+                                <label class="control-label col-sm-2">Modelo:</label>
                                 <div class="input-group col-sm-4">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-fw">M</i>
-                                    </span>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Modelo"
-                                        name="modelo"
-                                        formControlName="modelo"
-                                    />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-fw">M</i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Modelo" name="modelo"
+                                        formControlName="modelo" />
                                 </div>
-                                <label class="control-label col-sm-2"
-                                    >Año:</label
-                                >
+                                <label class="control-label col-sm-2">Año:</label>
                                 <div class="input-group col-sm-4">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar fa-fw"></i>
-                                    </span>
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        placeholder="Año"
-                                        name="anio"
-                                        formControlName="anio"
-                                    />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa fa-calendar fa-fw"></i></span>
+                                    </div>
+
+                                    <input type="number" class="form-control" placeholder="Año" name="anio"
+                                        formControlName="anio" />
                                 </div>
                             </div>
                             <div class="form-group form-inline">
-                                <label class="control-label col-sm-2"
-                                    >Combustible:</label
-                                >
+                                <label class="control-label col-sm-2">Combustible:</label>
                                 <div class="input-group col-sm-4">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-burn fa-fw"></i>
-                                    </span>
-                                    <select
-                                        name="fuel"
-                                        class="form-control"
-                                        formControlName="fuelType"
-                                    >
-                                        <option
-                                            *ngFor="let item of articlesTypes"
-                                            [ngValue]="item"
-                                            >{{ item.DESCRIPCION }}</option
-                                        >
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fas fa-burn fa-fw"></i></span>
+                                    </div>
+
+                                    <select name="fuel" class="form-control" formControlName="fuelType">
+                                        <option *ngFor="let item of articlesTypes" [ngValue]="item">
+                                            {{ item.DESCRIPCION }}
+                                        </option>
                                     </select>
                                 </div>
                                 <label class="control-label col-sm-2">
                                     Estado:
                                 </label>
-        <div class="form-check col-sm-4">
-            <input class="form-check-input" type="checkbox" name="estado" formControlName="estado" />
-        </div>
-    </div>
-    <div class="form-inline">
-        <div class="col-sm-6">
-            <button type="submit" class="btn btn-primary btn-block" [disabled]="!vehicleForm.valid">
+                                <div class="form-check col-sm-4">
+                                    <input class="form-check-input" type="checkbox" name="estado"
+                                        formControlName="estado" />
+                                </div>
+                            </div>
+                            <div class="form-inline">
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-primary btn-block"
+                                        [disabled]="!vehicleForm.valid">
                                         <i class="fa fa-floppy-o"></i>&nbsp;
                                         Guardar Vehículo
                                     </button>
-        </div>
-        <div class="col-sm-6">
-            <button type="reset" class="btn btn-danger btn-block">
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="reset" class="btn btn-danger btn-block">
                                         <i class="fas fa-eraser"></i>&nbsp;
                                         Reset
                                     </button>
-        </div>
-    </div>
-    </fieldset>
-    </form>
-</div>
-<div class="tab-pane fade" [ngClass]="tabsVehicle[1].classPane" id="identifierNew" role="tabpanel" aria-labelledby="identifierNew-tab">
-    <form [ngClass]="tabsVehicle[1].classPane" [formGroup]="identifierForm" (ngSubmit)="submitIdentifierForm()" novalidate class="form-horizontal">
-        <fieldset>
-            <legend class="text-center">
-                Ingresar Identificador
-            </legend>
-            <div class="form-group form-inline">
-                <label class="control-label col-sm-2">Código:</label
-                                >
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="tab-pane fade" [ngClass]="tabsVehicle[1].classPane" id="identifierNew" role="tabpanel"
+                    aria-labelledby="identifierNew-tab">
+                    <form [ngClass]="tabsVehicle[1].classPane" [formGroup]="identifierForm"
+                        (ngSubmit)="submitIdentifierForm()" novalidate class="form-horizontal">
+                        <fieldset>
+                            <legend class="text-center">
+                                Ingresar Identificador
+                            </legend>
+                            <div class="form-group form-inline">
+                                <label class="control-label col-sm-2">Código:</label>
                                 <div class="input-group col-sm-4">
                                     <span class="input-group-addon">
                                         <i class="fas fa-microchip fa-fw"></i>
                                     </span>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        #chip
-                                        (blur)="
+                                    <input type="text" class="form-control" #chip (blur)="
                                             validarIdentificador(chip.value)
-                                        "
-                                        placeholder="Código del chip identificador"
-                                        name="chip"
-                                        formControlName="chip"
-                                    />
+                                        " placeholder="Código del chip identificador" name="chip"
+                                        formControlName="chip" />
                                 </div>
                                 <label class="control-label col-sm-2">
                                     Estado:
                                 </label>
-                <div class="form-check col-sm-4">
-                    <input class="form-check-input" type="checkbox" name="estado" formControlName="estado" />
-                </div>
-            </div>
-            <div class="form-inline">
-                <div class="col-sm-6">
-                    <button type="submit" class="btn btn-primary btn-block" [disabled]="!identifierForm.valid">
+                                <div class="form-check col-sm-4">
+                                    <input class="form-check-input" type="checkbox" name="estado"
+                                        formControlName="estado" />
+                                </div>
+                            </div>
+                            <div class="form-inline">
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-primary btn-block"
+                                        [disabled]="!identifierForm.valid">
                                         <i class="fa fa-floppy-o"></i>&nbsp;
                                         Guardar Identificador
                                     </button>
-                </div>
-                <div class="col-sm-6">
-                    <button type="reset" class="btn  btn-block">
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="reset" class="btn btn-block">
                                         <i class="fas fa-eraser"></i>&nbsp;
                                         Reset
                                     </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
-            </div>
-        </fieldset>
-    </form>
-</div>
-<div class="tab-pane fade" [ngClass]="tabsVehicle[2].classPane" id="assignIdentfier" role="tabpanel" aria-labelledby="assignIdentfier-tab">
-    <form [formGroup]="assignForm" (ngSubmit)="submitAssignForm()" novalidate class="form-horizontal">
-        <fieldset>
-            <legend class="text-center">Asignación</legend>
-            <div class="alert alert-info" role="alert">
-                Seleccione la placa y el identificador en el siguiente listado
-            </div>
-            <div class="row justify-content-around" style="display:flex">
-                <div class="col-sm-4">
-                    <div class="table-wrapper">
-                        <table class="table table-hover table-sm table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Placa</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="
+                <div class="tab-pane fade" [ngClass]="tabsVehicle[2].classPane" id="assignIdentfier" role="tabpanel"
+                    aria-labelledby="assignIdentfier-tab">
+                    <form [formGroup]="assignForm" (ngSubmit)="submitAssignForm()" novalidate class="form-horizontal">
+                        <fieldset>
+                            <legend class="text-center">Asignación</legend>
+                            <div class="alert alert-info" role="alert">
+                                Seleccione la placa y el identificador en el
+                                siguiente listado
+                            </div>
+                            <div class="row justify-content-around" style="display: flex">
+                                <div class="col-sm-4">
+                                    <div class="table-wrapper">
+                                        <table class="table table-hover table-sm table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Placa</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="
                                                         let vehicle of vehiclesFree
                                                     " (click)="
                                                         addAssignVehicle(
@@ -1752,24 +1574,24 @@
                                                         vehicle ===
                                                         vehicleFreeSel
                                                     ">
-                                    <td>{{ vehicle.placa }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="table-wrapper">
-                        <table class="table table-hover table-sm table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        Identificador
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="
+                                                    <td>{{ vehicle.placa }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="table-wrapper">
+                                        <table class="table table-hover table-sm table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">
+                                                        Identificador
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="
                                                         let identifier of identifiersFree
                                                     " (click)="
                                                         addAssignIdentifier(
@@ -1779,67 +1601,54 @@
                                                         identifier ===
                                                         identifierFreeSel
                                                     ">
-                                    <td>
-                                        {{ identifier.romIdentificador }}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group form-inline">
-                <label class="control-label col-sm-2">Placa:</label
-                                >
-                                <div class="input-group col-sm-4">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-car fa-fw"></i>
-                                    </span>
-                                    <input
-                                        type="text"
-                                        readonly
-                                        class="form-control"
-                                        placeholder="Placa"
-                                        name="placa"
-                                        formControlName="placa"
-                                    />
+                                                    <td>
+                                                        {{
+                                                            identifier.romIdentificador
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <label class="control-label col-sm-2"
-                                    >Identificador (chip):</label
-                                >
+                            </div>
+                            <div class="form-group form-inline">
+                                <label class="control-label col-sm-2">Placa:</label>
                                 <div class="input-group col-sm-4">
-                                    <span class="input-group-addon">
-                                        <i class="fas fa-microchip fa-fw"></i>
-                                    </span>
-                                    <input
-                                        type="text"
-                                        readonly
-                                        class="form-control"
-                                        placeholder="Código del chip identificador"
-                                        name="chip"
-                                        formControlName="chip"
-                                    />
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i
+                                                    class="fas fa-car fa-fw"></i> </span>
+                                        </div>
+                                    </div>
+                                    <input type="text" readonly class="form-control" placeholder="Placa" name="placa"
+                                        formControlName="placa" />
+                                </div>
+                                <label class="control-label col-sm-2">Identificador (chip):</label>
+                                <div class="input-group col-sm-4">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i
+                                                    class="fas fa-microchip fa-fw"></i> </span>
+                                        </div>
+                                        <span class="input-group-text" id="basic-addon1"> </span>
+                                    </div>
+
+                                    <input type="text" readonly class="form-control"
+                                        placeholder="Código del chip identificador" name="chip"
+                                        formControlName="chip" />
                                 </div>
                             </div>
                             <div class="form-inline">
                                 <div class="col-sm-6">
-                                    <button
-                                        type="submit"
-                                        class="btn btn-primary btn-block"
-                                        [disabled]="!assignForm.valid"
-                                    >
-                                        <i class="fa fa-floppy-o"></i
-                                        >&nbsp;Asignar
+                                    <button type="submit" class="btn btn-primary btn-block"
+                                        [disabled]="!assignForm.valid">
+                                        <i class="fa fa-floppy-o"></i>&nbsp;Asignar
                                     </button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <button
-                                        (click)="resetAssignForm()"
-                                        type="reset"
-                                        class="btn btn-danger btn-block"
-                                    >
-                                        <i class="fas fa-eraser"></i
-                                        >&nbsp;Limpiar
+                                    <button (click)="resetAssignForm()" type="reset" class="btn btn-danger btn-block">
+                                        <i class="fas fa-eraser"></i>&nbsp;Limpiar
                                     </button>
                                 </div>
                             </div>

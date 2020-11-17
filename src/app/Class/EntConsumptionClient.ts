@@ -22,4 +22,5 @@ export class EntConsumptionClient {
     fecha: string;
     usuario: string;
     DESCRIPCION: string;
+    TipoCombustible: string;
 }

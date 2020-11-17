@@ -133,10 +133,10 @@
             <tbody>
                 <tr *ngFor="let consumo of searchConsumos">
                     <td data-title="Fecha consumo" class="text-center">
-                        {{ consumo.fechaConsumo | date: 'dd/MM/yyyy':'+0000' }}
+                        {{ consumo.fechaConsumo   }}
                     </td>
                     <td data-title="Hora consumo" class="text-center">
-                        {{ consumo.horaConsumo | date: 'mediumTime':'+0000' }}
+                        {{ consumo.horaConsumo  }}
                     </td>
                     <td
                         data-title="Cliente"

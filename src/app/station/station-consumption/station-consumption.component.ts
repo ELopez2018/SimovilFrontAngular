@@ -182,9 +182,8 @@ export class StationConsumptionComponent implements OnInit {
     console.log(item);
     item.map(e => {
       e.fechaConsumo = formatDate(e.fechaConsumo, 'dd/MM/yyyy', 'en-US', '+0000');
-      e.horaConsumo = formatDate(e.horaConsumo, 'mediumTime', 'en-US', '+0000');
+      e.horaConsumo = e.horaConsumo;
     });
-    console.log(item);
     this.printService.downloadCSV(ObjToCSV(item, title, titleB), 'CONSUMOS ' + this.nombreCliente);
   }
 }

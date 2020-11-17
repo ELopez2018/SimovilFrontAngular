@@ -39,14 +39,14 @@ export class ProductInventarioComponent implements OnInit {
     }
     AgregarInventario(forma: EntProductos) {
         console.log(forma);
-        const Porcentaje = ((forma.PrecioVenta - forma.PrecioCompra) / forma.PrecioCompra) * 100;
+        const Porcentaje = Math.round(((forma.PrecioVenta - forma.PrecioCompra) / forma.PrecioCompra) * 100)
         if (forma.Mileniumgas) {
             this.Guardar(forma);
         } else {
             if (Porcentaje >= 20 && Porcentaje <= 40) {
                 this.Guardar(forma);
             } else {
-                this.principalComponent.showMsg('error', 'Advertencia', 'El margen de utilidad  es del' + Porcentaje + '% y debe ser del 20 al 40%');
+                this.principalComponent.showMsg('error', 'Advertencia', 'El margen de utilidad  es del ' + Porcentaje + '% y debe ser del 20 al 40%');
             }
         }
     }

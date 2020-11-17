@@ -1,66 +1,156 @@
 <form [formGroup]="noveltyForm" novalidate class="form-horizontal">
     <fieldset>
-        <legend class="text-center">Factura # {{invoice ? invoice.numero : ''}} - Tipo novedad</legend>
+        <legend class="text-center">
+            Factura # {{ invoice ? invoice.numero : '' }} - Tipo novedad
+        </legend>
         <div class="form-group form-inline">
             <label class="control-label col-sm-2">Tipo novedad:</label>
             <div class="input-group col-sm-4">
-                <span class="input-group-addon">
-          <i class="fas fa-clipboard-list fa-fw"></i>
-        </span>
-                <select (ngModelChange)="validForm()" #noveltyType class="form-control" formControlName="tipoNovedad" ngmodel>
-          <option *ngFor="let noveltyT of noveltyTypeTrue" [ngValue]="noveltyT"> {{noveltyT.name}}</option>
-        </select>
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"
+                        ><i class="fas fa-clipboard-list fa-fw"></i
+                    ></span>
+                </div>
+
+                <select
+                    (ngModelChange)="validForm()"
+                    #noveltyType
+                    class="form-control"
+                    formControlName="tipoNovedad"
+                    ngmodel
+                >
+                    <option
+                        *ngFor="let noveltyT of noveltyTypeTrue"
+                        [ngValue]="noveltyT"
+                    >
+                        {{ noveltyT.name }}
+                    </option>
+                </select>
             </div>
-            <label class="control-label col-sm-2">Detalle:</label>
+            <label class="control-label col-sm-2">Detalles:</label>
             <div class="input-group col-sm-4">
-                <textarea class="form-control text-uppercase" formControlName="detalle" cols="150" rows="2"></textarea>
+                <textarea
+                    class="form-control text-uppercase"
+                    formControlName="detalle"
+                    cols="150"
+                    rows="2"
+                ></textarea>
             </div>
         </div>
         <div class="form-group form-inline">
-            <label class="control-label col-sm-2" *ngIf="SelectedNoveltyType() && (SelectedNoveltyType().id == 7 || (SelectedNoveltyType().id == 6 && invoice.saldo == 0))">C.
-        Egreso:</label>
-            <div class="input-group col-sm-4" *ngIf="SelectedNoveltyType() && (SelectedNoveltyType().id == 7 || (SelectedNoveltyType().id == 6 && invoice.saldo == 0))">
-                <span class="input-group-addon">
-          <i class="fa fa-file fa-fw"></i>
-        </span>
-                <input type="number" class="form-control" formControlName="egreso">
+            <label
+                class="control-label col-sm-2"
+                *ngIf="
+                    SelectedNoveltyType() &&
+                    (SelectedNoveltyType().id == 7 ||
+                        (SelectedNoveltyType().id == 6 && invoice.saldo == 0))
+                "
+                >Comprobante Egreso:</label
+            >
+            <div
+                class="input-group col-sm-4"
+                *ngIf="
+                    SelectedNoveltyType() &&
+                    (SelectedNoveltyType().id == 7 ||
+                        (SelectedNoveltyType().id == 6 && invoice.saldo == 0))
+                "
+            >
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"
+                        ><i class="fa fa-file fa-fw"></i
+                    ></span>
+                </div>
+
+                <input
+                    type="number"
+                    class="form-control"
+                    formControlName="egreso"
+                />
             </div>
-            <label class="control-label col-sm-2" *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 7">Seleccionar
-        Archivo:</label>
-            <div class="input-group col-sm-4" *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 7">
-                <span class="input-group-addon">
-          <i class="fas fa-file-upload fa-fw"></i>
-        </span>
-                <input (change)="fileChange($event)" class="form-control" type="file" accept="application/pdf" formControlName="file">
+            <label
+                class="control-label col-sm-2"
+                *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 7"
+                >Fecha de pago:</label
+            >
+            <div
+                class="input-group col-sm-4"
+                *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 7"
+            >
+                <input
+                    class="form-control"
+                    type="date"
+                    formControlName="fechaPag"
+                />
             </div>
         </div>
-        <div class="form-group form-inline" *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 7">
-            <label class="control-label col-sm-2" *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 7">Fecha de
-        pago:</label>
-            <div class="input-group col-sm-4" *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 7">
-                <span class="input-group-addon">
-          <i class="fas fa-calendar-alt fa-fw"></i>
-        </span>
-                <input class="form-control" type="date" formControlName="fechaPag">
+        <div
+            class="form-group form-inline"
+            *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 7"
+        >
+            <label
+                class="control-label col-sm-2"
+                *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 7"
+            >
+                Archivo:
+            </label>
+            <div
+                class="input-group col-sm-10"
+                *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 7"
+            >
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"
+                        ><i class="fas fa-file-upload fa-fw"></i
+                    ></span>
+                </div>
+                <input
+                    (change)="fileChange($event)"
+                    class="form-control"
+                    type="file"
+                    accept="application/pdf"
+                    formControlName="file"
+                />
             </div>
         </div>
-        <div class="form-group form-inline" *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 6">
-            <label class="control-label col-sm-5">Confirmar saldo a cancelar por tesorería:</label>
+
+        <div
+            class="form-group form-inline"
+            *ngIf="SelectedNoveltyType() && SelectedNoveltyType().id == 6"
+        >
+            <label class="control-label col-sm-5"
+                >Confirmar saldo a cancelar por tesorería:</label
+            >
             <div class="input-group col-sm-4">
                 <span class="input-group-addon">
-          <i class="fa fa-usd fa-fw"></i>
-        </span>
-                <input currencyMask [options]="notdecimal" appLatestFocus type="text" class="form-control" formControlName="saldo">
+                    <i class="fa fa-usd fa-fw"></i>
+                </span>
+                <input
+                    currencyMask
+                    [options]="notdecimal"
+                    appLatestFocus
+                    type="text"
+                    class="form-control"
+                    formControlName="saldo"
+                />
             </div>
         </div>
         <div class="form-inline">
             <div class="col-sm-6">
-                <button (click)="submitNoveltyForm()" class="btn btn-primary btn-block" [disabled]="!noveltyForm.valid">
-          <span class="fas fa-clipboard-list fa-fw"></span>&nbsp;Guardar Novedad</button>
+                <button
+                    (click)="submitNoveltyForm()"
+                    class="btn btn-primary btn-block"
+                    [disabled]="!noveltyForm.valid"
+                >
+                    <span class="fas fa-clipboard-list fa-fw"></span
+                    >&nbsp;Guardar Novedad
+                </button>
             </div>
             <div class="col-sm-6">
-                <button (click)="validInvoice(false)" class="btn btn-danger btn-block">
-          <span class="fas fa-times fa-fw"></span>&nbsp;Cancelar</button>
+                <button
+                    (click)="validInvoice(false)"
+                    class="btn btn-danger btn-block"
+                >
+                    <span class="fas fa-times fa-fw"></span>&nbsp;Cancelar
+                </button>
             </div>
         </div>
     </fieldset>
