@@ -4098,9 +4098,10 @@ export class PrintService {
                 },
 
                 {
-                    text: '$' + valorAnt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+                    text: '$ ' + valorAnt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
                     alignment: 'right',
                     colSpan: 2,
+                    bold: true
                 },
                 '',
             ]);
@@ -4116,10 +4117,11 @@ export class PrintService {
                     style: 'headerTable',
                     colSpan: 1,
                     border: [false, false, false, false],
+                    bold: true
                 },
                 '',
 
-                { text: '$' + descuento.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}), alignment: 'right' },
+                { text: '$ ' + descuento.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}), alignment: 'right' },
             ]);
         }
         if (retencion > 0) {
@@ -4145,9 +4147,10 @@ export class PrintService {
                 border: [false, false, false, false],
             },
             {
-                text: '$' + (valorAnt - descuento).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+                text: '$ ' + (valorAnt - descuento).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
                 alignment: 'right',
                 colSpan: 2,
+                bold: true
             },
             '',
         ]);
@@ -4193,16 +4196,16 @@ export class PrintService {
                     ],
                     [
                         {
-                            text: '$' + valorAnt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
-                            alignment: 'center',
+                            text: '$ ' + valorAnt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+                            alignment: 'center', bold: true,
                         },
                         {
-                            text: '$' + descuento.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
-                            alignment: 'center',
+                            text: '$ ' + descuento.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+                            alignment: 'center', bold: true,
                         },
                         {
-                            text: '$' + (valorAnt - descuento).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
-                            alignment: 'center',
+                            text: '$ ' + (valorAnt - descuento).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+                            alignment: 'center', bold: true,
                         },
                     ],
                 ],
@@ -4308,7 +4311,10 @@ export class PrintService {
                 },
                 letterSmall: {
                     fontSize: 11,
-                    bold: true,
+                    alignment: 'center',
+                },
+                fontTotals: {
+                    fontSize: 11,
                     alignment: 'center',
                 },
                 firma: {
