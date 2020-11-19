@@ -8,12 +8,6 @@
                         SIMOVIL
                     </a>
                 </li>
-                <li class="text-center">
-                    <a routerLink="/welcome" class="Usuario">
-                        <span> {{ NombreUsuario }}</span>
-
-                    </a>
-                </li>
 
                 <ng-container *ngFor="let item of navItems">
                     <li class="dropdown" appCustomdropdown *ngIf="item.HIJO && item.HIJO.length > 0">
@@ -52,6 +46,12 @@
                             <i class="fas fa-sign-out-alt fa-fw" ></i>&nbsp;
                         </span>
                         <span class="menu-item-title">Salir</span>
+                    </a>
+                </li>
+                <li class="text-center">
+                    <a routerLink="/welcome" class="Usuario">
+                        <div> {{ NombreUsuario }}</div>
+                        <div *ngIf="IdEstacion" id="nombreEstacion" >{{ NombreEstacion }}</div>
                     </a>
                 </li>
             </ul>

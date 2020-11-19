@@ -123,8 +123,8 @@
                         <th style="width: 60px" class="text-center">Opc</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body">
-                    <tr *ngFor="let customer of retencionesAll; index as i">
+                <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                    <tr>
                         <td style="width: 80px" class="text-center">
                             {{ customer.id }}
                         </td>
@@ -135,7 +135,7 @@
                             {{ customer.valor | currency }}
                         </td>
                         <td style="width: 60px" class="text-center">
-                            <button (click)="EliminarRetencion( i )" class="btn btn-danger btn-sm">
+                            <button (click)="EliminarRetencion( rowIndex )" class="btn btn-danger btn-sm">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
@@ -181,8 +181,9 @@
                                 </th>
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" >
-                            <tr *ngFor="let customer of consumosAll; index as i">
+                        <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                            <!-- <tr *ngFor="let customer of consumosAll; index as i"> -->
+                                <tr>
                                 <td style="width: 80px" class="text-center">
                                     {{ customer.id }}
                                 </td>
@@ -208,7 +209,7 @@
                                     {{ customer.valor | currency }}
                                 </td>
                                 <td style="width: 60px" class="text-center">
-                                    <button (click)="EliminarConsumo( i )"class="btn btn-danger btn-sm">
+                                    <button (click)="EliminarConsumo( rowIndex )"class="btn btn-danger btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>

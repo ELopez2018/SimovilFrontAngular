@@ -16,7 +16,7 @@
         </button>
       </div>
       <input [ngModel]="searchProviderDet" disabled placeholder="Proveedor" (keyup.enter)="getInvoices()" class="form-control"
-        type="text" name="searchid" id="searchid">
+        type="text" name="searchProviderDet" id="searchProviderDet">
     </div>
     <div class="input-group col-sm-2">
       <button (click)="searchAdvance = !searchAdvance" class="btn btn-block btn-primary"><span class="fa fa-search fa-fw"></span>&nbsp;Avanzada</button>
@@ -65,7 +65,7 @@
         <tr class="text-center">
           <th scope="col">Numero</th>
           <th scope="col">Proveedor</th>
-          <th scope="col">Creado</th>
+          <th scope="col">Egreso</th>
           <th scope="col">Vence</th>
           <th scope="col">Estado</th>
           <th scope="col" title="R = Revisado&#xA;A = Autorizado&#xA;C = Causado&#xA;P = Pagado">Historial</th>
@@ -79,7 +79,7 @@
         <tr *ngFor="let invoice of invoices" [@fade]="'in'" [class]="invoice == invoiceSel ? 'sel' : ''">
           <td data-title="Numero" class="text-center">{{invoice.numero}}</td>
           <td data-title="Proveedor" class="text-center" [title]="getNameProvider(invoice.proveedor)">{{invoice.proveedor}}</td>
-          <td data-title="Creado" class="text-center">{{invoice.fecha | date:'dd/MM/yy' : '+0000'}}</td>
+          <td data-title="Creado" class="text-center">{{invoice.egreso }}</td>
           <td data-title="Vence" class="text-center">{{invoice.fechaVen | date: 'dd/MM/yy' : '+0000'}}</td>
           <td data-title="Estado" class="text-center">{{nameNoveltyType(invoice.estado)}}</td>
           <td data-title="Historial" class="text-center">{{invoice.historial}}</td>

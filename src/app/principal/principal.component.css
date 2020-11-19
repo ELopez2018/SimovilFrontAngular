@@ -1,7 +1,11 @@
 body {
     overflow-x: hidden;
 }
-
+#nombreEstacion {
+    background: transparent;
+    color: white;
+    font-size: small;
+}
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;

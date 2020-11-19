@@ -30,6 +30,7 @@ export class InvoiceNoveltyComponent implements OnInit {
   provider: EntProvider;
   rol;
   stationcode;
+ titulo: string;
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.invoice) {
@@ -49,6 +50,9 @@ export class InvoiceNoveltyComponent implements OnInit {
     }
     this.provider = null;
     this.fileToUp = null;
+    if (this.invoice){
+        this.titulo = `FACTURA N°  ${ this.invoice.numero }           PERFIL ACTUAL :  ${ this.invoice.perfil.toUpperCase() }`
+    }
   }
 
   constructor(
@@ -59,14 +63,20 @@ export class InvoiceNoveltyComponent implements OnInit {
     private storageService: StorageService
   ) {
     this.buildForm();
+    if (this.invoice){
+        this.titulo = `FACTURA N° ${ this.invoice.numero } PERFIL ACTUAL: ${ this.invoice.perfil }`
+    }
+
   }
 
   ngOnInit() {
     this.noveltyTypes = INVOICENOVELTYTYPES;
     this.rol = this.storageService.getCurrentUserDecode().idRol;
-    console.log(this.rol );
     this.noveltyTypes = this.noveltyTypes.filter(e => e.rol.find(f => f === this.rol));
     this.stationcode = this.storageService.getCurrentStation();
+    if (this.invoice){
+        this.titulo = `FACTURA N° ${ this.invoice.numero } PERFIL ACTUAL: ${ this.invoice.perfil }`
+    }
   }
 
   SelectedNoveltyType() {

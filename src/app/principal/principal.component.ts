@@ -8,6 +8,7 @@ import { MenuItem } from '../Class/menu-item';
 import { BasicDataService } from '../services/basic-data.service';
 import { fadeAnimation } from '../animations';
 import { fadeTransition } from '../routerAnimation';
+import { NominaService } from '../services/nomina.service';
 
 
 @Component({
@@ -30,13 +31,16 @@ export class PrincipalComponent implements OnInit {
     version;
     usuario = 'Usuario';
     NombreUsuario = null;
+    IdEstacion: number;
+    NombreEstacion = null;
     constructor(
         private locationStrategy: LocationStrategy,
         private authenticationService: AuthenticationService,
         private storageService: StorageService,
         private utilService: UtilService,
         private basicDataService: BasicDataService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private nominaService: NominaService
     ) {
         this.url = this.locationStrategy;
         this.version = basicDataService.version;
@@ -47,6 +51,15 @@ export class PrincipalComponent implements OnInit {
     ngOnInit() {
         this.innerWidth = window.innerWidth;
         this.NombreUsuario = this.storageService.getCurrentUserDecode().Nombre;
+        this.IdEstacion = this.storageService.getCurrentStation()
+        if (this.IdEstacion) {
+            this.nominaService.GetStations().subscribe(res => {
+                    this.NombreEstacion = res.find(e => e.idEstacion == this.IdEstacion).nombreEstacion;
+            }, error => {
+                console.log(error);
+            });
+        }
+
     }
 
 

@@ -58,7 +58,7 @@ export class ReceivableAddComponent implements OnInit {
     }
     Cancel() {
         this.Reset();
-        this.retencionSubmitterAll.emit([]);
+        this.retencionSubmitterAll.emit(null);
     }
     Reset() {
         this.consumosAll = [];
@@ -87,8 +87,8 @@ export class ReceivableAddComponent implements OnInit {
             .subscribe((consumos) => {
                 this.utilService.loader(false);
                 this.consumosAll = consumos;
+                console.log(this.consumosAll);
                 this.totales();
-                console.log(consumos);
             });
     }
     totales() {
@@ -113,8 +113,10 @@ export class ReceivableAddComponent implements OnInit {
         this.fechaIni = dateToISOString(fecha[0]);
     }
     Guardar() {
-        if (this.retencionesAll && this.retencionesAll.length > 0) {
+        if (this.consumosAll && this.consumosAll.length > 0) {
             this.retencionSubmitterAll.emit({
+                fechaIni: this.fechaIni,
+                fechaFin: this.fechaFin,
                 retenciones: this.retencionesAll,
                 consumos: this.consumosAll,
             });

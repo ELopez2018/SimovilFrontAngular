@@ -99,7 +99,7 @@
 </div>
 
 <app-modal-dialog [visible]="boolCreateRec" (hide)="boolCreateRec = false" [width]="12">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-sm-3 form-group">
             <label class="control-label mb-0">Nombre del cliente</label>
             <input *ngIf="clientSel" type="text" class="form-control" disabled [(ngModel)]="clientSel.nombre">
@@ -120,6 +120,6 @@
                 <i class="fas fa-times"></i>&nbsp;Cancelar
             </button>
         </div>
-    </div>
-    <!-- <app-receivable-add [cliente]="clientSel" (retencionSubmitterAll)="Datos($event)" ></app-receivable-add> -->
+    </div> -->
+    <app-receivable-add [cliente]="clientSel" (retencionSubmitterAll)="createReceivable($event)" ></app-receivable-add>
 </app-modal-dialog>
