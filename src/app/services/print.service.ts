@@ -1182,7 +1182,6 @@ export class PrintService {
                     (ac) => ac.NUM_TUR == e.NUM_TUR
                 );
 
-
                 // MUESTRA LAS VENTAS DE CADA TURNO
                 e.PLA_DIA_TUR_VEN.map((r: any) => {
                     // if (acitem !== undefined) {
@@ -3929,7 +3928,8 @@ export class PrintService {
         receivable: EntReceivable,
         consumos: EntConsumptionClient[],
         station: EntStation,
-        result?
+        result?,
+        preView: boolean = false
     ) {
         // console.log(station);
         // console.log(consumos);
@@ -3971,7 +3971,7 @@ export class PrintService {
         const tableReceivable = {
             table: {
                 headerRows: 1,
-                widths: [65, 50, 50, 70, 75, 75],
+                widths: [60, 50, 50, 110, 50, 75],
                 body: bodyTableReceivable,
             },
             layout: 'lightHorizontalLines',
@@ -4064,7 +4064,7 @@ export class PrintService {
             { text: 'Placa', style: 'headerTable' },
             { text: 'Cantidad', style: 'headerTable' },
             { text: 'Producto', style: 'headerTable' },
-            { text: 'Consecutivo', style: 'headerTable' },
+            { text: 'Ticket', style: 'headerTable' },
             { text: 'Valor', style: 'headerTable' },
         ]);
 
@@ -4073,22 +4073,12 @@ export class PrintService {
             var dateconsumption = new Date(element.fechaConsumo);
             dateconsumption.setHours(dateconsumption.getHours() + 5);
             bodyTableReceivable.push([
-                dateconsumption.toLocaleDateString(),
-                element.placa,
-                { text: element.cantidad.toLocaleString(), alignment: 'right' },
-                element.combustible == 0
-                    ? 'Gasolina'
-                    : element.combustible == 1
-                    ? 'Diesel'
-                    : element.combustible == 2
-                    ? 'Gas'
-                    : element.combustible == 3
-                    ? 'Lubricantes'
-                    : element.combustible == 4
-                    ? 'Filtros'
-                    : '',
-                element.ConsecutivoEstacion.toString(),
-                { text: element.valor.toLocaleString(), alignment: 'right' },
+                { text: dateconsumption.toLocaleDateString(), style: 'letterSmall'},
+                { text: element.placa, style: 'letterSmall'},
+                { text: element.cantidad.toLocaleString(), alignment: 'right', style: 'letterSmall' },
+                { text: element.TipoCombustible,  alignment: 'left', style: 'letterSmall' },
+                { text: element.ConsecutivoEstacion.toString(), style: 'letterSmall'},
+                { text: element.valor.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}), alignment: 'right', style: 'letterSmall' },
             ]);
         });
 
@@ -4107,8 +4097,12 @@ export class PrintService {
                     border: [false, false, false, false],
                 },
 
-
-                { text: '$' + valorAnt.toLocaleString(), alignment: 'right',  colSpan: 2 },     '',
+                {
+                    text: '$' + valorAnt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
+                    alignment: 'right',
+                    colSpan: 2,
+                },
+                '',
             ]);
         }
         if (descuento > 0) {
@@ -4125,7 +4119,7 @@ export class PrintService {
                 },
                 '',
 
-                { text: '$' + descuento.toLocaleString(), alignment: 'right' },
+                { text: '$' + descuento.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}), alignment: 'right' },
             ]);
         }
         if (retencion > 0) {
@@ -4151,7 +4145,7 @@ export class PrintService {
                 border: [false, false, false, false],
             },
             {
-                text: '$' + (valorAnt - descuento).toLocaleString(),
+                text: '$' + (valorAnt - descuento).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
                 alignment: 'right',
                 colSpan: 2,
             },
@@ -4199,15 +4193,15 @@ export class PrintService {
                     ],
                     [
                         {
-                            text: '$' + valorAnt.toLocaleString(),
+                            text: '$' + valorAnt.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
                             alignment: 'center',
                         },
                         {
-                            text: '$' + descuento.toLocaleString(),
+                            text: '$' + descuento.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
                             alignment: 'center',
                         },
                         {
-                            text: '$' + (valorAnt - descuento).toLocaleString(),
+                            text: '$' + (valorAnt - descuento).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}),
                             alignment: 'center',
                         },
                     ],
@@ -4312,6 +4306,11 @@ export class PrintService {
                     bold: true,
                     alignment: 'center',
                 },
+                letterSmall: {
+                    fontSize: 11,
+                    bold: true,
+                    alignment: 'center',
+                },
                 firma: {
                     bold: true,
                     alignment: 'left',
@@ -4329,11 +4328,19 @@ export class PrintService {
             images: { membrete: this.selectMembrete(station.empresa) },
         };
 
-        pdfMake
-            .createPdf(dd)
-            .download(
-                'CC-' + receivable.codCliente + '-' + receivable.num + '.pdf'
-            );
+        if (preView) {
+            pdfMake.createPdf(dd).open();
+        } else {
+            pdfMake
+                .createPdf(dd)
+                .download(
+                    'CC-' +
+                        receivable.codCliente +
+                        '-' +
+                        receivable.num +
+                        '.pdf'
+                );
+        }
         if (result) {
             result(true);
         }

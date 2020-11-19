@@ -93,6 +93,9 @@
             <button title ="Imprimir PDF"  (click)="printReceivable(receivable)" class="btn btn-success btn-sm mr-1">
               <span class="fas fa-print fa-fw"></span>
             </button>
+            <button title ="Vista previa PDF"  (click)="printReceivable(receivable, true)" class="btn btn-info btn-sm mr-1">
+                <span class="far fa-eye fa-fw"></span>
+              </button>
             <button *ngIf="!codEstation" title ="Eliminar"  (click)="Eliminar( receivable.id, i )" class="btn btn-danger btn-sm">
                 <span class="pi pi-trash fa-fw"></span>
               </button>

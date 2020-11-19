@@ -225,7 +225,7 @@ export class StationReceivableComponent implements OnInit {
     //     return 'tb sem3';
     // }
 
-    printReceivable(receivable: EntReceivable) {
+    printReceivable(receivable: EntReceivable, preView: boolean= false ) {
         this.utilService.loader(true);
         var consumosC: EntConsumptionClient[];
         this.carteraService
@@ -248,7 +248,8 @@ export class StationReceivableComponent implements OnInit {
                         ),
                         (result) => {
                             this.utilService.loader(false);
-                        }
+                        },
+                        preView
                     );
                 },
                 (error) => console.log(error)
