@@ -4103,12 +4103,12 @@ export class PrintService {
                 {
                     text: 'SubTotal',
                     style: 'headerTable',
-                    colSpan: 2,
+                    colSpan: 1,
                     border: [false, false, false, false],
                 },
-                '',
 
-                { text: '$' + valorAnt.toLocaleString(), alignment: 'right' },
+
+                { text: '$' + valorAnt.toLocaleString(), alignment: 'right',  colSpan: 2 },     '',
             ]);
         }
         if (descuento > 0) {
@@ -4120,7 +4120,7 @@ export class PrintService {
                 {
                     text: 'Descuento',
                     style: 'headerTable',
-                    colSpan: 2,
+                    colSpan: 1,
                     border: [false, false, false, false],
                 },
                 '',
@@ -4147,15 +4147,15 @@ export class PrintService {
             {
                 text: 'Total',
                 style: 'headerTable',
-                colSpan: 2,
+                colSpan: 1,
                 border: [false, false, false, false],
             },
-            '',
-
             {
                 text: '$' + (valorAnt - descuento).toLocaleString(),
                 alignment: 'right',
+                colSpan: 2,
             },
+            '',
         ]);
         // valida si pasa o no la tabla a otra hoja y acomoda los datos.
         if (consumos.length < cantidadDeConsumoEnHoja) {
