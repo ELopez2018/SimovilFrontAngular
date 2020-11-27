@@ -3,7 +3,6 @@ import { fadeTransition } from '../../../routerAnimation';
 import { EntInvoice } from '../../../Class/EntInvoice';
 import { CarteraService } from '../../../services/cartera.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
-import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../services/storage.service';
 import { UtilService } from '../../../services/util.service';
@@ -62,8 +61,17 @@ export class OtherWholesalerComponent implements OnInit {
     let fechaFin = (this.fechaFin != null || this.fechaFin != '') ? this.fechaFin : null;
     this.carteraService.getWholeSalerInvoices(this.station.idEstacion, this.pending, false, fechaIni, fechaFin).subscribe(result => {
       this.invoices = result;
-      this.saldoAll = this.invoices.filter(e => e.rutaPago == null).reduce((a, b) => a + b.saldo, 0);
-      this.valorAll = this.invoices.filter(e => e.rutaPago == null).reduce((a, b) => a + b.valor, 0);
+      console.log(this.invoices );
+      this.valorAll=0;
+    //   this.saldoAll = this.invoices.filter(e => e.rutaPago == null).reduce((a, b) => a + b.saldo, 0);
+      this.invoices.forEach(element=>{
+
+            this.valorAll += element.valor
+
+      })
+
+      this.saldoAll = this.invoices.filter(e => e.estado !==7 ).reduce((a, b) => a + b.saldo, 0);
+    //   this.valorAll = this.invoices.filter(e => e.rutaPago == null).reduce((a, b) => a + b.valor, 0);
       this.utilService.loader(false);
     }, error => {
       this.principal.showMsg('error', 'Error', error.error.message);

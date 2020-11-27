@@ -28,6 +28,7 @@
         <table class="table table-hover table-sm table-striped table-bordered">
             <thead class="thead-dark">
                 <tr class="text-center">
+                    <th scope="col">No</th>
                     <th scope="col">Numero</th>
                     <th scope="col">Proveedor</th>
                     <th scope="col">Creado</th>
@@ -39,7 +40,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let invoice of invoices" [@fade]="'in'" [class]="!(invoice && invoice.pagaEstacion) ? 'pagaTesoreria' : ''">
+                <tr *ngFor="let invoice of invoices; let i = index" [@fade]="'in'" [class]="!(invoice && invoice.pagaEstacion) ? 'pagaTesoreria' : ''">
+                    <td data-title="Numero" class="text-center">{{ i + 1  }}</td>
                     <td data-title="Numero" class="text-center">{{invoice.numero}}</td>
                     <td data-title="Proveedor" class="text-center">{{invoice.nombre}}</td>
                     <td data-title="Creado" class="text-center">{{invoice.fecha | date:'dd/MM/yy' : '+0000'}}</td>
@@ -61,7 +63,7 @@
             </tbody>
             <tfoot>
                 <tr class="bg-success">
-                    <th data-title="Numero" class="text-center" colspan="4">Total</th>
+                    <th data-title="Numero" class="text-center" colspan="5">Total</th>
                     <th class="text-right">${{valorAll | number}} </th>
                     <th class="text-right">${{saldoAll | number}} </th>
                     <th class="text-center" colspan="2"></th>

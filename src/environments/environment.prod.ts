@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  URL:'https://simovil.mileniumgas.com:8080'
 };
