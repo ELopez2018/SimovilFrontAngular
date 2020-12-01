@@ -24,7 +24,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { DropdownModule } from 'primeng/dropdown';
 import { CarteraRoutes } from './cartera.routing';
-
+import { ButtonModule } from 'primeng/button';
 
 
 @NgModule({
@@ -56,6 +56,7 @@ import { CarteraRoutes } from './cartera.routing';
     MessagesModule,
     MessageModule,
     DropdownModule,
+    ButtonModule,
     CarteraRoutes,
   ]
 })

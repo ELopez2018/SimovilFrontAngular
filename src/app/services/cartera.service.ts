@@ -817,7 +817,7 @@ export class CarteraService {
             idEstacion,
             RETENCIONES,
             CONSUMOS,
-            usuario
+            usuario,
         };
 
         return this.http

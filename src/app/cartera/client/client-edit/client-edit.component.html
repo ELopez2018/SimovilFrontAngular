@@ -7,8 +7,7 @@
                 Buscar Cliente
             </button>
         </div>
-        <input appAutofocus type="number" class="form-control" id="numDocumento" placeholder="Identificación"
-            [(ngModel)]="id" (keyup.enter)="SearchClient(id)" />
+        <input appAutofocus type="number" class="form-control" id="numDocumento" placeholder="Identificación" [(ngModel)]="id" (keyup.enter)="SearchClient(id)" />
     </div>
     <div class="input-group col-sm-3">
         <button id="btnSearchCli" class="btn btn-info btn-block" (click)="SearchClient(id)">
@@ -29,8 +28,7 @@
                 <span class="input-group-addon">
                     <i class="fa fa-address-card fa-fw"></i>
                 </span>
-                <input type="number" class="form-control" placeholder="Identificación" name="identificacion"
-                    formControlName="searchIdentificacion" />
+                <input type="number" class="form-control" placeholder="Identificación" name="identificacion" formControlName="searchIdentificacion" />
             </div>
 
             <label class="control-label col-sm-2">Nombre:</label>
@@ -38,8 +36,7 @@
                 <span class="input-group-addon">
                     <i class="fa fa-user fa-fw"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Nombre" name="nombre"
-                    formControlName="searchNombre" />
+                <input type="text" class="form-control" placeholder="Nombre" name="nombre" formControlName="searchNombre" />
             </div>
         </div>
         <div class="form-group form-inline">
@@ -59,8 +56,7 @@
                 <span class="input-group-addon">
                     <i class="fa fa-globe fa-fw"></i>
                 </span>
-                <select name="departamento" class="form-control" #searchDepartment formControlName="searchDepartamento"
-                    (ngModelChange)="updateArrayCitySearch($event, true)">
+                <select name="departamento" class="form-control" #searchDepartment formControlName="searchDepartamento" (ngModelChange)="updateArrayCitySearch($event, true)">
                     <option *ngFor="let departament of departaments" [ngValue]="departament">
                         {{ departament.nombreDepartamento }}
                     </option>
@@ -82,8 +78,7 @@
                 <span class="input-group-addon">
                     <i class="fa fa-map-marker fa-fw"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Dirección" name="direccion"
-                    formControlName="searchDireccion" />
+                <input type="text" class="form-control" placeholder="Dirección" name="direccion" formControlName="searchDireccion" />
             </div>
         </div>
         <div class="form-group form-inline">
@@ -92,16 +87,14 @@
                 <span class="input-group-addon">
                     <i class="fa fa-mobile fa-fw"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Teléfono" name="telefono"
-                    formControlName="searchTelefono" />
+                <input type="text" class="form-control" placeholder="Teléfono" name="telefono" formControlName="searchTelefono" />
             </div>
             <label class="control-label col-sm-2">Correo:</label>
             <div class="input-group col-sm-4">
                 <span class="input-group-addon">
                     <i class="fa fa-envelope fa-fw"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Correo electrónico" name="correo"
-                    formControlName="searchCorreo" />
+                <input type="text" class="form-control" placeholder="Correo electrónico" name="correo" formControlName="searchCorreo" />
             </div>
         </div>
         <div class="form-group form-inline">
@@ -118,23 +111,20 @@
             </div>
             <label class="control-label col-sm-2" for="searchEstado">Estado:</label>
             <div class="form-check col-sm-4">
-                <input class="form-check-input" type="checkbox" id="searchEstado" name="estado"
-                    formControlName="searchEstado" />
+                <input class="form-check-input" type="checkbox" id="searchEstado" name="estado" formControlName="searchEstado" />
             </div>
         </div>
         <div class="form-group form-inline">
             <label class="control-label col-sm-2" for="searchRetenedor">Retenedor:</label>
             <div class="form-check col-sm-4">
-                <input class="form-check-input" type="checkbox" id="searchRetenedor"
-                    formControlName="searchRetenedor" />
+                <input class="form-check-input" type="checkbox" id="searchRetenedor" formControlName="searchRetenedor" />
             </div>
             <label class="control-label col-sm-2">Forma Cuenta Cobro:</label>
             <div class="input-group col-sm-4">
                 <!-- <span class="input-group-addon">
                 <i class="fa fa-envelope fa-fw"></i>
               </span> -->
-                <select name="searchModCobro" class="form-control" formControlName="searchModCobro"
-                    (ngModelChange)="onChangeSearch($event)">
+                <select name="searchModCobro" class="form-control" formControlName="searchModCobro" (ngModelChange)="onChangeSearch($event)">
                     <option *ngFor="let item of modoCuentaCobro" [ngValue]="item">{{ item.text }}</option>
                 </select>
             </div>
@@ -149,8 +139,7 @@
                 <span class="input-group-addon">
                     <i class="fa fa-fw">#</i>
                 </span>
-                <input type="number" class="form-control" placeholder="# día" name="searchNumDiaCobro"
-                    formControlName="searchNumDiaCobro" />
+                <input type="number" class="form-control" placeholder="# día" name="searchNumDiaCobro" formControlName="searchNumDiaCobro" />
             </div>
         </div>
         <div class="form-group form-inline">
@@ -166,15 +155,13 @@
                 <span class="input-group-addon">
                     <i class="fa fa-user fa-fw"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Nombre alterno"
-                    formControlName="searchNombreAlt" />
+                <input type="text" class="form-control" placeholder="Nombre alterno" formControlName="searchNombreAlt" />
             </div>
         </div>
         <div class="form-group form-inline">
             <label class="control-label col-sm-3" for="notificar">Cobro por estación:</label>
             <div class="form-check col-sm-3">
-                <input class="form-check-input" type="checkbox" id="todasEstaciones"
-                    formControlName="searchTodasEstaciones" />
+                <input class="form-check-input" type="checkbox" id="todasEstaciones" formControlName="searchTodasEstaciones" />
             </div>
         </div>
         <div class="form-inline justify-content-center">
@@ -184,8 +171,7 @@
                 </button>
             </div>
             <div class="col-sm-5" *ngIf="editClientSearchString == 'Guardar'">
-                <button (click)="CancelClientSearchForm()" class="btn btn-danger btn-block"
-                    [disabled]="!editClientSearch">
+                <button (click)="CancelClientSearchForm()" class="btn btn-danger btn-block" [disabled]="!editClientSearch">
                     Cancelar
                 </button>
             </div>
@@ -202,9 +188,7 @@
                 <span class="input-group-addon">
                     <i class="fa fa-dollar fa-fw"></i>
                 </span>
-                <input currencyMask [options]="notdecimal" appLatestFocus (blur)="ActCupoAsig()"
-                    formControlName="searchQuotaAssigned" class="form-control" placeholder="Cupo asignado"
-                    name="cupoAsignado" />
+                <input currencyMask [options]="notdecimal" appLatestFocus (blur)="ActCupoAsig()" formControlName="searchQuotaAssigned" class="form-control" placeholder="Cupo asignado" name="cupoAsignado" />
             </div>
         </div>
         <div class="form-group form-inline" [hidden]="quotaSearch == null">
@@ -213,24 +197,20 @@
                 <span class="input-group-addon">
                     <i class="fa fa-dollar fa-fw"></i>
                 </span>
-                <input currencyMask [options]="notdecimal" appLatestFocus class="form-control"
-                    formControlName="searchQuotaAvaliable" placeholder="Cupo disponible" name="cupoDisponible" />
+                <input currencyMask [options]="notdecimal" appLatestFocus class="form-control" formControlName="searchQuotaAvaliable" placeholder="Cupo disponible" name="cupoDisponible" />
             </div>
         </div>
         <div class="form-group form-inline align-items-start" [hidden]="quotaSearch == null">
             <label class="control-label col-sm-3">Descuento</label>
             <div class="col-sm-9">
                 <div class="btn-group btn-group-sm w-100 pb-2">
-                    <button [disabled]="!enableListDiscount" id="DE" (click)="addDiscount()" class="btn btn-primary"
-                        title="Agregar Descuento">
+                    <button [disabled]="!enableListDiscount" id="DE" (click)="addDiscount()" class="btn btn-primary" title="Agregar Descuento">
                         <span class="fas fa-plus fa-fw"></span>
                     </button>
-                    <button [disabled]="!enableListDiscount" (click)="removeDiscount()" class="btn btn-secondary"
-                        title="Eliminar Descuento">
+                    <button [disabled]="!enableListDiscount" (click)="removeDiscount()" class="btn btn-secondary" title="Eliminar Descuento">
                         <span class="fas fa-minus fa-fw"></span>
                     </button>
-                    <button [disabled]="!enableListDiscount" (click)="boolDiscountShow = !boolDiscountShow"
-                        class="btn btn-info" [title]="boolDiscountShow ? 'Ocultar' : 'Mostrar'">
+                    <button [disabled]="!enableListDiscount" (click)="boolDiscountShow = !boolDiscountShow" class="btn btn-info" [title]="boolDiscountShow ? 'Ocultar' : 'Mostrar'">
                         <span [class]="
                                 boolDiscountShow
                                     ? 'fas fa-search-minus fa-fw'
@@ -248,17 +228,14 @@
                         <div [formGroupName]="i" class="form-inline w-100">
                             <div class="col-sm-6 input-group pl-0">
                                 <div class="input-group-prepend">
-                                    <button [disabled]="!enableListDiscount" class="btn btn-outline-secondary left"
-                                        type="button" (click)="boolDiscount(i)" title="Seleccionar combustible">
+                                    <button [disabled]="!enableListDiscount" class="btn btn-outline-secondary left" type="button" (click)="boolDiscount(i)" title="Seleccionar combustible">
                                         <span class="far fa-hand-pointer fa-fw"></span>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Combustible"
-                                    formControlName="detalle" />
+                                <input type="text" class="form-control" placeholder="Combustible" formControlName="detalle" />
                             </div>
                             <div class="col-sm-6 input-group">
-                                <input [id]="'val-' + i" type="text" class="form-control" currencyMask
-                                    [options]="notdecimal" appLatestFocus formControlName="valor" />
+                                <input [id]="'val-' + i" type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus formControlName="valor" />
                             </div>
                         </div>
                     </div>
@@ -292,17 +269,15 @@
     <p-dialog header="Motivo del cambio" [(visible)]="displayDialog" modal="modal" [responsive]="true" [minY]="70">
         <textarea pInputTextarea [(ngModel)]="reasonForChange" rows="5" cols="34"></textarea>
         <p-footer>
-            <button type="button" pButton icon="fa-check" (click)="setQuotaSearch()" label="Guardar"
-                [disabled]="reasonForChange.length < 1"></button>
-            <button type="button" pButton icon="fa-close" (click)="displayDialog = false" label="Cancelar"></button>
+            <button type="button" pButton icon="pi pi-check" class="" (click)="setQuotaSearch()" label="Guardar" [disabled]="reasonForChange.length < 1"></button>
+            <button type="button" pButton icon="pi pi-times" class="p-button-danger" (click)="displayDialog = false" label="Cancelar"></button>
         </p-footer>
     </p-dialog>
     <p-dialog header="Solicitar Cambio" [(visible)]="displayDialogAudit" modal="modal" [responsive]="true" [minY]="70">
-        Solo se puede editar una vez el cupo. ¿Desea solicitar edicion a
-        Auditoría?
+        Solo se puede editar una vez el cupo. ¿Desea solicitar edicion a Auditoría?
         <p-footer>
-            <button type="button" pButton icon="fa-check" (click)="setChangeAudit()" label="Sí"></button>
-            <button type="button" pButton icon="fa-close" (click)="displayDialogAudit = false" label="No"></button>
+            <button type="button" pButton icon="pi pi-check" (click)="setChangeAudit()" label="Sí"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="displayDialogAudit = false" label="No"></button>
         </p-footer>
     </p-dialog>
 
