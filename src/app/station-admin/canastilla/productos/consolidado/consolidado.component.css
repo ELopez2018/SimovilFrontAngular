@@ -1,10 +1,14 @@
 /* Main */
 
-
 #Mensaje {
     top: 50%;
 }
 
-/* #MenuPrincipal {
-    height: 50px;
-} */
+.p-datatable-responsive-demo {
+    background-color: black !important;
+    color: white;
+}
+
+.stylofoot {
+    color: white;
+}

@@ -3,24 +3,20 @@
         <div class="row  justify-content-center ">
             <div class="col-sm-3">
                 <div class="input-group">
-                    <select class="form-control" [disabled]="stationCode" [(ngModel)]="stationSel"
-                        (change)="VerEstacion(stationSel)">
+                    <select class="form-control" [disabled]="stationCode" [(ngModel)]="stationSel" (change)="VerEstacion(stationSel)">
                         <option *ngFor="let item of stationsAll" [ngValue]="item">{{ item.nombreEstacion }}</option>
                     </select>
                 </div>
             </div>
 
             <div class="col-sm-3 justify-content-center">
-                <p-calendar [(ngModel)]="Fecha" view="month" dateFormat="MM-yy" [yearNavigator]="true"
-                    yearRange="2000:2030" [readonlyInput]="true" [showIcon]="true" [locale]="es"
-                    (click)="VerConsolidado(Fecha)">
+                <p-calendar [(ngModel)]="Fecha" view="month" dateFormat="MM-yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" [showIcon]="true" [locale]="es" (click)="VerConsolidado(Fecha)">
                 </p-calendar>
 
             </div>
 
             <div class="col-sm-2 justify-content-center">
-                <button type="button" class="btn btn-info btn-block" (click)="Cambiar(Fecha, 2, option2)"
-                    [disabled]="!IdStacion">
+                <button type="button" class="btn btn-info btn-block" (click)="Cambiar(Fecha, 2, option2)" [disabled]="!IdStacion">
                     <i class="fab fa-sistrix"></i>
                     Consultar
                 </button>
@@ -49,14 +45,17 @@
     </div>
 </div>
 
-<div class="container">
-    <table class="table table-sm animated fadeIn slow table-hover mb-4 table-responsive-sm"
-        *ngIf="productos.length > 0 || ProdutosPesos.length > 0">
-        <thead class="thead-dark ">
-            <tr>
-                <th scope="col" class="text-center">Id</th>
-                <th scope="col" class="text-center">Código</th>
-                <th scope="col" class="text-center">Descripción</th>
+<div class="container-fluid">
+    <!-- <table class="table table-sm animated fadeIn slow table-hover mb-4 table-responsive-sm" *ngIf="productos.length > 0 || ProdutosPesos.length > 0"> -->
+
+    <p-table id="tableInvoice" class=" table-hover table-sm table-striped" styleClass="p-datatable-sm table-responsive p-datatable-gridlines" [value]="productos" [responsive]="true" [resizableColumns]="false" [scrollable]="true" scrollHeight="79vh" [rows]="100"
+        [virtualScroll]="true" *ngIf="productos.length > 0 || ProdutosPesos.length > 0">
+        <!-- <thead class="thead-dark "> -->
+        <ng-template pTemplate="header">
+            <tr class="bg-dark">
+                <th width="60px" scope="col" class="text-center">Id</th>
+                <th width="80px" scope="col" class="text-center">Código</th>
+                <th width="300px" scope="col" class="text-center">Descripción</th>
 
                 <th scope="col" class="text-center">Inicial</th>
                 <th scope="col" class="text-center">Compras</th>
@@ -74,17 +73,20 @@
                     <span class="fas fa-chart-line fa-1x fa-fw "></span>
                 </th>
             </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let producto of productos">
+        </ng-template>
+        <!-- </thead> -->
+        <!-- <tbody> -->
+        <ng-template pTemplate="body" let-producto>
+            <tr>
+                <!-- <tr *ngFor="let producto of productos"> -->
                 <!-- En Unidades  -->
-                <td class="text-center" *ngIf="Reporte === 3">
+                <td width="60px" class="text-center" *ngIf="Reporte === 3">
                     {{ producto.Id }}
                 </td>
-                <td class="text-center" *ngIf="Reporte === 3">
+                <td width="80px" class="text-center" *ngIf="Reporte === 3">
                     {{ producto.CodContable }}
                 </td>
-                <td *ngIf="Reporte === 3">{{ producto.Descripcion | uppercase }}</td>
+                <td width="300px" *ngIf="Reporte === 3">{{ producto.Descripcion | uppercase }}</td>
 
                 <td class="text-center" *ngIf="Reporte === 3">
                     {{ producto.InvInicial | number: ".0-3" }}
@@ -96,16 +98,16 @@
                     {{ producto.Bajas | number: ".0-3" }}
                 </td>
                 <td class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.traslados | number: ".0-3"  }}
+                    {{ producto.traslados | number: ".0-3" }}
                 </td>
                 <td class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.trasladosRecibidos | number: ".0-3"  }}
+                    {{ producto.trasladosRecibidos | number: ".0-3" }}
                 </td>
                 <td class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.acredito | number: ".0-3"  }}
+                    {{ producto.acredito | number: ".0-3" }}
                 </td>
                 <td class="text-center" *ngIf="Reporte === 3" [title]="'A Crédito: ' + producto.acredito">
-                    {{  (producto.Ventas ) | number: ".0-3" }}
+                    {{ (producto.Ventas ) | number: ".0-3" }}
                 </td>
                 <td class="text-center" *ngIf="Reporte === 3">
                     {{(producto.InvFinal )| number: ".0-3" }}
@@ -118,13 +120,13 @@
                 </td>
             </tr>
             <tr *ngFor="let prod of ProdutosPesos">
-                <td class="text-center" *ngIf="Reporte === 2">
+                <td width="60px" class="text-center" *ngIf="Reporte === 2">
                     {{ prod.Id }}
                 </td>
-                <td class="text-center" *ngIf="Reporte === 2">
+                <td width="80px" class="text-center" *ngIf="Reporte === 2">
                     {{ prod.CodContable }}
                 </td>
-                <td *ngIf="Reporte === 2">
+                <td width="300px" *ngIf="Reporte === 2">
                     {{ prod.Descripcion | uppercase }}</td>
                 <td class="text-right" *ngIf="Reporte === 2">
                     {{ prod.InvInicial | currency }}
@@ -144,21 +146,22 @@
 
             </tr>
 
-
-        </tbody>
-        <tfoot class="thead-dark">
-            <tr>
-                <th scope="col" class="text-center"></th>
-                <th scope="col" class="text-center"></th>
-                <th scope="col" class="text-center">Totales</th>
+        </ng-template>
+        <!-- </tbody> -->
+        <!-- <tfoot class="thead-dark"> -->
+        <ng-template pTemplate="footer">
+            <tr class="stylofoot">
+                <th width="60px" scope="col" class="text-center"></th>
+                <th width="80px" scope="col" class="text-center"></th>
+                <th width="300px" scope="col" class="text-center">Totales</th>
                 <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ Invini | currency }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{  InvComp | currency }} </th>
+                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ InvComp | currency }} </th>
                 <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ InvVenta | currency }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{  InvFinal  | currency }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{  InvGanancia  | currency }}</th>
+                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ InvFinal | currency }}</th>
+                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ InvGanancia | currency }}</th>
 
                 <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ Invini | number: ".0-3" }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{  InvComp | number: ".0-3" }} </th>
+                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvComp | number: ".0-3" }} </th>
                 <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvBaja | number: ".0-3" }}</th>
                 <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvTaslados | number: ".0-3" }}</th>
                 <th scope="col" class="text-center" *ngIf="Reporte === 3">
@@ -166,8 +169,8 @@
 
                 <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvAcredito | number: ".0-3" }}</th>
                 <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvVenta | number: ".0-3" }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{  InvFinal  | number: ".0-3" }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{  InvGanancia  | number: ".0-3" }}</th>
+                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvFinal | number: ".0-3" }}</th>
+                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvGanancia | number: ".0-3" }}</th>
 
                 <th scope="col" class="text-center" *ngIf="Reporte === 1">
                     Utilidad
@@ -177,8 +180,9 @@
                     <span class="fas fa-chart-line fa-1x fa-fw"></span>
                 </th>
             </tr>
-        </tfoot>
-    </table>
+            <!-- </tfoot> -->
+        </ng-template>
+    </p-table>
 </div>
 <!-- <div class="container mt-5" id="Mensaje">
         <div *ngIf="productos === undefined || productos.length <= 0 ||  ProdutosPesos.length <= 0 || ProdutosPesos === undefined"
@@ -190,9 +194,7 @@
         </div>
     </div> -->
 <app-modal-dialog (hide)="boolNovelty = false" [visible]="boolNovelty">
-    <app-report-ssrs #target [show]="boolNovelty" [https]="true"
-        serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params"
-        [width]="widthReport" [showParameter]="false">
+    <app-report-ssrs #target [show]="boolNovelty" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
     </app-report-ssrs>
 
     <!-- <app-estadisticas></app-estadisticas> -->

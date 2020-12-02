@@ -3,28 +3,31 @@
         <div class="input-group col-sm-3">
             <div class="input-group-prepend">
                 <button class="btn btn-outline-secondary left" type="button" (click)="boolAprox = !boolAprox">
-          {{boolAprox ? 'Aprox.' : 'Exacto'}}
-        </button>
+                    {{ boolAprox ? 'Aprox.' : 'Exacto' }}
+                </button>
             </div>
-            <input [(ngModel)]="searchNum" placeholder="# Factura" (keyup.enter)="getInvoices()" class="form-control" type="text" name="searchid" id="searchid">
+            <input [(ngModel)]="searchNum" placeholder="# Factura" (keyup.enter)="getInvoices()" class="form-control" type="text" name="searchid" id="searchid" />
         </div>
         <div class="input-group col-sm-4">
             <div class="input-group-prepend">
                 <button class="btn btn-outline-secondary left" type="button" (click)="srchPro()">
-          <span class="far fa-hand-pointer fa-fw"></span>
-        </button>
+                    <span class="far fa-hand-pointer fa-fw"></span>
+                </button>
             </div>
-            <input [ngModel]="searchProviderDet" disabled placeholder="Proveedor" (keyup.enter)="getInvoices()" class="form-control" type="text" name="searchProviderDet" id="searchProviderDet">
+            <input [ngModel]="searchProviderDet" disabled placeholder="Proveedor" (keyup.enter)="getInvoices()" class="form-control" type="text" name="searchProviderDet" id="searchProviderDet" />
         </div>
         <div class="input-group col-sm-2">
-            <button (click)="searchAdvance = !searchAdvance" class="btn btn-block btn-primary"><span class="fa fa-search fa-fw"></span>&nbsp;Avanzada</button>
+            <button (click)="searchAdvance = !searchAdvance" class="btn btn-block btn-primary">
+                <span class="fa fa-search fa-fw"></span>&nbsp;Avanzada
+            </button>
         </div>
         <div class="col-sm-3 btn-group special" role="group">
             <button id="btnSearch" class="btn btn-info" (click)="getInvoices()">
-        <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+                <span class="fa fa-search fa-fw"></span>&nbsp;Consultar
+            </button>
             <button class="btn btn-warning" (click)="clearInvoices()">
-        <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
-      </button>
+                <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+            </button>
         </div>
     </div>
     <div *ngIf="searchAdvance" [@fade]="'in'" class="form-group form-row p-0 mb-1 justify-content-center">
@@ -33,80 +36,101 @@
         </div>
         <div class="input-group col-sm-3">
             <span class="input-group-addon">
-        <i class="fas fa-calendar-alt fa-fw"></i>
-      </span>
-            <input [(ngModel)]="fechaIni" class="form-control" type="date" name="fechaini" id="fechaini">
+                <i class="fas fa-calendar-alt fa-fw"></i>
+            </span>
+            <input [(ngModel)]="fechaIni" class="form-control" type="date" name="fechaini" id="fechaini" />
         </div>
         <div class="col-sm-1">
             <label class="control-label">Hasta</label>
         </div>
         <div class="input-group col-sm-3">
             <span class="input-group-addon">
-        <i class="fas fa-calendar-alt fa-fw"></i>
-      </span>
-            <input [(ngModel)]="fechaFin" class="form-control" type="date" name="fechafin" id="fechafin">
+                <i class="fas fa-calendar-alt fa-fw"></i>
+            </span>
+            <input [(ngModel)]="fechaFin" class="form-control" type="date" name="fechafin" id="fechafin" />
         </div>
         <div class="col-sm-1">
             <label *ngIf="stationCode == null" class="control-label">Estación</label>
         </div>
         <div *ngIf="stationCode == null" class="input-group col-sm-3">
             <select class="form-control" [(ngModel)]="stationSelected">
-        <option *ngFor="let station of stationsAll" [ngValue]="station">{{station.nombreEstacion}}</option>
-      </select>
+                <option *ngFor="let station of stationsAll" [ngValue]="station">
+                    {{ station.nombreEstacion }}
+                </option>
+            </select>
         </div>
     </div>
 </div>
 <div class="table-wrapper" id="table-Search">
     <div class="align-self-center no-more-tables">
-        <table class="table table-hover table-sm table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr class="text-center">
-                    <th scope="col">Numero</th>
-                    <th scope="col">Proveedor</th>
-                    <th scope="col">Creacion</th>
-                    <th scope="col">Vence</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col" title="R = Revisado&#xA;A = Autorizado&#xA;C = Causado&#xA;P = Pagado"><i class="fas fa-history"></i></th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Saldo</th>
-                    <th scope="col">Egreso</th>
-                    <th scope="col">Estación</th>
-                    <th scope="col">Acciones</th>
+        <!-- <p-table class="table table-hover table-sm table-striped table-bordered" styleClass="p-datatable-sm table-responsive p-datatable-gridlines" [value]="invoices"> -->
+        <p-table id="tableInvoice" class=" table-hover table-sm table-striped" [value]="invoices" [responsive]="true" [resizableColumns]="false" [scrollable]="true" scrollHeight="79vh" [rows]="100" [virtualScroll]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th width="110px" class="text-center">Numero</th>
+                    <th width="110px" class="text-center">Proveedor</th>
+                    <th width="90px" class="text-center">Creacion</th>
+                    <th width="90px" class="text-center">Vence</th>
+                    <th width="90px" class="text-center">Estado</th>
+                    <th width="60px" class="text-center" title="R = Revisado&#xA;A = Autorizado&#xA;C = Causado&#xA;P = Pagado">
+                        <i class="fas fa-history"></i>
+                    </th>
+                    <th width="135px" class="text-center">Valor</th>
+                    <th width="135px" class="text-center">Saldo</th>
+                    <th width="70px" class="text-center">Egreso</th>
+                    <th width="135px" class="text-center">Estación</th>
+                    <th width="140px" class="text-center">Acciones</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let invoice of invoices" [@fade]="'in'" [class]="invoice == invoiceSel ? 'sel' : ''">
-                    <td data-title="Numero" class="text-center">{{invoice.numero}}</td>
-                    <td data-title="Proveedor" class="text-center" [title]="getNameProvider(invoice.proveedor)">{{invoice.proveedor}}</td>
-                    <td data-title="Vence" class="text-center">{{invoice.fecha| date: 'dd/MM/yy' : '+0000'}}</td>
-                    <td data-title="Vence" class="text-center">{{invoice.fechaVen | date: 'dd/MM/yy' : '+0000'}}</td>
-                    <td data-title="Estado" class="text-center">{{nameNoveltyType(invoice.estado)}}</td>
-                    <td data-title="Historial" title="R = Revisado&#xA;A = Autorizado&#xA;C = Causado&#xA;P = Pagado" class="text-center">{{invoice.historial}}</td>
-                    <td data-title="Valor" class="text-right">{{invoice.valor | currency}}</td>
-                    <td data-title="Saldo" class="text-right">{{invoice.saldo | currency}}</td>
-                    <td data-title="Creado" class="text-center">{{invoice.egreso }}</td>
-                    <td data-title="Estación" class="text-center">{{getNameStation(invoice.estacion)}}</td>
-                    <td class="text-center">
+            </ng-template>
+            <!-- <thead class="thead-dark"> -->
+            <!-- </thead> -->
+            <!-- <tbody> -->
+            <!-- </tbody> -->
+            <ng-template pTemplate="body" let-invoice>
+                <!-- <tr *ngFor="let invoice of invoices" [@fade]="'in'" [class]="invoice == invoiceSel ? 'sel' : ''"> -->
+                <tr [@fade]="'in'" [class]="invoice == invoiceSel ? 'sel' : ''">
+                    <td width="110px" class="text-center">{{ invoice.numero }}</td>
+                    <td width="110px" class="text-center" [title]="getNameProvider(invoice.proveedor)">
+                        {{ invoice.proveedor }}
+                    </td>
+                    <td width="90px" class="text-center">
+                        {{ invoice.fecha | date: 'dd/MM/yy':'+0000' }}
+                    </td>
+                    <td width="90px" class="text-center">
+                        {{ invoice.fechaVen | date: 'dd/MM/yy':'+0000' }}
+                    </td>
+                    <td width="90px" class="text-center">
+                        {{ nameNoveltyType(invoice.estado) }}
+                    </td>
+                    <td width="60px" title="R = Revisado&#xA;A = Autorizado&#xA;C = Causado&#xA;P = Pagado" class="text-center">
+                        {{ invoice.historial }}
+                    </td>
+                    <td width="135px" class="text-right">{{ invoice.valor | currency }}</td>
+                    <td width="135px" class="text-right">{{ invoice.saldo | currency }}</td>
+                    <td width="70px" class="text-center">{{ invoice.egreso }}</td>
+                    <td width="135px" class="text-center">
+                        {{ getNameStation(invoice.estacion) }}
+                    </td>
+                    <td width="140px" class="text-center">
                         <div id="btns">
                             <button (click)="addNovelty(invoice)" class="btn btn-info btn-sm" title="Novedad">
-                <span class="fas fa-plus fa-fw"></span>
-              </button>
+                                <span class="fas fa-plus fa-fw"></span>
+                            </button>
                             <button (click)="searchHistory(invoice)" class="btn btn-success btn-sm" title="Historial">
-                <span class="fas fa-history fa-fw"></span>
-              </button>
+                                <span class="fas fa-history fa-fw"></span>
+                            </button>
                             <button *ngIf="invoice.rutaPago" (click)="getPaymentCertificate(invoice)" class="btn btn-secondary btn-sm" title="Descargar">
-                <span class="fas fa-file-download fa-fw"></span>
-              </button>
+                                <span class="fas fa-file-download fa-fw"></span>
+                            </button>
                         </div>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+            </ng-template>
+        </p-table>
     </div>
 </div>
 <app-modal-dialog (hide)="boolHistory = false" [visible]="boolHistory">
-    <app-invoice-history [invoice]="invoiceSel">
-    </app-invoice-history>
+    <app-invoice-history [invoice]="invoiceSel"> </app-invoice-history>
 </app-modal-dialog>
 
 <app-modal-dialog (hide)="boolNovelty = false" [visible]="boolNovelty">
