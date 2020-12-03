@@ -2208,7 +2208,7 @@ export class CarteraService {
                 Parametros.GetParametros().servidorLocal + consulta,
                 this.httpOptions
             )
-            .pipe(tap((data) => console.log('Realizado con éxito')));
+            .pipe(tap((data) => console.log('[getConsumption] Realizado con éxito')));
     }
     public getValidarConsumoFp(
         tickets: any

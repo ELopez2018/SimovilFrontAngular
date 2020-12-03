@@ -291,10 +291,11 @@ export class NominaService {
             [idProducto, 'idProducto'],
             [fecha, 'fecha']
         ];
+        console.log(parameters);
         const consulta = OrderParametersToGet(query, parameters);
         return this.http.get<EntProductos[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
             tap((res) => {
-
+                    console.log('GetProductos exitoso Reg: ' +  res.length);
             }));
     }
 

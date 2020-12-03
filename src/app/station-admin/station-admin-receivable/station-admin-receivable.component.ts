@@ -131,11 +131,11 @@ export class StationAdminReceivableComponent implements OnInit {
             this.principal.showMsg('error','Acceso Restringido', 'No se puede crear la cuenta de cobro porque debe tener permisos de Administrador de Estacion');
             return;
           }
-        console.log(event$.consumos);
         let consumos = [];
         event$.consumos.forEach((element) => {
             consumos.push({ id: element.id });
         });
+        console.log(event$.retenciones);
         event$.consumos = consumos;
         this.boolCreateRec = false;
         this.utilService.confirm(

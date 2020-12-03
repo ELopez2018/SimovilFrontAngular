@@ -1,31 +1,15 @@
-<div
-    [@fade]="'in'"
-    class="form-group form-row p-0 mb-1 justify-content-center"
-    id="body"
->
+<div [@fade]="'in'" class="form-group form-row p-0 mb-1 justify-content-center" id="body">
     <div class="col-sm-1">
         <label class="control-label">Desde</label>
     </div>
     <div class="input-group col-sm-3">>
-        <input
-            [(ngModel)]="fechaIni"
-            class="form-control-sm"
-            type="date"
-            name="fechaini"
-            id="fechaini"
-        />
+        <input [(ngModel)]="fechaIni" class="form-control-sm" type="date" name="fechaini" id="fechaini" />
     </div>
     <div class="col-sm-1">
         <label class="control-label">Hasta</label>
     </div>
     <div class="input-group col-sm-3">
-        <input
-            [(ngModel)]="fechaFin"
-            class="form-control-sm"
-            type="date"
-            name="fechafin"
-            id="fechafin"
-        />
+        <input [(ngModel)]="fechaFin" class="form-control-sm" type="date" name="fechafin" id="fechafin" />
     </div>
     <div class="col-sm-3">
         <button class="btn btn-warning btn-sm" (click)="clearInvoices()">
@@ -50,15 +34,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr
-                    *ngFor="let invoice of invoices; let i = index"
-                    [@fade]="'in'"
-                    [class]="
+                <tr *ngFor="let invoice of invoices; let i = index" [@fade]="'in'" [class]="
                         !(invoice && invoice.pagaEstacion)
                             ? 'pagaTesoreria'
                             : ''
-                    "
-                >
+                    ">
                     <td data-title="Numero" class="text-center">{{ i + 1 }}</td>
                     <td data-title="Numero" class="text-center">
                         {{ invoice.numero }}
@@ -81,32 +61,17 @@
                     <td data-title="Pagado" class="text-center">
                         {{ isPaid(invoice) }}
                     </td>
-                    <td class="text-center">
+                    <td class="text-left">
                         <div id="btns">
-                            <button
-                            (click)="searchPayment(invoice)"
-                            [disabled]="!(invoice && invoice.pagos)"
-                            class="btn btn-success btn-sm"
-                            title="Pagos"
-                        >
+                            <button (click)="searchPayment(invoice)" [disabled]="!(invoice && invoice.pagos)" class="btn btn-success btn-sm" title="Pagos">
                         <i class="fas fa-file-csv"></i>
                         </button>
-                            <button
-                                (click)="searchPayment(invoice)"
-                                [disabled]="!(invoice && invoice.pagos)"
-                                class="btn btn-success btn-sm"
-                                title="Pagos"
-                            >
+                            <button (click)="searchPayment(invoice)" [disabled]="!(invoice && invoice.pagos)" class="btn btn-success btn-sm" title="Pagos">
                                 <span
                                     class="fas fa-hand-holding-usd fa-fw"
                                 ></span>
                             </button>
-                            <button
-                                *ngIf="invoice.rutaPago"
-                                (click)="getPaymentCertificate(invoice)"
-                                class="btn btn-secondary btn-sm"
-                                title="Descargar"
-                            >
+                            <button *ngIf="invoice.rutaPago" (click)="getPaymentCertificate(invoice)" class="btn btn-secondary btn-sm" title="Descargar">
                                 <span class="fas fa-file-download fa-fw"></span>
                             </button>
                         </div>
@@ -126,11 +91,7 @@
         </table>
     </div>
 </div>
-<app-modal-dialog
-    (hide)="boolPayment = false"
-    [visible]="boolPayment"
-    [width]="5"
->
+<app-modal-dialog (hide)="boolPayment = false" [visible]="boolPayment" [width]="5">
     <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-4">
@@ -148,9 +109,7 @@
 
     <div class="table-wrapper" id="table-Search" *ngIf="invoiceSel">
         <div class="align-self-center no-more-tables">
-            <table
-                class="table table-hover table-sm table-striped reducir mb-2"
-            >
+            <table class="table table-hover table-sm table-striped reducir mb-2">
                 <thead class="thead-dark">
                     <tr class="text-center">
                         <th scope="col">Fecha</th>
@@ -160,25 +119,13 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let pago of invoiceSel.pagos">
-                        <td
-                            data-title="Fecha"
-                            id="fechPago"
-                            class="text-center"
-                        >
+                        <td data-title="Fecha" id="fechPago" class="text-center">
                             {{ pago.FECHA | date: 'dd/MM/yyyy':'+0000' }}
                         </td>
-                        <td
-                            data-title="Valor"
-                            id="detallesPago"
-                            class="text-left"
-                        >
+                        <td data-title="Valor" id="detallesPago" class="text-left">
                             {{ pago.DETALLE | uppercase }}
                         </td>
-                        <td
-                            data-title="Valor"
-                            id="valorPago"
-                            class="text-right"
-                        >
+                        <td data-title="Valor" id="valorPago" class="text-right">
                             {{ pago.VALOR | number }}
                         </td>
                     </tr>
@@ -187,11 +134,7 @@
                     <tr class="bg-success">
                         <th data-title="Fecha" class="text-center"></th>
                         <th data-title="Valor" class="text-right">Total</th>
-                        <th
-                            data-title="Valor"
-                            id="valorPago"
-                            class="text-right"
-                        >
+                        <th data-title="Valor" id="valorPago" class="text-right">
                             ${{ saldoSel | number }}
                         </th>
                     </tr>

@@ -1,5 +1,13 @@
 <div [class]="estilos">
     <div class="row col-sm-12 py-2">
+        <div class="col-sm-3">
+            <div class="input-group">
+                <select class="form-control" [disabled]="stationCode" [(ngModel)]="stationSel">
+                    <option *ngFor="let item of stationsAll" [ngValue]="item">{{ item.nombreEstacion }}</option>
+                </select>
+            </div>
+        </div>
+
         <div class="input-group col-sm-3">
             <div class="input-group-prepend">
                 <button id="btnClient" class="btn btn-outline-secondary left" type="button" (click)="openModCli()">
@@ -8,6 +16,7 @@
             </div>
             <input [(ngModel)]="client.codCliente" [disabled]="id != null" required class="form-control" type="number" name="codclient" id="codclient" placeholder="Buscar cliente" />
         </div>
+
         <div class="input-group col-sm-6">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i
@@ -64,6 +73,7 @@
         <table class="table table-hover table-sm table-striped" *ngIf="searchConsumos.length > 0">
             <thead>
                 <tr class="text-center">
+                    <th scope="col">No</th>
                     <th scope="col">Fecha Consumo</th>
                     <th scope="col">Hora Consumo</th>
                     <th scope="col" *ngIf="!(client && client.codCliente)">
@@ -73,14 +83,17 @@
                     <th scope="col">Combustible</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Placa</th>
-                    <th scope="col">Valores</th>
+                    <th scope="col">Valor</th>
                     <th scope="col">Pedido</th>
                     <th scope="col">Estacion</th>
                     <th scope="col">Cuenta</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let consumo of searchConsumos">
+                <tr *ngFor="let consumo of searchConsumos; let i = index;">
+                    <td data-title="Fecha consumo" class="text-center">
+                        {{ i + 1}}
+                    </td>
                     <td data-title="Fecha consumo" class="text-center">
                         {{ consumo.fechaConsumo }}
                     </td>

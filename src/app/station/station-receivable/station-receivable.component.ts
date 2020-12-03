@@ -116,6 +116,7 @@ export class StationReceivableComponent implements OnInit {
         if (this.client.codCliente == null) {
             return;
         }
+        this.searchReceivable=[];
         this.carteraService.GetClient(this.client.codCliente).subscribe(
             (client) => {
                 if (client.length != 0) {
@@ -136,6 +137,7 @@ export class StationReceivableComponent implements OnInit {
     }
 
     getReceivableSearch() {
+        this.searchReceivable=[];
         this.utilService.loader(true);
         this.carteraService
             .getReceivable(
@@ -263,6 +265,9 @@ export class StationReceivableComponent implements OnInit {
         let fechamod = new Date(receivable.fecha);
         var actual = new Date();
         var diff = actual.getTime() - fechamod.getTime();
+        console.log(this.DiaSemaforo[0]);
+        console.log(diff);
+        console.log(receivable.num);
         if (diff / (1000 * 60 * 60 * 24) < this.DiaSemaforo[0]) {
             return 'tb sem1';
         } else if (diff / (1000 * 60 * 60 * 24) < this.DiaSemaforo[1]) {
@@ -273,6 +278,7 @@ export class StationReceivableComponent implements OnInit {
     }
 
     resultClient(client: EntClient) {
+        this.searchReceivable = [];
         this.client = client;
         this.booleanClient = false;
         focusById('btnSearch');

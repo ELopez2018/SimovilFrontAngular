@@ -119,8 +119,8 @@ export class PrincipalComponent implements OnInit {
     /**
      *
      * @param sev opciones: success, info, warn, error
-     * @param sum Titulo
-     * @param det detalle
+     * @param sum Titulo opciones: success, info, warn, error
+     * @param det detalle opciones: success, info, warn, error
      */
     showMsg(sev, sum, det) {
         let tiempo;

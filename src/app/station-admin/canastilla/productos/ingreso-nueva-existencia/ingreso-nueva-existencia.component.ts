@@ -8,6 +8,7 @@ import { PrincipalComponent } from '../../../../principal/principal.component';
 import { UtilService } from '../../../../services/util.service';
 import { Title } from '@angular/platform-browser';
 import { EntCompraProductos } from '../../../../Class/EntCompraProducto';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'app-ingreso-nueva-existencia',
@@ -15,9 +16,9 @@ import { EntCompraProductos } from '../../../../Class/EntCompraProducto';
     styleUrls: ['./ingreso-nueva-existencia.component.css']
 })
 export class IngresoNuevaExistenciaComponent implements OnInit {
-
-    stationsAll: EntStation[];
-    stationCode: any;
+    stationsAll: EntStation[] =[];
+    stationSel: EntStation= new EntStation();
+;   stationCode: number = null;
     productos: EntProductos[];
     fecha: Date;
     es: any;
@@ -32,8 +33,41 @@ export class IngresoNuevaExistenciaComponent implements OnInit {
         private utilService: UtilService
     ) {
         this.title.setTitle('Ingreso de Productos- Simovil');
-        this.stationCode = this.storageService.getCurrentStation();
         this.fecha = new Date();
+    }
+    ngOnInit() {
+        this.cargando = true;
+       this.GetEstaciones();
+        this.es = {
+            firstDayOfWeek: 1,
+            dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+            dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            monthNames: ['enero ', 'febrero ', 'marzo ', 'abril ', 'mayo ', 'junio', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre ', 'diciembre '],
+            monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+            today: 'Hoy',
+            clear: 'Borrar'
+        };
+
+    }
+
+    GetEstaciones() {
+        this.stationCode = this.storageService.getCurrentStation();
+        this.nominaService.GetStations().subscribe(
+            (data) => {
+                this.stationsAll = data;
+                if (this.stationCode) {
+                    this.stationSel = this.stationsAll.find(
+                        (e) => e.idEstacion == this.stationCode
+                    );
+                    this.getProductos(this.stationSel.idEstacion);
+                }
+            },
+            (error) => {
+                console.error(error.error.message);
+                this.principalComponent.showMsg('error','ERROR', error.error.message)
+            }
+        );
     }
     AgregarInventario(forma: EntProductos) {
         // console.log(forma);
@@ -71,30 +105,9 @@ export class IngresoNuevaExistenciaComponent implements OnInit {
             this.principalComponent.showMsg('success', 'Éxito', 'Se Guardo correctamente.');
         }, error => this.principalComponent.showMsg('error', 'Advertencia', error.error.message));
     }
-
-    ngOnInit() {
-        this.cargando = true;
-        this.nominaService.GetStations().subscribe(data => {
-            this.stationsAll = data;
-        }, error => console.log(error.error.message));
-        this.getProductos(this.stationCode);
-
-        this.es = {
-            firstDayOfWeek: 1,
-            dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
-            dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-            monthNames: ['enero ', 'febrero ', 'marzo ', 'abril ', 'mayo ', 'junio', 'julio ', 'agosto ', 'septiembre ', 'octubre ', 'noviembre ', 'diciembre '],
-            monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-            today: 'Hoy',
-            clear: 'Borrar'
-        };
-
-    }
-
     filterItems(query: any) {
         this.utilService.loader(true);
-        this.nominaService.GetProductos(this.stationCode, query, this.fecha).subscribe(data => {
+        this.nominaService.GetProductos(this.stationSel.idEstacion, query, this.fecha).subscribe(data => {
             this.productos = data;
             this.cargando = false;
             this.utilService.loader(false);
