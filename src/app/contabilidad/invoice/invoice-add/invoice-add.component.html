@@ -2,10 +2,7 @@
     <fieldset>
         <fieldset class="pt-0" id="datosProvee">
             <legend class="text-left">Datos del Proveedor</legend>
-            <div
-                class="form-group form-inline m-0 disable-color"
-                *ngIf="idReturnedInvoice"
-            >
+            <div class="form-group form-inline m-0 disable-color" *ngIf="idReturnedInvoice">
                 <label class="control-label col-sm-2">Factura Anterior</label>
                 <div class="input-group col-sm-4">
                     <div class="input-group-prepend">
@@ -13,14 +10,9 @@
                             <i class="fa fa-address-card fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        type="number"
-                        class="form-control"
-                        formControlName="devueltaFac"
-                    />
+                    <input type="number" class="form-control" formControlName="devueltaFac" />
                 </div>
-                <label class="control-label col-sm-2"
-                    >Proveedor Anterior:</label
+                <label class="control-label col-sm-2">Proveedor Anterior:</label
                 >
                 <div class="input-group col-sm-4">
                     <div class="input-group-prepend">
@@ -39,22 +31,11 @@
                 <label class="control-label col-sm-2">Nit proveedor:</label>
                 <div class="input-group col-sm-4">
                     <div class="input-group-prepend">
-                        <button
-                            class="btn btn-sm btn-outline-secondary left"
-                            [disabled]="providerSel != null"
-                            type="button"
-                            (click)="showBoolProvider()"
-                        >
+                        <button class="btn btn-sm btn-outline-secondary left" [disabled]="providerSel != null" type="button" (click)="showBoolProvider()">
                             <span class="far fa-hand-pointer fa-fw"></span>
                         </button>
                     </div>
-                    <input
-                        id="codPro"
-                        type="number"
-                        class="form-control form-control-sm"
-                        placeholder="Proveedor"
-                        formControlName="proveedor"
-                    />
+                    <input id="codPro" type="number" class="form-control form-control-sm" placeholder="Proveedor" formControlName="proveedor" />
                 </div>
                 <label class="control-label col-sm-2">Nombre proveedor:</label>
                 <div class="input-group col-sm-4">
@@ -63,12 +44,7 @@
                             <i class="fa fa-user fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        type="text"
-                        class="form-control text-uppercase form-control-sm"
-                        placeholder="Nombre del proveedor"
-                        formControlName="nombreProveedor"
-                    />
+                    <input type="text" class="form-control text-uppercase form-control-sm" placeholder="Nombre del proveedor" formControlName="nombreProveedor" />
                 </div>
             </div>
         </fieldset>
@@ -83,29 +59,14 @@
                             <i class="fas fa-hashtag fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        id="numInvoice"
-                        type="text"
-                        class="form-control"
-                        placeholder="N° Factura"
-                        formControlName="numero"
-                    />
+                    <input id="numInvoice" type="text" class="form-control" placeholder="N° Factura" formControlName="numero" />
                     <div class="input-group-append">
-                        <button
-                            [disabled]="validFirt()"
-                            class="btn btn-block btn-primary"
-                            (click)="getprovider()"
-                            title="Validar la Factura"
-                        >
+                        <button [disabled]="validFirt()" class="btn btn-block btn-primary" (click)="getprovider()" title="Validar la Factura">
                             <span class="fa fa-check fa-fw"></span>Validar
                         </button>
                     </div>
                     <div class="input-group-append">
-                        <button
-                            class="btn btn-block btn-danger"
-                            (click)="reset()"
-                            title="Reiniciar"
-                        >
+                        <button class="btn btn-block btn-danger" (click)="reset()" title="Reiniciar">
                             <span class="fas fa-eraser fa-fw"></span>Borrar
                         </button>
                     </div>
@@ -118,12 +79,7 @@
                             <i class="fas fa-calendar-alt fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        type="date"
-                        class="form-control text-center"
-                        formControlName="fecha"
-                        id="fechaFactura"
-                    />
+                    <input type="date" class="form-control text-center" formControlName="fecha" id="fechaFactura" />
                 </div>
             </div>
 
@@ -135,12 +91,7 @@
                             <i class="fas fa-calendar-alt fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        type="date"
-                        class="form-control text-center"
-                        formControlName="fechaRec"
-                        readonly
-                    />
+                    <input type="date" class="form-control text-center" formControlName="fechaRec" readonly />
                 </div>
                 <label class="control-label col-sm-2">Fecha Vencimiento:</label>
                 <div class="input-group col-sm-4">
@@ -149,11 +100,7 @@
                             <i class="fas fa-calendar-alt fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        type="date"
-                        class="form-control text-center"
-                        formControlName="fechaVen"
-                    />
+                    <input type="date" class="form-control text-center" formControlName="fechaVen" />
                 </div>
             </div>
         </fieldset>
@@ -183,58 +130,22 @@
                             </button>
                         </div>
 
-                        <input
-                            id="subtotal"
-                            (blur)="calcularValor()"
-                            currencyMask
-                            appLatestFocus
-                            type="text"
-                            class="form-control form-control-sm"
-                            placeholder="Articulo"
-                            formControlName="descuento"
-                        />
+                        <input id="subtotal" (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control form-control-sm" placeholder="Articulo" formControlName="descuento" />
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="input-group">
-                        <input
-                            id="subtotal"
-                            (blur)="calcularValor()"
-                            currencyMask
-                            appLatestFocus
-                            type="text"
-                            class="form-control form-control-sm"
-                            placeholder="Cantidad"
-                            formControlName="descuento"
-                        />
+                        <input id="subtotal" (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control form-control-sm" placeholder="Cantidad" formControlName="descuento" />
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="input-group">
-                        <input
-                            id="subtotal"
-                            (blur)="calcularValor()"
-                            currencyMask
-                            appLatestFocus
-                            type="text"
-                            class="form-control form-control-sm"
-                            placeholder="Cantidad"
-                            formControlName="descuento"
-                        />
+                        <input id="subtotal" (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control form-control-sm" placeholder="Cantidad" formControlName="descuento" />
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="input-group">
-                        <input
-                            id="subtotal"
-                            (blur)="calcularValor()"
-                            currencyMask
-                            appLatestFocus
-                            type="text"
-                            class="form-control form-control-sm"
-                            placeholder="Cantidad"
-                            formControlName="descuento"
-                        />
+                        <input id="subtotal" (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control form-control-sm" placeholder="Cantidad" formControlName="descuento" />
                     </div>
                 </div>
             </div>
@@ -242,8 +153,7 @@
 
         <fieldset class="my-1" id="totales">
             <div class="form-group form-inline pt-4 pb-0">
-                <label class="control-label col-sm-2 text-dark"
-                    >Subtotal:</label
+                <label class="control-label col-sm-2 text-dark">Subtotal:</label
                 >
                 <div class="input-group col-sm-4">
                     <div class="input-group-prepend">
@@ -312,15 +222,7 @@
                             <i class="fa fa-usd fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        readonly
-                        currencyMask
-                        appLatestFocus
-                        type="text"
-                        class="form-control"
-                        placeholder="$ 0"
-                        formControlName="valor"
-                    />
+                    <input readonly currencyMask appLatestFocus type="text" class="form-control" placeholder="$ 0" formControlName="valor" />
                 </div>
             </div>
 
@@ -332,18 +234,9 @@
                             <i class="fa fa-usd fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        (blur)="calcularValor()"
-                        currencyMask
-                        appLatestFocus
-                        type="text"
-                        class="form-control"
-                        placeholder="$ 0"
-                        formControlName="iva"
-                    />
+                    <input (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control" placeholder="$ 0" formControlName="iva" />
                 </div>
-                <label class="control-label col-sm-2 text-dark"
-                    >Anticípo:</label
+                <label class="control-label col-sm-2 text-dark">Anticípo:</label
                 >
                 <div class="input-group col-sm-4">
                     <div class="input-group-prepend">
@@ -378,16 +271,7 @@
                             <i class="fa fa-usd fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        (blur)="calcularValor()"
-                        currencyMask
-                        appLatestFocus
-                        type="text"
-                        class="form-control"
-                        placeholder="$ 0"
-                        [(ngModel)]="saldo"
-                        [ngModelOptions]="{ standalone: true }"
-                    />
+                    <input (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control" placeholder="$ 0" [(ngModel)]="saldo" [ngModelOptions]="{ standalone: true }" />
                 </div>
             </div>
         </fieldset>
@@ -411,13 +295,11 @@
             </div>
         </div>
         <div class="form-group form-inline">
-            <div
-                *ngIf="
+            <div *ngIf="
                     providerSel && providerSel.tipo == 1;
                     then pagaEstacion;
                     else pagoPlanilla
-                "
-            ></div>
+                "></div>
             <ng-template #pagoPlanilla>
                 <label class="control-label col-sm-2">Pago por planilla:</label>
                 <div class="input-group col-sm-4">
@@ -426,20 +308,11 @@
                             <i class="fa fa-usd fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        (blur)="calcularValor()"
-                        currencyMask
-                        appLatestFocus
-                        type="text"
-                        class="form-control"
-                        placeholder="$ 0"
-                        formControlName="pagoPlanilla"
-                    />
+                    <input (blur)="calcularValor()" currencyMask appLatestFocus type="text" class="form-control" placeholder="$ 0" formControlName="pagoPlanilla" />
                 </div>
             </ng-template>
             <ng-template #pagaEstacion>
-                <label class="control-label col-sm-2" for="pagaEstacion"
-                    >Pagado por estación:</label
+                <label class="control-label col-sm-2" for="pagaEstacion">Pagado por estación:</label
                 >
                 <div class="form-check col-sm-4">
                     <input
@@ -454,18 +327,14 @@
 
         <div class="form-group form-inline" *ngIf="stationCode == null">
             <label class="control-label col-sm-2">Estación:</label>
-            <div class="input-group col-sm-4">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
+                <div class="input-group col-sm-4">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
                         <i class="fas fa-gas-pump fa-fw"></i>
                     </span>
-                </div>
+                    </div>
 
-                <select
-                    #noveltyType
-                    class="form-control"
-                    formControlName="estacion"
-                >
+                    <select #noveltyType class="form-control" formControlName="estacion">
                     <option
                         *ngFor="let stationItem of stationsAll"
                         [ngValue]="stationItem"
@@ -473,17 +342,13 @@
                         {{ stationItem.nombreEstacion }}
                     </option>
                 </select>
-            </div>
+                </div>
         </div>
-        <div
-            class="form-group form-inline align-items-start"
-            *ngIf="
+        <div class="form-group form-inline align-items-start" *ngIf="
                 providerSel &&
                 providerSel.tipo == 1 &&
                 providerSel.tipoMayorista == 'L'
-            "
-            [@fade]="'in'"
-        >
+            " [@fade]="'in'">
             <label class="control-label col-sm-2">Guía:</label>
             <div class="input-group col-sm-4">
                 <input type="tel" class="form-control" formControlName="guia" />
@@ -496,22 +361,14 @@
                     </span>
                 </div>
 
-                <select
-                    #noveltyType
-                    class="form-control"
-                    formControlName="planta"
-                >
+                <select #noveltyType class="form-control" formControlName="planta">
                     <option *ngFor="let plant of plants" [ngValue]="plant">
                         {{ plant.DESCRIPCION }}
                     </option>
                 </select>
             </div>
         </div>
-        <div
-            class="form-group form-inline align-items-start"
-            *ngIf="providerSel && providerSel.tipo == 1"
-            [@fade]="'in'"
-        >
+        <div class="form-group form-inline align-items-start" *ngIf="providerSel && providerSel.tipo == 1" [@fade]="'in'">
             <ng-container *ngIf="providerSel.tipoMayorista == 'L'">
                 <label class="control-label col-sm-2">Cargado por:</label>
 
@@ -521,11 +378,7 @@
                             <i class="fas fa-gas-pump fa-fw"></i>
                         </span>
                     </div>
-                    <select
-                        #noveltyType
-                        class="form-control"
-                        formControlName="cargado"
-                    >
+                    <select #noveltyType class="form-control" formControlName="cargado">
                         <option
                             *ngFor="let stationIt of stationFilter"
                             [ngValue]="stationIt"
@@ -537,24 +390,16 @@
             </ng-container>
             <label class="control-label col-sm-2">Distribución en </label>
             <div class="col-sm-4">
-                <div
-                    class="form-group pb-1"
-                    formArrayName="listCantArt"
-                    *ngFor="
+                <div class="form-group pb-1" formArrayName="listCantArt" *ngFor="
                         let item of invoiceForm.get('listCantArt')['controls'];
                         let i = index
-                    "
-                >
+                    ">
                     <div [formGroupName]="i" class="form-row w-100">
                         <label class="control-label col-sm-6">{{
-                            item.get('descripcion').value | titlecase
+                            item.get('descripcion').value | uppercase
                         }}</label>
                         <div class="col-sm-6 input-group">
-                            <input
-                                type="number"
-                                class="form-control text-right"
-                                formControlName="cantidad"
-                            />
+                            <input type="number" class="form-control text-right" formControlName="cantidad" />
                         </div>
                     </div>
                 </div>
@@ -563,39 +408,22 @@
         <div class="form-group form-inline">
             <label class="control-label col-sm-4">Detalle:</label>
             <div class="input-group col-sm-8">
-                <textarea
-                    formControlName="detalle"
-                    class="form-control text-uppercase"
-                    cols="200"
-                    rows="3"
-                ></textarea>
+                <textarea formControlName="detalle" class="form-control text-uppercase" cols="200" rows="3"></textarea>
             </div>
         </div>
 
         <div class="form-inline">
             <div class="col-sm-3"></div>
             <div class="col-sm-3">
-                <button
-                    (click)="submit()"
-                    class="btn btn-primary btn-block"
-                    [disabled]="!invoiceForm.valid"
-                >
+                <button (click)="submit()" class="btn btn-primary btn-block" [disabled]="!invoiceForm.valid">
                     <span class="fa fa-floppy-o fa-fw"></span>&nbsp;Guardar
                 </button>
             </div>
             <div class="col-sm-3">
-                <button
-                    *ngIf="!idReturnedInvoice"
-                    (click)="reset()"
-                    class="btn btn-danger btn-block"
-                >
+                <button *ngIf="!idReturnedInvoice" (click)="reset()" class="btn btn-danger btn-block">
                     <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
                 </button>
-                <button
-                    *ngIf="idReturnedInvoice"
-                    (click)="return()"
-                    class="btn btn-danger btn-block"
-                >
+                <button *ngIf="idReturnedInvoice" (click)="return()" class="btn btn-danger btn-block">
                     <span class="fas fa-undo fa-fw"></span>&nbsp;Cancelar
                 </button>
             </div>
@@ -609,25 +437,17 @@
     <div id="addAdvance" (click)="boolAdvanceForm = false"></div>
     <div id="formAddAdvance" class="col-md-7">
         <div class="container p-3" id="login" [@fade]="'in'">
-            <p-table
-                [scrollable]="true"
-                [(value)]="advances"
-                class="table table-hover table-sm table-striped table-bordered"
-                [rows]="10"
-                scrollHeight="250px"
-            >
-                <ng-template pTemplate="header" >
-
-                        <tr class="text-center bg-danger ">
-                            <th class="text-center">Numero</th>
-                            <th class="text-center">Fecha</th>
-                            <th class="text-center">Valor</th>
-                            <th class="text-center">Seleccionar</th>
-                        </tr>
-
+            <p-table [scrollable]="true" [(value)]="advances" class="table table-hover table-sm table-striped table-bordered" [rows]="10" scrollHeight="250px">
+                <ng-template pTemplate="header">
+                    <tr class="text-center bg-danger">
+                        <th class="text-center">Numero</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Valor</th>
+                        <th class="text-center">Seleccionar</th>
+                    </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-advance>
-                    <tr >
+                    <tr>
                         <td data-title="Numero" class="text-center">
                             {{ advance.idAnticipo }}
                         </td>
@@ -639,20 +459,10 @@
                         </td>
                         <td class="text-center">
                             <div id="btns">
-                                <button
-                                    *ngIf="advance['Sel'] != true"
-                                    (click)="addAdvance(advance)"
-                                    class="btn btn-success btn-sm"
-                                    title="Seleccionar"
-                                >
+                                <button *ngIf="advance['Sel'] != true" (click)="addAdvance(advance)" class="btn btn-success btn-sm" title="Seleccionar">
                                     <span class="fas fa-plus fa-fw"></span>
                                 </button>
-                                <button
-                                    *ngIf="advance['Sel'] == true"
-                                    (click)="removeAdvance(advance)"
-                                    class="btn btn-danger btn-sm"
-                                    title="Seleccionar"
-                                >
+                                <button *ngIf="advance['Sel'] == true" (click)="removeAdvance(advance)" class="btn btn-danger btn-sm" title="Seleccionar">
                                     <span class="fas fa-minus fa-fw"></span>
                                 </button>
                             </div>
@@ -670,21 +480,11 @@
                             <i class="fa fa-usd fa-fw"></i>
                         </span>
                     </div>
-                    <input
-                        currencyMask
-                        [options]="notdecimal"
-                        appLatestFocus
-                        type="text"
-                        class="form-control form-control-sm"
-                        [(ngModel)]="valorAnticipo"
-                    />
+                    <input currencyMask [options]="notdecimal" appLatestFocus type="text" class="form-control form-control-sm" [(ngModel)]="valorAnticipo" />
                 </div>
             </div>
             <div class="form-inline justify-content-end">
-                <button
-                    (click)="selectedAdvances()"
-                    class="btn btn-sm btn-success float-right"
-                >
+                <button (click)="selectedAdvances()" class="btn btn-sm btn-success float-right">
                     <span class="fas fa-check fa-fw"></span>&nbsp;Seleccionar
                 </button>
             </div>
@@ -692,7 +492,5 @@
     </div>
 </div>
 <app-modal-dialog (hide)="boolProvider = false" [visible]="boolProvider">
-    <app-comp-search-provider
-        (submiter)="assignProvider($event)"
-    ></app-comp-search-provider>
+    <app-comp-search-provider (submiter)="assignProvider($event)"></app-comp-search-provider>
 </app-modal-dialog>
