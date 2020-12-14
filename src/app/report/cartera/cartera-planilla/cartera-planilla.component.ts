@@ -99,7 +99,7 @@ export class CarteraPlanillaComponent implements OnInit {
         this.utilService.loader();
         this.carteraService.GetCarteraForStation(this.stationSel.idEstacion, this.dateIni, this.dateEnd, this.optionSel.id, this.typeSel.id, this.month).subscribe(res => {
             this.utilService.loader(false);
-            this.assignData(res);
+            this.assignData(res)
         }, error => {
             this.utilService.loader(false);
             console.log(error);
@@ -128,7 +128,7 @@ export class CarteraPlanillaComponent implements OnInit {
             case 'F':
                 this.tdTitle = [['Fecha', 'text-center', 'f'], ['Tipo Cupo', 'text-center', ''], ['Pagado', 'text-right', 'c'], ['Vendido', 'text-right', 'c'], ['Saldo', 'text-right', 'c']];
                 data.map(e => {
-                    this.tdData.push([e.FECHA.split('T')[0], this.getNameQuotaType(e.TIPO_CUPO), e.PAGADO, e.VENDIDO, e.SALDO]);
+                    this.tdData.push([e.FECHA.split('T')[0], this.getNameQuotaType(e.TIPO_CUPO)[0], e.PAGADO, e.VENDIDO, e.SALDO]);
                 });
                 break;
         }
@@ -169,6 +169,8 @@ export class CarteraPlanillaComponent implements OnInit {
                 return 'Anticipo';
             case 3:
                 return 'Sin cupo';
+            default:
+                return 'Sin Asingar';
         }
     }
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 // Servicios
 import { AuthenticationService } from '../services/authentication.service';
 import { StorageService } from '../services/storage.service';
@@ -17,13 +16,16 @@ import { Session } from '../Class/Session';
 import { PrincipalComponent } from '../principal/principal.component';
 import { Md5 } from 'ts-md5/dist/md5';
 import { fadeTransition } from '../routerAnimation';
-import { TABLEINVOICEPENDING, TABLEADVANCEPENDING } from '../Class/TABLES_CONFIG';
+import {
+    TABLEINVOICEPENDING,
+    TABLEADVANCEPENDING,
+} from '../Class/TABLES_CONFIG';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
 })
 export class LoginComponent implements OnInit {
     version;
@@ -75,7 +77,9 @@ export class LoginComponent implements OnInit {
     submit() {
         this.usuario = new EntUser();
         this.usuario.idUsuario = btoa(this.loginForm.get('user').value);
-        this.usuario.Password = btoa(Md5.hashAsciiStr(this.loginForm.get('password').value).toString());
+        this.usuario.Password = btoa(
+            Md5.hashAsciiStr(this.loginForm.get('password').value).toString()
+        );
         this.usuario.token = '';
         this.Login(this.usuario);
     }
@@ -89,15 +93,23 @@ export class LoginComponent implements OnInit {
             newpass: btoa(Md5.hashAsciiStr(pass).toString()),
             mailpass: btoa(pass),
             email: mail,
-            reset: true
+            reset: true,
         };
-        this.authenticationService.updatePass(updatePass, idUsuario).subscribe(data => {
-            this.principal.showMsg('success', 'Éxito', 'La nueva contraseña ha sido enviada al correo correctamente.');
-            this.passFormBool = false;
-        }, error => {
-            this.principal.showMsg('error', 'Error', error.error.message);
-            console.log(error);
-        }, () => this.utilService.loader(false));
+        this.authenticationService.updatePass(updatePass, idUsuario).subscribe(
+            (data) => {
+                this.principal.showMsg(
+                    'success',
+                    'Éxito',
+                    'La nueva contraseña ha sido enviada al correo correctamente.'
+                );
+                this.passFormBool = false;
+            },
+            (error) => {
+                this.principal.showMsg('error', 'Error', error.error.message);
+                console.log(error);
+            },
+            () => this.utilService.loader(false)
+        );
     }
 
     randomPass() {
@@ -112,48 +124,51 @@ export class LoginComponent implements OnInit {
 
     Login(user: EntUser): void {
         this.utilService.loader(true);
-        this.authenticationService.Login(user).subscribe(data => {
-            this.utilService.loader(false);
-            this.usuario.token = data.token;
-            this.usuario.Password = null;
-            if (typeof (this.usuario.token) == 'undefined') {
-                this.msjerrorLogin = 'Error de Credenciales';
+        this.authenticationService.Login(user).subscribe(
+            (data) => {
+                this.utilService.loader(false);
+                this.usuario.token = data.token;
+                this.usuario.Password = null;
+                if (typeof this.usuario.token == 'undefined') {
+                    this.msjerrorLogin = 'Error de Credenciales';
+                    this.errorLogin = true;
+                } else {
+                    const session = new Session();
+                    session.token = this.usuario.token;
+                    this.correctLogin(session);
+                }
+            },
+            (error) => {
+                console.log(error);
+                if (error.status == 0) {
+                    this.msjerrorLogin =
+                        'El servidor no responde. Verifique su conexión a Internet';
+                } else {
+                    this.msjerrorLogin = error.error;
+                }
                 this.errorLogin = true;
-            } else {
-                const session = new Session();
-                session.token = this.usuario.token;
-                this.correctLogin(session);
+                this.utilService.loader(false);
             }
-        }, error => {
-            console.log(error);
-            if (error.status == 0) {
-                this.msjerrorLogin = 'El servidor no responde. Verifique su conexión a Internet';
-            } else {
-                this.msjerrorLogin = error.error;
-            }
-            this.errorLogin = true;
-            this.utilService.loader(false);
-        }
         );
     }
 
     private correctLogin(data: Session) {
-        this.storageService.setCurrentSession(data
-            , callback => {
-                this.setTablesConfig();
-                this.nominaService.setHttpOption();
-                this.basicDataService.getBasicData();
-                this.basicDataService.SetMenuItem(_ => {
-                    this.principal.getMenuItem();
-                    this.correctLogin2();
-                });
+        this.storageService.setCurrentSession(data, (callback) => {
+            console.log(callback);
+            this.setTablesConfig();
+            this.nominaService.setHttpOption();
+            this.basicDataService.getBasicData();
+            this.basicDataService.SetMenuItem((_) => {
+                this.principal.getMenuItem();
+                this.correctLogin2();
             });
+        });
     }
     private correctLogin2() {
         if (this.storageService.getCurrentUserDecode().idRol == 6) {
             this.assignStation();
         }
-        this.route.queryParamMap.subscribe(res => {
+        this.route.queryParamMap.subscribe((res) => {
             let destiny = res.get('destination') || '';
             if (destiny.length > 0) {
                 destiny = destiny.slice(1, destiny.length);
@@ -169,20 +184,33 @@ export class LoginComponent implements OnInit {
     }
 
     assignStation() {
-        this.nominaService.GetStations().subscribe(data => {
-            const codstation = data.find(e => e.usuario == this.storageService.getCurrentUserDecode().Usuario).idEstacion;
-            this.storageService.setCurrentStation(codstation);
-        }, error => console.log(error));
+        this.nominaService.GetStations().subscribe(
+            (data) => {
+                const codstation = data.find(
+                    (e) =>
+                        e.usuario ==
+                        this.storageService.getCurrentUserDecode().Usuario
+                ).idEstacion;
+                this.storageService.setCurrentStation(codstation);
+            },
+            (error) => console.log(error)
+        );
     }
 
     setTablesConfig() {
         const IP = this.storageService.getTableConfg('invoicePending');
         if (IP == null || (IP && IP.length !== TABLEINVOICEPENDING.length)) {
-            this.storageService.setTableConfg('invoicePending', TABLEINVOICEPENDING);
+            this.storageService.setTableConfg(
+                'invoicePending',
+                TABLEINVOICEPENDING
+            );
         }
         const AP = this.storageService.getTableConfg('advancePending');
         if (AP == null || (AP && AP.length !== TABLEADVANCEPENDING.length)) {
-            this.storageService.setTableConfg('advancePending', TABLEADVANCEPENDING);
+            this.storageService.setTableConfg(
+                'advancePending',
+                TABLEADVANCEPENDING
+            );
         }
     }
 }
