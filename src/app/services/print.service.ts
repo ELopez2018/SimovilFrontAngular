@@ -173,12 +173,12 @@ export class PrintService {
     private SumaVentasActualYAcumulados1(acumulados, planilla): Array<any> {
         let acum2 = acumulados;
         acum2.PLA_DIA_TUR = [];
-        console.log('acumulados', acumulados);
+        // console.log('acumulados', acumulados);
         let acum = acumulados;
         if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
-            console.log('entró 1');
+            // console.log('entró 1');
             acum.PLA_DIA_TUR.map((e) => {
-                console.log('1');
+                // console.log('1');
                 const a = planilla.PLA_DIA_TUR.find(
                     (f) => f.NUM_TUR == e.NUM_TUR
                 );
@@ -255,7 +255,7 @@ export class PrintService {
         } else {
             acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
         }
-        console.log('ACUMULADOS DESPUES ACUM2:', acum2.PLA_DIA_TUR);
+        // console.log('ACUMULADOS DESPUES ACUM2:', acum2.PLA_DIA_TUR);
 
         return acum2;
     }
@@ -268,10 +268,10 @@ export class PrintService {
         open?: boolean,
         callback?
     ) {
-        console.log('ACUMULADOS PLANI :', planilla.PLA_DIA_TUR);
-        console.log('ACUMULADOS ACUM 1:', acum.PLA_DIA_TUR);
+        // console.log('ACUMULADOS PLANI :', planilla.PLA_DIA_TUR);
+        // console.log('ACUMULADOS ACUM 1:', acum.PLA_DIA_TUR);
         const acum2 = this.sumObj(planilla, acum) as EntDailySheet;
-        console.log('ACUMULADOS ACUM2 2:', acum2.PLA_DIA_TUR);
+        // console.log('ACUMULADOS ACUM2 2:', acum2.PLA_DIA_TUR);
         acum2.PLA_DIA_TUR = [];
 
         let facPag = '';
@@ -799,7 +799,7 @@ export class PrintService {
 
         if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
             if (acum.PLA_DIA_TUR.length > planilla.PLA_DIA_TUR.length) {
-                console.log('ACUM ES MAYOR A PLANILLA');
+                // console.log('ACUM ES MAYOR A PLANILLA');
                 acum.PLA_DIA_TUR.map((e) => {
                     const a = planilla.PLA_DIA_TUR.find(
                         (f) => f.NUM_TUR == e.NUM_TUR
@@ -838,7 +838,7 @@ export class PrintService {
                     }
                 });
             } else {
-                console.warn('PLANILLA ES MAYOR A ACUM');
+                // console.warn('PLANILLA ES MAYOR A ACUM');
                 planilla.PLA_DIA_TUR.map((e) => {
                     const a = acum.PLA_DIA_TUR.find(
                         (f) => f.NUM_TUR == e.NUM_TUR
@@ -881,7 +881,7 @@ export class PrintService {
             acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
         }
 
-        console.log('ACUMULADOS DESPUES NEW ACUM2:', acum2.PLA_DIA_TUR);
+        // console.log('ACUMULADOS DESPUES NEW ACUM2:', acum2.PLA_DIA_TUR);
 
         const yesterday = addDays(planilla.FECHA, -1);
         const arrayLineA: boolean[] = [];
