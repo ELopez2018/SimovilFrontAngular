@@ -21,7 +21,11 @@ export interface iParamRPTCartera {
     option: string;
     month: boolean;
 }
-
+export interface ICarteraConsumosAsociados{
+    nit: number;
+    dateIni: string;
+    dateEnd: string;
+}
 export interface IRPTStationTurnLiq {
     FECHA: string;
     TURNO: number;

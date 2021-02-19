@@ -1,3 +1,5 @@
+import { EntCtaCobroPrductosPorCliente } from './../../../Class/EntCtaCobroProductosPorCliente';
+import { EntTipoConcepto } from './../../../Class/EntTipoConcepto';
 import { PrincipalComponent } from './../../../principal/principal.component';
 import { UtilService } from './../../../services/util.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -22,9 +24,13 @@ export class ReceivableAddComponent implements OnInit {
     public cols: any[];
     public estacion: number;
     public consumosAll: EntConsumptionClient[] = [];
+    public productosAll: EntCtaCobroPrductosPorCliente[] = []; //create
     public totalCantidad: number;
+    public totalCantidadesProducto: number;
     public totalValor: number;
+    public totalDeLaVenta: number;
     public totalTickets: number;
+    public totalProductos: number;
     public retenciones: boolean = null;
     public classRet: string = 'p-button-rounded p-button-secondary';
     public iconRetn: string = 'pi pi-question';
@@ -33,6 +39,16 @@ export class ReceivableAddComponent implements OnInit {
     public impuesto = { id: null, formaPago: null, text: null, valor: null };
     public impuestoValor: number;
     public mensaje: string;
+    public treeTipoConceptos = [
+        { idConcepto: 0, detalleConcepto: 'combustible' },
+        { idConcepto: 1, detalleConcepto: 'Aditivos o Lubricantes' },
+    ];
+    public tipoConceptos: EntTipoConcepto[] = this.treeTipoConceptos;
+    public conceptoSelected: EntTipoConcepto;
+    //elementos
+    deConsumos: boolean = false;
+    deProductos: boolean = false;
+
     constructor(
         public carteraService: CarteraService,
         public storageService: StorageService,
@@ -72,25 +88,82 @@ export class ReceivableAddComponent implements OnInit {
             this.tiposImpuestos = resp;
         });
     }
+
+    get validaConcepto(){
+        if(this.conceptoSelected == undefined){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    getConceptoValidado(){
+        if(this.validaConcepto){
+            this.principalCompo.showMsg('info', 'Atención', 'Favor seleccione el concepto (Combustible o Lubricantes) que requiere consultar porque está: '+this.conceptoSelected);
+            return;
+        }
+    }
+
+    consultarArticulo() {
+        this.getConceptoValidado();
+        if (this.conceptoSelected.idConcepto == 0) {
+            this.deConsumos = true;
+            this.deProductos = false;
+            this.consultarConsumos();
+        }
+        if (this.conceptoSelected.idConcepto == 1) {
+            this.deProductos = true;
+            this.deConsumos = false;
+            this.consultarProductos();
+        }
+    }
+
+    consultarProductos(){
+        this.utilService.loader(true);
+        this.productosAll = [];
+        this.carteraService
+            .getConsumosCtaCobroClieXProducto(
+                this.estacion,
+                this.fechaIni,
+                this.fechaFin,
+                this.cliente.codCliente
+            )
+            .subscribe((productos) => {
+                this.utilService.loader(false);
+                this.productosAll = productos;
+                this.totalDeProductos();
+            });
+    }
+
     consultarConsumos() {
         this.utilService.loader(true);
         this.consumosAll = [];
         this.carteraService
-            .getConsumption(
+            .getConsumptionReceivable(
                 this.cliente.codCliente,
                 this.fechaIni,
                 this.fechaFin,
                 null,
                 this.estacion
             )
-
             .subscribe((consumos) => {
                 this.utilService.loader(false);
                 this.consumosAll = consumos;
-                console.log(this.consumosAll);
                 this.totales();
             });
     }
+
+    totalDeProductos(){
+       this.totalProductos = 0;
+       this.totalCantidadesProducto = 0;
+       this.totalDeLaVenta = 0;
+       this.productosAll.forEach((items) => {
+           this.totalCantidadesProducto += items.Cantidad;
+           this.totalDeLaVenta += items.totalVenta;
+           this.totalProductos++;
+       });
+    }
+
     totales() {
         this.totalTickets = 0;
         this.totalCantidad = 0;
@@ -137,7 +210,11 @@ export class ReceivableAddComponent implements OnInit {
         }).then((result) => {
             if (result.value) {
                 this.retencionesAll.splice(index, 1);
-                this.principalCompo.showMsg("success","Eliminado","Retencion eliminada")
+                this.principalCompo.showMsg(
+                    'success',
+                    'Eliminado',
+                    'Retencion eliminada'
+                );
             } else {
                 return;
             }
@@ -158,16 +235,30 @@ export class ReceivableAddComponent implements OnInit {
             if (result.value) {
                 this.consumosAll.splice(index, 1);
                 this.totales();
-                if(this.retencionesAll && this.retencionesAll.length > 0) {
-                    this.retencionesAll =[];
-                    Swal.fire({icon:'info', title:'Retenciones', text: 'Debe volver a realizar las retenciones'});
+                if (this.retencionesAll && this.retencionesAll.length > 0) {
+                    this.retencionesAll = [];
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Retenciones',
+                        text: 'Debe volver a realizar las retenciones',
+                    });
                 }
-                this.principalCompo.showMsg("success","Eliminado","Consumo eliminado para restaurarlo vuelva a consultar")
+                this.principalCompo.showMsg(
+                    'success',
+                    'Eliminado',
+                    'Consumo eliminado para restaurarlo vuelva a consultar'
+                );
             } else {
                 return;
             }
         });
     }
+
+    borrarProducto(index: number){
+
+        console.log('Borrar producto de la lista... con índice: '+index);
+    }
+
     AgregarRetencion() {
         if (!this.impuesto || this.impuesto.formaPago === null) {
             this.mensaje = 'Debe seleccionar un concepto';

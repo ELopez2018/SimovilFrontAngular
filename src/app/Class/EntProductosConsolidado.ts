@@ -15,6 +15,7 @@ export class EntProductosConsolidado {
     tamano: number;
     ganancia: number;
     traslados: number;
-    acredito: number;
+    acreditos: number;
+    Facturado: number;
     trasladosRecibidos: number;
 }

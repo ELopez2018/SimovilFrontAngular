@@ -185,7 +185,7 @@ export class InvoiceSearchComponent implements OnInit {
         console.log(this.rol);
         this.carteraService.getInvoicesPending(this.rol, this.stationCode, invoice.id, null, false, false).subscribe(result => {
             this.utilService.loader(false);
-            console.log(result);
+            //console.log(result);
             if (result && result.length === 1) {
                 this.invoiceSel = invoice;
                 this.boolNovelty = true;

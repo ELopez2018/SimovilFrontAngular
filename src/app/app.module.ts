@@ -44,7 +44,7 @@ import { CarteraService } from './services/cartera.service';
 import { UtilService } from './services/util.service';
 import { BasicDataService } from './services/basic-data.service';
 
-// Comonentes
+// Componentes
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { EmployeeComponent } from './employee/employee.component';
@@ -153,6 +153,9 @@ import { StationAdminModule } from './station-admin/station-admin.module';
 import { CarteraModule } from './cartera/cartera.module';
 import { ContabilidadModule } from './contabilidad/contabilidad.module';
 import { TableConfigComponent } from './util/table-config/table-config.component';
+import { AsociadosComponent } from './report/cartera/flotaMacarena/asociados.component';
+import { ConsumosComponent } from './report/facturacion/consumos/consumos.component';
+import { FacturacionComponent } from './report/facturacion/facturacion.component';
 
 
 
@@ -255,6 +258,9 @@ import { TableConfigComponent } from './util/table-config/table-config.component
         HomeCanastillaAdvaComponent,
         DisabilityPaymentEditComponent,
         CplAdmonComponent,
+        AsociadosComponent,
+        ConsumosComponent,
+        FacturacionComponent,
     ],
     imports: [
         BrowserModule,

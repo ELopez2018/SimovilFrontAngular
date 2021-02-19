@@ -1,52 +1,45 @@
 <ul class="nav nav-tabs mb-1" id="myTab" role="tablist">
     <li class="nav-item" aria-selected="false">
-        <a title="Principal" routerLink="homeCanastilla" class="nav-link" routerLinkActive="active" id="principal-tab"
-            data-toggle="tab" role="tab" aria-controls="principal" aria-selected="true">
+        <a title="Principal" routerLink="homeCanastilla" class="nav-link" routerLinkActive="active" id="principal-tab" data-toggle="tab" role="tab" aria-controls="principal" aria-selected="true">
             <span class="fas fa-home fa-fw"></span>&nbsp;
             <span class="nameTab">Inicio</span>
         </a>
     </li>
     <li class="nav-item" aria-selected="true" *ngIf="Area == 1 || Area == 11">
-        <a title="Registrar Ventas" routerLink="canastilla" class="nav-link" routerLinkActive="active"
-            id="regVentas-tab" data-toggle="tab" role="tab" aria-controls="regVentas" aria-selected="true">
+        <a title="Registrar Ventas" routerLink="canastilla" class="nav-link" routerLinkActive="active" id="regVentas-tab" data-toggle="tab" role="tab" aria-controls="regVentas" aria-selected="true">
             <span class="fas fa-cart-plus fa-fw"></span>&nbsp;
             <span class="nameTab">Ventas</span>
         </a>
     </li>
     <li class="nav-item " *ngIf="Area == 11 ">
-        <a title="EditarVentas" routerLink="./EditarVentas" class="nav-link" routerLinkActive="active" id="EditarVentas-tab"
-            data-toggle="tab" role="tab" aria-controls="EditarVentas" aria-selected="true">
+        <a title="EditarVentas" routerLink="./EditarVentas" class="nav-link" routerLinkActive="active" id="EditarVentas-tab" data-toggle="tab" role="tab" aria-controls="EditarVentas" aria-selected="true">
             <!-- <i class="fas fa-boxes"></i> -->
             <span class="fas fa-pencil-alt fa-fw"></span>&nbsp;
             <span class="nameTab">Edicion de Ventas</span>
         </a>
     </li>
     <li class="nav-item" aria-selected="true" *ngIf="Area == 1 || Area == 11">
-        <a title="Traslados de Productos" routerLink="./traslados" class="nav-link" routerLinkActive="active"
-            id="Trasalados-tab" data-toggle="tab" role="tab" aria-controls="traslados" aria-selected="true">
+        <a title="Traslados de Productos" routerLink="./traslados" class="nav-link" routerLinkActive="active" id="Trasalados-tab" data-toggle="tab" role="tab" aria-controls="traslados" aria-selected="true">
             <span class="fas fa-truck-moving fa-fw"></span>&nbsp;
             <span class="nameTab">Traslados<span class="badge badge-pill badge-danger" *ngIf="productos.length >0">{{ productos.length }}
                </span> </span>
         </a>
     </li>
     <li class="nav-item" *ngIf="Area == 5 || Area == 11 ">
-        <a title="Crear Producto" routerLink="productoAddMenu" class="nav-link" routerLinkActive="active" id="add-tab"
-            data-toggle="tab" role="tab" aria-controls="add" aria-selected="true">
+        <a title="Crear Producto" routerLink="productoAddMenu" class="nav-link" routerLinkActive="active" id="add-tab" data-toggle="tab" role="tab" aria-controls="add" aria-selected="true">
             <span class="fas fa-plus fa-fw"></span>&nbsp;
             <span class="nameTab">Crear</span>
         </a>
     </li>
     <li class="nav-item" *ngIf="Area == 11 ">
-        <a title="Edita Productos" routerLink="./ListaTodosProd" class="nav-link" routerLinkActive="active"
-            id="edit-tab" data-toggle="tab" role="tab" aria-controls="edit" aria-selected="true">
+        <a title="Edita Productos" routerLink="./ListaTodosProd" class="nav-link" routerLinkActive="active" id="edit-tab" data-toggle="tab" role="tab" aria-controls="edit" aria-selected="true">
             <span class="fas fa-pencil-alt fa-fw"></span>&nbsp;
             <span class="nameTab">Editar</span>
         </a>
     </li>
 
     <li class="nav-item" *ngIf="Area == 1 || Area == 11 || Area == 5">
-        <a title="Inventarios" routerLink="./Inventariohome" class="nav-link" routerLinkActive="active"
-            id="inventary-tab" data-toggle="tab" role="tab" aria-controls="inventary" aria-selected="true">
+        <a title="Inventarios" routerLink="./Inventariohome" class="nav-link" routerLinkActive="active" id="inventary-tab" data-toggle="tab" role="tab" aria-controls="inventary" aria-selected="true">
             <!-- <i class="fas fa-boxes"></i> -->
             <span class="fas fa-boxes fa-fw"></span>&nbsp;
             <span class="nameTab">Inventario</span>
@@ -54,35 +47,29 @@
     </li>
 
     <li class="nav-item" *ngIf="stationCode==null">
-        <a title="Aprobacion Baja de Productos" routerLink="./aprobacionBajaProductos" class="nav-link"
-            routerLinkActive="active" id="inventary-tab" data-toggle="tab" role="tab"
-            aria-controls="aprobacionBajaProductos" aria-selected="true">
+        <a title="Aprobacion Baja de Productos" routerLink="./aprobacionBajaProductos" class="nav-link" routerLinkActive="active" id="inventary-tab" data-toggle="tab" role="tab" aria-controls="aprobacionBajaProductos" aria-selected="true">
             <!-- <i class="fas fa-boxes"></i> -->
             <span class="fas fa-recycle fa-fw"></span>&nbsp;
             <span class="nameTab">Baja de Productos</span>
         </a>
     </li>
 
-    <li class="nav-item" >
-        <a title="Aprobacion Baja de Productos" routerLink="./reportesCanastilla" class="nav-link"
-            routerLinkActive="active" id="inventary-tab" data-toggle="tab" role="tab"
-            aria-controls="aprobacionBajaProductos" aria-selected="true">
+    <li class="nav-item">
+        <a title="Aprobacion Baja de Productos" routerLink="./reportesCanastilla" class="nav-link" routerLinkActive="active" id="inventary-tab" data-toggle="tab" role="tab" aria-controls="aprobacionBajaProductos" aria-selected="true">
             <!-- <i class="fas fa-boxes"></i> -->
             <span class="fas fa-print fa-fw"></span>&nbsp;
             <span class="nameTab">Reportes</span>
         </a>
     </li>
     <li class="nav-item">
-        <a title="Consolidado" routerLink="./consolidado" class="nav-link" routerLinkActive="active" id="Consolidado-tab"
-            data-toggle="tab" role="tab" aria-controls="ProductosConsolidados" aria-selected="true">
+        <a title="Consolidado" routerLink="./consolidado" class="nav-link" routerLinkActive="active" id="Consolidado-tab" data-toggle="tab" role="tab" aria-controls="ProductosConsolidados" aria-selected="true">
             <!-- <i class="fas fa-boxes"></i> -->
             <span class="fas fa-chart-line fa-fw"></span>&nbsp;
             <span class="nameTab">Consolidado</span>
         </a>
     </li>
     <li class="nav-item " *ngIf="Area == 110 ">
-        <a title="hojaExel" routerLink="./hojaExel" class="nav-link" routerLinkActive="active" id="hojaExel-tab"
-            data-toggle="tab" role="tab" aria-controls="hojaExel" aria-selected="true">
+        <a title="hojaExel" routerLink="./hojaExel" class="nav-link" routerLinkActive="active" id="hojaExel-tab" data-toggle="tab" role="tab" aria-controls="hojaExel" aria-selected="true">
             <!-- <i class="fas fa-boxes"></i> -->
             <span class="fas fa-chart-line fa-fw"></span>&nbsp;
             <span class="nameTab">hojaExel</span>
@@ -90,8 +77,7 @@
     </li>
 
     <li class="nav-item " *ngIf="Area == 11 ">
-        <a title="Descuentos" routerLink="./Descuentos" class="nav-link" routerLinkActive="active" id="Descuentos-tab"
-            data-toggle="tab" role="tab" aria-controls="Descuentos" aria-selected="true">
+        <a title="Descuentos" routerLink="./Descuentos" class="nav-link" routerLinkActive="active" id="Descuentos-tab" data-toggle="tab" role="tab" aria-controls="Descuentos" aria-selected="true">
             <!-- <i class="fas fa-boxes"></i> -->
             <span class="fas fa-donate fa-fw"></span>&nbsp;
             <span class="nameTab">Descuentos</span>

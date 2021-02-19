@@ -57,14 +57,15 @@
                 <th width="80px" scope="col" class="text-center">Código</th>
                 <th width="300px" scope="col" class="text-center">Descripción</th>
 
-                <th scope="col" class="text-center">Inicial</th>
-                <th scope="col" class="text-center">Compras</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">Bajas</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">Tras. Enviados</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">Tras. Recibidos</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">Créditos</th>
-                <th scope="col" class="text-center">Ventas</th>
-                <th scope="col" class="text-center">Final</th>
+                <th width="auto" scope="col" class="text-center">Inicial</th>
+                <th width="auto" scope="col" class="text-center">Compras</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">Bajas</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">Tras. Enviados</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">Tras. Recibidos</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">Créditos</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">Facturado</th>
+                <th width="auto" scope="col" class="text-center">Ventas</th>
+                <th width="auto" scope="col" class="text-center">Final</th>
                 <th scope="col" class="text-center" *ngIf="Reporte === 2">
                     Utilidad
                 </th>
@@ -88,28 +89,31 @@
                 </td>
                 <td width="300px" *ngIf="Reporte === 3">{{ producto.Descripcion | uppercase }}</td>
 
-                <td class="text-center" *ngIf="Reporte === 3">
+                <td width="auto" class="text-center" *ngIf="Reporte === 3">
                     {{ producto.InvInicial | number: ".0-3" }}
                 </td>
-                <td class="text-center" *ngIf="Reporte === 3">
+                <td width="auto" class="text-center" *ngIf="Reporte === 3">
                     {{ producto.Compras | number: ".0-3" }}
                 </td>
-                <td class="text-center" *ngIf="Reporte === 3">
+                <td width="auto" class="text-center" *ngIf="Reporte === 3">
                     {{ producto.Bajas | number: ".0-3" }}
                 </td>
-                <td class="text-center" *ngIf="Reporte === 3">
+                <td width="auto" class="text-center" *ngIf="Reporte === 3">
                     {{ producto.traslados | number: ".0-3" }}
                 </td>
-                <td class="text-center" *ngIf="Reporte === 3">
+                <td width="auto" class="text-center" *ngIf="Reporte === 3">
                     {{ producto.trasladosRecibidos | number: ".0-3" }}
                 </td>
-                <td class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.acredito | number: ".0-3" }}
+                <td width="auto" class="text-center" *ngIf="Reporte === 3">
+                    {{ producto.acreditos | number: ".0-3" }}
                 </td>
-                <td class="text-center" *ngIf="Reporte === 3" [title]="'A Crédito: ' + producto.acredito">
+                <td width="auto" class="text-center" *ngIf="Reporte === 3">
+                    {{ producto.Facturado | number: ".0-3" }}
+                </td>
+                <td width="auto" class="text-center" *ngIf="Reporte === 3" [title]="'A Crédito: ' + producto.acredito">
                     {{ (producto.Ventas ) | number: ".0-3" }}
                 </td>
-                <td class="text-center" *ngIf="Reporte === 3">
+                <td width="auto" class="text-center" *ngIf="Reporte === 3">
                     {{(producto.InvFinal )| number: ".0-3" }}
                 </td>
 
@@ -160,17 +164,18 @@
                 <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ InvFinal | currency }}</th>
                 <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ InvGanancia | currency }}</th>
 
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ Invini | number: ".0-3" }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvComp | number: ".0-3" }} </th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvBaja | number: ".0-3" }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvTaslados | number: ".0-3" }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ Invini | number: ".0-3" }}</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvComp | number: ".0-3" }} </th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvBaja | number: ".0-3" }}</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvTaslados | number: ".0-3" }}</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">
                     {{ InvTasladosRecibidos | number: ".0-3" }}</th>
 
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvAcredito | number: ".0-3" }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvVenta | number: ".0-3" }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvFinal | number: ".0-3" }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvGanancia | number: ".0-3" }}</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvAcreditos | number: ".0-3" }}</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvFacturado | number: ".0-3" }}</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvVenta | number: ".0-3" }}</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvFinal | number: ".0-3" }}</th>
+                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvGanancia | number: ".0-3" }}</th>
 
                 <th scope="col" class="text-center" *ngIf="Reporte === 1">
                     Utilidad

@@ -46,7 +46,8 @@ export class ConsolidadoComponent implements OnInit {
     InvGanancia = 0;
     InvTaslados = 0;
     InvTasladosRecibidos = 0;
-    InvAcredito = 0;
+    InvAcreditos = 0;
+    InvFacturado = 0;
     Totales: EntProductosConsolidado;
     ElementoA: any;
 
@@ -254,7 +255,8 @@ export class ConsolidadoComponent implements OnInit {
                     this.InvFinal = this.InvFinal + (this.productos[I].InvFinal);
                     this.InvGanancia += this.productos[I].ganancia;
                     this.InvTasladosRecibidos += this.productos[I].trasladosRecibidos;
-                    this.InvAcredito += this.productos[I].acredito;
+                    this.InvAcreditos += this.productos[I].acreditos;
+                    this.InvFacturado += this.productos[I].Facturado;
                 }
                 break;
         }

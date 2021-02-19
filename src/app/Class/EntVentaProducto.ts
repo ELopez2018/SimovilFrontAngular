@@ -5,6 +5,7 @@ export class EntVentasProductos {
     ventasV: number;
     PrecioV: number;
     credito: boolean;
+    facturado: boolean;
     traslado: boolean;
     cliente: string;
     PrecioCompra: number;

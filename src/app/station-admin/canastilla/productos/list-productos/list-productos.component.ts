@@ -43,16 +43,15 @@ export class ListProductosComponent implements OnInit {
         this.title.setTitle('Productos - Simovil');
         this.stationCode = this.storageService.getCurrentStation();
         this.date3 = new Date();
-        // console.log('constructor', this.stationCode);
         this.nominaService.GetStations().subscribe(data => {
             this.stationsAll = data;
         }, error => console.log(error.error.message));
     }
     // ngOnInit////////////////////////////////////
     ngOnInit() {
-        // console.log('ngOnInit', this.stationCode);
         this.cargando = true;
         this.getProductos(this.stationCode, null, this.date3);
+        console.log('ngOnInit listado de pruductos: ', this.stationCode);
         this.es = {
             firstDayOfWeek: 1,
             dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
@@ -154,7 +153,6 @@ export class ListProductosComponent implements OnInit {
 
     filterItems(query: any) {
         this.utilService.loader(true);
-        // console.log('get productos', this.stationCode, query, this.date3);
         this.nominaService.GetProductos(this.stationCode, query, this.date3).subscribe(data => {
             this.productos = data;
             this.cargando = false;
@@ -168,7 +166,6 @@ export class ListProductosComponent implements OnInit {
 
 
     getProductos(estacion?: number, query?: string, fecha?: Date) {
-        // console.log('get productos', estacion, query, fecha);
         this.productos = [];
         if (this.VentaRegistrada) {
             return;

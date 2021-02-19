@@ -2,11 +2,11 @@ import { INoveltyTypes } from './inovelty-types';
 
 export const INVOICENOVELTYTYPES: INoveltyTypes[] = [
     { id: 0, name: 'Creado', rol: [] },
-    { id: 1, name: 'Enviado', rol: [ 6, 1, 12, 9, 14, 16, 18, 19] },
-    { id: 2, name: 'Recibido', rol: [5, 6, 12, 1, 9, 3, 18, 5, 14, 16, 19] },
+    { id: 1, name: 'Enviado', rol: [ 6, 1, 10, 9, 14, 16, 18, 19, 3, 12] },
+    { id: 2, name: 'Recibido', rol: [5, 6, 10, 1, 9, 3, 18, 5, 14, 16, 19, 12] },
     { id: 3, name: 'Revisado', rol: [10, 1] },
     { id: 4, name: 'Autorizado', rol: [11, 1] },
-    { id: 5, name: 'Devuelto', rol: [10, 11, 1, 9, 12, 14, 16] },
+    { id: 5, name: 'Devuelto', rol: [10, 11, 1, 9, 14, 16] },
     { id: 6, name: 'Causado', rol: [ 9, 14, 1, 16, 19] },
     { id: 7, name: 'Pagado', rol: [3, 1, 18] },
     { id: 8, name: 'Cambiada', rol: [] },

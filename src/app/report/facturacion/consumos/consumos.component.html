@@ -1,0 +1,57 @@
+<div class="col-sm-12 p-2">
+    <div class="form-row">
+        <div class="col-sm-2 mb-1">
+            <label for="paramSel">Reporte</label>
+            <select (change)="changeReport()" name="paramSel" class="form-control" [(ngModel)]="paramSel">
+                          <option *ngFor="let item of treeParams" [ngValue]="item">
+                               {{ item.text }}
+                          </option>
+                    </select>
+        </div>
+
+        <div class="col-sm-2 mb-1">
+            <div class="form-group form-row">
+                <label class="control-label display-block">Estación</label>
+                <select class="form-control display-block" [(ngModel)]="stationSel" (change)="getClientes()">
+                      <option *ngFor="let item of stations" [ngValue]="item">
+                          {{ item.nombreEstacion }}
+                      </option>
+                    </select>
+            </div>
+        </div>
+
+        <div class="col-sm-2 mb-1">
+            <label for="date">Desde</label>
+            <input type="date" id="date" [(ngModel)]="dateIni" class="form-control">
+        </div>
+        <div class="col-sm-2 mb-1">
+            <label for="date">Hasta</label>
+            <input type="date" [(ngModel)]="dateEnd" class="form-control">
+        </div>
+
+        <div class="col-sm-2 mb-1" *ngIf="porEstacion">
+            <label class="control-label">Cliente</label>
+            <div class="input-group">
+                <select class="form-control" [(ngModel)]="clienteSel">
+                      <option *ngFor="let cliente of clientes" [ngValue]="cliente">
+                          {{ cliente.nombre }}
+                      </option>
+                    </select>
+            </div>
+        </div>
+
+        <div class="col-sm-2 mb-1">
+            <button id="btnSearchCartera" (click)="getReport(prueba)" class="btn btn-block btn-sm btn-primary text-truncate">
+    <i class="fas fa-search fa-fw"></i>&nbsp;Consultar</button>
+            <button (click)="clear()" class="btn btn-block btn-sm btn-danger text-truncate">
+        <i class="fas fa-eraser"></i>&nbsp;Limpiar</button>
+        </div>
+
+    </div>
+</div>
+
+<app-report-ssrs #target [show]="showReport" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
+</app-report-ssrs>
+
+
+<div #prueba></div>

@@ -17,15 +17,12 @@
             <label class="control-label col-sm-2">Identificación:</label>
             <div class="input-group col-sm-4">
                 <div class="input-group-prepend">
-                    <button id="btnBoolClient" class="btn btn-outline-secondary left" type="button"
-                        (click)="boolClient(1)">
+                    <button id="btnBoolClient" class="btn btn-outline-secondary left" type="button" (click)="boolClient(1)">
                         <span class="far fa-hand-pointer fa-fw"></span>
                     </button>
                 </div>
-                <input #searchIDPayment (keyup.enter)="SearchClientPayment(searchIDPayment.value)" type="number"
-                    class="form-control" placeholder="ID del cliente" formControlName="paymentId">
-                <button class="btn btn-info btn-left" type="button"
-                    (click)="SearchClientPayment(searchIDPayment.value)">
+                <input #searchIDPayment (keyup.enter)="SearchClientPayment(searchIDPayment.value)" type="number" class="form-control" placeholder="ID del cliente" formControlName="paymentId">
+                <button class="btn btn-info btn-left" type="button" (click)="SearchClientPayment(searchIDPayment.value)">
                     <i class="fa fa-search"></i>
                 </button>
             </div>
@@ -35,8 +32,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1"><i class="fa fa-user fa-fw"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="Nombre del cliente" name="nombre"
-                    formControlName="paymentName">
+                <input type="text" class="form-control" placeholder="Nombre del cliente" name="nombre" formControlName="paymentName">
             </div>
         </div>
 
@@ -53,8 +49,7 @@
             </div>
             <label class="col-sm-2">Pago:</label>
             <div class="input-group col-sm-4">
-                <input  (keyup)="RestaTotal()" id="base" currencyMask [options]="notdecimal" appLatestFocus class="form-control"
-                    placeholder="$ 0.00" formControlName="Valorpago">
+                <input (keyup)="RestaTotal()" id="base" currencyMask [options]="notdecimal" appLatestFocus class="form-control" placeholder="$ 0.00" formControlName="Valorpago">
             </div>
         </div>
 
@@ -64,27 +59,25 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
                 </div>
-                <select class="form-control" formControlName="tipoRetencion" (change)="CalculoImpuesto()" >
+                <select class="form-control" formControlName="tipoRetencion" (change)="CalculoImpuesto()">
                     <option>NO APLICA</option>
                     <option *ngFor="let item of tiposImpuestos" [ngValue]="item">{{item.text}}</option>
                 </select>
             </div>
-            <label class="col-sm-2">Retencion:</label>
+            <label class="col-sm-2">Retención:</label>
             <div class="input-group col-sm-4">
-                <input (keyup)="RestaTotal()"  #input id="retencion" currencyMask [options]="notdecimal" appLatestFocus class="form-control"
-                    placeholder="$ 0.00" formControlName="montoRentencion">
+                <input (keyup)="RestaTotal()" #input id="retencion" currencyMask [options]="notdecimal" appLatestFocus class="form-control" placeholder="$ 0.00" formControlName="montoRentencion">
             </div>
         </div>
 
         <div class="form-group form-inline">
             <label class="control-label col-sm-2">Detalles:</label>
             <div class="input-group col-sm-4">
-                <textarea name="detalles" id="detalles" cols="45" rows="2" formControlName="detalles" ></textarea>
+                <textarea name="detalles" id="detalles" cols="45" rows="2" formControlName="detalles"></textarea>
             </div>
             <label class="col-sm-2">Total:</label>
             <div class="input-group col-sm-4">
-                <input id="valorPag" currencyMask [options]="notdecimal" appLatestFocus class="form-control"
-                    placeholder="$ 0.00" formControlName="valuePayment">
+                <input id="valorPag" currencyMask [options]="notdecimal" appLatestFocus class="form-control" placeholder="$ 0.00" formControlName="valuePayment">
             </div>
         </div>
 
@@ -92,39 +85,31 @@
             <label class="col-sm-2">Cuenta de cobro</label>
             <div class="input-group col-sm-4">
                 <div class="input-group-prepend">
-                    <button id="btnCuCobro" class="btn btn-outline-secondary left" type="button"
-                        (click)="getReceivable()">
+                    <button id="btnCuCobro" class="btn btn-outline-secondary left" type="button" (click)="getReceivable()">
                         <i class="far fa-hand-pointer fa-fw"></i>
                     </button>
                 </div>
                 <input type="number" class="form-control" formControlName="cuentaCobroNum" readonly>
             </div>
-            <label class="col-sm-2">Saldo</label>
+            <label class="col-sm-2">Saldo!</label>
             <div class="input-group col-sm-4">
-                <input currencyMask [options]="notdecimal" appLatestFocus class="form-control" placeholder="$ 0"
-                    readonly formControlName="saldoCuentaCobro">
+                <input currencyMask [options]="notdecimal" appLatestFocus class="form-control" placeholder="$ 0" readonly formControlName="saldoCuentaCobro">
             </div>
         </div>
-        <div class="form-group form-inline" *ngIf="assignPago && PagoMayorACuentaCobro && receivableSelected"
-            [@fade]="'in'">
+        <div class="form-group form-inline" *ngIf="assignPago && PagoMayorACuentaCobro && receivableSelected" [@fade]="'in'">
             <div class="alert alert-danger col-sm-9 m-auto" role="alert">
-                Advertencia: El pago (${{ valorPago | number }}) es mayor al saldo (${{ valorCuentaCobro | number}}) de
-                la
-                cuenta de cobro.
+                Advertencia: El pago (${{ valorPago | number }}) es mayor al saldo (${{ valorCuentaCobro | number}}) de la cuenta de cobro.
                 <ul>
-                    <li>Se creará un pago por el valor (${{ valorCuentaCobro | number}}) asignado a la cuenta de cobro
-                        numero
-                        {{receivableSelected.num}}.</li>
-                    <li>Se creará un pago por la diferencia (${{ valorPago - valorCuentaCobro | number }}) pendiente por
-                        asignar.
+                    <li>Se creará un pago por el valor (${{ valorCuentaCobro | number}}) asignado a la cuenta de cobro numero {{receivableSelected.num}}.
+                    </li>
+                    <li>Se creará un pago por la diferencia (${{ valorPago - valorCuentaCobro | number }}) pendiente por asignar.
                     </li>
                 </ul>
             </div>
         </div>
         <div class="form-inline justify-content-center">
             <div class="col-sm-5 ">
-                <button id="btnSave" (click)="submitAddPayment()" class="btn btn-primary btn-block"
-                    [disabled]="!addPaymentForm.valid">
+                <button id="btnSave" (click)="submitAddPayment()" class="btn btn-primary btn-block" [disabled]="!addPaymentForm.valid">
                     <span class="fa fa-save"></span>&nbsp;Guardar</button>
             </div>
             <div class="col-sm-5 ">
@@ -158,8 +143,7 @@
                             <td class="text-right" data-title="Valor">{{item.valor | currency}}</td>
                             <td class="text-right" data-title="Saldo">{{item.saldo | currency}}</td>
                             <td>
-                                <button [id]="'btnReceivable'+i" class="btn btn-info btn-block"
-                                    (click)="ReceivableSelected(item)">
+                                <button [id]="'btnReceivable'+i" class="btn btn-info btn-block" (click)="ReceivableSelected(item)">
                                     <i class="fa fa-check"></i>&nbsp;Seleccionar</button>
                             </td>
                         </tr>

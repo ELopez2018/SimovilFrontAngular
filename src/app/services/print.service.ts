@@ -1,3 +1,4 @@
+import { EntIdentifier } from './../Class/EntIdentifier';
 import { Injectable } from '@angular/core';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -192,6 +193,7 @@ export class PrintService {
                             var g = this.sumObj(s, b) as EntDailySheetTurnDet;
                             g.COD_ART = s.COD_ART;
                             arr.push(g);
+
                         } else {
                             arr.push(s);
                         }
@@ -730,73 +732,6 @@ export class PrintService {
             ]);
         }
 
-        //===> SUMA LOS TURNOS ACTUALES AL ACUMULADO
-        // if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
-        //     planilla.PLA_DIA_TUR.map(e => {
-        //         const a = acum.PLA_DIA_TUR.find(f => f.NUM_TUR == e.NUM_TUR);
-        //         var arr: EntDailySheetTurnDet[] = [];
-        //         if (a) {
-        //             e.PLA_DIA_TUR_VEN.map(s => {
-        //                 const b = a.PLA_DIA_TUR_VEN.find(f => f.COD_ART == s.COD_ART);
-        //                 if (b != null) {
-        //                     var g = (this.sumObj(s, b) as EntDailySheetTurnDet)
-        //                     g.COD_ART = s.COD_ART;
-        //                     arr.push(g);
-        //                 } else {
-        //                     arr.push(s);
-        //                 }
-        //             });
-        //             acum2.PLA_DIA_TUR.push({ NUM_TUR: e.NUM_TUR, CANT_VENTA: e.CANT_VENTA + a.CANT_VENTA, TOTAL: e.TOTAL + a.TOTAL, PLA_DIA_TUR_VEN: arr });
-        //             arr = [];
-        //         }
-        //     });
-        // } else {
-        //     acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
-        // }
-        // console.log('ACUMULADOS DESPUES ACUM2:',acum2.PLA_DIA_TUR);
-
-        // //=================> Código Nuevo
-        // //===> SUMA LOS TURNOS ACTUALES AL ACUMULADO
-        // if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
-        //     acum.PLA_DIA_TUR.map((e) => {
-        //         const a = planilla.PLA_DIA_TUR.find(
-        //             (f) => f.NUM_TUR == e.NUM_TUR
-        //         );
-        //         var arr: EntDailySheetTurnDet[] = [];
-        //         if (a) {
-        //             e.PLA_DIA_TUR_VEN.map((s) => {
-        //                 const b = a.PLA_DIA_TUR_VEN.find(
-        //                     (f) => f.COD_ART == s.COD_ART
-        //                 );
-        //                 if (b != null) {
-        //                     var g = this.sumObj(s, b) as EntDailySheetTurnDet;
-        //                     g.COD_ART = s.COD_ART;
-        //                     arr.push(g);
-        //                 } else {
-        //                     arr.push(s);
-        //                 }
-        //             });
-        //             acum2.PLA_DIA_TUR.push({
-        //                 NUM_TUR: e.NUM_TUR,
-        //                 CANT_VENTA: e.CANT_VENTA + a.CANT_VENTA,
-        //                 TOTAL: e.TOTAL + a.TOTAL,
-        //                 PLA_DIA_TUR_VEN: arr,
-        //             });
-        //             arr = [];
-        //         } else {
-        //             acum2.PLA_DIA_TUR.push({
-        //                 NUM_TUR: e.NUM_TUR,
-        //                 CANT_VENTA: e.CANT_VENTA,
-        //                 TOTAL: e.TOTAL,
-        //                 PLA_DIA_TUR_VEN: e.PLA_DIA_TUR_VEN,
-        //             });
-        //         }
-        //     });
-        // } else {
-        //     acum2.PLA_DIA_TUR = planilla.PLA_DIA_TUR;
-        // }
-        //console.log(acum.PLA_DIA_TUR.length, planilla.PLA_DIA_TUR.length);
-
         if (acum.PLA_DIA_TUR && acum.PLA_DIA_TUR.length > 0) {
             if (acum.PLA_DIA_TUR.length > planilla.PLA_DIA_TUR.length) {
                 // console.log('ACUM ES MAYOR A PLANILLA');
@@ -976,21 +911,26 @@ export class PrintService {
                 // MUESTRA LOS DATOS
                 e.PLA_DIA_TUR_VEN.map((r: any) => {
                     let acItm;
+                    let contador = 0;
                     if (acumItem != undefined) {
                         acItm = acumItem.PLA_DIA_TUR_VEN.find(
                             (pdt) => pdt.COD_ART == r.COD_ART
                         );
+
                         if (acItm == undefined) {
                             acItm = {
                                 NOM_ART: r.NOM_ART_ACUM,
+                                ID_PDTV: r.ID_ACUM,//b
                                 CANTIDAD: 0,
                                 PRECIO: 0,
                                 VENTA: 0,
                             };
                         }
+                        contador++;
                     } else {
                         acItm = {
                             NOM_ART: r.NOM_ART_ACUM,
+                            ID_PDTV: r.ID_ACUM, //b
                             CANTIDAD: 0,
                             PRECIO: 0,
                             VENTA: 0,
@@ -1043,10 +983,6 @@ export class PrintService {
                         ]);
                         arrayLineA.push(false);
                     }
-                    // ingresosObj.push(
-                    //     [{ text:acItm.NOM_ART, colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acItm.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: acItm.PRECIO.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: acItm.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: acItm.NOM_ART, colSpan: 2, border: [true, false, false, false] }, {}, { text: r.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, { text: r.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }]
-                    // );
-                    // arrayLineA.push(false);
                 });
 
                 // Linea
@@ -1184,12 +1120,6 @@ export class PrintService {
 
                 // MUESTRA LAS VENTAS DE CADA TURNO
                 e.PLA_DIA_TUR_VEN.map((r: any) => {
-                    // if (acitem !== undefined) {
-
-                    // }
-                    // let pdtv = acitem.PLA_DIA_TUR_VEN.find(
-                    //     (it) => it.COD_ART == r.COD_ART
-                    // );
                     let pdtv;
                     if (acitem != undefined) {
                         pdtv = acitem.PLA_DIA_TUR_VEN.find(
@@ -1199,6 +1129,7 @@ export class PrintService {
                             pdtv = {
                                 COD_ART: r.COD_ART,
                                 NOM_ART: r.NOM_ART_ACUM,
+                                ID_PDTV: r.ID_ACUM,
                                 CANTIDAD: 0,
                                 PRECIO: 0,
                                 VENTA: 0,
@@ -1208,6 +1139,7 @@ export class PrintService {
                         pdtv = {
                             COD_ART: r.COD_ART,
                             NOM_ART: r.NOM_ART_ACUM,
+                            ID_PDTV: r.ID_ACUM,
                             CANTIDAD: 0,
                             PRECIO: 0,
                             VENTA: 0,
@@ -1261,120 +1193,6 @@ export class PrintService {
                 });
             });
         }
-
-        // =====> Codigo Actual para GAS
-        //     planilla.PLA_DIA_TUR.map((e) => {
-        //         const acitem = acum2.PLA_DIA_TUR.find(
-        //             (ac) => ac.NUM_TUR == e.NUM_TUR
-        //         );
-        //         e.PLA_DIA_TUR_VEN.map((r) => {
-        //             const pdtv = acitem.PLA_DIA_TUR_VEN.find(
-        //                 (it) => it.COD_ART == r.COD_ART
-        //             );
-        //             ingresosObj.push([
-        //                 {
-        //                     text: 'TURNO ' + e.NUM_TUR,
-        //                     border: [true, false, false, false],
-        //                     colSpan: 3,
-        //                 },
-        //                 {},
-        //                 {},
-        //                 {
-        //                     text: r.CANTIDAD.toLocaleString(),
-        //                     style: 'right',
-        //                     border: [false, false, false, true],
-        //                 },
-        //                 {},
-        //                 {
-        //                     text: r.PRECIO.toLocaleString(),
-        //                     style: 'right',
-        //                     border: [false, false, false, true],
-        //                 },
-        //                 {},
-        //                 {
-        //                     text: r.VENTA.toLocaleString(),
-        //                     style: 'right',
-        //                     border: [false, false, true, true],
-        //                 },
-        //                 {},
-        //                 {
-        //                     text: 'TURNO ' + e.NUM_TUR,
-        //                     border: [true, false, false, false],
-        //                     colSpan: 2,
-        //                 },
-        //                 {},
-        //                 {
-        //                     text: pdtv.CANTIDAD.toLocaleString(),
-        //                     style: 'right',
-        //                     border: [false, false, false, true],
-        //                 },
-        //                 {
-        //                     text: pdtv.VENTA.toLocaleString(),
-        //                     style: 'right',
-        //                     border: [false, false, true, true],
-        //                 },
-        //             ]);
-        //             arrayLineA.push(false);
-        //         });
-        //     });
-        // }
-
-        //=========> CODIGO ACTUAL
-        // if (planilla.TIPO == 'L') {
-
-        //     planilla.PLA_DIA_TUR.map(e => {
-        //         let acumItem;
-
-        //         // SI EL TURNO ACUMULADO ESTÁ EN LA PLANILLA ACTUAL LO INGRESA EN UNA VARIABLE
-        //         if (acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR) !== null) {
-        //             acumItem = acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR);
-        //         }
-
-        //         // Encabezados
-        //         ingresosObj.push(
-        //             [{ text: 'TURNO ' + e.NUM_TUR, border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 3 }, {}, {}, { text: 'VTA GL', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'PRECIO x GL', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'VENTA $ TURNO ' + e.NUM_TUR, fillColor: '#ddebf7', style: 'center', border: [false, true, true, false] }, {}, { text: '', border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 2 }, {}, { text: 'ACUM. VTA GL.', style: 'center', border: [false, true, false, false], fillColor: '#ddebf7' }, { text: 'ACUM VTA $ TURNO ' + e.NUM_TUR, style: 'center', border: [false, true, true, false], fillColor: '#ddebf7' }]
-        //         );
-
-        //         // Linea
-        //         arrayLineA.push(true);
-
-        //         // MUESTRA LOS DATOS
-        //         e.PLA_DIA_TUR_VEN.map(r => {
-        //             const acItm = acumItem.PLA_DIA_TUR_VEN.find(pdt => pdt.COD_ART == r.COD_ART);
-        //             ingresosObj.push(
-        //                 [{ text: r.NOM_ART, colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: r.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: r.PRECIO.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: r.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: r.NOM_ART, colSpan: 2, border: [true, false, false, false] }, {}, { text: acItm.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, { text: acItm.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }]
-        //             );
-        //             arrayLineA.push(false);
-        //         });
-
-        //         // Linea
-        //         arrayLineA.push(true);
-
-        //         ingresosObj.push(
-        //             [{ text: '', border: [true], colSpan: 2 }, {}, {}, { text: e.CANT_VENTA.toLocaleString(), style: 'right' }, {}, {}, {}, { text: e.TOTAL.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: '', border: [true], colSpan: 2 }, {}, { text: acumItem.CANT_VENTA.toLocaleString(), style: 'right' }, { text: acumItem.TOTAL.toLocaleString(), style: 'right', border: [false, false, true, true] }],
-        //         );
-
-        //     });
-
-        //     arrayLineA.push(true);
-
-        // } else if (planilla.TIPO == 'G') {
-        //     ingresosObj.push(
-        //         [{ text: '', border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 2 }, {}, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'VTA MT', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'PRECIO x MT', style: 'center', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: '', fillColor: '#ddebf7', border: [false, true, false, false] }, { text: 'VENTA $', fillColor: '#ddebf7', style: 'center', border: [false, true, true, false] }, {}, { text: '', border: [true, true, false, false], fillColor: '#ddebf7', colSpan: 2 }, {}, { text: 'ACUM. VTA MT.', style: 'center', border: [false, true, false, false], fillColor: '#ddebf7' }, { text: 'ACUM VTA $', style: 'center', border: [false, true, true, false], fillColor: '#ddebf7' }],
-        //         [{ text: ' ', colSpan: 8, border: [true, false, true] }, {}, {}, {}, {}, {}, {}, {}, {}, { text: '', colSpan: 4, border: [true, false, true] }, {}, {}, {}]
-        //     );
-
-        //     planilla.PLA_DIA_TUR.map(e => {
-        //         const acitem = acum2.PLA_DIA_TUR.find(ac => ac.NUM_TUR == e.NUM_TUR);
-        //         e.PLA_DIA_TUR_VEN.map(r => {
-        //             const pdtv = acitem.PLA_DIA_TUR_VEN.find(it => it.COD_ART == r.COD_ART);
-        //             ingresosObj.push(
-        //                 [{ text: 'TURNO ' + e.NUM_TUR, border: [true, false, false, false], colSpan: 3 }, {}, {}, { text: r.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: r.PRECIO.toLocaleString(), style: 'right', border: [false, false, false, true] }, {}, { text: r.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: 'TURNO ' + e.NUM_TUR, border: [true, false, false, false], colSpan: 2 }, {}, { text: pdtv.CANTIDAD.toLocaleString(), style: 'right', border: [false, false, false, true] }, { text: pdtv.VENTA.toLocaleString(), style: 'right', border: [false, false, true, true] }]
-        //             );
-        //             arrayLineA.push(false);
-        //         });
-        //     });
-        // }
 
         if (this.isfirtsAcum(acum)) {
             acum2.CAJ_CUST_SALDO = planilla.CAJ_CUST_SALDO;
@@ -3206,7 +3024,6 @@ export class PrintService {
         });
 
         medioF.push(
-            // [{ text: 'ANTICIPOS  A PROVEEDORES', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: '', border: [false, false, false, true], colSpan: 3, style: 'center' }, {}, {}, {}, { text: planilla.DE_PROV.toLocaleString(), style: 'total', border: [false, false, true, false] }, {}, { text: 'ACUM. TOTAL PAGO A PROVEEDORES', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acum2.DE_PROV.toLocaleString(), style: 'total', border: [false, false, true, false] }],
             [
                 {
                     text: 'GASTOS PAGADOS EN EFECTIVO',
@@ -3313,7 +3130,6 @@ export class PrintService {
         });
 
         medioF.push(
-            // [{ text: 'OTROS', colSpan: 2, border: [true, false, false, false] }, {}, { text: planilla.DE_OTRO_DET, style: 'center', colSpan: 4, border: [false, false, false, true] }, {}, {}, {}, {}, { text: planilla.DE_OTRO.toLocaleString(), style: 'right', border: [false, false, true, true] }, {}, { text: 'OTROS', colSpan: 3, border: [true, false, false, false] }, {}, {}, { text: acum2.DE_OTRO.toLocaleString(), style: 'right', border: [false, false, true, true] }],
             [
                 {
                     text: 'TOTAL GASTOS PAGADOS EN EFECTIVO',
@@ -3923,7 +3739,7 @@ export class PrintService {
         }
         callback ? callback(true) : null;
     }
-
+////////////////////////////////////cuenta de cobro
     printReceivable(
         receivable: EntReceivable,
         consumos: EntConsumptionClient[],
@@ -4126,15 +3942,6 @@ export class PrintService {
         }
         if (retencion > 0) {
             cantidadDeConsumoEnHoja -= 1;
-            // bodyTableReceivable.push(
-            //     [
-            //         { text: 'Retención', style: 'headerTable', colSpan: 6, border: [false, false, false, false] },
-            //         '',
-            //         '',
-            //         '',
-            //         '',
-            //         { text: '$' + retencion.toLocaleString(), alignment: 'right' }
-            //     ]);
         }
         bodyTableReceivable.push([
             { text: '', border: [false, false, false, false] },
@@ -4226,7 +4033,7 @@ export class PrintService {
             pageSize: 'LETTER',
             pageMargins: [85, 110, 57, 100],
             content: [
-                'Villavicencio, ' +
+                station.nombreCiudad+', ' +
                     date.getUTCDate() +
                     ' de ' +
                     this.mesEnLetra(date.getUTCMonth()).toLowerCase() +

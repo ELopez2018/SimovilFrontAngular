@@ -1,3 +1,20 @@
 #lblRetencion:hover {
-cursor: pointer;
+    cursor: pointer;
+}
+
+.boton {
+    display: inline-block;
+    background: #e20c16;
+    border-radius: 15px;
+    color: #fff;
+    border: 7px solid #fff;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.boton:hover {
+    border: 7px solid #FFD700;
+    cursor: pointer;
 }

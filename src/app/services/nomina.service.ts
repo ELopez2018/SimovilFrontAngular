@@ -1,3 +1,4 @@
+import { EntClient } from './../Class/EntClient';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EntStation, articulo_estacion } from '../Class/EntStation';
@@ -31,7 +32,6 @@ import { EntCompraProductos } from '../Class/EntCompraProducto';
 import { EntProductosSoliciBaja } from '../Class/EntProductosSoliciBaja';
 import { EntProductosConsolidado } from '../Class/EntProductosConsolidado';
 import { SelectItem } from 'primeng/api';
-import { EntClient } from '../Class/EntClient';
 import { EntProductosTraslados } from '../Class/EnProductosTraslados';
 import { EntCplLecturasIniciales } from '../Class/EntCplLecturasIniciales';
 import { EntCplMangueras } from '../Class/EntCplMangueras';
@@ -155,6 +155,16 @@ export class NominaService {
             tap(data => console.log('GetClientCredit Realizado con éxito')));
     }
 
+   /* public getClientesConSaldosIniciales(codCliente?: number, nombre?: string): Observable<EntClient[]>{
+        const query = '/api/getClientesConSaldosIniciales';
+        const parameters = [
+            [codCliente, 'codCliente'],
+            [nombre, 'nombre']
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http.get<EntClient[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
+            tap(data => console.log('getClientesConSaldosIniciales realizado con éxito')));
+    }*/
 
     public GetStations(station?: number, name?: string): Observable<EntStation[]> {
         const query = '/api/station';
@@ -431,6 +441,7 @@ export class NominaService {
 
     // Insertando Ventas
     public InserVentas(Venta: EntVentasProductos): Observable<EntVentasProductos> {
+        console.log('Venta:...'+JSON.stringify(Venta));
         return this.http.post<EntVentasProductos>(Parametros.GetParametros().servidorLocal + '/api/InsertVentaProdutosInventario', JSON.stringify(Venta), this.httpOptions).pipe(
             tap(educationLevel => console.log('InserVentas Realizado con éxito'))
             // catchError(this.handleError<EntEmployee>('GetUsuario'))

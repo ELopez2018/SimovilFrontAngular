@@ -1,3 +1,5 @@
+import { EntCtaCobroPrductosPorCliente } from './../Class/EntCtaCobroProductosPorCliente';
+import { ICarteraConsumosAsociados } from './../Class/iRPT';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StorageService } from './storage.service';
@@ -211,6 +213,45 @@ export class CarteraService {
                 this.httpOptions
             )
             .pipe(tap((result) => console.log('Realizado con éxito')));
+    }
+
+public getConsumosAsociadosMacarena(
+    nit: number,
+    dateIni: string,
+    dateEnd: string
+):
+Observable<ICarteraConsumosAsociados[]>{
+    const query = '/api/carteraConsumosAsociadosMacarena';
+    const parameters = [
+        [nit, 'nit'],
+        [dateIni, 'dateIni'],
+        [dateEnd, 'dateEnd'],
+    ];
+    const consulta = OrderParametersToGet(query, parameters);
+    return this.http
+    .get<ICarteraConsumosAsociados[]>(
+       Parametros.GetParametros().servidorLocal + consulta,
+       this.httpOptions
+    )
+    .pipe(
+        tap((data) =>
+        console.log('getConsumosAsociadosMacarena realizado con éxito'+consulta)
+        ),
+        catchError(this.handleError('getUser', []))
+    );
+}
+
+    public getClientesConSaldosIniciales(station: number): Observable<EntClient[]>{
+        const query = '/api/getClientesConSaldosIniciales';
+        const parameters =[
+            [station, 'station']
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http.get<EntClient[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
+            tap((data)=>console.log('Obtener clientes con saldos iniciales realizado con éxito')
+            ),
+        catchError(this.handleError('getUser', []))
+    );
     }
 
     public GetCarteraForStation(
@@ -1894,6 +1935,7 @@ export class CarteraService {
 
     public InsertPayment(payment: EntPayment): Observable<any> {
         const body = JSON.stringify(payment);
+        console.log(body);
         return this.http
             .post(
                 Parametros.GetParametros().servidorLocal + '/api/payment',
@@ -2210,6 +2252,55 @@ export class CarteraService {
             )
             .pipe(tap((data) => console.log('[getConsumption] Realizado con éxito')));
     }
+
+    public getConsumptionReceivable(
+        codClient: number,
+        fechaIni,
+        fechaFin,
+        cuentaCobro: number,
+        estacion: number,
+        tiquete?: number
+    ): Observable<EntConsumptionClient[]> {
+        const query = '/api/consumptionReceivable';
+        const parameters = [
+            [codClient, 'codClient'],
+            [fechaIni, 'fechaIni'],
+            [fechaFin, 'fechaFin'],
+            [cuentaCobro, 'cuentaCobro'],
+            [estacion, 'estacion'],
+            [tiquete, 'tiquete'],
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http
+            .get<EntConsumptionClient[]>(
+                Parametros.GetParametros().servidorLocal + consulta,
+                this.httpOptions
+            )
+            .pipe(tap((data) => console.log('[getConsumption] Realizado con éxito')));
+    }
+
+        public getConsumosCtaCobroClieXProducto(
+        estacion: number,
+        fechaIni,
+        fechaFin,
+        codClient: number
+    ): Observable<EntCtaCobroPrductosPorCliente[]> {
+        const query = '/api/consumosCtaCobroClieXProducto';
+        const parameters = [
+            [estacion, 'estacion'],
+            [fechaIni, 'fechaIni'],
+            [fechaFin, 'fechaFin'],
+            [codClient, 'codClient'],
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http
+            .get<EntCtaCobroPrductosPorCliente[]>(
+                Parametros.GetParametros().servidorLocal + consulta,
+                this.httpOptions
+            )
+            .pipe(tap((data) => console.log('[get consumos cuenta de cobro clientes por producto] Realizado con éxito')));
+    }
+
     public getValidarConsumoFp(
         tickets: any
     ): Observable<EntConsumptionClient[]> {

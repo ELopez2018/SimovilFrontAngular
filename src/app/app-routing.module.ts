@@ -72,7 +72,7 @@ import { UpdatePassComponent } from './update-pass/update-pass.component';
 import { UserEditComponent } from './administrator/user/user-edit/user-edit.component';
 import { UserComponent } from './administrator/user/user.component';
 import { AdvanceBalanceComponent } from './contabilidad/advance/advance-balance/advance-balance.component';
-
+import { FacturacionComponent } from './report/facturacion/facturacion.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -155,7 +155,8 @@ const routes: Routes = [
     {
         path: 'report', component: ReportComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
             { path: 'cartera', component: CarteraComponent },
-            { path: 'other', component: OtherComponent }
+            { path: 'other', component: OtherComponent },
+            { path: 'facturacion', component: FacturacionComponent }
         ]
     },
     {

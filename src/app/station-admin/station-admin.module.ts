@@ -88,6 +88,7 @@ import { ProductCodigoEditComponent } from './canastilla/productos/product-add/p
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductosListaGeneralComponent } from './canastilla/productos/product-add/productos-lista-general/productos-lista-general.component';
 import { ReceivableAddComponent } from './station-admin-receivable/receivable-add/receivable-add.component';
+import { ClientesSaldoHistoricoComponent } from './canastilla/productos/clientesSaldoHistorico/clientes-saldo-historico.component';
 // import { ReceivableAddComponent } from "./station-admin-receivable/receivable-add/ReceivableAddComponent";
 
 
@@ -191,6 +192,7 @@ import { ReceivableAddComponent } from './station-admin-receivable/receivable-ad
         StationPaymentComponent,
         ProductosListaGeneralComponent,
         ReceivableAddComponent,
+        ClientesSaldoHistoricoComponent,
     ],
 
     exports: [

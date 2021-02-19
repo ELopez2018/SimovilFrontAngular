@@ -18,6 +18,7 @@ export class StationAdminCalibrationComponent implements OnInit {
   calitrations: EntCalibration[];
   calibrationForm: FormGroup;
   stationCode: number;
+  ocultarInput: boolean;
 
   constructor(
     private carteraService: CarteraService,
@@ -45,12 +46,29 @@ export class StationAdminCalibrationComponent implements OnInit {
       this.carteraService.getArticleTypes2(this.stationCode, 'L').subscribe(res => {
         this.list.controls = [];
         res.map(e => {
-          this.list.push(
+
+            console.log(res);
+
+              if(e.DESCRIPCION == 'OTROS'){
+            this.list.push(
             this.fb.group({
+
+              ID: e.ID,
+              DESCRIPCION: e.DESCRIPCION,
+              CANTIDAD: [{value: e.DESCRIPCION, disabled: true}, [Validators.required, Validators.min(0)]]
+            }));
+            //this.ocultarInput = true;
+        }
+        if(e.DESCRIPCION != 'OTROS'){
+            this.list.push(
+            this.fb.group({
+
               ID: e.ID,
               DESCRIPCION: e.DESCRIPCION,
               CANTIDAD: [null, [Validators.required, Validators.min(0)]]
             }));
+            //this.ocultarInput = false;
+        }
         });
         this.utilService.loader(false);
       }, error => {
@@ -59,6 +77,7 @@ export class StationAdminCalibrationComponent implements OnInit {
       });
     }
   }
+
 
   buildForm() {
     this.calibrationForm = this.fb.group({

@@ -81,6 +81,7 @@
                     </th>
                     <th scope="col">Tiquete</th>
                     <th scope="col">Combustible</th>
+                    <th scope="col">Tipo Artículo</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Placa</th>
                     <th scope="col">Valor</th>
@@ -109,7 +110,10 @@
                     <td data-title="Tiquete" class="text-center">
                         {{ consumo.DESCRIPCION }}
                     </td>
-                    <td data-title="Cantidad" class="text-right">
+                    <td data-title="Tiquete" class="text-center">
+                        {{ consumo.TipoCombustible }}
+                    </td>
+                    <td data-title="Cantidad" class="text-center">
                         {{ consumo.cantidad }}
                     </td>
                     <td data-title="Placa" class="text-center">

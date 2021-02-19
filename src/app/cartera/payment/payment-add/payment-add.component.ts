@@ -13,6 +13,7 @@ import { fadeTransition } from '../../../routerAnimation';
 import { EntStation } from '../../../Class/EntStation';
 import { StorageService } from '../../../services/storage.service';
 import { NominaService } from '../../../services/nomina.service';
+import { _fixedSizeVirtualScrollStrategyFactory } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-payment-add',
@@ -123,15 +124,9 @@ export class PaymentAddComponent implements OnInit {
 
     ReceivableSelected(value: EntReceivable) {
         this.receivableSelected = value;
-        // this.addPaymentForm.controls['valuePayment'].setValidators(
-        //   [
-        //     Validators.required,
-        //     Validators.max(value.saldo)
-        //   ]);
         this.addPaymentForm.get('cuentaCobroNum').setValue(value.num);
         this.addPaymentForm.get('cuentaCobro').setValue(value.id);
         this.addPaymentForm.get('saldoCuentaCobro').setValue(value.saldo);
-        // this.addPaymentForm.get('valuePayment').updateValueAndValidity();
         this.addPaymentForm.updateValueAndValidity();
         this.displayDialogReceivable = false;
         setTimeout(() => {
@@ -272,10 +267,6 @@ export class PaymentAddComponent implements OnInit {
             this.addPaymentForm.get('saldoCuentaCobro').enable();
         } else {
             this.assignPago = false;
-            // this.addPaymentForm.get('valuePayment').setValidators(
-            //   [
-            //     Validators.required
-            //   ]);
             this.receivableSelected = null;
             this.addPaymentForm.get('cuentaCobro').setValue(null);
             this.addPaymentForm.get('cuentaCobroNum').setValue(null);
@@ -283,7 +274,6 @@ export class PaymentAddComponent implements OnInit {
             this.addPaymentForm.get('cuentaCobro').disable();
             this.addPaymentForm.get('cuentaCobroNum').disable();
             this.addPaymentForm.get('saldoCuentaCobro').disable();
-            // this.addPaymentForm.get('valuePayment').updateValueAndValidity();
             this.addPaymentForm.updateValueAndValidity();
         }
     }
@@ -307,7 +297,17 @@ export class PaymentAddComponent implements OnInit {
         }
 
     }
+
+     saldoaGuardar(){
+        let pago= (this.addPaymentForm.get('Valorpago').value);
+        let retencion = this.addPaymentForm.get('montoRentencion').value;
+        let total = this.addPaymentForm.get('valuePayment').value;
+        let _saldo;
+        return _saldo=(pago-retencion-total);
+    }
+
     get valorPago() { return this.addPaymentForm.get('valuePayment').value; }
     get valorCuentaCobro() { return this.addPaymentForm.get('saldoCuentaCobro').value; }
     get PagoMayorACuentaCobro() { return this.valorPago > this.valorCuentaCobro; }
+
 }

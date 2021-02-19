@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DataService } from './../../../services/data.service';
+import { Component, OnInit, Input} from '@angular/core';
 import { fadeAnimation } from '../../../animations';
 import { fadeTransition } from '../../../routerAnimation';
 import { NominaService } from '../../../services/nomina.service';
@@ -19,9 +20,11 @@ export class PpalCanastillaComponent implements OnInit {
     VerGrafico: boolean;
     Area;
     productos = [];
+    //@Input() idDeEstacion: any;
     constructor(private nominaService: NominaService,
         private title: Title,
         private storageService: StorageService,
+        private dataService: DataService
     ) {
         this.title.setTitle('Inventario Canastilla - Simovil');
         this.stationCode = this.storageService.getCurrentStation();
@@ -30,6 +33,9 @@ export class PpalCanastillaComponent implements OnInit {
     ngOnInit() {
         this.GetEstaciones();
         this.getProductos(this.stationCode);
+        //this.idDeEstacion = this.stationCode;
+        this.dataService.idEstacion = this.stationCode;
+        console.log('%c id de estación en ngOnInit ppal canastilla: '+this.stationCode, 'color: blue; font-weight: bold;');
     }
     GetEstaciones() {
         this.stationCode = this.storageService.getCurrentStation();

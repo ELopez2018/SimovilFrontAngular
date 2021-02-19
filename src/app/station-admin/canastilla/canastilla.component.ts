@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { DataService } from './../../services/data.service';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { NominaService } from '../../services/nomina.service';
 import { Title } from '@angular/platform-browser';
 import { EntStation } from '../../Class/EntStation';
@@ -17,8 +18,8 @@ import {
 import { EntClient } from '../../Class/EntClient';
 import { fadeTransition } from '../../routerAnimation';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-// import { FooterColumnGroup } from 'primeng/primeng';
-// declare function  Swal(): any;
+import { Button } from 'protractor';
+import { ArgumentOutOfRangeError } from 'rxjs';
 
 @Component({
     selector: 'app-canastilla',
@@ -30,44 +31,51 @@ export class CanastillaComponent implements OnInit {
     @Output() submiter = new EventEmitter<EntProductos[]>();
     Obj;
     stationsAll: EntStation[];
-    stationCode: any;
+    @Input() stationCode: any;
+    //@Input() idDeEstacion: any;
     stationSel: EntStation = new EntStation();
     productos: EntProductos[];
     date3: Date;
     cargando = false;
     VentaRegistrada = false;
-
     ventas: FormGroup;
     list: FormArray;
     plantilla: FormGroup;
-
     ProductosVendidos: EntVentasProductos = new EntVentasProductos();
     clientSel: EntClient;
     notdecimal = currencyNotDecimal();
     VerLista = false;
     producto: EntProductos;
     credito = false;
+    facturado = false;
     translado = false;
     listClientCred = false;
+    listClientFacturado = false;
     contadorGuardadas: number;
     contadorErrores: number;
     ErroresString = '';
     codClienteCred: number;
+    codClienteFact: number;
     Indice: number;
     es: any;
     VerFormDescuento: boolean = false;
     ProductoEnviado: EntProductos[] = [];
     InfoProducto;
     estacion: number;
+    numeroEstacion: number;
+    nameStation;
     totalVenta: number;
     totalCantidadP: number;
+    contador: number = 0;
+
     constructor(
         private fb: FormBuilder,
         private nominaService: NominaService,
         private title: Title,
         private storageService: StorageService,
         private principalComponent: PrincipalComponent,
-        private utilService: UtilService
+        private utilService: UtilService,
+        public dataService: DataService
     ) {
         this.title.setTitle('Ventas Productos - Simovil');
         this.stationCode = this.storageService.getCurrentStation();
@@ -82,6 +90,9 @@ export class CanastillaComponent implements OnInit {
                 this.stationsAll = data;
                 if (this.stationCode) {
                     this.getEstacionActual(this.stationCode);
+                    this.dataService.idEstacion=this.stationCode;
+                    alert('Canastilla Component: id de la estación: '+this.dataService.idEstacion);
+                    this.nameStation = this.stationsAll.find((f) => f.idEstacion == this.stationCode).nombreEstacion;
                 }
             },
             (error) => console.error(error.error.message)
@@ -135,6 +146,7 @@ export class CanastillaComponent implements OnInit {
             Vendido: null,
             ConDescuento: null,
             ACredito: null,
+            pFacturado: null,
         };
         this.ComprobarSiHayVentas(this.stationCode, this.date3);
     }
@@ -153,9 +165,31 @@ export class CanastillaComponent implements OnInit {
         }
     }
 
+    pFacturado(index) {
+        this.Indice = index;
+        if (!this.list.value[index].pfacturado) {
+            this.utilService.confirm('¿Desea facturar el producto?', (res) => {
+                if (res) {
+                    this.listClientFacturado = true;
+                    this.list.value[index].pfacturado = true;
+                }
+            });
+        } else {
+            this.list.value[index].pfacturado = false;
+            this.list.value[index].cliente = null;
+        }
+        //console.log('id de estación: '+this.idDeEstacion);
+    }
+
     clienteElegido(Cliente: EntClient, $elemen) {
         this.listClientCred = false;
         this.list.value[this.Indice].cliente = Cliente.codCliente;
+    }
+
+    clienteSeleccionado(Cliente: EntClient, $elemen) {
+        this.listClientFacturado = false;
+        this.list.value[this.Indice].cliente = Cliente.codCliente;
+        //this.numeroEstacion = this.stationSel.idEstacion;//b
     }
 
     CambiodeFecha() {
@@ -188,6 +222,8 @@ export class CanastillaComponent implements OnInit {
             return;
         }
         this.stationSel = this.stationsAll.find((e) => e.idEstacion == id);
+        this.numeroEstacion = this.stationSel.idEstacion;
+        //this.nameStation = this.stationSel.nombreEstacion;//b
     }
     get visibleArray() {
         try {
@@ -206,6 +242,7 @@ export class CanastillaComponent implements OnInit {
         });
         return res;
     }
+
     Agregar() {
         this.BuscarVenta();
         if (this.VentaRegistrada) {
@@ -265,11 +302,9 @@ export class CanastillaComponent implements OnInit {
     }
 
     AgregarArt(Producto: EntProductos, $element) {
-        console.log(Producto);
         if (this.list !== undefined) {
             const listRaw = this.list.value;
             const found = listRaw.find((element) => element.id === Producto.id);
-
             if (found === undefined) {
                 this.VerLista = false;
                 this.producto = Producto;
@@ -284,18 +319,10 @@ export class CanastillaComponent implements OnInit {
                     focusById('Cantidad' + this.list.length, true);
                 }
             } else {
-                if (found.acredito) {
-                    this.VerLista = false;
-                    this.producto = Producto;
-                    this.add($element);
-                    focusById('Cantidad' + this.list.length, true);
-                } else {
-                    this.principalComponent.showMsg(
-                        'info',
-                        'Información',
-                        'El Producto ya esta en la Lista'
-                    );
-                }
+                this.VerLista = false;
+                this.producto = Producto;
+                this.add($element);
+                focusById('Cantidad' + this.list.length, true);
             }
         } else {
             this.VerLista = false;
@@ -327,6 +354,7 @@ export class CanastillaComponent implements OnInit {
             fecha: [this.date3],
             precio: [this.producto.precio],
             acredito: [false],
+            pfacturado: [false],
             traslado: [false],
             cliente: [null],
             precioCompra: [this.producto.PrecioCompra],
@@ -344,6 +372,7 @@ export class CanastillaComponent implements OnInit {
             fecha: date,
             precio: null,
             acredito: false,
+            pfacturado: false,
             traslado: false,
             cliente: null,
             precioCompra: null,
@@ -410,7 +439,6 @@ export class CanastillaComponent implements OnInit {
     ComprobarSiHayVentas(idestacion: number, fecha: Date) {
         this.nominaService.GetVentastoday(idestacion, fecha).subscribe(
             (data) => {
-                // console.log('entro a data[0].repuesta', data[0].repuesta);
                 if (data[0].repuesta === 'true') {
                     this.VentaRegistrada = true;
                 } else {
@@ -432,8 +460,6 @@ export class CanastillaComponent implements OnInit {
                     return;
                 } else {
                     const rawData = this.list.value;
-                    console.log(rawData);
-                    // tslint:disable-next-line: forin
                     for (const index in rawData) {
                         this.ProductosVendidos.FechaV = this.date3;
                         this.ProductosVendidos.IdEstacionV = this.stationCode;
@@ -443,6 +469,8 @@ export class CanastillaComponent implements OnInit {
                         this.ProductosVendidos.PrecioV = rawData[index].precio;
                         this.ProductosVendidos.credito =
                             rawData[index].acredito;
+                        this.ProductosVendidos.facturado =
+                            rawData[index].pfacturado;
                         this.ProductosVendidos.traslado =
                             rawData[index].traslado;
                         this.ProductosVendidos.cliente = rawData[index].cliente;
@@ -504,58 +532,6 @@ export class CanastillaComponent implements OnInit {
     Mensaje() {
         this.principalComponent.showMsg('error', 'Mensaje', 'detalle');
     }
-    // async  Guardar2(idEstacion, idProducto, Producto, $element) {
-    //     await this.InfoProducto  =  this.ObtenerInfo(idEstacion, idProducto);
-    //     await this.AgregarElArticulo(Producto, $element);
-    //     console.log('final');
-    // }
-    // ObtenerInfo(idEstacion, idProducto) {
-    //     this.nominaService.getinfoArtSale(idEstacion, idProducto, this.date3).subscribe(data => {
-    //         console.log('1:', this.InfoProducto);
-    //         return  data[0];
-    //     }, error => {
-    //         console.log(error);
-    //     });
-    // }
-    // AgregarElArticulo(Producto, $element) {
-    //     console.log('2:', this.InfoProducto);
-
-    //     if (this.list !== undefined) {
-    //         const listRaw = this.list.value;
-    //         const found = listRaw.find(element => element.id === Producto.id);
-    //         if (found === undefined) {
-    //             this.VerLista = false;
-    //             this.producto = Producto;
-    //             this.add($element);
-    //             focusById('Cantidad' + this.list.length, true);
-    //         } else {
-    //             console.log(found.acredito);
-    //             if (found.acredito) {
-    //                 this.VerLista = false;
-    //                 this.producto = Producto;
-    //                 this.add($element);
-    //                 focusById('Cantidad' + this.list.length, true);
-    //             } else {
-    //                 this.principalComponent.showMsg('info', 'Información', 'El Producto ya esta en la Lista');
-    //             }
-
-    //         }
-    //     } else {
-    //         this.VerLista = false;
-    //         this.producto = Producto;
-    //         console.log('3:', this.InfoProducto);
-    //         if (this.InfoProducto.Vendido) {
-    //             Swal.fire(
-    //                 'ARTICULO VENDIDO',
-    //                 'Hay una venta con este artículo',
-    //                 'warning'
-    //             );
-    //         } else {
-    //             this.add($element);
-    //             focusById('Cantidad' + this.list.length, true);
-    //         }
-    //     }
-    // }
 
     SumarArreglo() {
         this.totalVenta = 0;

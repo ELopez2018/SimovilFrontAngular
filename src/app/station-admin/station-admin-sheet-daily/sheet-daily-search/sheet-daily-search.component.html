@@ -1,21 +1,13 @@
 <div class="form-group form-row p-0 form-inline mb-1 justify-content-center">
     <label class="control-label col-sm-1 m-0">Estación</label>
     <div class="input-group col-sm-3">
-        <select
-            class="form-control"
-            (change)="cambiaEstacion()"
-            [(ngModel)]="stationSel"
-            [disabled]="stationCode"
-        >
+        <select class="form-control" (change)="cambiaEstacion()" [(ngModel)]="stationSel" [disabled]="stationCode">
             <option *ngFor="let item of stationsAll" [ngValue]="item">
                 {{ item.nombreEstacion }}
             </option>
         </select>
     </div>
-    <label
-        class="control-label col-sm-1"
-        *ngIf="this.stationSel.tipoEstacion !== 4"
-        >Tipo</label
+    <label class="control-label col-sm-1" *ngIf="this.stationSel.tipoEstacion !== 4">Tipo</label
     >
     <div
         class="input-group col-sm-2"

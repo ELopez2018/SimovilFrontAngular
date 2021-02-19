@@ -35,6 +35,7 @@ export class CarteraPlanillaComponent implements OnInit {
     lastColOrder = null;
     lastQuery;
     stationCod;
+    fechaDesde: string = '2020-05-01';
 
     constructor(
         private carteraService: CarteraService,
@@ -99,6 +100,7 @@ export class CarteraPlanillaComponent implements OnInit {
         this.utilService.loader();
         this.carteraService.GetCarteraForStation(this.stationSel.idEstacion, this.dateIni, this.dateEnd, this.optionSel.id, this.typeSel.id, this.month).subscribe(res => {
             this.utilService.loader(false);
+            console.log(JSON.stringify(res));//
             this.assignData(res)
         }, error => {
             this.utilService.loader(false);

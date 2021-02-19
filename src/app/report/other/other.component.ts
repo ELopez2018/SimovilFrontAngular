@@ -50,7 +50,7 @@ export class OtherComponent implements OnInit {
             ]
         },
         { id: 8, text: 'Mayoristas Resumen', report: 'Administracion/RPT_MAYORISTA', width: 100 },
-        { id: 9, text: 'Control de mayoristas', report: 'Administracion/RPT_PEDIDO_COMBUSTIBLE', width: 87 },
+        { id: 9, text: 'Control de mayoristas', report: 'Administracion/RPT_PEDIDO_COMBUSTIBLE', width: 75 },
         { id: 10, text: 'Certificación Mes', report: 'Administracion/RPT_CIERRE_MES', width: 100 }
     ];
     paramSel;
@@ -64,7 +64,6 @@ export class OtherComponent implements OnInit {
 
     constructor(
         private nominaService: NominaService,
-        private carteraService: CarteraService,
         private principal: PrincipalComponent,
         private utilService: UtilService,
         private storageService: StorageService,
@@ -121,7 +120,7 @@ export class OtherComponent implements OnInit {
         this.params.push([this.date + '-01', 'FECHA']);
         // this.params.push([this.date + '-', 'FECHA_FINAL']);
         if (this.paramSel.child && this.paramSel.child.length > 0 && this.opcSel) {
-            this.params.push([this.opcSel.id, this.paramSel.mtypeChild]);
+            this.params.push([this.opcSel.id, this.paramSel.typeChild]);
         }
         this.nameReport = this.paramSel.report;
         this.widthReport = this.paramSel.width;

@@ -5,13 +5,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
+      //"type": "node",
+      "type": "chrome",
       "request": "launch",
-      "name": "Iniciar programa",
-      "skipFiles": [
+      //"name": "Iniciar programa",
+      "name": "Launch Chrome against localhost",
+      /*"skipFiles": [
         "<node_internals>/**"
-      ],
-      "program": "${workspaceFolder}\\serve"
+      ],*/
+      //"program": "${workspaceFolder}\\serve"
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}"
     }
   ]
 }

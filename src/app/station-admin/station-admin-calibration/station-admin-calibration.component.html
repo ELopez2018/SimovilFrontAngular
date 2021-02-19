@@ -8,12 +8,12 @@
             </div>
             <label class="control-label col-sm-2">Cantidad</label>
             <div class="col-sm-4">
-                <div class="form-group pb-1" formArrayName="list"
-                    *ngFor="let item of calibrationForm.get('list')['controls']; let i = index;">
+                <div class="form-group pb-1" formArrayName="list" *ngFor="let item of calibrationForm.get('list')['controls']; let i = index;">
                     <div [formGroupName]="i" class="form-row w-100">
+
                         <label class="control-label col-sm-6">{{item.get('DESCRIPCION').value | titlecase }}</label>
                         <div class="col-sm-6 input-group">
-                            <input type="number" class="form-control text-right" formControlName="CANTIDAD">
+                            <input type="number" id="canti" class="form-control text-right" formControlName="CANTIDAD" [hidden]="ocultarInput">
                         </div>
                     </div>
                 </div>

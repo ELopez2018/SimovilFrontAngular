@@ -255,6 +255,7 @@ export class StationConsumptionAddComponent implements OnInit {
         const consumptionToSend = this.orderToSend();
         console.log(consumptionToSend);
         this.utilService.loader();
+        console.log('estación: '+this.codStation);
         this.carteraService.InsertConsumption(this.codStation, consumptionToSend).subscribe(res => {
             this.principal.showMsg('success', 'Éxito', 'Consumos ingresados correctamente.');
             this.utilService.loader(false);
