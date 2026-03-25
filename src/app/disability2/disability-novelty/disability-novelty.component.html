@@ -45,7 +45,9 @@
           <i class="fas fa-clipboard-list fa-fw"></i>
         </span>
         <select #noveltyType class="form-control" formControlName="tipoNovedad" ngmodel>
-          <option *ngFor="let noveltyT of noveltyTypeTrue" [ngValue]="noveltyT">{{noveltyT.name}}</option>
+          @for (noveltyT of noveltyTypeTrue; track noveltyT) {
+            <option [ngValue]="noveltyT">{{noveltyT.name}}</option>
+          }
         </select>
       </div>
       <label class="control-label col-sm-2">Detalle:</label>
@@ -57,11 +59,11 @@
       <div class="col-sm-6">
         <button (click)="submitNoveltyForm()" class="btn btn-primary btn-block" [disabled]="!noveltyForm.valid">
           <span class="fas fa-clipboard-list fa-fw"></span>&nbsp;Guardar Novedad</button>
-      </div>
-      <div class="col-sm-6">
-        <button (click)="cancelNovelty()" class="btn btn-danger btn-block">
-          <span class="fas fa-times fa-fw"></span>&nbsp;Cancelar</button>
-      </div>
-    </div>
-  </fieldset>
-</form>
+        </div>
+        <div class="col-sm-6">
+          <button (click)="cancelNovelty()" class="btn btn-danger btn-block">
+            <span class="fas fa-times fa-fw"></span>&nbsp;Cancelar</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>

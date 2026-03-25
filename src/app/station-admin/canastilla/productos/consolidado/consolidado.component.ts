@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, DOCUMENT } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { PrincipalComponent } from '../../../../principal/principal.component';
 import { EntStation } from '../../../../Class/EntStation';
@@ -7,7 +7,7 @@ import { EntProductosConsolidado } from '../../../../Class/EntProductosConsolida
 import { StorageService } from '../../../../services/storage.service';
 import { UtilService } from '../../../../services/util.service';
 import { NominaService } from '../../../../services/nomina.service';
-import { DOCUMENT } from '@angular/common';
+
 import { EntConsolidadoenPesos } from '../../../../Class/EntConsolidadoenPesos';
 
 @Component({

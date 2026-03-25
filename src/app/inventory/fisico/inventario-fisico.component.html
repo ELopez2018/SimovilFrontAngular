@@ -2,478 +2,512 @@
 
 <div class="row mt-2">
 
-    <div class="card container marco_terpel">
-        <div class="row">
-            <div class="col tituloEds terpel1">
-                <h6>EDS Pavitos</h6>
-            </div>
-        </div>
+  <div class="card container marco_terpel">
+    <div class="row">
+      <div class="col tituloEds terpel1">
+        <h6>EDS Pavitos</h6>
+      </div>
+    </div>
 
-        <div class="row">
-            <div class="col_izq titulo terpel2">Combustible</div>
-            <div class="col_der titulo terpel2">Inventario</div>
-        </div>
+    <div class="row">
+      <div class="col_izq titulo terpel2">Combustible</div>
+      <div class="col_der titulo terpel2">Inventario</div>
+    </div>
 
-        <div *ngFor="let t of tanquePavitos; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}} </div>
-                <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"> </div>
-            </div>
-        </div>
-
+    @for (t of tanquePavitos; track t; let i = $index) {
+      <div>
         <div class="row">
-            <div class="col_izq contenido3_terpel">T. Inven</div>
-            <div class="col_der contenido3_terpel">{{getCombustiblePavitos()}}</div>
+          <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}} </div>
+          <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
+            <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"> </div>
+          </div>
         </div>
+      }
+
+      <div class="row">
+        <div class="col_izq contenido3_terpel">T. Inven</div>
+        <div class="col_der contenido3_terpel">{{getCombustiblePavitos()}}</div>
+      </div>
     </div>
 
     <div class="card container marco_terpel">
-        <div class="row">
-            <div class="col tituloEds terpel1">
-                <h6>Sra Villavicencio</h6>
+      <div class="row">
+        <div class="col tituloEds terpel1">
+          <h6>Sra Villavicencio</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col_izq titulo terpel2">Combustible</div>
+        <div class="col_der titulo terpel2">Inventario</div>
+      </div>
+      @for (t of tanqueSraVillavicencio; track t; let i = $index) {
+        <div>
+          <div class="row">
+            <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
+            <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
+              <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
             </div>
-        </div>
+          </div>
+        }
         <div class="row">
-            <div class="col_izq titulo terpel2">Combustible</div>
-            <div class="col_der titulo terpel2">Inventario</div>
+          <div class="col_izq contenido3_terpel">T. Inven</div>
+          <div class="col_der contenido3_terpel">{{getCombustiblesra()}}</div>
         </div>
-        <div *ngFor="let t of tanqueSraVillavicencio; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_terpel">T. Inven</div>
-            <div class="col_der contenido3_terpel">{{getCombustiblesra()}}</div>
-        </div>
-    </div>
+      </div>
 
-    <div class="card container marco_terpel">
+      <div class="card container marco_terpel">
         <div class="row">
-            <div class="col tituloEds terpel1">
-                <h6>Colombia</h6>
-            </div>
+          <div class="col tituloEds terpel1">
+            <h6>Colombia</h6>
+          </div>
         </div>
         <div class="row">
-            <div class="col_izq titulo terpel2">Combustible</div>
-            <div class="col_der titulo terpel2">Inventario</div>
+          <div class="col_izq titulo terpel2">Combustible</div>
+          <div class="col_der titulo terpel2">Inventario</div>
         </div>
-        <div *ngFor="let t of tanqueColombia; index as i">
+        @for (t of tanqueColombia; track t; let i = $index) {
+          <div>
             <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+              <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
+              <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
+                <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+              </div>
             </div>
-        </div>
-        <div class="row">
+          }
+          <div class="row">
             <div class="col_izq contenido3_terpel">T. Inven</div>
             <div class="col_der contenido3_terpel">{{getCombustibleColombia()}}</div>
+          </div>
         </div>
-    </div>
 
-    <div class="card container marco_primax">
-        <div class="row">
+        <div class="card container marco_primax">
+          <div class="row">
             <div class="col tituloEds primax">
-                <h6>Catama</h6>
+              <h6>Catama</h6>
             </div>
-        </div>
-        <div class="row">
+          </div>
+          <div class="row">
             <div class="col_izq titulo primax">Combustible</div>
             <div class="col_der titulo primax">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueCatama; index as i">
-            <div class="row">
+          </div>
+          @for (t of tanqueCatama; track t; let i = $index) {
+            <div>
+              <div class="row">
                 <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
                 <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                  <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                </div>
+              </div>
+            }
+            <div class="row">
+              <div class="col_izq contenido3_primax">T. Inven</div>
+              <div class="col_der contenido3_primax">{{getCombustibleCatama()}}</div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_primax">T. Inven</div>
-            <div class="col_der contenido3_primax">{{getCombustibleCatama()}}</div>
-        </div>
-    </div>
+          </div>
 
-    <div class="card container marco_primax">
-        <div class="row">
-            <div class="col tituloEds primax">
+          <div class="card container marco_primax">
+            <div class="row">
+              <div class="col tituloEds primax">
                 <h6>Cusiana</h6>
+              </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo primax">Combustible</div>
-            <div class="col_der titulo primax">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueCusiana; index as i">
             <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
+              <div class="col_izq titulo primax">Combustible</div>
+              <div class="col_der titulo primax">Inventario</div>
+            </div>
+            @for (t of tanqueCusiana; track t; let i = $index) {
+              <div>
+                <div class="row">
+                  <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
+                  <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
                     <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_primax">T. Inven</div>
-            <div class="col_der contenido3_primax">{{getCombustibleCusiana()}}</div>
-        </div>
-    </div>
-
-    <div class="card container marco_biomax">
-        <div class="row">
-            <div class="col tituloEds biomax">
-                <h6>Gasollano</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo biomax">Combustible</div>
-            <div class="col_der titulo biomax">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueGasollanos; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_biomax': i%2 == 1, 'contenido2_biomax': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_biomax': i%2 == 1, 'contenido2_biomax': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_biomax">T. Inven</div>
-            <div class="col_der contenido3_biomax">{{getCombustibleGasollanos()}}</div>
-        </div>
-    </div>
-
-</div>
-
-<div class="row mt-3">
-
-    <div class="card container marco_terpel">
-        <div class="row">
-            <div class="col tituloEds terpel1">
-                <h6>Srta Casanare</h6>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col_izq titulo terpel2">Combustible</div>
-            <div class="col_der titulo terpel2">Inventario</div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido"></div>
-            <div class="col_der contendio"></div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_terpel">T. Inven</div>
-            <div class="col_der contenido3_terpel"></div>
-        </div>
-    </div>
-
-    <div class="card container marco_terpel">
-        <div class="row">
-            <div class="col tituloEds terpel1">
-                <h6>Av. Padilla</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo terpel2">Combustible</div>
-            <div class="col_der titulo terpel2">Inventario</div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido"></div>
-            <div class="col_der contenido"></div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_terpel">T. Inven</div>
-            <div class="col_der contenido3_terpel"></div>
-        </div>
-    </div>
-
-    <div class="card container marco_chevrom">
-        <div class="row">
-            <div class="col tituloEds chevrom">
-                <h6>Camoa</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo chevrom">Combustible</div>
-            <div class="col_der titulo chevrom">Inventario</div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido"></div>
-            <div class="col_der contenido"></div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_chevrom">T. Inven</div>
-            <div class="col_der contenido3_chevrom"></div>
-        </div>
-    </div>
-
-    <div class="card container marco_chevrom">
-        <div class="row">
-            <div class="col tituloEds chevrom">
-                <h6>Kennedy</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo chevrom">Combustible</div>
-            <div class="col_der titulo chevrom">Inventario</div>
-        </div>
-
-        <div *ngFor="let t of tanqueKennedy; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_chevrom': i%2 == 1, 'contenido2_chevrom': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_chevrom': i%2 == 1, 'contenido2_chevrom': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onkeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)">
+                  </div>
                 </div>
+              }
+              <div class="row">
+                <div class="col_izq contenido3_primax">T. Inven</div>
+                <div class="col_der contenido3_primax">{{getCombustibleCusiana()}}</div>
+              </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col_izq contenido3_chevrom">T. Inven</div>
-            <div class="col_der contenido3_chevrom">{{getCombustibleKennedy()}}</div>
-        </div>
-    </div>
-
-    <div class="card container marco_primax">
-        <div class="row">
-            <div class="col tituloEds primax">
-                <h6>Calle 13</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo primax">Combustible</div>
-            <div class="col_der titulo primax">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueCalle13; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_primax">T. Inven</div>
-            <div class="col_der contenido3_primax">{{getCombustibleCalle13()}}</div>
-        </div>
-    </div>
-
-    <div class="card container marco_chevrom">
-        <div class="row">
-            <div class="col tituloEds chevrom">
-                <h6>Paso Ganadero</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo chevrom">Combustible</div>
-            <div class="col_der titulo chevrom">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanquePasoGanadero; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_chevrom': i%2 == 1, 'contenido2_chevrom': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_chevrom': i%2 == 1, 'contenido2_chevrom': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_chevrom">T. Inven</div>
-            <div class="col_der contenido3_chevrom">{{getCombustiblePasoGanadero()}}</div>
-        </div>
-    </div>
-
-</div>
-
-
-<div class="row mt-3">
-
-    <div class="card container marco_terpel">
-        <div class="row">
-            <div class="col tituloEds terpel1">
-                <h6>Jordán</h6>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col_izq titulo terpel2">Combustible</div>
-            <div class="col_der titulo terpel2">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueJordan; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_terpel">T. Inven</div>
-            <div class="col_der contenido3_terpel">{{getCombustibleJordan()}}</div>
-        </div>
-    </div>
-
-    <div class="card container marco_terpel">
-        <div class="row">
-            <div class="col tituloEds terpel1">
-                <h6>Carrera 5TA</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo terpel2">Combustible</div>
-            <div class="col_der titulo terpel2">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueCra5Ta; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_terpel">T. Inven</div>
-            <div class="col_der contenido3_terpel">{{getCombustibleCra5ta()}}</div>
-        </div>
-    </div>
-
-    <div class="card container marco_terpel">
-        <div class="row">
-            <div class="col tituloEds terpel1">
-                <h6>Galarza</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo terpel2">Combustible</div>
-            <div class="col_der titulo terpel2">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueGalarza; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_terpel">T. Inven</div>
-            <div class="col_der contenido3_terpel">{{getCombustibleGalarza()}}</div>
-        </div>
-    </div>
-
-    <div class="card container marco_primax">
-        <div class="row">
-            <div class="col tituloEds primax">
-                <h6>Bolivar</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo primax">Combustible</div>
-            <div class="col_der titulo primax">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueBolivar; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)">
+            <div class="card container marco_biomax">
+              <div class="row">
+                <div class="col tituloEds biomax">
+                  <h6>Gasollano</h6>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_primax">T. Inven</div>
-            <div class="col_der contenido3_primax">{{getCombustibleBolivar()}}</div>
-        </div>
-    </div>
+              </div>
+              <div class="row">
+                <div class="col_izq titulo biomax">Combustible</div>
+                <div class="col_der titulo biomax">Inventario</div>
+              </div>
+              @for (t of tanqueGasollanos; track t; let i = $index) {
+                <div>
+                  <div class="row">
+                    <div class="col_izq" [ngClass]="{'contenido1_biomax': i%2 == 1, 'contenido2_biomax': i%2 == 0}">{{t.combustible}}</div>
+                    <div class="col_der" [ngClass]="{'contenido1_biomax': i%2 == 1, 'contenido2_biomax': i%2 == 0}">
+                      <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                    </div>
+                  </div>
+                }
+                <div class="row">
+                  <div class="col_izq contenido3_biomax">T. Inven</div>
+                  <div class="col_der contenido3_biomax">{{getCombustibleGasollanos()}}</div>
+                </div>
+              </div>
 
-    <div class="card container marco_primax">
-        <div class="row">
-            <div class="col tituloEds primax">
-                <h6>Jardín</h6>
             </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo primax">Combustible</div>
-            <div class="col_der titulo primax">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueJardin; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_primax">T. Inven</div>
-            <div class="col_der contenido3_primax">{{getCombustibleJardin()}}</div>
-        </div>
-    </div>
 
-</div>
+            <div class="row mt-3">
 
-<div class="row mt-3">
+              <div class="card container marco_terpel">
+                <div class="row">
+                  <div class="col tituloEds terpel1">
+                    <h6>Srta Casanare</h6>
+                  </div>
+                </div>
 
-    <div class="card container marco_terpel">
-        <div class="row">
-            <div class="col tituloEds terpel1">
-                <h6>Molienda</h6>
-            </div>
-        </div>
+                <div class="row">
+                  <div class="col_izq titulo terpel2">Combustible</div>
+                  <div class="col_der titulo terpel2">Inventario</div>
+                </div>
+                <div class="row">
+                  <div class="col_izq contenido"></div>
+                  <div class="col_der contendio"></div>
+                </div>
+                <div class="row">
+                  <div class="col_izq contenido3_terpel">T. Inven</div>
+                  <div class="col_der contenido3_terpel"></div>
+                </div>
+              </div>
 
-        <div class="row">
-            <div class="col_izq titulo terpel2">Combustible</div>
-            <div class="col_der titulo terpel2">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueLaMolienda; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_terpel">T. Inven</div>
-            <div class="col_der contenido3_terpel">{{getCombustibleMolienda()}}</div>
-        </div>
-    </div>
+              <div class="card container marco_terpel">
+                <div class="row">
+                  <div class="col tituloEds terpel1">
+                    <h6>Av. Padilla</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col_izq titulo terpel2">Combustible</div>
+                  <div class="col_der titulo terpel2">Inventario</div>
+                </div>
+                <div class="row">
+                  <div class="col_izq contenido"></div>
+                  <div class="col_der contenido"></div>
+                </div>
+                <div class="row">
+                  <div class="col_izq contenido3_terpel">T. Inven</div>
+                  <div class="col_der contenido3_terpel"></div>
+                </div>
+              </div>
 
-    <div class="card container marco_primax">
-        <div class="row">
-            <div class="col tituloEds primax">
-                <h6>El Carmen</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo primax">Combustible</div>
-            <div class="col_der titulo primax">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueElCarmen; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_primax">T. Inven</div>
-            <div class="col_der contenido3_primax">{{getCombustibleCarmen()}}</div>
-        </div>
-    </div>
+              <div class="card container marco_chevrom">
+                <div class="row">
+                  <div class="col tituloEds chevrom">
+                    <h6>Camoa</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col_izq titulo chevrom">Combustible</div>
+                  <div class="col_der titulo chevrom">Inventario</div>
+                </div>
+                <div class="row">
+                  <div class="col_izq contenido"></div>
+                  <div class="col_der contenido"></div>
+                </div>
+                <div class="row">
+                  <div class="col_izq contenido3_chevrom">T. Inven</div>
+                  <div class="col_der contenido3_chevrom"></div>
+                </div>
+              </div>
 
-    <div class="card container marco_primax">
-        <div class="row">
-            <div class="col tituloEds primax">
-                <h6>Victoria</h6>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq titulo primax">Combustible</div>
-            <div class="col_der titulo primax">Inventario</div>
-        </div>
-        <div *ngFor="let t of tanqueLaVictoria; index as i">
-            <div class="row">
-                <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
-                <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
-                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col_izq contenido3_primax">T. Inven</div>
-            <div class="col_der contenido3_primax">{{getCombustibleVictoria()}}</div>
-        </div>
-    </div>
+              <div class="card container marco_chevrom">
+                <div class="row">
+                  <div class="col tituloEds chevrom">
+                    <h6>Kennedy</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col_izq titulo chevrom">Combustible</div>
+                  <div class="col_der titulo chevrom">Inventario</div>
+                </div>
 
-</div>
+                @for (t of tanqueKennedy; track t; let i = $index) {
+                  <div>
+                    <div class="row">
+                      <div class="col_izq" [ngClass]="{'contenido1_chevrom': i%2 == 1, 'contenido2_chevrom': i%2 == 0}">{{t.combustible}}</div>
+                      <div class="col_der" [ngClass]="{'contenido1_chevrom': i%2 == 1, 'contenido2_chevrom': i%2 == 0}">
+                        <input id="{{t.id}}" type="number" onkeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)">
+                      </div>
+                    </div>
+                  </div>
+                }
+
+                <div class="row">
+                  <div class="col_izq contenido3_chevrom">T. Inven</div>
+                  <div class="col_der contenido3_chevrom">{{getCombustibleKennedy()}}</div>
+                </div>
+              </div>
+
+              <div class="card container marco_primax">
+                <div class="row">
+                  <div class="col tituloEds primax">
+                    <h6>Calle 13</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col_izq titulo primax">Combustible</div>
+                  <div class="col_der titulo primax">Inventario</div>
+                </div>
+                @for (t of tanqueCalle13; track t; let i = $index) {
+                  <div>
+                    <div class="row">
+                      <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
+                      <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
+                        <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                      </div>
+                    </div>
+                  }
+                  <div class="row">
+                    <div class="col_izq contenido3_primax">T. Inven</div>
+                    <div class="col_der contenido3_primax">{{getCombustibleCalle13()}}</div>
+                  </div>
+                </div>
+
+                <div class="card container marco_chevrom">
+                  <div class="row">
+                    <div class="col tituloEds chevrom">
+                      <h6>Paso Ganadero</h6>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col_izq titulo chevrom">Combustible</div>
+                    <div class="col_der titulo chevrom">Inventario</div>
+                  </div>
+                  @for (t of tanquePasoGanadero; track t; let i = $index) {
+                    <div>
+                      <div class="row">
+                        <div class="col_izq" [ngClass]="{'contenido1_chevrom': i%2 == 1, 'contenido2_chevrom': i%2 == 0}">{{t.combustible}}</div>
+                        <div class="col_der" [ngClass]="{'contenido1_chevrom': i%2 == 1, 'contenido2_chevrom': i%2 == 0}">
+                          <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                        </div>
+                      </div>
+                    }
+                    <div class="row">
+                      <div class="col_izq contenido3_chevrom">T. Inven</div>
+                      <div class="col_der contenido3_chevrom">{{getCombustiblePasoGanadero()}}</div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="row mt-3">
+
+                  <div class="card container marco_terpel">
+                    <div class="row">
+                      <div class="col tituloEds terpel1">
+                        <h6>Jordán</h6>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col_izq titulo terpel2">Combustible</div>
+                      <div class="col_der titulo terpel2">Inventario</div>
+                    </div>
+                    @for (t of tanqueJordan; track t; let i = $index) {
+                      <div>
+                        <div class="row">
+                          <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
+                          <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
+                            <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                          </div>
+                        </div>
+                      }
+                      <div class="row">
+                        <div class="col_izq contenido3_terpel">T. Inven</div>
+                        <div class="col_der contenido3_terpel">{{getCombustibleJordan()}}</div>
+                      </div>
+                    </div>
+
+                    <div class="card container marco_terpel">
+                      <div class="row">
+                        <div class="col tituloEds terpel1">
+                          <h6>Carrera 5TA</h6>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col_izq titulo terpel2">Combustible</div>
+                        <div class="col_der titulo terpel2">Inventario</div>
+                      </div>
+                      @for (t of tanqueCra5Ta; track t; let i = $index) {
+                        <div>
+                          <div class="row">
+                            <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
+                            <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
+                              <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                            </div>
+                          </div>
+                        }
+                        <div class="row">
+                          <div class="col_izq contenido3_terpel">T. Inven</div>
+                          <div class="col_der contenido3_terpel">{{getCombustibleCra5ta()}}</div>
+                        </div>
+                      </div>
+
+                      <div class="card container marco_terpel">
+                        <div class="row">
+                          <div class="col tituloEds terpel1">
+                            <h6>Galarza</h6>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col_izq titulo terpel2">Combustible</div>
+                          <div class="col_der titulo terpel2">Inventario</div>
+                        </div>
+                        @for (t of tanqueGalarza; track t; let i = $index) {
+                          <div>
+                            <div class="row">
+                              <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
+                              <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
+                                <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                              </div>
+                            </div>
+                          }
+                          <div class="row">
+                            <div class="col_izq contenido3_terpel">T. Inven</div>
+                            <div class="col_der contenido3_terpel">{{getCombustibleGalarza()}}</div>
+                          </div>
+                        </div>
+
+                        <div class="card container marco_primax">
+                          <div class="row">
+                            <div class="col tituloEds primax">
+                              <h6>Bolivar</h6>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col_izq titulo primax">Combustible</div>
+                            <div class="col_der titulo primax">Inventario</div>
+                          </div>
+                          @for (t of tanqueBolivar; track t; let i = $index) {
+                            <div>
+                              <div class="row">
+                                <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
+                                <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
+                                  <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)">
+                                </div>
+                              </div>
+                            </div>
+                          }
+                          <div class="row">
+                            <div class="col_izq contenido3_primax">T. Inven</div>
+                            <div class="col_der contenido3_primax">{{getCombustibleBolivar()}}</div>
+                          </div>
+                        </div>
+
+                        <div class="card container marco_primax">
+                          <div class="row">
+                            <div class="col tituloEds primax">
+                              <h6>Jardín</h6>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col_izq titulo primax">Combustible</div>
+                            <div class="col_der titulo primax">Inventario</div>
+                          </div>
+                          @for (t of tanqueJardin; track t; let i = $index) {
+                            <div>
+                              <div class="row">
+                                <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
+                                <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
+                                  <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                                </div>
+                              </div>
+                            }
+                            <div class="row">
+                              <div class="col_izq contenido3_primax">T. Inven</div>
+                              <div class="col_der contenido3_primax">{{getCombustibleJardin()}}</div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row mt-3">
+
+                          <div class="card container marco_terpel">
+                            <div class="row">
+                              <div class="col tituloEds terpel1">
+                                <h6>Molienda</h6>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col_izq titulo terpel2">Combustible</div>
+                              <div class="col_der titulo terpel2">Inventario</div>
+                            </div>
+                            @for (t of tanqueLaMolienda; track t; let i = $index) {
+                              <div>
+                                <div class="row">
+                                  <div class="col_izq" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">{{t.combustible}}</div>
+                                  <div class="col_der" [ngClass]="{'contenido1_terpel': i%2 == 1, 'contenido2_terpel': i%2 == 0}">
+                                    <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                                  </div>
+                                </div>
+                              }
+                              <div class="row">
+                                <div class="col_izq contenido3_terpel">T. Inven</div>
+                                <div class="col_der contenido3_terpel">{{getCombustibleMolienda()}}</div>
+                              </div>
+                            </div>
+
+                            <div class="card container marco_primax">
+                              <div class="row">
+                                <div class="col tituloEds primax">
+                                  <h6>El Carmen</h6>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col_izq titulo primax">Combustible</div>
+                                <div class="col_der titulo primax">Inventario</div>
+                              </div>
+                              @for (t of tanqueElCarmen; track t; let i = $index) {
+                                <div>
+                                  <div class="row">
+                                    <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
+                                    <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
+                                      <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                                    </div>
+                                  </div>
+                                }
+                                <div class="row">
+                                  <div class="col_izq contenido3_primax">T. Inven</div>
+                                  <div class="col_der contenido3_primax">{{getCombustibleCarmen()}}</div>
+                                </div>
+                              </div>
+
+                              <div class="card container marco_primax">
+                                <div class="row">
+                                  <div class="col tituloEds primax">
+                                    <h6>Victoria</h6>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col_izq titulo primax">Combustible</div>
+                                  <div class="col_der titulo primax">Inventario</div>
+                                </div>
+                                @for (t of tanqueLaVictoria; track t; let i = $index) {
+                                  <div>
+                                    <div class="row">
+                                      <div class="col_izq" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{t.combustible}}</div>
+                                      <div class="col_der" [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
+                                        <input id="{{t.id}}" type="number" onKeyPress="if(this.value.length==5) return false;" (input)="setCombustible($event, t.combustible, t.eds)"></div>
+                                      </div>
+                                    </div>
+                                  }
+                                  <div class="row">
+                                    <div class="col_izq contenido3_primax">T. Inven</div>
+                                    <div class="col_der contenido3_primax">{{getCombustibleVictoria()}}</div>
+                                  </div>
+                                </div>
+
+                              </div>

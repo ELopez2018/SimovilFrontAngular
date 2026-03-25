@@ -1,32 +1,36 @@
 <div class='row'>
-    <div class='col-md-12'>
-        <h5 class='mt-2 mb-2 titulo'>
-            Actualizar valor del consumo
-        </h5>
-    </div>
+  <div class='col-md-12'>
+    <h5 class='mt-2 mb-2 titulo'>
+      Actualizar valor del consumo
+    </h5>
+  </div>
 </div>
 
 <div class='card color_tabla'>
-    <div class='card-header'>
-        <div class='row mt-2'>
-            <div class='col-md-2'></div>
-            <div class='col-md-2'>
-                <span style='font-family: cursive; font-weight: bold;'>id consumo:<img src='../../../assets/img/alerta7.gif'></span>
-                <input type='text' class='form-control' placeholder='{{ idConsumo }}' readonly>
-            </div>
-            <div class="col-md-2">
-                <span style="font-family: cursive; font-weight: bold;">cantidad</span>
-                <input type="number" class="form-control" [(ngModel)]="cantidadConsumo" placeholder='{{cantidadConsumo}}'>
-            </div>
-            <div class='col-md-3'>
-                <span style='font-family: cursive; font-weight: bold;'>nuevo Valor Consumo: <img *ngIf='!nuevoValorConsumo' src='../../../assets/img/alerta2.gif'> <img *ngIf='nuevoValorConsumo' src='../../../assets/img/alerta7.gif'></span>
-                <input [(ngModel)]="nuevoValorConsumo" type='number' class='form-control'>
-            </div>
-            <div class='col-md-2' style="text-align: center;">
-                <div class='col-md-2'></div>
-                <br>
-                <button type='button' class='boton' (click)="updateValorConsumo(idConsumo, cantidadConsumo, nuevoValorConsumo)">Actualizar</button>
-            </div>
+  <div class='card-header'>
+    <div class='row mt-2'>
+      <div class='col-md-2'></div>
+      <div class='col-md-2'>
+        <span style='font-family: cursive; font-weight: bold;'>id consumo:<img src='../../../assets/img/alerta7.gif'></span>
+        <input type='text' class='form-control' placeholder='{{ idConsumo }}' readonly>
+      </div>
+      <div class="col-md-2">
+        <span style="font-family: cursive; font-weight: bold;">cantidad</span>
+        <input type="number" class="form-control" [(ngModel)]="cantidadConsumo" placeholder='{{cantidadConsumo}}'>
+      </div>
+      <div class='col-md-3'>
+        <span style='font-family: cursive; font-weight: bold;'>nuevo Valor Consumo: @if (!nuevoValorConsumo) {
+          <img src='../../../assets/img/alerta2.gif'>
+          } @if (nuevoValorConsumo) {
+          <img src='../../../assets/img/alerta7.gif'>
+        }</span>
+        <input [(ngModel)]="nuevoValorConsumo" type='number' class='form-control'>
+      </div>
+      <div class='col-md-2' style="text-align: center;">
+        <div class='col-md-2'></div>
+        <br>
+          <button type='button' class='boton' (click)="updateValorConsumo(idConsumo, cantidadConsumo, nuevoValorConsumo)">Actualizar</button>
         </div>
+      </div>
     </div>
-</div>
+  </div>

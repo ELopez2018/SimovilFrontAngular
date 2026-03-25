@@ -1,3 +1,5 @@
 <app-client-info (cliente)="CLienteSel($event)" (estacionElegida)="Estacion($event)"> </app-client-info>
 
-<app-client-saldosInciales [codCliente]="cliente.codCliente" [estacionElegida]="estacionElegida" [stationCode]="stationCode" *ngIf="cliente"> </app-client-saldosInciales>
+@if (cliente) {
+  <app-client-saldosInciales [codCliente]="cliente.codCliente" [estacionElegida]="estacionElegida" [stationCode]="stationCode"> </app-client-saldosInciales>
+}

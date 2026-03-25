@@ -1,149 +1,179 @@
 <div [ngClass]="{'formulario': formulario == true}" class="form-group col-sm-12 p-0 form-inline" style="background-color: rgb(208, 211, 210); border-radius: 12px; border: 1px solid rgb(4, 190, 247);">
 
-    <div class="row col-sm-12 pb-1 mt-1">
-        <div class="input-group col-sm-3">
-            <div class="input-group-prepend">
-                <button id="btnBoolClient" class="btn btn-outline-secondary left" (mouseover)="visitarElementoPadre();" (mouseleave)="leaveElementoPadre();" type="button" (click)="boolClient()">
+  <div class="row col-sm-12 pb-1 mt-1">
+    <div class="input-group col-sm-3">
+      <div class="input-group-prepend">
+        <button id="btnBoolClient" class="btn btn-outline-secondary left" (mouseover)="visitarElementoPadre();" (mouseleave)="leaveElementoPadre();" type="button" (click)="boolClient()">
           <span class="far fa-hand-pointer fa-fw"></span>
         </button>
-            </div>
-            <input [(ngModel)]="client.codCliente" (keyup.enter)="searchClient()" required class="form-control decora_cajas" type="number" id="codclient">
-        </div>
+      </div>
+      <input [(ngModel)]="client.codCliente" (keyup.enter)="searchClient()" required class="form-control decora_cajas" type="number" id="codclient">
+    </div>
 
-        <div class="input-group col-sm-6">
-            <span class="input-group-addon">
+    <div class="input-group col-sm-6">
+      <span class="input-group-addon">
         <i class="fas fa-user fa-fw"></i>
       </span>
-            <input [(ngModel)]="client.nombre" disabled class="form-control decora_cajas" type="text" id="nameclient">
-        </div>
+      <input [(ngModel)]="client.nombre" disabled class="form-control decora_cajas" type="text" id="nameclient">
+    </div>
 
-        <div class="col-sm-2">
-            <button class="btn btn-info btn-block" (click)="searchClient()" [disabled]="client.codCliente==null">
+    <div class="col-sm-2">
+      <button class="btn btn-info btn-block" (click)="searchClient()" [disabled]="client.codCliente==null">
         <span class="fas fa-search fa-fw"></span>&nbsp;Consultar</button>
-        </div>
+      </div>
     </div>
 
     <div class="input-group col-xs mr-1 ml-3 mt-1 mb-1">
-        <label class="control-label m-0" style="font-weight: bold;">Desde:</label>
-        <span class="input-group-addon ml-1">
-      <i class="mr-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4-event" viewBox="0 0 16 16">
-        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1H2zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5z"/>
-        <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-      </svg></i>
-    </span>
-        <input [(ngModel)]="searchPagoFechaIni" required class="form-control decora_cajas" type="date" id="fechaIniPagoSearch">
+      <label class="control-label m-0" style="font-weight: bold;">Desde:</label>
+      <span class="input-group-addon ml-1">
+        <i class="mr-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4-event" viewBox="0 0 16 16">
+          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1H2zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5z"/>
+          <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+        </svg></i>
+      </span>
+      <input [(ngModel)]="searchPagoFechaIni" required class="form-control decora_cajas" type="date" id="fechaIniPagoSearch">
     </div>
 
     <div class="input-group col-xs mr-1 mt-1 mb-1">
-        <label class="control-label m-0" style="font-weight: bold;">Hasta:</label>
-        <span class="input-group-addon ml-1">
-      <i class="mr-1">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
-        <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
-        <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-      </svg></i>
-    </span>
+      <label class="control-label m-0" style="font-weight: bold;">Hasta:</label>
+      <span class="input-group-addon ml-1">
+        <i class="mr-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+            <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+            <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+          </svg></i>
+        </span>
         <input [(ngModel)]="searchPagoFechaFin" required class="form-control decora_cajas" type="date" id="fechaFinPagoSearch">
-    </div>
+      </div>
 
-    <div class="input-group col-xs-1 mt-1 mb-1">
+      <div class="input-group col-xs-1 mt-1 mb-1">
         <label class="control-label m-0 mr-1" style="font-weight: bold;">Estación</label>
         <select id="station" class="form-control decora_cajas" [disabled]="stationCod" [(ngModel)]="stationSel">
-            <option selected></option>
-            <option *ngFor="let item of stations" [ngValue]="item">{{item.nombreEstacion}}</option>
+          <option selected></option>
+          @for (item of stations; track item) {
+            <option [ngValue]="item">{{item.nombreEstacion}}</option>
+          }
         </select>
-    </div>
+      </div>
 
-    <div class="form-check col-sm-1 p-0 input-check mt-1 mb-1">
+      <div class="form-check col-sm-1 p-0 input-check mt-1 mb-1">
         <input [(ngModel)]="searchPagoEstado" class="mr-2" type="checkbox" value="" id="searchPagoEstado">
         <label class="form-check-label m-0 text-truncate" for="searchPagoEstado">
-      <strong> Activo </strong>
-    </label>
-    </div>
+          <strong> Activo </strong>
+        </label>
+      </div>
 
-    <div class="col-sm-3 btn-group justify-content-center mt-1 mb-1" role="group">
+      <div class="col-sm-3 btn-group justify-content-center mt-1 mb-1" role="group">
         <button id="btnSearchPayment" class="btn btn-info" (click)="getPaymentSearch()">
-      <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
-        <button class="btn btn-warning" (click)="cleanPaymentSearch()">
-      <span class="fas fa-eraser fa-fw"></span>
-    </button>
-        <button class="btn btn-info" (click)="printPaymentSearch()" [disabled]="searchPayments == null || searchPayments.length == 0">
-      <span class="fa fa-print fa-fw"></span>
-    </button>
-        <button class="btn btn-success" (click)="exportarToExcel()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
+          <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+          <button class="btn btn-warning" (click)="cleanPaymentSearch()">
+            <span class="fas fa-eraser fa-fw"></span>
+          </button>
+          <button class="btn btn-info" (click)="printPaymentSearch()" [disabled]="searchPayments == null || searchPayments.length == 0">
+            <span class="fa fa-print fa-fw"></span>
+          </button>
+          <button class="btn btn-success" (click)="exportarToExcel()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
             <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
             <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
           </svg>Excel</button>
-    </div>
-
-</div>
-
-<div class="table-wrapper mt-2" id="table-Consumption-Search" style="border-radius: 12px;">
-    <div class="align-self-center no-more-tables" id="table-Consumption-Search">
-        <div id="print-payments">
-            <div class="tabla_encabezado_fijo">
-                <table id="tabla_pagos" class="table table-sm" #tabla_de_pagos>
-                    <thead>
-                        <tr class="fila_titulo text-center">
-                            <td *ngIf="client.codCliente != null && stationSel == undefined" colspan="11">Pagos — {{ client.nombre }} — {{ client.codCliente }}</td>
-                            <td *ngIf="stationSel != undefined && client.codCliente == null" colspan="11">Pagos — {{ stationSel.nombreEstacion }} — de todos los clientes</td>
-                            <td *ngIf="stationSel != undefined && client.codCliente != null" colspan="11">Pagos — {{ client.nombre }} — {{ client.codCliente }}</td>
-                            <td *ngIf="stationSel == null && client.codCliente == null" colspan="11">Pagos — de todos los clientes — sin estación seleccionada</td>
-                        </tr>
-                        <tr class="text-center">
-                            <th scope="col"></th>
-                            <th scope="col">Id</th>
-                            <th scope="col">Registrado</th>
-                            <th scope="col">Fecha de pago</th>
-                            <th scope="col">Forma de pago</th>
-                            <th scope="col">Valor</th>
-                            <th scope="col">Usuario</th>
-                            <th scope="col">CtaC</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Cliente</th>
-                            <th scope="col" *ngIf="rolSistemas">Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let payment of searchPayments; let contador = index;" [ngClass]="{'fila_0': contador%2 == 0, 'fila_1': contador%2 == 1}">
-                            <td *ngIf="contador != null" class="text-center" data-title="contador">{{contador + 1}}</td>
-                            <td *ngIf="contador == null" class="text-center" data-title="contador">0</td>
-                            <td class="text-center" data-title="Id">{{payment.idPago}}</td>
-                            <td class="text-center" data-title="Registrado">{{payment.fecha | date: 'yyyy/MM/dd hh:mm:ss a' : '+0000'}}</td>
-                            <td class="text-center" data-title="fecha_del_pago">{{payment.fechaDepago | date: 'yyyy/MM/dd hh:mm:ss' : 'UTC +0001' | slice: 0: 10}}</td>
-                            <td *ngIf="payment.formaPago != 8" class="text-center" data-title="Forma de pago">{{getFormaPago(payment.formaPago)}}</td>
-                            <td *ngIf="payment.formaPago == 8" class="text-center" data-title="Forma de pago">{{payment.DETALLE}}</td>
-                            <td class="text-right" data-title="Valor" style="padding: 0px 7px 0px 0px;">{{payment.valor | currency }}</td>
-                            <td class="text-center" data-title="Usuario">{{payment.usuario}}</td>
-                            <td class="text-center" data-title="Cuenta de cobro">{{payment.numCuentaCobro}}</td>
-                            <td class="text-center" data-title="Estado">{{payment.estado == true ? 'Activo' : 'Inactivo'}}</td>
-                            <td class="text-center" data-title="Cliente" style="font-size: 10px;">{{payment.nombre}}</td>
-                            <td *ngIf="rolSistemas" class="text-center" data-title="Borrar Pago">
-                                <button title="Borrar pago de cartera" (click)="borrarPagoCartera(payment.idPago)" class="btn btn-danger btn-sm">
-                                <span class="pi pi-trash fa-fw"></span>
-                                </button>&nbsp;
-                                <img src="../../../../assets/img/cartera/fecha_pago.png" title="Actualizar fecha del pago" width="32" height="32" class="icon_fecha" (click)="updateFechaPago(payment.idPago);">
-                            </td>
-                        </tr>
-
-                        <tr *ngIf="searchPayments != null">
-                            <td *ngIf="searchPayments.length != 0" colspan="1" class="fila_pie">{{searchPayments.length}}</td>
-                            <td *ngIf="searchPayments.length == 0" colspan="1" class="fila_pie">{{searchPayments.length}}</td>
-                            <td colspan="4" class="text-right fila_pie" style="padding: 0px 3px 0px 0px;">Total</td>
-                            <td colspan="1" class="text-right fila_pie" data-title="Total" style="font-weight: bold; padding: 0px 7px 0px 0px;">{{ sumPayments | currency }}</td>
-                            <td colspan="5" class="fila_pie"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
-    </div>
-</div>
 
-<app-modal-dialog [visible]="boolSearchClient" (hide)="boolSearchClient = false">
-    <app-comp-search-client (submiter)="getCodClient($event)"></app-comp-search-client>
-</app-modal-dialog>
+      </div>
 
-<app-modal-dialog [visible]="booleanFecha" (hide)="booleanFecha = false">
-    <app-fecha-pago [id_pago]="id_pago"></app-fecha-pago>
-</app-modal-dialog>
+      <div class="table-wrapper mt-2" id="table-Consumption-Search" style="border-radius: 12px;">
+        <div class="align-self-center no-more-tables" id="table-Consumption-Search">
+          <div id="print-payments">
+            <div class="tabla_encabezado_fijo">
+              <table id="tabla_pagos" class="table table-sm" #tabla_de_pagos>
+                <thead>
+                  <tr class="fila_titulo text-center">
+                    @if (client.codCliente != null && stationSel == undefined) {
+                      <td colspan="11">Pagos — {{ client.nombre }} — {{ client.codCliente }}</td>
+                    }
+                    @if (stationSel != undefined && client.codCliente == null) {
+                      <td colspan="11">Pagos — {{ stationSel.nombreEstacion }} — de todos los clientes</td>
+                    }
+                    @if (stationSel != undefined && client.codCliente != null) {
+                      <td colspan="11">Pagos — {{ client.nombre }} — {{ client.codCliente }}</td>
+                    }
+                    @if (stationSel == null && client.codCliente == null) {
+                      <td colspan="11">Pagos — de todos los clientes — sin estación seleccionada</td>
+                    }
+                  </tr>
+                  <tr class="text-center">
+                    <th scope="col"></th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Registrado</th>
+                    <th scope="col">Fecha de pago</th>
+                    <th scope="col">Forma de pago</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">CtaC</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Cliente</th>
+                    @if (rolSistemas) {
+                      <th scope="col">Acción</th>
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (payment of searchPayments; track payment; let contador = $index) {
+                    <tr [ngClass]="{'fila_0': contador%2 == 0, 'fila_1': contador%2 == 1}">
+                      @if (contador != null) {
+                        <td class="text-center" data-title="contador">{{contador + 1}}</td>
+                      }
+                      @if (contador == null) {
+                        <td class="text-center" data-title="contador">0</td>
+                      }
+                      <td class="text-center" data-title="Id">{{payment.idPago}}</td>
+                      <td class="text-center" data-title="Registrado">{{payment.fecha | date: 'yyyy/MM/dd hh:mm:ss a' : '+0000'}}</td>
+                      <td class="text-center" data-title="fecha_del_pago">{{payment.fechaDepago | date: 'yyyy/MM/dd hh:mm:ss' : 'UTC +0001' | slice: 0: 10}}</td>
+                      @if (payment.formaPago != 8) {
+                        <td class="text-center" data-title="Forma de pago">{{getFormaPago(payment.formaPago)}}</td>
+                      }
+                      @if (payment.formaPago == 8) {
+                        <td class="text-center" data-title="Forma de pago">{{payment.DETALLE}}</td>
+                      }
+                      <td class="text-right" data-title="Valor" style="padding: 0px 7px 0px 0px;">{{payment.valor | currency }}</td>
+                      <td class="text-center" data-title="Usuario">{{payment.usuario}}</td>
+                      <td class="text-center" data-title="Cuenta de cobro">{{payment.numCuentaCobro}}</td>
+                      <td class="text-center" data-title="Estado">{{payment.estado == true ? 'Activo' : 'Inactivo'}}</td>
+                      <td class="text-center" data-title="Cliente" style="font-size: 10px;">{{payment.nombre}}</td>
+                      @if (rolSistemas) {
+                        <td class="text-center" data-title="Borrar Pago">
+                          <button title="Borrar pago de cartera" (click)="borrarPagoCartera(payment.idPago)" class="btn btn-danger btn-sm">
+                            <span class="pi pi-trash fa-fw"></span>
+                          </button>&nbsp;
+                          <img src="../../../../assets/img/cartera/fecha_pago.png" title="Actualizar fecha del pago" width="32" height="32" class="icon_fecha" (click)="updateFechaPago(payment.idPago);">
+                        </td>
+                      }
+                    </tr>
+                  }
+
+                  @if (searchPayments != null) {
+                    <tr>
+                      @if (searchPayments.length != 0) {
+                        <td colspan="1" class="fila_pie">{{searchPayments.length}}</td>
+                      }
+                      @if (searchPayments.length == 0) {
+                        <td colspan="1" class="fila_pie">{{searchPayments.length}}</td>
+                      }
+                      <td colspan="4" class="text-right fila_pie" style="padding: 0px 3px 0px 0px;">Total</td>
+                      <td colspan="1" class="text-right fila_pie" data-title="Total" style="font-weight: bold; padding: 0px 7px 0px 0px;">{{ sumPayments | currency }}</td>
+                      <td colspan="5" class="fila_pie"></td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-modal-dialog [visible]="boolSearchClient" (hide)="boolSearchClient = false">
+        <app-comp-search-client (submiter)="getCodClient($event)"></app-comp-search-client>
+      </app-modal-dialog>
+
+      <app-modal-dialog [visible]="booleanFecha" (hide)="booleanFecha = false">
+        <app-fecha-pago [id_pago]="id_pago"></app-fecha-pago>
+      </app-modal-dialog>

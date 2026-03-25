@@ -1,210 +1,232 @@
 <!-- INVENTARIO INICIAL -->
 <div class="row text-center">
-    <div class="col-sm-12 ">
-        <span class="h2 text-center">SOLICITUDES</span>
-    </div>
+  <div class="col-sm-12 ">
+    <span class="h2 text-center">SOLICITUDES</span>
+  </div>
 </div>
-<!-- 
+<!--
 
 
 <table class="table table-sm table-responsive-sm">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col" class="text-center">No</th>
-            <th scope="col" class="text-center">Id</th>
-            <th scope="col" class="text-center">Estación</th>
-            <th scope="col" class="text-center">Fecha Solicitud</th>
-            <th scope="col" class="text-center">Código</th>
-            <th scope="col" class="text-center">Producto(s)</th>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" class="text-center">No</th>
+      <th scope="col" class="text-center">Id</th>
+      <th scope="col" class="text-center">Estación</th>
+      <th scope="col" class="text-center">Fecha Solicitud</th>
+      <th scope="col" class="text-center">Código</th>
+      <th scope="col" class="text-center">Producto(s)</th>
 
 
-            <th scope="col" class="text-center">Cantidad</th>
-            <th scope="col" class="text-center">Motivo</th>
-            <th scope="col" class="text-center" *ngIf="Area === 11 || Area === 3">
-                Opera.
-            </th>
-            <th scope="col" class="text-center" *ngIf="Area === 11 || Area === 5">
-                Contab.
-            </th>
-            <th scope="col" class="text-center" *ngIf="Area === 11 || Area === 8">
-                Audit.
-            </th>
-            <th scope="col" class="text-center" *ngIf="Area === 11">
-                Acciones
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor= "let solicitud of Solicitudes; index as i" >
-            <td scope="row" class="text-center">
-                {{ solicitud.id }}
-            </td>
-            <td scope="row" class="text-center">
-                {{ solicitud.idProducto }}
-            </td>
-            <td class="text-center">{{ solicitud.Estacion }}</td>
-            <td class="text-center">
-                {{ solicitud.Fecha | date: "shortDate" }}
-            </td>
-            <td class="text-center">{{ solicitud.codContable }}</td>
-            <td class="text-center">{{ solicitud.Producto }}</td>
-            <td class="text-center">{{ solicitud.cantidad }}</td>
-            <td class="text-center">{{ solicitud.Motivo }}</td>
+      <th scope="col" class="text-center">Cantidad</th>
+      <th scope="col" class="text-center">Motivo</th>
+      <th scope="col" class="text-center" *ngIf="Area === 11 || Area === 3">
+        Opera.
+      </th>
+      <th scope="col" class="text-center" *ngIf="Area === 11 || Area === 5">
+        Contab.
+      </th>
+      <th scope="col" class="text-center" *ngIf="Area === 11 || Area === 8">
+        Audit.
+      </th>
+      <th scope="col" class="text-center" *ngIf="Area === 11">
+        Acciones
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor= "let solicitud of Solicitudes; index as i" >
+      <td scope="row" class="text-center">
+        {{ solicitud.id }}
+      </td>
+      <td scope="row" class="text-center">
+        {{ solicitud.idProducto }}
+      </td>
+      <td class="text-center">{{ solicitud.Estacion }}</td>
+      <td class="text-center">
+        {{ solicitud.Fecha | date: "shortDate" }}
+      </td>
+      <td class="text-center">{{ solicitud.codContable }}</td>
+      <td class="text-center">{{ solicitud.Producto }}</td>
+      <td class="text-center">{{ solicitud.cantidad }}</td>
+      <td class="text-center">{{ solicitud.Motivo }}</td>
 
-            <td class="text-center" *ngIf="Area == 11 || Area == 3">
+      <td class="text-center" *ngIf="Area == 11 || Area == 3">
                 <span [class]="
                         solicitud.Operaciones
                             ? 'fa fa-check-circle fa-2x fa-fw text-success'
                             : 'fa fa-times-circle fa-2x fa-fw text-danger'
                     " (click)="CambiarOPera(solicitud)">
-                </span>
-            </td>
+        </span>
+      </td>
 
-            <td class="text-center" *ngIf="Area === 11 || Area === 5">
+      <td class="text-center" *ngIf="Area === 11 || Area === 5">
                 <span [class]="
                         solicitud.Contabilidad
                             ? 'fa fa-check-circle  fa-2x fa-fw text-success'
                             : 'fa fa-times-circle fa-2x fa-fw text-danger'
                     " (click)="CambiarConta(solicitud)" *ngIf="solicitud.Operaciones">
-                </span>
-            </td>
+        </span>
+      </td>
 
-            <td class="text-center" *ngIf="Area === 11 || Area === 8">
+      <td class="text-center" *ngIf="Area === 11 || Area === 8">
                 <span [class]="
                         solicitud.Auditoria
                             ? 'fa fa-check-circle fa-2x fa-fw text-success'
                             : 'fa fa-times-circle fa-2x fa-fw text-danger'
                     " (click)="CambiarAudito(solicitud)" *ngIf="solicitud.Operaciones && solicitud.Contabilidad">
-                </span>
-            </td>
+        </span>
+      </td>
 
-            <td class="text-center" *ngIf="Area === 11">
-                <button type="button" class="btn btn-danger">
-                    <i class="far fa-trash-alt fa-1x fa-fw "></i>
-                </button>
-            </td>
-        </tr>
-    </tbody>
+      <td class="text-center" *ngIf="Area === 11">
+        <button type="button" class="btn btn-danger">
+          <i class="far fa-trash-alt fa-1x fa-fw "></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <div *ngIf="!cargando && Solicitudes.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
-    <h4 class="alert-heading">No hay registros</h4>
-    <p>
-        <i class="fa fa-exclamation fa-2x"></i>
-    </p>
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2x"></i>
+  </p>
 </div>
 <div *ngIf="cargando" class="alert alert-info text-center mt-3 animated fadeIbn faster">
-    <h4 class="alert-heading">Cargando</h4>
-    <p>
-        <i class="fas fa-spinner fa-spin fa-2x"></i>
-    </p>
-    <p class="mb-0">
-        Espere por favor
-    </p>
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fas fa-spinner fa-spin fa-2x"></i>
+  </p>
+  <p class="mb-0">
+    Espere por favor
+  </p>
 </div> -->
 
 <p-table #dt [value]="Solicitudes" dataKey="usuario" [rows]="10" [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm text-xs white-space-nowrap line-height-1 shadow"
-    [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} solicitudes"
-    [filterDelay]="0" [globalFilterFields]="['Estacion','Producto','Motivo','codContable','Fecha']">
-    <ng-template pTemplate="caption">
-        <div class="table-header">
-            Buscar
-            <span class="p-input-icon-left">
-                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                    placeholder="escribe aqui" />
-            </span>
-        </div>
+  [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm text-xs white-space-nowrap line-height-1 shadow"
+  [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} solicitudes"
+  [filterDelay]="0" [globalFilterFields]="['Estacion','Producto','Motivo','codContable','Fecha']">
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      Buscar
+      <span class="p-input-icon-left">
+        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+          placeholder="escribe aqui" />
+        </span>
+      </div>
     </ng-template>
     <ng-template pTemplate="header">
-        <tr>
-            <th class="text-center" style="width: 50px">No</th>
-            <th class="text-center" style="width: 50px">Id</th>
-            <th class="text-center">Estación</th>
-            <th class="text-center" style="width: 90px">Fecha Solicitud</th>
-            <th class="text-center" style="width: 80px">Código</th>
-            <th class="text-center">Producto(s)</th>
+      <tr>
+        <th class="text-center" style="width: 50px">No</th>
+        <th class="text-center" style="width: 50px">Id</th>
+        <th class="text-center">Estación</th>
+        <th class="text-center" style="width: 90px">Fecha Solicitud</th>
+        <th class="text-center" style="width: 80px">Código</th>
+        <th class="text-center">Producto(s)</th>
 
 
-            <th class="text-center" style="width: 65px">Cant</th>
-            <th class="text-center">Motivo</th>
-            <th class="text-center" *ngIf="Area === 11 || Area === 3" style="width: 70px">
-                Opera.
-            </th>
-            <th class="text-center" *ngIf="Area === 11 || Area === 5" style="width: 80px">
-                Contab.
-            </th>
-            <th class="text-center" *ngIf="Area === 11 || Area === 8" style="width: 70px">
-                Audit.
-            </th>
-            <th class="text-center" *ngIf="Area === 11" style="width: 90px">
-                Acciones
-            </th>
-        </tr>
+        <th class="text-center" style="width: 65px">Cant</th>
+        <th class="text-center">Motivo</th>
+        @if (Area === 11 || Area === 3) {
+          <th class="text-center" style="width: 70px">
+            Opera.
+          </th>
+        }
+        @if (Area === 11 || Area === 5) {
+          <th class="text-center" style="width: 80px">
+            Contab.
+          </th>
+        }
+        @if (Area === 11 || Area === 8) {
+          <th class="text-center" style="width: 70px">
+            Audit.
+          </th>
+        }
+        @if (Area === 11) {
+          <th class="text-center" style="width: 90px">
+            Acciones
+          </th>
+        }
+      </tr>
     </ng-template>
     <ng-template pTemplate="body" let-solicitud let-rowIndex="rowIndex">
-        <tr>
-            <td class="text-center">
-                {{ solicitud.id }}
-            </td>
-            <td class="text-center">
-                {{ solicitud.idProducto }}
-            </td>
-            <td class="text-center">{{ solicitud.Estacion }}</td>
-            <td class="text-center">
-                {{ solicitud.Fecha | date:'dd/MM/yy':'+0000':'es' }}
-            </td>
-            <td class="text-center">{{ solicitud.codContable }}</td>
-            <td class="text-center">{{ solicitud.Producto }}</td>
-            <td class="text-center">{{ solicitud.cantidad }}</td>
-            <td class="text-center">{{ solicitud.Motivo }}</td>
+      <tr>
+        <td class="text-center">
+          {{ solicitud.id }}
+        </td>
+        <td class="text-center">
+          {{ solicitud.idProducto }}
+        </td>
+        <td class="text-center">{{ solicitud.Estacion }}</td>
+        <td class="text-center">
+          {{ solicitud.Fecha | date:'dd/MM/yy':'+0000':'es' }}
+        </td>
+        <td class="text-center">{{ solicitud.codContable }}</td>
+        <td class="text-center">{{ solicitud.Producto }}</td>
+        <td class="text-center">{{ solicitud.cantidad }}</td>
+        <td class="text-center">{{ solicitud.Motivo }}</td>
 
-            <td class="text-center" *ngIf="Area == 11 || Area == 3">
+        @if (Area == 11 || Area == 3) {
+          <td class="text-center">
                 <span [class]="
                         solicitud.Operaciones
                             ? 'fa fa-check-circle fa-2x fa-fw text-success'
                             : 'fa fa-times-circle fa-2x fa-fw text-danger'
                     " (click)="CambiarOPera(solicitud)">
-                </span>
-            </td>
+            </span>
+          </td>
+        }
 
-            <td class="text-center" *ngIf="Area === 11 || Area === 5">
-                <span [class]="
+        @if (Area === 11 || Area === 5) {
+          <td class="text-center">
+            @if (solicitud.Operaciones) {
+<span [class]="
                         solicitud.Contabilidad
                             ? 'fa fa-check-circle  fa-2x fa-fw text-success'
                             : 'fa fa-times-circle fa-2x fa-fw text-danger'
-                    " (click)="CambiarConta(solicitud)" *ngIf="solicitud.Operaciones">
-                </span>
-            </td>
+                    " (click)="CambiarConta(solicitud)">
+              </span>
+            }
+          </td>
+        }
 
-            <td class="text-center" *ngIf="Area === 11 || Area === 8">
-                <span [class]="
+        @if (Area === 11 || Area === 8) {
+          <td class="text-center">
+            @if (solicitud.Operaciones && solicitud.Contabilidad) {
+<span [class]="
                         solicitud.Auditoria
                             ? 'fa fa-check-circle fa-2x fa-fw text-success'
                             : 'fa fa-times-circle fa-2x fa-fw text-danger'
-                    " (click)="CambiarAudito(solicitud)" *ngIf="solicitud.Operaciones && solicitud.Contabilidad">
-                </span>
-            </td>
+                    " (click)="CambiarAudito(solicitud)">
+              </span>
+            }
+          </td>
+        }
 
-            <td class="text-center" *ngIf="Area === 11">
-                <button type="button" class="btn btn-danger">
-                    <i class="far fa-trash-alt fa-1x fa-fw "></i>
-                </button>
-            </td>
-        </tr>
+        @if (Area === 11) {
+          <td class="text-center">
+            <button type="button" class="btn btn-danger">
+              <i class="far fa-trash-alt fa-1x fa-fw "></i>
+            </button>
+          </td>
+        }
+      </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
-        <tr>
-            <td colspan="12">sin resultados.</td>
-        </tr>
+      <tr>
+        <td colspan="12">sin resultados.</td>
+      </tr>
     </ng-template>
-</p-table>
-<div *ngIf="cargando" class="alert alert-info text-center mt-3 animated fadeIbn faster">
-    <h4 class="alert-heading">Cargando</h4>
-    <p>
+  </p-table>
+  @if (cargando) {
+    <div class="alert alert-info text-center mt-3 animated fadeIbn faster">
+      <h4 class="alert-heading">Cargando</h4>
+      <p>
         <i class="fas fa-spinner fa-spin fa-2x"></i>
-    </p>
-    <p class="mb-0">
+      </p>
+      <p class="mb-0">
         Espere por favor
-    </p>
-</div>
+      </p>
+    </div>
+  }

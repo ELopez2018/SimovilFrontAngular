@@ -1,39 +1,43 @@
 <div class="col-sm-12 p-2">
-    <div class="form-row">
-        <div class="col-sm-4 mb-1">
-            <label for="paramSel" style="font-weight: bold;">Reportes del área de Calidad</label>
-            <select name="paramSel" class="form-control" [(ngModel)]="paramSel">
-                <option *ngFor="let item of reportes" [ngValue]="item">
-                    {{item.nombre}}
-                </option>
-            </select>
-        </div>
+  <div class="form-row">
+    <div class="col-sm-4 mb-1">
+      <label for="paramSel" style="font-weight: bold;">Reportes del área de Calidad</label>
+      <select name="paramSel" class="form-control" [(ngModel)]="paramSel">
+        @for (item of reportes; track item) {
+          <option [ngValue]="item">
+            {{item.nombre}}
+          </option>
+        }
+      </select>
+    </div>
 
-        <div class="col-sm-2 mb-1">
-            <div class="form-group form-row">
-                <label class="control-label display-block" style="font-weight: bold;">Estación</label>
-                <select class="form-control display-block" [(ngModel)]="stationSel">
-                          <option *ngFor="let item of stations" [ngValue]="item">
-                              {{ item.nombreEstacion }}
-                          </option>
-                        </select>
-            </div>
-        </div>
+    <div class="col-sm-2 mb-1">
+      <div class="form-group form-row">
+        <label class="control-label display-block" style="font-weight: bold;">Estación</label>
+        <select class="form-control display-block" [(ngModel)]="stationSel">
+          @for (item of stations; track item) {
+            <option [ngValue]="item">
+              {{ item.nombreEstacion }}
+            </option>
+          }
+        </select>
+      </div>
+    </div>
 
-        <div class="col-sm-2">
-            <label for="date1" style="font-weight: bold;">Mes</label>
-            <input type="date" id="date1" [(ngModel)]="fecha" class="form-control">
-        </div>
+    <div class="col-sm-2">
+      <label for="date1" style="font-weight: bold;">Mes</label>
+      <input type="date" id="date1" [(ngModel)]="fecha" class="form-control">
+    </div>
 
-        <div class="col-sm-2 mb-1">
-            <button id="" (click)="getReport(prueba)" class="btn btn-primary" style="margin-top: 34px;">
-                <i class="fas fa-search fa-fw"></i>&nbsp;Consultar</button>
-        </div>
+    <div class="col-sm-2 mb-1">
+      <button id="" (click)="getReport(prueba)" class="btn btn-primary" style="margin-top: 34px;">
+        <i class="fas fa-search fa-fw"></i>&nbsp;Consultar</button>
+      </div>
 
     </div>
-</div>
+  </div>
 
-<app-report-ssrs #target [show]="showReport" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
-</app-report-ssrs>
+  <app-report-ssrs #target [show]="showReport" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
+  </app-report-ssrs>
 
-<div #prueba></div>
+  <div #prueba></div>

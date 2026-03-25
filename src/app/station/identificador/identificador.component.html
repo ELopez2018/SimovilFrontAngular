@@ -1,136 +1,144 @@
 <div class="row">
-    <div class="col-md-12">
-        <h5 class="mt-0 mb-2 titulo">
-            Actualizar idIdentificador del ClienteA al ClienteB
-        </h5>
-    </div>
+  <div class="col-md-12">
+    <h5 class="mt-0 mb-2 titulo">
+      Actualizar idIdentificador del ClienteA al ClienteB
+    </h5>
+  </div>
 </div>
 
 <div class="envoltura">
-    <div class="card color_tabla">
-        <div class="card-header">
-            <div class="row mt-2">
+  <div class="card color_tabla">
+    <div class="card-header">
+      <div class="row mt-2">
 
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <span style="font-family: cursive; font-weight: bold;">id consumo:<img src="../../../assets/img/alerta7.gif"></span>
-                </div>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" placeholder="{{ idConsumo }}" readonly>
-                </div>
-                <div class="col-md-2">
-                    <span style="font-family: cursive; font-weight: bold;">id identificador: <img *ngIf="!idIdentificador" src="../../../assets/img/alerta2.gif"> <img *ngIf="idIdentificador" src="../../../assets/img/alerta7.gif"></span>
-                </div>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" placeholder="{{ idIdentificador }}" readonly>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="boton" (click)="updateIdIdentificador(idConsumo,idIdentificador)">Actualizar</button>
-                </div>
-
-            </div>
-
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <span style="font-family: cursive; font-weight: bold;">id consumo:<img src="../../../assets/img/alerta7.gif"></span>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <h5 class="mt-2 mb-2 titulo">
-                Búsqueda del ClienteB
-            </h5>
+        <div class="col-md-2">
+          <input type="text" class="form-control" placeholder="{{ idConsumo }}" readonly>
         </div>
-    </div>
-
-
-    <div class="card color_tabla">
-        <div class="card-header">
-            <div class="row mt-0 mb-2">
-                <div class="col-md-2"></div>
-                <div class="col-md-2">
-                    <span style="font-family: cursive; font-weight: bold;">ingrese el nombre:</span>
-                </div>
-                <div class="col-md-4">
-                    <input type="text" [(ngModel)]="search" (keydown.enter)="getClient()" class="form-control" placeholder="Nombre">
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="boton" (click)="getClient()">
-				Buscar
-			</button>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
+        <div class="col-md-2">
+          <span style="font-family: cursive; font-weight: bold;">id identificador: @if (!idIdentificador) {
+            <img src="../../../assets/img/alerta2.gif">
+            } @if (idIdentificador) {
+            <img src="../../../assets/img/alerta7.gif">
+          }</span>
         </div>
-    </div>
-
-
-    <div class="card marco_tabla">
-        <div class="card-header">
-            <div class="row encabezado_tabla">
-                <div class="col-md-1 col_titulo center"> # </div>
-                <div class="col-md-2 col_titulo"> codCliente </div>
-                <div class="col-md-5 col_titulo center"> Nombre </div>
-                <div class="col-md-1 col_titulo"> Estacion </div>
-                <div class="col-md-1 col_titulo"> Tipo Cupo </div>
-                <div class="col-md-1 col_titulo"> Detalle</div>
-                <div class="col-md-1 col_titulo"> Acción </div>
-            </div>
-
-            <div *ngFor="let cliente of clients; index as contador">
-                <div class="row margenes_filas" [ngClass]="{'fila_0': contador%2===0, 'fila_1': contador%2===1}">
-                    <div class="col-md-1 margenes_columnas"> {{ contador + 1 }} </div>
-                    <div class="col-md-2 margenes_columnas"> {{ cliente.codCliente }} </div>
-                    <div class="col-md-5 margenes_columnas"> {{ cliente.nombre }} </div>
-                    <div class="col-md-1 margenes_columnas"> {{ cliente.estacion }} </div>
-                    <div class="col-md-1 margenes_columnas"> {{ cliente.tipoCupo }} </div>
-                    <div class="col-md-1 margenes_columnas"> {{ cliente.detalleTipoCupo }} </div>
-                    <div class="col-md-1 margenes_columnas">
-                        <button type="button" class="boton_in_fila" (click)="getIdentificators(cliente.codCliente)">
-                                seleccionar
-                            </button>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-2">
+          <input type="text" class="form-control" placeholder="{{ idIdentificador }}" readonly>
         </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-12">
-            <h5 class="mt-3 mb-2 titulo">
-                Selección id identificador del ClienteB
-            </h5>
+        <div class="col-md-2">
+          <button type="button" class="boton" (click)="updateIdIdentificador(idConsumo,idIdentificador)">Actualizar</button>
         </div>
+
+      </div>
+
     </div>
+  </div>
 
-    <div class="card marco_tabla">
-        <div class="card-header">
-            <div class="row encabezado_tabla">
-                <div class="col-md-1"> placa </div>
-                <div class="col-md-1"> id/dor </div>
-                <div class="col-md-2"> romId/dor </div>
-                <div class="col-md-1"> Cliente </div>
-                <div class="col-md-4"> nombre </div>
-                <div class="col-md-1"> E/ción </div>
-                <div class="col-md-1"> EDS </div>
-                <div class="col-md-1"> Acción </div>
-            </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h5 class="mt-2 mb-2 titulo">
+        Búsqueda del ClienteB
+      </h5>
+    </div>
+  </div>
 
-            <div *ngFor="let identifi of identificadores; index as cont">
-                <div class="row margenes_filas" [ngClass]="{'fila_0': cont%2===0, 'fila_1': cont%2===1, 'fila_ppal': identifi.principal}">
-                    <div class="col-md-1 margenes_columnas"> {{ identifi.placaVehiculo }} </div>
-                    <div class="col-md-1 margenes_columnas"> {{ identifi.idIdentificador }} </div>
-                    <div class="col-md-2 margenes_columnas"> {{ identifi.romIdentificador }} </div>
-                    <div class="col-md-1 margenes_columnas"> {{ identifi.codCliente }} </div>
-                    <div class="col-md-4 margenes_columnas"> {{ identifi.nombreCliente }} </div>
-                    <div class="col-md-1 margenes_columnas"> {{ identifi.idEstacion }} </div>
-                    <div class="col-md-1 margenes_columnas"> {{ cont + 1 }} {{ identifi.nombreEstacion }} </div>
-                    <div class="col-md-1 margenes_columnas">
-                        <button type="button" class="boton_in_fila" (click)="setIdIdentificador(identifi.idIdentificador)">
-                                seleccionar
-                            </button>
-                    </div>
-                </div>
-            </div>
+
+  <div class="card color_tabla">
+    <div class="card-header">
+      <div class="row mt-0 mb-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+          <span style="font-family: cursive; font-weight: bold;">ingrese el nombre:</span>
         </div>
+        <div class="col-md-4">
+          <input type="text" [(ngModel)]="search" (keydown.enter)="getClient()" class="form-control" placeholder="Nombre">
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="boton" (click)="getClient()">
+            Buscar
+          </button>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
     </div>
+  </div>
+
+
+  <div class="card marco_tabla">
+    <div class="card-header">
+      <div class="row encabezado_tabla">
+        <div class="col-md-1 col_titulo center"> # </div>
+        <div class="col-md-2 col_titulo"> codCliente </div>
+        <div class="col-md-5 col_titulo center"> Nombre </div>
+        <div class="col-md-1 col_titulo"> Estacion </div>
+        <div class="col-md-1 col_titulo"> Tipo Cupo </div>
+        <div class="col-md-1 col_titulo"> Detalle</div>
+        <div class="col-md-1 col_titulo"> Acción </div>
+      </div>
+
+      @for (cliente of clients; track cliente; let contador = $index) {
+        <div>
+          <div class="row margenes_filas" [ngClass]="{'fila_0': contador%2===0, 'fila_1': contador%2===1}">
+            <div class="col-md-1 margenes_columnas"> {{ contador + 1 }} </div>
+            <div class="col-md-2 margenes_columnas"> {{ cliente.codCliente }} </div>
+            <div class="col-md-5 margenes_columnas"> {{ cliente.nombre }} </div>
+            <div class="col-md-1 margenes_columnas"> {{ cliente.estacion }} </div>
+            <div class="col-md-1 margenes_columnas"> {{ cliente.tipoCupo }} </div>
+            <div class="col-md-1 margenes_columnas"> {{ cliente.detalleTipoCupo }} </div>
+            <div class="col-md-1 margenes_columnas">
+              <button type="button" class="boton_in_fila" (click)="getIdentificators(cliente.codCliente)">
+                seleccionar
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <h5 class="mt-3 mb-2 titulo">
+        Selección id identificador del ClienteB
+      </h5>
+    </div>
+  </div>
+
+  <div class="card marco_tabla">
+    <div class="card-header">
+      <div class="row encabezado_tabla">
+        <div class="col-md-1"> placa </div>
+        <div class="col-md-1"> id/dor </div>
+        <div class="col-md-2"> romId/dor </div>
+        <div class="col-md-1"> Cliente </div>
+        <div class="col-md-4"> nombre </div>
+        <div class="col-md-1"> E/ción </div>
+        <div class="col-md-1"> EDS </div>
+        <div class="col-md-1"> Acción </div>
+      </div>
+
+      @for (identifi of identificadores; track identifi; let cont = $index) {
+        <div>
+          <div class="row margenes_filas" [ngClass]="{'fila_0': cont%2===0, 'fila_1': cont%2===1, 'fila_ppal': identifi.principal}">
+            <div class="col-md-1 margenes_columnas"> {{ identifi.placaVehiculo }} </div>
+            <div class="col-md-1 margenes_columnas"> {{ identifi.idIdentificador }} </div>
+            <div class="col-md-2 margenes_columnas"> {{ identifi.romIdentificador }} </div>
+            <div class="col-md-1 margenes_columnas"> {{ identifi.codCliente }} </div>
+            <div class="col-md-4 margenes_columnas"> {{ identifi.nombreCliente }} </div>
+            <div class="col-md-1 margenes_columnas"> {{ identifi.idEstacion }} </div>
+            <div class="col-md-1 margenes_columnas"> {{ cont + 1 }} {{ identifi.nombreEstacion }} </div>
+            <div class="col-md-1 margenes_columnas">
+              <button type="button" class="boton_in_fila" (click)="setIdIdentificador(identifi.idIdentificador)">
+                seleccionar
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
 </div>

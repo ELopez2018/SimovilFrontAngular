@@ -1,142 +1,148 @@
 <div class="row titulo text-center">
-    <div class="col-sm-12 h4 strong">
-        Cargar consumos de Cartera<!-- , EDS Piloto: Cusiana, Pavitos, Gasollanos -->
-    </div>
+  <div class="col-sm-12 h4 strong">
+    Cargar consumos de Cartera<!-- , EDS Piloto: Cusiana, Pavitos, Gasollanos -->
+  </div>
 </div>
 <img src="../../../assets/img/smile.GIF">
 <!-- <div class="container">
-    <div class="card bg-info text-white">
-        <div class="card-body text-justify"> El <b>archivo_plano.csv</b> debe tener 7 columnas que contienen: 1. => El nombre del <b>Cliente.</b> 2. => La <b>Fecha</b> que viene con la hora incluida. 3. => El <b>Recibo</b> que es el número de tiquete o consecutivo. 4. => La <b>placa</b>.
-            5. => El
-            <b>Producto</b> o artículo. 6. => La <b>cantidad</b>. 7. => El <b>Total</b>. Recuerde que los encabezados de columna deben ser: <b>Recibo, Fecha, Cliente, Placa, Producto, Cantidad, Total.</b></div>
-    </div>
+<div class="card bg-info text-white">
+  <div class="card-body text-justify"> El <b>archivo_plano.csv</b> debe tener 7 columnas que contienen: 1. => El nombre del <b>Cliente.</b> 2. => La <b>Fecha</b> que viene con la hora incluida. 3. => El <b>Recibo</b> que es el número de tiquete o consecutivo. 4. => La <b>placa</b>.
+  5. => El
+  <b>Producto</b> o artículo. 6. => La <b>cantidad</b>. 7. => El <b>Total</b>. Recuerde que los encabezados de columna deben ser: <b>Recibo, Fecha, Cliente, Placa, Producto, Cantidad, Total.</b></div>
+</div>
 </div>
 <br> -->
 
 <form enctype="multipart/form-data" novalidate>
-    <fieldset class="pt-0">
-        <legend>Seleccionar reporte .xlsx (Excel)</legend>
-        <div class="form-row">
-            <div class="form-group mb-0 col-sm-3">
-                <input type="file" (change)="fileChange($event);" class="btn btn-block btn-sm btn-primary text-truncate" />                
-            </div>
-        </div>
-    </fieldset>
+  <fieldset class="pt-0">
+    <legend>Seleccionar reporte .xlsx (Excel)</legend>
+    <div class="form-row">
+      <div class="form-group mb-0 col-sm-3">
+        <input type="file" (change)="fileChange($event);" class="btn btn-block btn-sm btn-primary text-truncate" />
+      </div>
+    </div>
+  </fieldset>
 </form>
 
-<div class="row m-2 animated fadeIn" *ngIf="data2.length > 0 && estacionesTerpelPOS.includes(idEstacion)">
+@if (data2.length > 0 && estacionesTerpelPOS.includes(idEstacion)) {
+  <div class="row m-2 animated fadeIn">
     <table class="table table-sm table-responsive-sm">
-        <thead class="p-3 mb-2 bg-primary h5 text-white">
-            <tr>
-                <th scope="col" class="text-center">N°</th>
-                <th scope="col" class="text-center">Nombre</th>
-                <th scope="col" class="text-center">Fecha</th>
-                <th scope="col" class="text-center">Hora</th>
-                <th scope="col" class="text-center">Tiquete</th>
-                <th scope="col" class="text-center">Placa</th>
-                <th scope="col" class="text-center">Artículo</th>
-                <th scope="col" class="text-center">Cantidad</th>
-                <th scope="col" class="text-center">Total</th>
-                <th scope="col" class="text-center">Descuento</th>
-                <th scope="col" class="text-center">Número Interno</th>
-            </tr>
-        </thead>
-        <tbody class="fondo">
-            <tr *ngFor="let consumo of data2; index as i">
-                <td> {{i+1}} </td>
-                <td>
-                    <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.CLIENTE" title="Cliente" readonly>
-                </td>
-                <td>
-                    <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.FECHA" title="Fecha" readonly>
-                </td>
-                <td>
-                    <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.HORA" title="hora" readonly>
-                </td>
-                <td>
-                    <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo.CONSECUTIVO" title="Recibo" readonly>
-                </td>
-                <td>
-                    <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.PLACA" title="Placa" readonly>
-                </td>
-
-                <td>
-                    <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.PRODUCTO" title="Producto" readonly>
-                </td>
-                <td>
-                    <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo.CANTIDAD" title="Cantidad" readonly>
-                </td>
-                <td>
-                    <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo['T VENTA']" title="Total" readonly>
-                </td>
-                <td>
-                    <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo.descuento" title="descuento" [disabled]="consumo.IDENTIFICACION !== 860002566">
-                </td> 
-                <td>
-                    <input type="number" class="form-control form-control-sm text-center " [(ngModel)]="consumo.numeroInterno" title="número interno" [disabled]="consumo.IDENTIFICACION !== 860002566">
-                </td>
-            </tr>
-        </tbody>
+      <thead class="p-3 mb-2 bg-primary h5 text-white">
+        <tr>
+          <th scope="col" class="text-center">N°</th>
+          <th scope="col" class="text-center">Nombre</th>
+          <th scope="col" class="text-center">Fecha</th>
+          <th scope="col" class="text-center">Hora</th>
+          <th scope="col" class="text-center">Tiquete</th>
+          <th scope="col" class="text-center">Placa</th>
+          <th scope="col" class="text-center">Artículo</th>
+          <th scope="col" class="text-center">Cantidad</th>
+          <th scope="col" class="text-center">Total</th>
+          <th scope="col" class="text-center">Descuento</th>
+          <th scope="col" class="text-center">Número Interno</th>
+        </tr>
+      </thead>
+      <tbody class="fondo">
+        @for (consumo of data2; track consumo; let i = $index) {
+          <tr>
+            <td> {{i+1}} </td>
+            <td>
+              <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.CLIENTE" title="Cliente" readonly>
+            </td>
+            <td>
+              <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.FECHA" title="Fecha" readonly>
+            </td>
+            <td>
+              <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.HORA" title="hora" readonly>
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo.CONSECUTIVO" title="Recibo" readonly>
+            </td>
+            <td>
+              <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.PLACA" title="Placa" readonly>
+            </td>
+            <td>
+              <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.PRODUCTO" title="Producto" readonly>
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo.CANTIDAD" title="Cantidad" readonly>
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo['T VENTA']" title="Total" readonly>
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo.descuento" title="descuento" [disabled]="consumo.IDENTIFICACION !== 860002566">
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-center " [(ngModel)]="consumo.numeroInterno" title="número interno" [disabled]="consumo.IDENTIFICACION !== 860002566">
+            </td>
+          </tr>
+        }
+      </tbody>
     </table>
-</div>
+  </div>
+}
 
-<div class="row m-2 animated fadeIn" *ngIf="data2.length > 0 && estacionesDominus.includes(idEstacion)">
+@if (data2.length > 0 && estacionesDominus.includes(idEstacion)) {
+  <div class="row m-2 animated fadeIn">
     <table class="table table-sm table-responsive-sm">
-        <thead class="p-3 mb-2 bg-primary h5 text-white">
-            <tr>
-                <th scope="col-sm-1" class="text-center">N°</th>
-                <th scope="col" class="text-center">Nombre</th>
-                <th scope="col-sm-1" class="text-center">Fecha</th>
-                <th scope="col-sm-1" class="text-center">Hora</th>
-                <th scope="col-sm-1" class="text-center">Tiquete</th>
-                <th scope="col-sm-1" class="text-center">Placa</th>
-                <th scope="col-sm-1" class="text-center">Artículo</th>
-                <th scope="col-sm-1" class="text-center">Cantidad</th>
-                <th scope="col-sm-1" class="text-center">Total</th>
-                <th scope="col-sm-1" class="text-center">Descuento</th>
-            </tr>
-        </thead>
-        <tbody class="fondo">
-            <tr *ngFor="let consumo of data2; index as i">
-                <td> {{i+1}} </td>
-                <td>
-                    <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.Cliente" title="Cliente" readonly>
-                </td>
-                <td>
-                    <input type="text" class="form-control form-control-sm text-center" value="{{consumo.Fecha | date:'shortDate'}}" title="Fecha" readonly>                    
-                </td>
-                <td>
-                    <input type="text" class="form-control form-control-sm text-center" value="{{consumo.hora }}" title="hora" readonly>
-                </td>
-                <td>
-                    <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo.Recibo" title="Recibo" readonly>
-                </td>
-                <td>
-                    <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.Placa" title="Placa" readonly>
-                </td>
-
-                <td>
-                    <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.Producto" title="Producto" readonly>
-                </td>
-                <td>
-                    <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo.Cantidad" title="Cantidad" readonly>
-                </td>
-                <td>
-                    <input type="number" class="form-control form-control-sm text-center" value="{{consumo['Total Documento']}}" title="Total" readonly>
-                </td>
-                <td>
-                    <input type="number" class="form-control form-control-sm text-center"  value="{{consumo.descuento}}" title="descuento" [disabled]="consumo['Nit '] !== 860002566">
-                </td> 
-            </tr>
-        </tbody>
+      <thead class="p-3 mb-2 bg-primary h5 text-white">
+        <tr>
+          <th scope="col-sm-1" class="text-center">N°</th>
+          <th scope="col" class="text-center">Nombre</th>
+          <th scope="col-sm-1" class="text-center">Fecha</th>
+          <th scope="col-sm-1" class="text-center">Hora</th>
+          <th scope="col-sm-1" class="text-center">Tiquete</th>
+          <th scope="col-sm-1" class="text-center">Placa</th>
+          <th scope="col-sm-1" class="text-center">Artículo</th>
+          <th scope="col-sm-1" class="text-center">Cantidad</th>
+          <th scope="col-sm-1" class="text-center">Total</th>
+          <th scope="col-sm-1" class="text-center">Descuento</th>
+        </tr>
+      </thead>
+      <tbody class="fondo">
+        @for (consumo of data2; track consumo; let i = $index) {
+          <tr>
+            <td> {{i+1}} </td>
+            <td>
+              <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.Cliente" title="Cliente" readonly>
+            </td>
+            <td>
+              <input type="text" class="form-control form-control-sm text-center" value="{{consumo.Fecha | date:'shortDate'}}" title="Fecha" readonly>
+            </td>
+            <td>
+              <input type="text" class="form-control form-control-sm text-center" value="{{consumo.hora }}" title="hora" readonly>
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo.Recibo" title="Recibo" readonly>
+            </td>
+            <td>
+              <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.Placa" title="Placa" readonly>
+            </td>
+            <td>
+              <input type="text" class="form-control form-control-sm text-center" [(ngModel)]="consumo.Producto" title="Producto" readonly>
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-center" [(ngModel)]="consumo.Cantidad" title="Cantidad" readonly>
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-center" value="{{consumo['Total Documento']}}" title="Total" readonly>
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-center"  value="{{consumo.descuento}}" title="descuento" [disabled]="consumo['Nit '] !== 860002566">
+            </td>
+          </tr>
+        }
+      </tbody>
     </table>
-</div>
+  </div>
+}
 
 <div class="row">
-    <div class="col-sm-5"></div>
-    <div class="col-sm-2">
-        <button class="btn btn-block btn-primary" (click)="guardar()"> <i
-            class="fas fa-save"></i> &nbsp; Guardar consumos</button>
-    </div>
-    <div class="col-sm-5"></div>
+  <div class="col-sm-5"></div>
+  <div class="col-sm-2">
+    <button class="btn btn-block btn-primary" (click)="guardar()"> <i
+    class="fas fa-save"></i> &nbsp; Guardar consumos</button>
+  </div>
+  <div class="col-sm-5"></div>
 </div>

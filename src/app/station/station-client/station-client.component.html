@@ -17,50 +17,52 @@
   <div class="col-sm-3 btn-group justify-content-center" role="group">
     <button class="btn btn-info" (click)="getClient()">
       <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
-    <button class="btn btn-warning" (click)="clearClient()">
-      <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
-    </button>
+      <button class="btn btn-warning" (click)="clearClient()">
+        <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+      </button>
+    </div>
   </div>
-</div>
-<div class="table-wrapper" id="table-users-Search">
-  <div class="align-self-center no-more-tables" id="table-Users">
-    <table class="table table-hover table-sm table-striped table-bordered">
-      <thead>
-        <tr class="text-center">
-          <th scope="col">Nit</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Estado Cupo</th>
-          <th scope="col">Cupo Asignado</th>
-          <th scope="col">Cupo Disponible</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let client of clients">
-          <td data-title="Nit" class="text-center">{{client.codCliente}}</td>
-          <td data-title="Nombre" class="text-center">{{client.nombre}}</td>
-          <td data-title="Estado Cupo" class="text-center">{{client.estadoCupo == true ? 'Activo' : 'Inactivo'}}</td>
-          <td data-title="Cupo Asignado" class="text-right">{{client.cupoAsignado | currency}}</td>
-          <td data-title="Cupo Disponible" class="text-right">{{client.cupoDisponible| currency}}</td>
-          <td class="text-center">
-            <button routerLink="/station/order/{{client.codCliente}}" class="btn btn-info btn-sm" title="Pedidos">
-              <span class="fas fa-shopping-cart fa-fw"></span>
-            </button>
-            <button routerLink="/station/payment/{{client.codCliente}}" class="btn btn-success btn-sm" title="Pagos">
-              <span class="fas fa-hand-holding-usd fa-fw"></span>
-            </button>
-            <button routerLink="/station/consumption/{{client.codCliente}}" class="btn btn-warning btn-sm" title="Consumos">
-              <span class="fas fa-gas-pump fa-fw"></span>
-            </button>
-            <button routerLink="/station/receivable/{{client.codCliente}}" class="btn btn-gray btn-sm" title="Cuentas de cobro">
-              <span class="fas fa-file-alt fa-fw"></span>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="table-wrapper" id="table-users-Search">
+    <div class="align-self-center no-more-tables" id="table-Users">
+      <table class="table table-hover table-sm table-striped table-bordered">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Nit</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado Cupo</th>
+            <th scope="col">Cupo Asignado</th>
+            <th scope="col">Cupo Disponible</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (client of clients; track client) {
+            <tr>
+              <td data-title="Nit" class="text-center">{{client.codCliente}}</td>
+              <td data-title="Nombre" class="text-center">{{client.nombre}}</td>
+              <td data-title="Estado Cupo" class="text-center">{{client.estadoCupo == true ? 'Activo' : 'Inactivo'}}</td>
+              <td data-title="Cupo Asignado" class="text-right">{{client.cupoAsignado | currency}}</td>
+              <td data-title="Cupo Disponible" class="text-right">{{client.cupoDisponible| currency}}</td>
+              <td class="text-center">
+                <button routerLink="/station/order/{{client.codCliente}}" class="btn btn-info btn-sm" title="Pedidos">
+                  <span class="fas fa-shopping-cart fa-fw"></span>
+                </button>
+                <button routerLink="/station/payment/{{client.codCliente}}" class="btn btn-success btn-sm" title="Pagos">
+                  <span class="fas fa-hand-holding-usd fa-fw"></span>
+                </button>
+                <button routerLink="/station/consumption/{{client.codCliente}}" class="btn btn-warning btn-sm" title="Consumos">
+                  <span class="fas fa-gas-pump fa-fw"></span>
+                </button>
+                <button routerLink="/station/receivable/{{client.codCliente}}" class="btn btn-gray btn-sm" title="Cuentas de cobro">
+                  <span class="fas fa-file-alt fa-fw"></span>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-<app-modal-dialog [visible]="booleanClient" (hide)="booleanClient=false">
-  <app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
-</app-modal-dialog>
+  <app-modal-dialog [visible]="booleanClient" (hide)="booleanClient=false">
+    <app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
+  </app-modal-dialog>

@@ -1,297 +1,306 @@
-<div class="main pb-1" *ngIf="cliente">
+@if (cliente) {
+  <div class="main pb-1">
     <div class="container-fluid">
-
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="control-label">Nombre del cliente</label>
+            <input type="text" class="form-control" disabled [(ngModel)]="cliente.nombre" />
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label class="control-label">Concepto</label>
+            <select name="" id="" class="form-control" [(ngModel)]="conceptoSelected">
+              @for (fila of tipoConceptos; track fila) {
+                <option [ngValue]="fila">
+                  {{fila.detalleConcepto}}
+                </option>
+              }
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label class="control-label">Fecha inicial</label>
+            <input id="fechaIni" type="date" [(ngModel)]="fechaIni" class="form-control" />
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label class="control-label">Fecha corte:</label>
+            <input id="fechaCorte" type="date" [(ngModel)]="fechaFin" class="form-control" />
+          </div>
+        </div>
+        <div class="col-sm-3 pt-2">
+          <label class="control-label mb-2"></label>
+          <button [disabled]="false" (click)="consultarArticulo();" class="btn btn-primary mt-4">
+            <i class="fas fa-file-invoice"></i>&nbsp;Consultar
+          </button>
+          @if (botonDeRetenciones) {
+            <div>
+              @if (consumosAll && consumosAll.length > 0) {
+                <button pButton pRipple type="button" class="p-button-success mt-4" (click)="Retenciones()" label="Retenciones"></button>
+              }
+              <b> « </b>
+              <img src="../../../assets/img/numeroUno.png" width="32" height="32" class="ondas">
+            </div>
+          }
+        </div>
+      </div>
+      <div class="row mb-4">
+        @if (retenciones) {
+          <div class="col-sm-1">
+            <img src="../../../assets/img/numeroDos.png" width="32" height="32" class="ondas"> <b> »</b>
+          </div>
+        }
+        @if (retenciones) {
+          <div class="col-sm-3">
+            <select class="form-control" [(ngModel)]="impuesto" (change)="CalculoRet()" id="selectRetenciones">
+              <option style="background: lightblue; font-weight: bold;">NO APLICA</option>
+              @for (item of tiposImpuestos; track item) {
+                <option
+                  [ngValue]="item"
+                  >
+                  {{ item.text }}
+                </option>
+              }
+            </select>
+          </div>
+        }
+        @if (retenciones && !botonNoAplica) {
+          <div class="col-sm-3">
+            <input type="text" class="form-control" currencyMask [disabled]="impuesto.id !== 8" [(ngModel)]="impuestoValor" />
+          </div>
+        }
+        <div class="col-sm-3">
+          @if (retenciones && !botonNoAplica) {
+            <img src="../../../assets/img/numeroTres.png" width="32" height="32" class="ondas">
+          }
+          <b> »</b>
+          @if (retenciones && !botonNoAplica) {
+            <button type="button" class="btn btn-info mr-1" (click)="AgregarRetencion()">
+              <i class="fas fa-plus"></i>
+            </button>
+          }
+          @if (retenciones && !botonNoAplica) {
+            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="Retenciones()" id="botonRete"></button>
+          }
+        </div>
+        <div class="col-sm-2">
+          <ng-template> <span> {{ mensaje }} </span> </ng-template>
+        </div>
+      </div>
+      @if (retencionesAll && retencionesAll.length > 0) {
+        <div class="card mb-4 text-center">
+          <p-table [value]="retencionesAll" [scrollable]="true" scrollHeight="200px" [responsive]="true">
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 80px" class="text-center">Id</th>
+                <th style="width: 90px" class="text-center">
+                  Descripcion
+                </th>
+                <th style="width: 90px" class="text-center">Valor</th>
+                <th style="width: 60px" class="text-center">Opc</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+              <tr>
+                <td style="width: 80px" class="text-center">
+                  {{ customer.id }}
+                </td>
+                <td style="width: 90px" class="text-center">
+                  {{ customer.DETALLE }}
+                </td>
+                <td style="width: 90px" class="text-center">
+                  {{ customer.valor | currency }}
+                </td>
+                <td style="width: 60px" class="text-center">
+                  <button (click)="EliminarRetencion( rowIndex )" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      }
+      @if (consumosAll && consumosAll.length > 0 && deConsumos) {
         <div class="row">
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <label class="control-label">Nombre del cliente</label>
-                    <input type="text" class="form-control" disabled [(ngModel)]="cliente.nombre" />
-                </div>
-            </div>
-
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label class="control-label">Concepto</label>
-                    <select name="" id="" class="form-control" [(ngModel)]="conceptoSelected">
-                        <option *ngFor="let fila of tipoConceptos" [ngValue]="fila">
-                            {{fila.detalleConcepto}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label class="control-label">Fecha inicial</label>
-                    <input id="fechaIni" type="date" [(ngModel)]="fechaIni" class="form-control" />
-                </div>
-            </div>
-
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label class="control-label">Fecha corte:</label>
-                    <input id="fechaCorte" type="date" [(ngModel)]="fechaFin" class="form-control" />
-                </div>
-            </div>
-
-            <div class="col-sm-3 pt-2">
-                <label class="control-label mb-2"></label>
-                <button [disabled]="false" (click)="consultarArticulo();" class="btn btn-primary mt-4">
-                    <i class="fas fa-file-invoice"></i>&nbsp;Consultar
-                </button>
-                <div *ngIf="botonDeRetenciones">
-                    <button pButton pRipple type="button" class="p-button-success mt-4" (click)="Retenciones()" label="Retenciones" *ngIf="consumosAll && consumosAll.length > 0"></button>
-                    <b> « </b>
-                    <img src="../../../assets/img/numeroUno.png" width="32" height="32" class="ondas">
-                </div>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-sm-1" *ngIf="retenciones">
-                <img src="../../../assets/img/numeroDos.png" width="32" height="32" class="ondas"> <b> »</b>
-            </div>
-
-            <div class="col-sm-3" *ngIf="retenciones">
-                <select class="form-control" [(ngModel)]="impuesto" (change)="CalculoRet()" id="selectRetenciones">
-                    <option style="background: lightblue; font-weight: bold;">NO APLICA</option>
-                    <option
-                        *ngFor="let item of tiposImpuestos"
-                        [ngValue]="item"
-                    >
-                        {{ item.text }}
-                    </option>
-                </select>
-            </div>
-
-            <div class="col-sm-3" *ngIf="retenciones && !botonNoAplica">
-                <input type="text" class="form-control" currencyMask [disabled]="impuesto.id !== 8" [(ngModel)]="impuestoValor" />
-            </div>
-
-            <div class="col-sm-3">
-                <img *ngIf="retenciones && !botonNoAplica" src="../../../assets/img/numeroTres.png" width="32" height="32" class="ondas">
-                <b> »</b>
-                <button type="button" class="btn btn-info mr-1" *ngIf="retenciones && !botonNoAplica" (click)="AgregarRetencion()">
-                    <i class="fas fa-plus"></i>
-                </button>
-                <button *ngIf="retenciones && !botonNoAplica" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="Retenciones()" id="botonRete"></button>
-
-            </div>
-
-            <div class="col-sm-2">
-                <ng-template> <span> {{ mensaje }} </span> </ng-template>
-            </div>
-
-        </div>
-
-        <div class="card mb-4 text-center" *ngIf="retencionesAll && retencionesAll.length > 0">
-            <p-table [value]="retencionesAll" [scrollable]="true" scrollHeight="200px" [responsive]="true">
+          <div class="col-sm-12">
+            <div class="card text-center">
+              <p-table [value]="consumosAll" [scrollable]="true" scrollHeight="200px" [responsive]="true">
                 <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 80px" class="text-center">Id</th>
-                        <th style="width: 90px" class="text-center">
-                            Descripcion
-                        </th>
-                        <th style="width: 90px" class="text-center">Valor</th>
-                        <th style="width: 60px" class="text-center">Opc</th>
-                    </tr>
+                  <tr>
+                    <th style="width: 80px" class="text-center">
+                      Id
+                    </th>
+                    <th style="width: 90px" class="text-center">
+                      Ticket
+                    </th>
+                    <th style="width: 95px" class="text-center">
+                      Fecha
+                    </th>
+                    <th style="width: 120px" class="text-center">
+                      Hora
+                    </th>
+                    <th style="width: 95px" class="text-center">
+                      Placa
+                    </th>
+                    <th class="text-center">Combustible</th>
+                    <th style="width: 90px;" class="text-center">
+                      Cant.
+                    </th>
+                    <th style="width: 120px" class="text-center">
+                      Valor
+                    </th>
+                    <th style="width: 60px" class="text-center">
+                      Opc
+                    </th>
+                  </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
-                    <tr>
-                        <td style="width: 80px" class="text-center">
-                            {{ customer.id }}
-                        </td>
-                        <td style="width: 90px" class="text-center">
-                            {{ customer.DETALLE }}
-                        </td>
-                        <td style="width: 90px" class="text-center">
-                            {{ customer.valor | currency }}
-                        </td>
-                        <td style="width: 60px" class="text-center">
-                            <button (click)="EliminarRetencion( rowIndex )" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+                  <!-- <tr *ngFor="let customer of consumosAll; index as i"> -->
+                  <tr>
+                    <td style="width: 80px" class="text-center">
+                      {{ customer.id }}
+                    </td>
+                    <td style="width: 90px" class="text-center">
+                      {{ customer.ConsecutivoEstacion }}
+                    </td>
+                    <td style="width: 95px" class="text-center">
+                      {{ customer.fechaConsumo | date: 'dd-MM-yy' }}
+                    </td>
+                    <td style="width: 120px" class="text-center">
+                      {{ customer.horaConsumo }}
+                    </td>
+                    <td style="width: 95px" class="text-center">
+                      {{ customer.placa }}
+                    </td>
+                    <td>{{ customer.TipoCombustible }}</td>
+                    <td style="width: 90px" class="text-center">
+                      {{ customer.cantidad }}
+                    </td>
+                    <td style="width: 120px" class="text-right">
+                      {{ customer.valor | currency }}
+                    </td>
+                    <td style="width: 60px" class="text-center">
+                      <button (click)="EliminarConsumo( rowIndex )" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
                 </ng-template>
-            </p-table>
-        </div>
-        <div class="row" *ngIf="consumosAll && consumosAll.length > 0 && deConsumos">
-            <div class="col-sm-12">
-                <div class="card text-center">
-                    <p-table [value]="consumosAll" [scrollable]="true" scrollHeight="200px" [responsive]="true">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th style="width: 80px" class="text-center">
-                                    Id
-                                </th>
-                                <th style="width: 90px" class="text-center">
-                                    Ticket
-                                </th>
-                                <th style="width: 95px" class="text-center">
-                                    Fecha
-                                </th>
-                                <th style="width: 120px" class="text-center">
-                                    Hora
-                                </th>
-                                <th style="width: 95px" class="text-center">
-                                    Placa
-                                </th>
-                                <th class="text-center">Combustible</th>
-                                <th style="width: 90px;" class="text-center">
-                                    Cant.
-                                </th>
-                                <th style="width: 120px" class="text-center">
-                                    Valor
-                                </th>
-                                <th style="width: 60px" class="text-center">
-                                    Opc
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
-                            <!-- <tr *ngFor="let customer of consumosAll; index as i"> -->
-                            <tr>
-                                <td style="width: 80px" class="text-center">
-                                    {{ customer.id }}
-                                </td>
-                                <td style="width: 90px" class="text-center">
-                                    {{ customer.ConsecutivoEstacion }}
-                                </td>
-                                <td style="width: 95px" class="text-center">
-                                    {{ customer.fechaConsumo | date: 'dd-MM-yy' }}
-                                </td>
-                                <td style="width: 120px" class="text-center">
-                                    {{ customer.horaConsumo }}
-                                </td>
-                                <td style="width: 95px" class="text-center">
-                                    {{ customer.placa }}
-                                </td>
-                                <td>{{ customer.TipoCombustible }}</td>
-                                <td style="width: 90px" class="text-center">
-                                    {{ customer.cantidad }}
-                                </td>
-                                <td style="width: 120px" class="text-right">
-                                    {{ customer.valor | currency }}
-                                </td>
-                                <td style="width: 60px" class="text-center">
-                                    <button (click)="EliminarConsumo( rowIndex )" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                    <div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h5>Total Tickets: {{ totalTickets }}</h5>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <h5>
-                                    Total Galones: {{ totalCantidad | number: '.2-2' }}
-                                </h5>
-                            </div>
-                            <div class="col-sm-4">
-                                <h5>
-                                    Total Valor: {{ totalValor | currency }}
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
+              </p-table>
+              <div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <h5>Total Tickets: {{ totalTickets }}</h5>
+                  </div>
+                  <div class="col-sm-4">
+                    <h5>
+                      Total Galones: {{ totalCantidad | number: '.2-2' }}
+                    </h5>
+                  </div>
+                  <div class="col-sm-4">
+                    <h5>
+                      Total Valor: {{ totalValor | currency }}
+                    </h5>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-
-        <div class="row" *ngIf="productosAll && productosAll.length > 0 && deProductos">
-            <div class="col-sm-12">
-                <div class="card text-center">
-                    <p-table [value]="productosAll" [scrollable]="true" scrollHeight="200px" [responsive]="true">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th style="width: 10px" class="text-center">
-                                    Id
-                                </th>
-                                <th style="width: 10px" class="text-center">
-                                    Fecha
-                                </th>
-                                <th style="width: 95px; color: darkgreen;" class="text-center">
-                                    Descripción producto
-                                </th>
-                                <th style="width: 20px" class="text-center">
-                                    Cantidad
-                                </th>
-                                <th style="width: 30px" class="text-center">
-                                    Total Venta
-                                </th>
-                                <th style="width: 10px" class="text-center">
-                                    Borrar
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
-                            <tr>
-                                <td style="width: 10px" class="text-center">
-                                    {{ customer.id }}
-                                </td>
-                                <td style="width: 10px" class="text-center">
-                                    {{ customer.Fecha | date: 'dd-MM-yy'}}
-                                </td>
-                                <td style="width: 95px" class="text-left">
-                                    {{ customer.descripcion }}
-                                </td>
-                                <td style="width: 20px" class="text-center">
-                                    {{ customer.Cantidad }}
-                                </td>
-                                <td style="width: 30px" class="text-center">
-                                    {{ customer.totalVenta | currency}}
-                                </td>
-                                <td style="width: 10px;" class="text-center">
-                                    <!-- btn btn-secondary btn-sm -->
-                                    <button (click)="borrarProducto(rowIndex)" class="boton btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-
-                    <div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h5>Total Productos: {{ totalProductos }}</h5>
-                            </div>
-                            <div class="col-sm-4">
-                                <h5>
-                                    Total Cantidad: {{ totalCantidadesProducto | number: '.2-2' }}
-                                </h5>
-                            </div>
-                            <div class="col-sm-4">
-                                <h5>
-                                    Total Venta: {{ totalDeLaVenta | currency }}
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-
+      }
+      @if (productosAll && productosAll.length > 0 && deProductos) {
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card text-center">
+              <p-table [value]="productosAll" [scrollable]="true" scrollHeight="200px" [responsive]="true">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width: 10px" class="text-center">
+                      Id
+                    </th>
+                    <th style="width: 10px" class="text-center">
+                      Fecha
+                    </th>
+                    <th style="width: 95px; color: darkgreen;" class="text-center">
+                      Descripción producto
+                    </th>
+                    <th style="width: 20px" class="text-center">
+                      Cantidad
+                    </th>
+                    <th style="width: 30px" class="text-center">
+                      Total Venta
+                    </th>
+                    <th style="width: 10px" class="text-center">
+                      Borrar
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                  <tr>
+                    <td style="width: 10px" class="text-center">
+                      {{ customer.id }}
+                    </td>
+                    <td style="width: 10px" class="text-center">
+                      {{ customer.Fecha | date: 'dd-MM-yy'}}
+                    </td>
+                    <td style="width: 95px" class="text-left">
+                      {{ customer.descripcion }}
+                    </td>
+                    <td style="width: 20px" class="text-center">
+                      {{ customer.Cantidad }}
+                    </td>
+                    <td style="width: 30px" class="text-center">
+                      {{ customer.totalVenta | currency}}
+                    </td>
+                    <td style="width: 10px;" class="text-center">
+                      <!-- btn btn-secondary btn-sm -->
+                      <button (click)="borrarProducto(rowIndex)" class="boton btn-sm">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              <div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <h5>Total Productos: {{ totalProductos }}</h5>
+                  </div>
+                  <div class="col-sm-4">
+                    <h5>
+                      Total Cantidad: {{ totalCantidadesProducto | number: '.2-2' }}
+                    </h5>
+                  </div>
+                  <div class="col-sm-4">
+                    <h5>
+                      Total Venta: {{ totalDeLaVenta | currency }}
+                    </h5>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-
-        <div class="row pt-1">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-3">
-                <button type="button" (click)="Guardar()" class="btn btn-primary btn-block shadow">
-                    Crear Cuenta de Cobro
-                </button>
-            </div>
-            <div class="col-sm-3">
-                <button type="button" class="btn btn-danger btn-block shadow" (click)="Cancel()">
-                    Cancelar
-                </button>
-            </div>
-            <div class="col-sm-3"></div>
+      }
+      <div class="row pt-1">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+          <button type="button" (click)="Guardar()" class="btn btn-primary btn-block shadow">
+            Crear Cuenta de Cobro
+          </button>
         </div>
+        <div class="col-sm-3">
+          <button type="button" class="btn btn-danger btn-block shadow" (click)="Cancel()">
+            Cancelar
+          </button>
+        </div>
+        <div class="col-sm-3"></div>
+      </div>
     </div>
-</div>
+  </div>
+}

@@ -1,158 +1,171 @@
 <div class="container-fluid mt-2 pt-2">
-    <div class="row  mx-4">
-        <div class="col-sm-2 text-center">
-            <span class="text-center">Estación</span>
+  <div class="row  mx-4">
+    <div class="col-sm-2 text-center">
+      <span class="text-center">Estación</span>
+    </div>
+    <div class="col-sm-3 text-center">
+      <span class="text-center">Fecha</span>
+    </div>
+    <div class="col-sm-2 text-center">
+      <span class="text-center">Turno</span>
+    </div>
+    <div class="col-sm-2 text-center">
+      @if (turnoSel) {
+        <span class="text-center">Combustible</span>
+      }
+    </div>
+    <div class="col-sm-1 text-center">
+      @if (turnoSel  && Islas.length>0) {
+        <span class="text-center" >Isla</span>
+      }
+    </div>
+    <div class="col-sm-2 text-center">
+      <span class="text-center"></span>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mx-4">
+    <div class="col-sm-2">
+      <div class="form-group form-row p-0 form-inline mb-1 justify-content-center text-center">
+        <!-- <label class="m-0">Estación: &nbsp;</label> -->
+        <!-- <br> -->
+        <div class="input-group">
+          <select class="form-control form-control-sm " (change)="CambioEstacion()" [disabled]="stationCode || !stationsAll"
+            [(ngModel)]="stationSel">
+            @for (item of stationsAll; track item) {
+              <option [ngValue]="item"> {{ item.nombreEstacion }} </option>
+            }
+          </select>
         </div>
-        <div class="col-sm-3 text-center">
-            <span class="text-center">Fecha</span>
-        </div>
-        <div class="col-sm-2 text-center">
-            <span class="text-center">Turno</span>
-        </div>
-        <div class="col-sm-2 text-center">
-            <span class="text-center" *ngIf="turnoSel">Combustible</span>
-        </div>
-        <div class="col-sm-1 text-center">
-            <span class="text-center"  *ngIf="turnoSel  && Islas.length>0">Isla</span>
-        </div>
-        <div class="col-sm-2 text-center">
-            <span class="text-center"></span>
-        </div>
+      </div>
     </div>
 
-    <div class="row justify-content-center mx-4">
-        <div class="col-sm-2">
-            <div class="form-group form-row p-0 form-inline mb-1 justify-content-center text-center">
-                <!-- <label class="m-0">Estación: &nbsp;</label> -->
-                <!-- <br> -->
-                <div class="input-group">
-                    <select class="form-control form-control-sm " (change)="CambioEstacion()" [disabled]="stationCode || !stationsAll"
-                        [(ngModel)]="stationSel">
-                        <option *ngFor="let item of stationsAll" [ngValue]="item"> {{ item.nombreEstacion }} </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-3 text-center">
-            <!-- <label class=" m-0">Fecha :</label> -->
-            <!-- <br> -->
-            <p-calendar [(ngModel)]="fecha" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy">
-            </p-calendar>
-        </div>
-
-        <div class="col-sm-2">
-            <div class="form-group form-row p-0 form-inline mb-1 justify-content-center text-center">
-                <!-- <label class="m-0">Turno &nbsp;</label> -->
-                <div class="input-group">
-                    <select class="form-control form-control-sm " [(ngModel)]="turnoSel">
-                        <option *ngFor="let turno of Turnos" [ngValue]="turno">{{
-                            turno.value
-                        }}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-2">
-            <div class="form-group form-row p-0 form-inline mb-1 justify-content-center text-center" *ngIf="turnoSel">
-                <!-- <label class="m-0">Estación: &nbsp;</label> -->
-                <!-- <br> -->
-                <div class="input-group">
-                    <select class="form-control form-control-sm ">
-                        <option>Combustible </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-1">
-            <div class="form-group form-row p-0 form-inline mb-1 justify-content-center"  *ngIf="turnoSel && Islas.length>0">
-                <!-- <label class="control-label m-0">Isla &nbsp;</label> -->
-                <div class="input-group">
-                    <select class="form-control form-control-sm display-block" [(ngModel)]="IslaSel">
-                        <option *ngFor="let isla of Islas" [ngValue]="isla">{{
-                            isla.value
-                        }}</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-2 text-center">
-            <button class="btn btn-block btn-sm btn-outline-primary"
-                (click)="GetLecturas(stationSel.idEstacion,fecha,turnoSel.id,IslaSel)">Consultar</button>
-        </div>
+    <div class="col-sm-3 text-center">
+      <!-- <label class=" m-0">Fecha :</label> -->
+      <!-- <br> -->
+      <p-calendar [(ngModel)]="fecha" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy">
+      </p-calendar>
     </div>
+
+    <div class="col-sm-2">
+      <div class="form-group form-row p-0 form-inline mb-1 justify-content-center text-center">
+        <!-- <label class="m-0">Turno &nbsp;</label> -->
+        <div class="input-group">
+          <select class="form-control form-control-sm " [(ngModel)]="turnoSel">
+            @for (turno of Turnos; track turno) {
+              <option [ngValue]="turno">{{
+                turno.value
+              }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      @if (turnoSel) {
+        <div class="form-group form-row p-0 form-inline mb-1 justify-content-center text-center">
+          <!-- <label class="m-0">Estación: &nbsp;</label> -->
+          <!-- <br> -->
+          <div class="input-group">
+            <select class="form-control form-control-sm ">
+              <option>Combustible </option>
+            </select>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="col-sm-1">
+      @if (turnoSel && Islas.length>0) {
+        <div class="form-group form-row p-0 form-inline mb-1 justify-content-center" >
+          <!-- <label class="control-label m-0">Isla &nbsp;</label> -->
+          <div class="input-group">
+            <select class="form-control form-control-sm display-block" [(ngModel)]="IslaSel">
+              @for (isla of Islas; track isla) {
+                <option [ngValue]="isla">{{
+                  isla.value
+                }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="col-sm-2 text-center">
+      <button class="btn btn-block btn-sm btn-outline-primary"
+      (click)="GetLecturas(stationSel.idEstacion,fecha,turnoSel.id,IslaSel)">Consultar</button>
+    </div>
+  </div>
 </div>
 
 <div id="main" class="my-2">
-    <div class="container">
-        <div class="row">
-            <table class="table table-striped table-sm table-responsive-sm">
-                <thead class="p-3 mb-2 bg-primary text-white">
-                    <tr>
-                        <!-- <th scope="col" class="text-center">Id</th> -->
-                        <th scope="col" class="text-center">Id</th>
-                        <th scope="col" class="text-center">Tur.</th>
-                        <th scope="col" class="text-center">Isl.</th>
-                        <th scope="col" class="text-center">Sur.</th>
-                        <th scope="col" class="text-center">Man.</th>
-                        <th scope="col" class="text-center">Producto</th>
-                        <th scope="col" class="text-center">Lect. Inicial</th>
-                        <th scope="col" class="text-center"> Lect. Final </th>
-                        <th scope="col" class="text-center"> Galonaje </th>
-                        <th scope="col" class="text-center">Precio</th>
-                        <th scope="col" class="text-center">Total</th>
-                        <th scope="col" class="text-center">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let lectura of Lecturas; index as i">
-                        <td class="text-center">{{ lectura.ID  }}</td>
-                        <td class="text-center">{{ lectura.NUM_TUR  }}</td>
-                        <td class="text-center"> {{ lectura.NUM_ISL }}</td>
-                        <td class="text-center"> {{ lectura.NUM_SUR }}</td>
-                        <td class="text-center"> {{ lectura.COD_MAN  }}</td>
-                        <td> {{  lectura.DESCRIPCIO_ART }}</td>
-                        <td class="text-center">
-                            <input type="number" class="form-control  form-control-sm text-center " placeholder="0"
-                                [(ngModel)]="lectura.LEC_INI" required
-                                (change)='lectura.CANTIDAD = lectura.LEC_FIN - lectura.LEC_INI; lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO'>
-                        </td>
-                        <td class="">
-                            <input type="number" class="form-control form-control-sm text-center " placeholder="0"
-                                [(ngModel)]="lectura.LEC_FIN" required
-                                (change)='lectura.CANTIDAD = lectura.LEC_FIN - lectura.LEC_INI; lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO'>
-                        </td>
-
-                        <td class="text-center"
-                            (change)='lectura.CANTIDAD = lectura.LEC_FIN - lectura.LEC_INI; lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO'>
-                            {{ lectura.CANTIDAD | number: '.2-3' }}
-                        </td>
-                        <td class="text-center">
-                            <input type="number" class="form-control form-control-sm text-center tamano" placeholder="0"
-                                [(ngModel)]="lectura.PRECIO"
-                                (change)='lectura.CANTIDAD = lectura.LEC_FIN - lectura.LEC_INI; lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO'>
-                        </td>
-                        <td class="text-right">
-                            {{ lectura.TOTAL | number: '.2-3' }}
-
-                        </td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-success btn-sm mr-1" title="Guardar los Cambios"
-                                (click)="Guardar(lectura)">
-                                <i class="far fa-save"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm " title="Borrar la Lectura">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-
-                        </td>
-                    </tr>
-                </tbody>
+  <div class="container">
+    <div class="row">
+      <table class="table table-striped table-sm table-responsive-sm">
+        <thead class="p-3 mb-2 bg-primary text-white">
+          <tr>
+            <!-- <th scope="col" class="text-center">Id</th> -->
+            <th scope="col" class="text-center">Id</th>
+            <th scope="col" class="text-center">Tur.</th>
+            <th scope="col" class="text-center">Isl.</th>
+            <th scope="col" class="text-center">Sur.</th>
+            <th scope="col" class="text-center">Man.</th>
+            <th scope="col" class="text-center">Producto</th>
+            <th scope="col" class="text-center">Lect. Inicial</th>
+            <th scope="col" class="text-center"> Lect. Final </th>
+            <th scope="col" class="text-center"> Galonaje </th>
+            <th scope="col" class="text-center">Precio</th>
+            <th scope="col" class="text-center">Total</th>
+            <th scope="col" class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (lectura of Lecturas; track lectura; let i = $index) {
+            <tr>
+              <td class="text-center">{{ lectura.ID  }}</td>
+              <td class="text-center">{{ lectura.NUM_TUR  }}</td>
+              <td class="text-center"> {{ lectura.NUM_ISL }}</td>
+              <td class="text-center"> {{ lectura.NUM_SUR }}</td>
+              <td class="text-center"> {{ lectura.COD_MAN  }}</td>
+              <td> {{  lectura.DESCRIPCIO_ART }}</td>
+              <td class="text-center">
+                <input type="number" class="form-control  form-control-sm text-center " placeholder="0"
+                  [(ngModel)]="lectura.LEC_INI" required
+                  (change)='lectura.CANTIDAD = lectura.LEC_FIN - lectura.LEC_INI; lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO'>
+                </td>
+                <td class="">
+                  <input type="number" class="form-control form-control-sm text-center " placeholder="0"
+                    [(ngModel)]="lectura.LEC_FIN" required
+                    (change)='lectura.CANTIDAD = lectura.LEC_FIN - lectura.LEC_INI; lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO'>
+                  </td>
+                  <td class="text-center"
+                    (change)='lectura.CANTIDAD = lectura.LEC_FIN - lectura.LEC_INI; lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO'>
+                    {{ lectura.CANTIDAD | number: '.2-3' }}
+                  </td>
+                  <td class="text-center">
+                    <input type="number" class="form-control form-control-sm text-center tamano" placeholder="0"
+                      [(ngModel)]="lectura.PRECIO"
+                      (change)='lectura.CANTIDAD = lectura.LEC_FIN - lectura.LEC_INI; lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO'>
+                    </td>
+                    <td class="text-right">
+                      {{ lectura.TOTAL | number: '.2-3' }}
+                    </td>
+                    <td class="text-center">
+                      <button type="button" class="btn btn-success btn-sm mr-1" title="Guardar los Cambios"
+                        (click)="Guardar(lectura)">
+                        <i class="far fa-save"></i>
+                      </button>
+                      <button type="button" class="btn btn-danger btn-sm " title="Borrar la Lectura">
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
             </table>
 
+          </div>
         </div>
-    </div>
-</div>
+      </div>

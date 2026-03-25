@@ -1,218 +1,230 @@
 <div [ngClass]="{'formulario': formulario == true}" style="background-color: rgb(208, 211, 210); border-radius: 12px; border: 1px solid rgb(4, 190, 247);">
-    <div class="row col-sm-12 py-2">
-        <div class="col-sm-2">
-            <div class="input-group">
-                <select class="form-control decora_cajas" [disabled]="stationCode" [(ngModel)]="stationSel">
-                    <option *ngFor="let item of stationsAll" [ngValue]="item">{{ item.nombreEstacion }}</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-sm-1">
-            <div class="input-group">
-                <select (change)="prueba()" class="form-control decora_cajas" name="tipoEstacionSel" [(ngModel)]="tipoEstacionSel">
-                    <option *ngFor="let num of tipoEstacion" [ngValue]="num.tipo">{{ num.detalle }}</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="input-group col-sm-3">
-            <div class="input-group-prepend">
-                <button id="btnClient" class="btn btn-outline-secondary left" (mouseover)="visitarElementoPadre();" (mouseleave)="leaveElementoPadre();" type="button" (click)="openModCli()">
-                    <span class="far fa-hand-pointer fa-fw"></span>
-                </button>
-            </div>
-            <input [(ngModel)]="client.codCliente" [disabled]="id != null" required class="form-control decora_cajas" type="number" name="codclient" id="codclient" placeholder="Buscar cliente" />
-        </div>
-
-        <div class="input-group col-sm-6">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i
-                ></span>
-            </div>
-            <input [(ngModel)]="client.nombre" disabled class="form-control decora_cajas" type="text" name="nameclient" id="nameclient">
-        </div>
-        <div *ngIf="id != null" class="col-sm-2">
-            <button class="btn btn-danger btn-block" (click)="back()">
-                <span class="fas fa-undo fa-fw"></span>&nbsp;Atras
-            </button>
-        </div>
-        <div *ngIf="id == null" class="col-sm-2">
-            <!-- <button
-                class="btn btn-info btn-block"
-                (click)="searchClient()"
-                [disabled]="client.codCliente == null"
-            >
-                <span class="fas fa-search fa-fw"></span>&nbsp;Consultar
-            </button> -->
-        </div>
+  <div class="row col-sm-12 py-2">
+    <div class="col-sm-2">
+      <div class="input-group">
+        <select class="form-control decora_cajas" [disabled]="stationCode" [(ngModel)]="stationSel">
+          @for (item of stationsAll; track item) {
+            <option [ngValue]="item">{{ item.nombreEstacion }}</option>
+          }
+        </select>
+      </div>
     </div>
-    <div class="row col-sm-12 pb-1">
-        <label class="control-label col-sm-1 m-0" style="font-weight: bold;">Desde:</label>
-        <div class="input-group col-sm-3">
-            <input [(ngModel)]="searchVentaFechaIni" required class="form-control decora_cajas" type="date" name="fechaIniVentaSearch" id="fechaIniVentaSearch" />
-        </div>
-        <label class="control-label col-sm-1 m-0" style="font-weight: bold;">Hasta:</label>
-        <div class="input-group col-sm-3">
-            <input [(ngModel)]="searchVentaFechaFin" required class="form-control decora_cajas" type="date" name="fechaFinVentaSearch" id="fechaFinVentaSearch" />
-        </div>
-        <div class="col-sm-4 btn-group justify-content-center" role="group">
-            <button id="btnSearch" class="btn btn-success" (click)="getVentasSearch()">
-                <span class="fa fa-search fa-fw"></span>&nbsp;Consultar
-            </button>
-            <!-- <button class="btn btn-warning" (click)="cleanConsumptionSearch()">
-                <span class="fas fa-eraser fa-fw"></span>
-            </button>
+    <div class="col-sm-1">
+      <div class="input-group">
+        <select (change)="prueba()" class="form-control decora_cajas" name="tipoEstacionSel" [(ngModel)]="tipoEstacionSel">
+          @for (num of tipoEstacion; track num) {
+            <option [ngValue]="num.tipo">{{ num.detalle }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="input-group col-sm-3">
+      <div class="input-group-prepend">
+        <button id="btnClient" class="btn btn-outline-secondary left" (mouseover)="visitarElementoPadre();" (mouseleave)="leaveElementoPadre();" type="button" (click)="openModCli()">
+          <span class="far fa-hand-pointer fa-fw"></span>
+        </button>
+      </div>
+      <input [(ngModel)]="client.codCliente" [disabled]="id != null" required class="form-control decora_cajas" type="number" name="codclient" id="codclient" placeholder="Buscar cliente" />
+    </div>
+
+    <div class="input-group col-sm-6">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i
+        ></span>
+      </div>
+      <input [(ngModel)]="client.nombre" disabled class="form-control decora_cajas" type="text" name="nameclient" id="nameclient">
+    </div>
+    @if (id != null) {
+      <div class="col-sm-2">
+        <button class="btn btn-danger btn-block" (click)="back()">
+          <span class="fas fa-undo fa-fw"></span>&nbsp;Atras
+        </button>
+      </div>
+    }
+    @if (id == null) {
+      <div class="col-sm-2">
+        <!-- <button
+        class="btn btn-info btn-block"
+        (click)="searchClient()"
+        [disabled]="client.codCliente == null"
+        >
+        <span class="fas fa-search fa-fw"></span>&nbsp;Consultar
+      </button> -->
+    </div>
+  }
+</div>
+<div class="row col-sm-12 pb-1">
+  <label class="control-label col-sm-1 m-0" style="font-weight: bold;">Desde:</label>
+  <div class="input-group col-sm-3">
+    <input [(ngModel)]="searchVentaFechaIni" required class="form-control decora_cajas" type="date" name="fechaIniVentaSearch" id="fechaIniVentaSearch" />
+  </div>
+  <label class="control-label col-sm-1 m-0" style="font-weight: bold;">Hasta:</label>
+  <div class="input-group col-sm-3">
+    <input [(ngModel)]="searchVentaFechaFin" required class="form-control decora_cajas" type="date" name="fechaFinVentaSearch" id="fechaFinVentaSearch" />
+  </div>
+  <div class="col-sm-4 btn-group justify-content-center" role="group">
+    <button id="btnSearch" class="btn btn-success" (click)="getVentasSearch()">
+      <span class="fa fa-search fa-fw"></span>&nbsp;Consultar
+    </button>
+    <!-- <button class="btn btn-warning" (click)="cleanConsumptionSearch()">
+    <span class="fas fa-eraser fa-fw"></span>
+  </button>
             <button class="btn btn-success" (click)="printConsumptionSearch()" [disabled]="
                     searchConsumos == null || searchConsumos.length == 0
                 ">
-                <span class="fa fa-print fa-fw"></span>
-            </button>
+    <span class="fa fa-print fa-fw"></span>
+  </button>
             <button class="btn btn-secondary" (click)="csvConsumptionSearch()" [disabled]="
                     searchConsumos == null || searchConsumos.length == 0
                 ">
-                <span class="fas fa-file-download fa-fw"></span>
-            </button>
-            -->
-            <button class="btn btn-success" (click)="exportarVentasToExcel()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-                <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-              </svg>Excel</button>
+    <span class="fas fa-file-download fa-fw"></span>
+  </button>
+  -->
+  <button class="btn btn-success" (click)="exportarVentasToExcel()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
+    <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+  </svg>Excel</button>
 
-            <button class="btn btn-success" (click)="exportarVentasToCSV()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-                <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-              </svg>CSV ProSoft</button>
-        </div>
-    </div>
+  <button class="btn btn-success" (click)="exportarVentasToCSV()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
+    <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+  </svg>CSV ProSoft</button>
+</div>
+</div>
 </div>
 
 <div class="table-wrapper mt-2" id="table-Consumption-Search">
-    <div id="print-consumption" class="align-self-center no-more-tables scroll">
-        <div class="tabla_encabezado_fijo">
+  <div id="print-consumption" class="align-self-center no-more-tables scroll">
+    <div class="tabla_encabezado_fijo">
 
-            <div *ngIf="detalleEstacion == 'GAS'" class="fila_titulo text-center">
-                Ventas {{ stationSel.nombreEstacion +' '+detalleEstacion }} — [desde {{searchVentaFechaIni +' hasta '+ searchVentaFechaFin}}] — [Registros: {{ totalDeRegistros() }}, CANTIDAD: {{ sumTotalCantidad() | number }} m³, VALOR: ${{ sumTotalValor() | number }}=]
-            </div>
-
-            <table id="tabla_ventas" class="table table-sm" *ngIf="searchVentas.length > 0" style="margin-bottom: 3px;" #tabla_de_ventas>
-                <thead>
-                    <!-- <tr class="fila_titulo text-center">
-                    <td colspan="14">Ventas {{ stationSel.nombreEstacion +' '+detalleEstacion }} — [desde {{searchVentaFechaIni +' hasta '+ searchVentaFechaFin}}] — [Registros: {{ totalDeRegistros() }}, CANTIDAD: {{ sumTotalCantidad() | number }}, VALOR: ${{ sumTotalValor()
-                        | number }}=]
-                    </td>
-                </tr> -->
-                    <tr class="text-center">
-                        <th scope="col">FACTURA</th>
-                        <th scope="col">FECHA</th>
-                        <th scope="col">VENCE</th>
-                        <th scope="col">NIT</th>
-                        <th scope="col">NOMBRE</th>
-                        <th scope="col">ARTICULO</th>
-                        <th scope="col">CANTIDAD</th>
-                        <th scope="col">VALOR</th>
-                        <th scope="col">DESCTO</th>
-                        <th scope="col">IVA</th>
-                        <th scope="col">TAR_IVA</th>
-                        <th scope="col">ABONOS</th>
-                        <th scope="col">VENDEDOR</th>
-                        <th scope="col">F_PAGO</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let venta of searchVentas; let i = index;" [ngClass]="{'fila_0': i%2 == 1, 'fila_1': i%2 == 0}">
-                        <!-- <td data-title="Fecha venta" class="text-center">
-                            {{ i + 1}}
-                        </td> -->
-                        <td data-title="factura" class="text-center">
-                            {{ venta.FACTURA }}
-                        </td>
-                        <!-- <td data-title="fecha" class="text-center">
-                            {{ venta.FECHA | date: 'dd/MM/yyyy HH:mm:ss' : 'UTC +0001'| slice: 0: 10 }}
-                        </td> -->
-                        <td data-title="fecha" class="text-center">
-                            {{ venta.FECHA }}
-                        </td>
-                        <td data-title="vence" class="text-center">
-                            {{ venta.VENCE }}
-                        </td>
-
-                        <td data-title="nit" class="text-center">
-                            {{ venta.NIT }}
-                        </td>
-                        <td data-title="nombre" class="text-center">
-                            {{ venta.NOMBRE }}
-                        </td>
-                        <td data-title="articulo" class="text-center">
-                            {{ venta.ARTICULO }}
-                        </td>
-                        <td data-title="cantidad" class="text-center">
-                            {{ venta.CANTIDAD }}
-                        </td>
-                        <td data-title="valor" class="text-center">
-                            {{ venta.VALOR | number }}
-                        </td>
-                        <td data-title="descto" class="text-center">
-                            {{ venta.DESCTO }}
-                        </td>
-                        <td data-title="iva" class="text-center">
-                            {{ venta.IVA | number }}
-                        </td>
-                        <td data-title="tar_iva" class="text-center">
-                            {{ venta.TAR_IVA | number}}
-                        </td>
-                        <td data-title="descuento" class="text-center">
-                            {{ venta.ABONOS | number}}
-                        </td>
-                        <td data-title="vendedor" class="text-center">
-                            {{ venta.VENDEDOR }}
-                        </td>
-                        <td data-title="f_pago" class="text-center">
-                            {{ venta.F_PAGO }}
-                        </td>
-
-                    </tr>
-                    <!-- <tr *ngIf="searchVentas != null" class="fila_pie">
-                        <td colspan="4"></td>
-                        <td colspan="1" class="text-right" style="padding: 0px 3px 0px 0px;"><strong>Registros: {{ totalDeRegistros() }}</strong></td>
-                        <td colspan="1" class="text-right" style="padding: 0px 3px 0px 0px;"><strong>Totales</strong></td>
-                        <td colspan="1" class="text-center"><strong> {{ sumTotalCantidad() | number }} </strong></td>
-                        <td colspan="1" class="text-center"><strong> ${{ sumTotalValor() | number }}=</strong></td>
-                        <td colspan="1" class="text-center"><strong>${{ totalDescuento() | number }}=</strong></td>
-                        <td colspan="1"></td>
-                        <td colspan="1"></td>
-                        <td colspan="1"></td>
-                        <td colspan="1"></td>
-                        <td colspan="1"></td>
-                    </tr> -->
-                </tbody>
-            </table>
+      @if (detalleEstacion == 'GAS') {
+        <div class="fila_titulo text-center">
+          Ventas {{ stationSel.nombreEstacion +' '+detalleEstacion }} — [desde {{searchVentaFechaIni +' hasta '+ searchVentaFechaFin}}] — [Registros: {{ totalDeRegistros() }}, CANTIDAD: {{ sumTotalCantidad() | number }} m³, VALOR: ${{ sumTotalValor() | number }}=]
         </div>
-    </div>
+      }
+
+      @if (searchVentas.length > 0) {
+        <table id="tabla_ventas" class="table table-sm" style="margin-bottom: 3px;" #tabla_de_ventas>
+          <thead>
+            <!-- <tr class="fila_titulo text-center">
+            <td colspan="14">Ventas {{ stationSel.nombreEstacion +' '+detalleEstacion }} — [desde {{searchVentaFechaIni +' hasta '+ searchVentaFechaFin}}] — [Registros: {{ totalDeRegistros() }}, CANTIDAD: {{ sumTotalCantidad() | number }}, VALOR: ${{ sumTotalValor()
+              | number }}=]
+            </td>
+          </tr> -->
+          <tr class="text-center">
+            <th scope="col">FACTURA</th>
+            <th scope="col">FECHA</th>
+            <th scope="col">VENCE</th>
+            <th scope="col">NIT</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">ARTICULO</th>
+            <th scope="col">CANTIDAD</th>
+            <th scope="col">VALOR</th>
+            <th scope="col">DESCTO</th>
+            <th scope="col">IVA</th>
+            <th scope="col">TAR_IVA</th>
+            <th scope="col">ABONOS</th>
+            <th scope="col">VENDEDOR</th>
+            <th scope="col">F_PAGO</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (venta of searchVentas; track venta; let i = $index) {
+            <tr [ngClass]="{'fila_0': i%2 == 1, 'fila_1': i%2 == 0}">
+              <!-- <td data-title="Fecha venta" class="text-center">
+              {{ i + 1}}
+            </td> -->
+            <td data-title="factura" class="text-center">
+              {{ venta.FACTURA }}
+            </td>
+            <!-- <td data-title="fecha" class="text-center">
+            {{ venta.FECHA | date: 'dd/MM/yyyy HH:mm:ss' : 'UTC +0001'| slice: 0: 10 }}
+          </td> -->
+          <td data-title="fecha" class="text-center">
+            {{ venta.FECHA }}
+          </td>
+          <td data-title="vence" class="text-center">
+            {{ venta.VENCE }}
+          </td>
+          <td data-title="nit" class="text-center">
+            {{ venta.NIT }}
+          </td>
+          <td data-title="nombre" class="text-center">
+            {{ venta.NOMBRE }}
+          </td>
+          <td data-title="articulo" class="text-center">
+            {{ venta.ARTICULO }}
+          </td>
+          <td data-title="cantidad" class="text-center">
+            {{ venta.CANTIDAD }}
+          </td>
+          <td data-title="valor" class="text-center">
+            {{ venta.VALOR | number }}
+          </td>
+          <td data-title="descto" class="text-center">
+            {{ venta.DESCTO }}
+          </td>
+          <td data-title="iva" class="text-center">
+            {{ venta.IVA | number }}
+          </td>
+          <td data-title="tar_iva" class="text-center">
+            {{ venta.TAR_IVA | number}}
+          </td>
+          <td data-title="descuento" class="text-center">
+            {{ venta.ABONOS | number}}
+          </td>
+          <td data-title="vendedor" class="text-center">
+            {{ venta.VENDEDOR }}
+          </td>
+          <td data-title="f_pago" class="text-center">
+            {{ venta.F_PAGO }}
+          </td>
+        </tr>
+      }
+      <!-- <tr *ngIf="searchVentas != null" class="fila_pie">
+      <td colspan="4"></td>
+      <td colspan="1" class="text-right" style="padding: 0px 3px 0px 0px;"><strong>Registros: {{ totalDeRegistros() }}</strong></td>
+      <td colspan="1" class="text-right" style="padding: 0px 3px 0px 0px;"><strong>Totales</strong></td>
+      <td colspan="1" class="text-center"><strong> {{ sumTotalCantidad() | number }} </strong></td>
+      <td colspan="1" class="text-center"><strong> ${{ sumTotalValor() | number }}=</strong></td>
+      <td colspan="1" class="text-center"><strong>${{ totalDescuento() | number }}=</strong></td>
+      <td colspan="1"></td>
+      <td colspan="1"></td>
+      <td colspan="1"></td>
+      <td colspan="1"></td>
+      <td colspan="1"></td>
+    </tr> -->
+  </tbody>
+</table>
+}
+</div>
+</div>
 </div>
 <!-- <app-modal-dialog [visible]="booleanClient" (hide)="booleanClient = false">
-    <app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
+<app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanIdIdentificador" (hide)="booleanIdIdentificador = false">
-    <app-identificador [idConsumo]="idConsumo" [idEstacion]="stationSel.idEstacion"></app-identificador>
+  <app-identificador [idConsumo]="idConsumo" [idEstacion]="stationSel.idEstacion"></app-identificador>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanPlacaCarro" (hide)="booleanPlacaCarro = false">
-    <app-placa-carro [idConsumo]="idConsumo" (cambioPlacaCarro)="getCambioPlacaCarro($event)"></app-placa-carro>
+  <app-placa-carro [idConsumo]="idConsumo" (cambioPlacaCarro)="getCambioPlacaCarro($event)"></app-placa-carro>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanFechaConsumo" (hide)="booleanFechaConsumo = false">
-    <app-fecha-consumo [idConsumo]="idConsumo" (cambioFechaConsumo)="getCambioFechaConsumo($event)"></app-fecha-consumo>
+  <app-fecha-consumo [idConsumo]="idConsumo" (cambioFechaConsumo)="getCambioFechaConsumo($event)"></app-fecha-consumo>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanValorConsumo" (hide)="booleanValorConsumo = false">
-    <app-valor-consumo [idConsumo]="idConsumo" [cantidadConsumo]="cantidadConsumo" (cambioValorConsumo)="getCambioValorConsumo($event)"></app-valor-consumo>
+  <app-valor-consumo [idConsumo]="idConsumo" [cantidadConsumo]="cantidadConsumo" (cambioValorConsumo)="getCambioValorConsumo($event)"></app-valor-consumo>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanCombustible" (hide)="booleanCombustible = false">
-    <app-combustible [idConsumo]="idConsumo" [articulo]="articulo"></app-combustible>
+  <app-combustible [idConsumo]="idConsumo" [articulo]="articulo"></app-combustible>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanBugConsumos" (hide)="booleanBugConsumos = false">
-    <app-listado-consumos [idEstacion]="stationSel.idEstacion" [codCliente]="client.codCliente" [nombreCliente]="client.nombre" [fechaInicial]="searchConsumoFechaIni" [fechaFin]="searchConsumoFechaFin"></app-listado-consumos>
+  <app-listado-consumos [idEstacion]="stationSel.idEstacion" [codCliente]="client.codCliente" [nombreCliente]="client.nombre" [fechaInicial]="searchConsumoFechaIni" [fechaFin]="searchConsumoFechaFin"></app-listado-consumos>
 </app-modal-dialog> -->

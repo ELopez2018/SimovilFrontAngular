@@ -28,7 +28,9 @@
       <label class="control-label col-sm-2">Metodo Envío:</label>
       <div class="input-group col-sm-4">
         <select class="form-control" formControlName="metodo">
-          <option *ngFor="let metodo of metodos" [ngValue]="metodo">{{metodo.name}}</option>
+          @for (metodo of metodos; track metodo) {
+            <option [ngValue]="metodo">{{metodo.name}}</option>
+          }
         </select>
       </div>
     </div>

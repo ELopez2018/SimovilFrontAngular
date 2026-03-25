@@ -2,7 +2,9 @@
   <legend (click)="changeShow()">
     <span [class]="show ? 'fas fa-minus fa-fw' : 'fas fa-plus fa-fw'"></span>&nbsp;
     {{cTitle}}
-    <span class=" d-flex justify-content-end float-right text-right" *ngIf="cTexto" >{{cTexto}}</span>
+    @if (cTexto) {
+      <span class=" d-flex justify-content-end float-right text-right" >{{cTexto}}</span>
+    }
   </legend>
   <div [class]="show ? 'fieldset show' : 'fieldset'" id="contenedor">
     <div id="contenido">

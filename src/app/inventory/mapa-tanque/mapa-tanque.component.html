@@ -1,155 +1,157 @@
 <div id="contieneEstacion">
-    <h4 id="nombreEstacion">ESTACION DE PRUEBAS</h4>
-    <div id="tanque1">
-        <label id="water">
-            <div id="text">{{num + '%'}}</div>
-            <div id="fill"></div>
-        </label>
-        <div class="tipoCombustible">CORRIENTE</div>
-    </div>
-    <div id="tanque2">
-        <label id="water">
-            <div id="text2">{{num + '%'}}</div>
-            <div id="fill2"></div>
-        </label>
-        <div class="tipoCombustible" id="extra">EXTRA</div>
-    </div>
-    <div id="tanque3">
-        <label id="water">
-            <div id="text3">{{num + '%'}}</div>
-            <div id="fill3"></div>
-        </label>
-        <div class="tipoCombustible" id="diesel">DIESEL</div>
-    </div>
-    <div id="prueba" style="z-index: 100;">
-        <h3 id="titulo">TANQUE 1</h3>
-        <p id="info">aqui se guarda la informacion<br>del tanque en cuestion</p>
-        <div id="triangulo"></div>
-    </div>
+  <h4 id="nombreEstacion">ESTACION DE PRUEBAS</h4>
+  <div id="tanque1">
+    <label id="water">
+      <div id="text">{{num + '%'}}</div>
+      <div id="fill"></div>
+    </label>
+    <div class="tipoCombustible">CORRIENTE</div>
+  </div>
+  <div id="tanque2">
+    <label id="water">
+      <div id="text2">{{num + '%'}}</div>
+      <div id="fill2"></div>
+    </label>
+    <div class="tipoCombustible" id="extra">EXTRA</div>
+  </div>
+  <div id="tanque3">
+    <label id="water">
+      <div id="text3">{{num + '%'}}</div>
+      <div id="fill3"></div>
+    </label>
+    <div class="tipoCombustible" id="diesel">DIESEL</div>
+  </div>
+  <div id="prueba" style="z-index: 100;">
+    <h3 id="titulo">TANQUE 1</h3>
+    <p id="info">aqui se guarda la informacion<br>del tanque en cuestion</p>
+    <div id="triangulo"></div>
+  </div>
 </div>
 
 <div id="mapaColombia">
-    <img class="colombia" src="../../assets/img/mapa/colombia.jpg" alt="COLOMBIA">
-    <img class="caqueta" src="../../assets/img/mapa/CAQUETA.png" id="CAQUETA">
-    <img class="cauca" src="../../assets/img/mapa/CAUCA.png" id="CAUCA">
-    <img class="cundinamarca" src="../../assets/img/mapa/CUNDINAMARCA.png" id="CUNDINAMARCA">
-    <img class="huila" src="../../assets/img/mapa/HUILA.png" id="HUILA">
-    <img class="meta" src="../../assets/img/mapa/META.png" id="META">
-    <img class="tolima" src="../../assets/img/mapa/TOLIMA.png" id="TOLIMA">
-    <div class="nombreDepartamento" id="departamentoCaqueta">CAQUETA</div>
-    <div class="nombreDepartamento" id="departamentoCauca">CAUCA</div>
-    <div class="nombreDepartamento" id="departamentoCundinamarca">CUNDINAMARCA</div>
-    <div class="nombreDepartamento" id="departamentoHuila">HUILA</div>
-    <div class="nombreDepartamento" id="departamentoMeta">META</div>
-    <div class="nombreDepartamento" id="departamentoTolima">TOLIMA</div>
-    <div id="tankVillavicencio">
-        <div id="tanksCusiana">
-            <button class="tank green" style="position: relative;" title="Tanque #1"></button>
-            <button class="tank green" style="position: relative; top:-8px" title="Tanque #2"></button>
-            <button class="tank green" style="position: relative; top:-18px;left:-1px;" title="Tanque #3"></button><br>
-            <button class="tank red" style="position: relative;" title="Tanque #4"></button>
-            <button class="tank green" style="position: relative; top:-8px" title="Tanque #5"></button>
-            <button class="tank green" style="position: relative; top:-18px;left:-1px;" title="Tanque #6"></button>
-        </div>
-        <div id="tanksCatama">
-            <button class="tank green" style="position: relative; left:22px" title="Tanque #7"></button>
-            <button class="tank green" style="position: relative; left:22px" title="Tanque #8"></button>
-            <button class="tank orange" style="position: relative; top:-22px" title="Tanque #9"></button>
-        </div>
-        <div id="tanksGasollano">
-            <button class="tank green" style="position: relative;" title="Tanque #10"></button>
-            <button class="tank green" style="position: relative;" title="Tanque #11"></button>
-            <button class="tank orange" style="position: relative;" title="Tanque #12"></button>
-        </div>
-        <div id="tanksPasoGanadero">
-            <button class="tank green" style="position: relative;" title="Tanque #13"></button>
-            <button class="tank green" style="position: relative;" title="Tanque #14"></button>
-        </div>
-        <div id="tanksPavitos">
-            <button class="tank green" style="position: relative;" title="Tanque #15"></button>
-            <button class="tank green" style="position: relative;" title="Tanque #16"></button>
-            <button class="tank green" style="position: relative;" title="Tanque #17"></button>
-        </div>
-        <div id="tanksSraVillavicencio">
-            <button class="tank green" style="position: relative;" title="Tanque #18"></button>
-            <button class="tank red" style="position: relative;" title="Tanque #19" (click)="VerUocultar()"></button>
-            <button class="tank green" style="position: relative;" title="Tanque #20"></button>
-        </div>
+  <img class="colombia" src="../../assets/img/mapa/colombia.jpg" alt="COLOMBIA">
+  <img class="caqueta" src="../../assets/img/mapa/CAQUETA.png" id="CAQUETA">
+  <img class="cauca" src="../../assets/img/mapa/CAUCA.png" id="CAUCA">
+  <img class="cundinamarca" src="../../assets/img/mapa/CUNDINAMARCA.png" id="CUNDINAMARCA">
+  <img class="huila" src="../../assets/img/mapa/HUILA.png" id="HUILA">
+  <img class="meta" src="../../assets/img/mapa/META.png" id="META">
+  <img class="tolima" src="../../assets/img/mapa/TOLIMA.png" id="TOLIMA">
+  <div class="nombreDepartamento" id="departamentoCaqueta">CAQUETA</div>
+  <div class="nombreDepartamento" id="departamentoCauca">CAUCA</div>
+  <div class="nombreDepartamento" id="departamentoCundinamarca">CUNDINAMARCA</div>
+  <div class="nombreDepartamento" id="departamentoHuila">HUILA</div>
+  <div class="nombreDepartamento" id="departamentoMeta">META</div>
+  <div class="nombreDepartamento" id="departamentoTolima">TOLIMA</div>
+  <div id="tankVillavicencio">
+    <div id="tanksCusiana">
+      <button class="tank green" style="position: relative;" title="Tanque #1"></button>
+      <button class="tank green" style="position: relative; top:-8px" title="Tanque #2"></button>
+      <button class="tank green" style="position: relative; top:-18px;left:-1px;" title="Tanque #3"></button><br>
+      <button class="tank red" style="position: relative;" title="Tanque #4"></button>
+      <button class="tank green" style="position: relative; top:-8px" title="Tanque #5"></button>
+      <button class="tank green" style="position: relative; top:-18px;left:-1px;" title="Tanque #6"></button>
     </div>
-    <div id="tankCundinamarca">
-        <div id="tanksColombia">
-            <button class="tank green" style="position: relative;" title="Tanque #21"></button>
-            <button class="tank green" style="position: relative;" title="Tanque #22"></button>
-            <button class="tank green" style="position: relative;" title="Tanque #23"></button>
-        </div> <br>
-        <div id="tanksCalle13">
-            <button class="tank green" style="position: relative; top:-5px" title="Tanque #24"></button>
-            <button class="tank green" style="position: relative; top:-5px" title="Tanque #25"></button>
-            <button class="tank green" style="position: relative; top:-5px" title="Tanque #26"></button>
-        </div>
+    <div id="tanksCatama">
+      <button class="tank green" style="position: relative; left:22px" title="Tanque #7"></button>
+      <button class="tank green" style="position: relative; left:22px" title="Tanque #8"></button>
+      <button class="tank orange" style="position: relative; top:-22px" title="Tanque #9"></button>
     </div>
-    <div id="tankTolima">
-        <div id="tanksCra5">
-            <button class="tank green" style="position: relative; top:16px;left:28px" title="Tanque #27"></button>
-            <button class="tank green" style="position: relative; top:2px;left:10px" title="Tanque #28"></button>
-            <button class="tank orange" style="position: relative;" title="Tanque #29"></button>
-        </div> <br>
-        <div id="tanksJardin">
-            <button class="tank red" style="position: relative; top:5px;left:24px" title="Tanque #30"></button>
-            <button class="tank green" style="position: relative; top:17px;left:10px" title="Tanque #31"></button>
-            <button class="tank green" style="position: relative; top:-10px;left:-3px" title="Tanque #32"></button>
-        </div> <br>
-        <div id="tanksGalarza">
-            <button class="tank green" style="position: relative; top:-7px;left:16px;" title="Tanque #33"></button>
-            <button class="tank green" style="position: relative; top:-6px;left:26px" title="Tanque #34"></button>
-        </div> <br>
-        <div id="tanksJordan">
-            <button class="tank red" style="position: relative; top:18px;left:-3px" title="Tanque #35"></button>
-            <button class="tank green" style="position: relative; top:6px;left:-3px" title="Tanque #36"></button>
-            <button class="tank green" style="position: relative; top:4px;" title="Tanque #37"></button>
-        </div>
+    <div id="tanksGasollano">
+      <button class="tank green" style="position: relative;" title="Tanque #10"></button>
+      <button class="tank green" style="position: relative;" title="Tanque #11"></button>
+      <button class="tank orange" style="position: relative;" title="Tanque #12"></button>
     </div>
-    <div id="tankHuila">
-        <div id="tanksElCarmen">
-            <button class="tank red" style="position: relative; top:9px;left:15px;" title="Tanque #38"></button>
-            <button class="tank red" style="position: relative; top:-8px;left:6px;" title="Tanque #39"></button>
-            <button class="tank green" style="position: relative; top:-4px;left:4px;" title="Tanque #40"></button>
-        </div> <br>
-        <div id="tanksLaMolienda">
-            <button class="tank green" style="position: relative; top:2px;left:3px;" title="Tanque #41"></button>
-            <button class="tank green" style="position: relative; top:5px;" title="Tanque #42"></button>
-            <button class="tank orange" style="position: relative; top:-9px;left:-9px;" title="Tanque #43"></button>
-        </div>
+    <div id="tanksPasoGanadero">
+      <button class="tank green" style="position: relative;" title="Tanque #13"></button>
+      <button class="tank green" style="position: relative;" title="Tanque #14"></button>
     </div>
-    <div id="tankCaqueta">
-        <div id="tanksLaVictoria">
-            <button class="tank green" style="position: relative;" title="Tanque #44"></button>
-            <button class="tank green" style="position: relative;" title="Tanque #45"></button>
-            <button class="tank green" style="position: relative;" title="Tanque #46"></button>
-        </div>
+    <div id="tanksPavitos">
+      <button class="tank green" style="position: relative;" title="Tanque #15"></button>
+      <button class="tank green" style="position: relative;" title="Tanque #16"></button>
+      <button class="tank green" style="position: relative;" title="Tanque #17"></button>
     </div>
+    <div id="tanksSraVillavicencio">
+      <button class="tank green" style="position: relative;" title="Tanque #18"></button>
+      <button class="tank red" style="position: relative;" title="Tanque #19" (click)="VerUocultar()"></button>
+      <button class="tank green" style="position: relative;" title="Tanque #20"></button>
+    </div>
+  </div>
+  <div id="tankCundinamarca">
+    <div id="tanksColombia">
+      <button class="tank green" style="position: relative;" title="Tanque #21"></button>
+      <button class="tank green" style="position: relative;" title="Tanque #22"></button>
+      <button class="tank green" style="position: relative;" title="Tanque #23"></button>
+    </div> <br>
+    <div id="tanksCalle13">
+      <button class="tank green" style="position: relative; top:-5px" title="Tanque #24"></button>
+      <button class="tank green" style="position: relative; top:-5px" title="Tanque #25"></button>
+      <button class="tank green" style="position: relative; top:-5px" title="Tanque #26"></button>
+    </div>
+  </div>
+  <div id="tankTolima">
+    <div id="tanksCra5">
+      <button class="tank green" style="position: relative; top:16px;left:28px" title="Tanque #27"></button>
+      <button class="tank green" style="position: relative; top:2px;left:10px" title="Tanque #28"></button>
+      <button class="tank orange" style="position: relative;" title="Tanque #29"></button>
+    </div> <br>
+    <div id="tanksJardin">
+      <button class="tank red" style="position: relative; top:5px;left:24px" title="Tanque #30"></button>
+      <button class="tank green" style="position: relative; top:17px;left:10px" title="Tanque #31"></button>
+      <button class="tank green" style="position: relative; top:-10px;left:-3px" title="Tanque #32"></button>
+    </div> <br>
+    <div id="tanksGalarza">
+      <button class="tank green" style="position: relative; top:-7px;left:16px;" title="Tanque #33"></button>
+      <button class="tank green" style="position: relative; top:-6px;left:26px" title="Tanque #34"></button>
+    </div> <br>
+    <div id="tanksJordan">
+      <button class="tank red" style="position: relative; top:18px;left:-3px" title="Tanque #35"></button>
+      <button class="tank green" style="position: relative; top:6px;left:-3px" title="Tanque #36"></button>
+      <button class="tank green" style="position: relative; top:4px;" title="Tanque #37"></button>
+    </div>
+  </div>
+  <div id="tankHuila">
+    <div id="tanksElCarmen">
+      <button class="tank red" style="position: relative; top:9px;left:15px;" title="Tanque #38"></button>
+      <button class="tank red" style="position: relative; top:-8px;left:6px;" title="Tanque #39"></button>
+      <button class="tank green" style="position: relative; top:-4px;left:4px;" title="Tanque #40"></button>
+    </div> <br>
+    <div id="tanksLaMolienda">
+      <button class="tank green" style="position: relative; top:2px;left:3px;" title="Tanque #41"></button>
+      <button class="tank green" style="position: relative; top:5px;" title="Tanque #42"></button>
+      <button class="tank orange" style="position: relative; top:-9px;left:-9px;" title="Tanque #43"></button>
+    </div>
+  </div>
+  <div id="tankCaqueta">
+    <div id="tanksLaVictoria">
+      <button class="tank green" style="position: relative;" title="Tanque #44"></button>
+      <button class="tank green" style="position: relative;" title="Tanque #45"></button>
+      <button class="tank green" style="position: relative;" title="Tanque #46"></button>
+    </div>
+  </div>
 </div>
-<div *ngIf="!mostrarUocultar" id="informacionExtraTank" style="position: absolute;z-index: 1;top: 665px;left: 460px;">
+@if (!mostrarUocultar) {
+  <div id="informacionExtraTank" style="position: absolute;z-index: 1;top: 665px;left: 460px;">
     <div id="contieneEstacion" style="background:url(../../assets/img/mapa_otros/pavitos.png);
     background-repeat: no-repeat;background-size:cover;">
-        <h4 id="nombreEstacion" style="top:-84px;left:65px">CORRIENTE</h4>
-        <div id="tanque1" style="top:2px;left:-193px">
-            <label id="water" style="background:#505050de;">
-                <div id="text">{{num + '%'}}</div>
-                <div id="fill"></div>
-            </label>
-        </div>
-        <div id="prueba" style="z-index: 100; top:101px">
-            <h3 id="titulo">TANQUE 19</h3>
-            <p id="info">aqui se guarda la informacion<br>del tanque en cuestion</p>
-            <div id="triangulo"></div>
-        </div>
+      <h4 id="nombreEstacion" style="top:-84px;left:65px">CORRIENTE</h4>
+      <div id="tanque1" style="top:2px;left:-193px">
+        <label id="water" style="background:#505050de;">
+          <div id="text">{{num + '%'}}</div>
+          <div id="fill"></div>
+        </label>
+      </div>
+      <div id="prueba" style="z-index: 100; top:101px">
+        <h3 id="titulo">TANQUE 19</h3>
+        <p id="info">aqui se guarda la informacion<br>del tanque en cuestion</p>
+        <div id="triangulo"></div>
+      </div>
         <div style="position:relative;top:148%;left:32%;color: white;
         text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">informacion detallada<br>sobre el tanque en<br>cuestion</div>
         <button type="button" class="btn btn-outline-danger" style="width: 25px; height: 25px;border-radius: 50%; position: relative;top:99%;left:3%;padding: 0px;" (click)="VerUocultar()">X</button>
+      </div>
     </div>
-</div>
-<br>
-<br>
-<br>
-<br>
+  }
+  <br>
+    <br>
+      <br>
+        <br>

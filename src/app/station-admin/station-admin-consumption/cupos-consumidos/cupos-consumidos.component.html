@@ -1,45 +1,51 @@
 <div class="row">
-    <div class="col-md-12">
-        <h5 class="mt-0 mb-2 titulo">
-            Cupo Cliente Anticipo que le falta el 20% por consumir
-        </h5>
-    </div>
+  <div class="col-md-12">
+    <h5 class="mt-0 mb-2 titulo">
+      Cupo Cliente Anticipo que le falta el 20% por consumir
+    </h5>
+  </div>
 </div>
 
 <div class="card marco_tabla">
-    <div class="card-header">
-        <div class="row encabezado_tabla">
-            <div class="col-md-3"> Nombre </div>
-            <div class="col-md-1"> Número </div>
-            <div class="col-md-1"> Asignado </div>
-            <div class="col-md-1"> Disponible </div>
-            <div class="col-md-1"> Estado </div>
-            <div class="col-md-1"> Tipo </div>
-            <div class="col-md-2"> Estación </div>
-            <div class="col-md-2"> Consumido </div>
-        </div>
-
-        <div *ngFor="let cupo of cupoConsumido; index as contador">
-            <div class="row margenes_filas" [ngClass]="{'fila_0': contador%2===0, 'fila_1': contador%2===1}">
-                <div class="col-md-3 margenes_columnas"> {{ contador + 1 }}. {{ cupo.nombre }} </div>
-                <div class="col-md-1 margenes_columnas"> {{ cupo.codCliente }} </div>
-                <div class="col-md-1 margenes_columnas"> {{ cupo.cupoAsignado }} </div>
-                <div class="col-md-1 margenes_columnas"> {{ cupo.cupoDisponible }} </div>
-                <div class="col-md-1 margenes_columnas"> {{ cupo.estadoCupo == true ? 'Activo' : 'Inactivo'}} </div>
-                <div class="col-md-1 margenes_columnas"> {{ cupo.detalleTipoCupo }} </div>
-                <div class="col-md-2 margenes_columnas"> {{ cupo.nombreEstacion }}
-                </div>
-                <div *ngIf="cupo.cupoConsumido >= 80 && cupo.cupoConsumido <=100" class="col-md-2 margenes_columnas progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning colorTexto" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: cupo.cupoConsumido + '%'}" title="se excedió {{(((cupo.cupoConsumido - 100)*cupo.cupoAsignado)/100)}}">
-                        {{ cupo.cupoConsumido }}%
-                    </div>
-                </div>
-                <div *ngIf="cupo.cupoConsumido >= 100" class="col-md-2 margenes_columnas progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger colorTexto" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: cupo.cupoConsumido + '%'}" title="se excedió {{(((cupo.cupoConsumido - 100)*cupo.cupoAsignado)/100)}}">
-                        {{ cupo.cupoConsumido }}%
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="card-header">
+    <div class="row encabezado_tabla">
+      <div class="col-md-3"> Nombre </div>
+      <div class="col-md-1"> Número </div>
+      <div class="col-md-1"> Asignado </div>
+      <div class="col-md-1"> Disponible </div>
+      <div class="col-md-1"> Estado </div>
+      <div class="col-md-1"> Tipo </div>
+      <div class="col-md-2"> Estación </div>
+      <div class="col-md-2"> Consumido </div>
     </div>
+
+    @for (cupo of cupoConsumido; track cupo; let contador = $index) {
+      <div>
+        <div class="row margenes_filas" [ngClass]="{'fila_0': contador%2===0, 'fila_1': contador%2===1}">
+          <div class="col-md-3 margenes_columnas"> {{ contador + 1 }}. {{ cupo.nombre }} </div>
+          <div class="col-md-1 margenes_columnas"> {{ cupo.codCliente }} </div>
+          <div class="col-md-1 margenes_columnas"> {{ cupo.cupoAsignado }} </div>
+          <div class="col-md-1 margenes_columnas"> {{ cupo.cupoDisponible }} </div>
+          <div class="col-md-1 margenes_columnas"> {{ cupo.estadoCupo == true ? 'Activo' : 'Inactivo'}} </div>
+          <div class="col-md-1 margenes_columnas"> {{ cupo.detalleTipoCupo }} </div>
+          <div class="col-md-2 margenes_columnas"> {{ cupo.nombreEstacion }}
+          </div>
+          @if (cupo.cupoConsumido >= 80 && cupo.cupoConsumido <=100) {
+            <div class="col-md-2 margenes_columnas progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning colorTexto" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: cupo.cupoConsumido + '%'}" title="se excedió {{(((cupo.cupoConsumido - 100)*cupo.cupoAsignado)/100)}}">
+                {{ cupo.cupoConsumido }}%
+              </div>
+            </div>
+          }
+          @if (cupo.cupoConsumido >= 100) {
+            <div class="col-md-2 margenes_columnas progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger colorTexto" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: cupo.cupoConsumido + '%'}" title="se excedió {{(((cupo.cupoConsumido - 100)*cupo.cupoAsignado)/100)}}">
+                {{ cupo.cupoConsumido }}%
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
 </div>

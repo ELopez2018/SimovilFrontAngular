@@ -1,423 +1,509 @@
 <div id="main">
-    <div class="container py-2 mb-3" id="MenuPrincipal">
-        <div class="row  justify-content-center ">
-            <div class="col-sm-3">
-                <div class="input-group">
-                    <select class="form-control" [disabled]="stationCode" [(ngModel)]="stationSel"
-                        (change)="VerEstacion(stationSel)">
-                        <option *ngFor="let item of stationsAll" [ngValue]="item">{{ item.nombreEstacion }}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-sm-3 justify-content-center">
-                <p-calendar [(ngModel)]="Fecha" view="month" dateFormat="MM-yy" [yearNavigator]="true"
-                    yearRange="2000:2030" [readonlyInput]="true" [showIcon]="true" [locale]="es"
-                    (click)="VerConsolidado(Fecha)">
-                </p-calendar>
-
-            </div>
-
-            <div class="col-sm-2 justify-content-center">
-                <button type="button" class="btn btn-info btn-block" (click)="Cambiar(Fecha, 3, option2)"
-                    [disabled]="!IdStacion">
-                    <i class="fab fa-sistrix"></i>
-                    Consultar
-                </button>
-
-            </div>
-
-            <div class="col-sm-2 justify-content-center">
-                <button type="button" class="btn btn-info btn-block" (click)="PrintReport(Fecha)">
-                    <i class="fas fa-print"></i>
-                    Imprimir
-                </button>
-
-            </div>
-
-            <div class="col-sm-2 justify-content-center">
-                <div class="btn-group" role="group" data-toggle="buttons">
-                    <button #option2 type="button" (click)="Cambiar(Fecha, 2, option2)" class="btn btn-secondary">
-                        Balance </button>
-                    <button #option3 type="button" class="btn btn-secondary" (click)="Cambiar(Fecha, 3, option3)">
-                        Unidades </button>
-                </div>
-            </div>
-
+  <div class="container py-2 mb-3" id="MenuPrincipal">
+    <div class="row  justify-content-center ">
+      <div class="col-sm-3">
+        <div class="input-group">
+          <select class="form-control" [disabled]="stationCode" [(ngModel)]="stationSel"
+            (change)="VerEstacion(stationSel)">
+            @for (item of stationsAll; track item) {
+              <option [ngValue]="item">{{ item.nombreEstacion }}</option>
+            }
+          </select>
         </div>
+      </div>
+
+      <div class="col-sm-3 justify-content-center">
+        <p-calendar [(ngModel)]="Fecha" view="month" dateFormat="MM-yy" [yearNavigator]="true"
+          yearRange="2000:2030" [readonlyInput]="true" [showIcon]="true" [locale]="es"
+          (click)="VerConsolidado(Fecha)">
+        </p-calendar>
+
+      </div>
+
+      <div class="col-sm-2 justify-content-center">
+        <button type="button" class="btn btn-info btn-block" (click)="Cambiar(Fecha, 3, option2)"
+          [disabled]="!IdStacion">
+          <i class="fab fa-sistrix"></i>
+          Consultar
+        </button>
+
+      </div>
+
+      <div class="col-sm-2 justify-content-center">
+        <button type="button" class="btn btn-info btn-block" (click)="PrintReport(Fecha)">
+          <i class="fas fa-print"></i>
+          Imprimir
+        </button>
+
+      </div>
+
+      <div class="col-sm-2 justify-content-center">
+        <div class="btn-group" role="group" data-toggle="buttons">
+          <button #option2 type="button" (click)="Cambiar(Fecha, 2, option2)" class="btn btn-secondary">
+          Balance </button>
+          <button #option3 type="button" class="btn btn-secondary" (click)="Cambiar(Fecha, 3, option3)">
+          Unidades </button>
+        </div>
+      </div>
 
     </div>
+
+  </div>
 
 
 
 </div>
 
-<div class="container-fluid" *ngIf="Reporte === 3">
+@if (Reporte === 3) {
+  <div class="container-fluid">
     <!-- <table class="table table-sm animated fadeIn slow table-hover mb-4 table-responsive-sm" *ngIf="productos.length > 0 || ProdutosPesos.length > 0"> -->
-
-    <p-table id="tableInvoice" class=" table-hover table-sm table-striped"
+    @if (productos.length > 0 || ProdutosPesos.length > 0) {
+      <p-table id="tableInvoice" class=" table-hover table-sm table-striped"
         styleClass="p-datatable-sm table-responsive p-datatable-gridlines" [value]="productos" [responsive]="true"
         [resizableColumns]="false" [scrollable]="true" scrollHeight="79vh" [rows]="100" [virtualScroll]="true"
-        *ngIf="productos.length > 0 || ProdutosPesos.length > 0">
+        >
         <!-- <thead class="thead-dark "> -->
         <ng-template pTemplate="header">
-            <tr class="bg-dark">
-                <th width="60px" scope="col" class="text-center">Id</th>
-                <th width="80px" scope="col" class="text-center">Código</th>
-                <th width="300px" scope="col" class="text-center">Descripción</th>
-
-                <th width="auto" scope="col" class="text-center">Inicial</th>
-                <th width="auto" scope="col" class="text-center">Compras</th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">Bajas</th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">Tras. Enviados</th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">Tras. Recibidos</th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">Créditos</th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">Facturado</th>
-                <th width="auto" scope="col" class="text-center">Ventas</th>
-                <th width="auto" scope="col" class="text-center">Final</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 2">
-                    Utilidad
-                </th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 1">%</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 1">
-                    <span class="fas fa-chart-line fa-1x fa-fw "></span>
-                </th>
-            </tr>
+          <tr class="bg-dark">
+            <th width="60px" scope="col" class="text-center">Id</th>
+            <th width="80px" scope="col" class="text-center">Código</th>
+            <th width="300px" scope="col" class="text-center">Descripción</th>
+            <th width="auto" scope="col" class="text-center">Inicial</th>
+            <th width="auto" scope="col" class="text-center">Compras</th>
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">Bajas</th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">Tras. Enviados</th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">Tras. Recibidos</th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">Créditos</th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">Facturado</th>
+            }
+            <th width="auto" scope="col" class="text-center">Ventas</th>
+            <th width="auto" scope="col" class="text-center">Final</th>
+            @if (Reporte === 2) {
+              <th scope="col" class="text-center">
+                Utilidad
+              </th>
+            }
+            @if (Reporte === 1) {
+              <th scope="col" class="text-center">%</th>
+            }
+            @if (Reporte === 1) {
+              <th scope="col" class="text-center">
+                <span class="fas fa-chart-line fa-1x fa-fw "></span>
+              </th>
+            }
+          </tr>
         </ng-template>
-
         <ng-template pTemplate="body" let-producto>
-            <tr>
-                <td width="60px" class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.Id }}
-                </td>
-                <td width="80px" class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.CodContable }}
-                </td>
-                <td width="300px" *ngIf="Reporte === 3">{{ producto.Descripcion | uppercase }}</td>
-
-                <td width="auto" class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.InvInicial | number: ".0-3" }}
-                </td>
-                <td width="auto" class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.Compras | number: ".0-3" }}
-                </td>
-                <td width="auto" class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.Bajas | number: ".0-3" }}
-                </td>
-                <td width="auto" class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.traslados | number: ".0-3" }}
-                </td>
-                <td width="auto" class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.trasladosRecibidos | number: ".0-3" }}
-                </td>
-                <td width="auto" class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.acreditos | number: ".0-3" }}
-                </td>
-                <td width="auto" class="text-center" *ngIf="Reporte === 3">
-                    {{ producto.Facturado | number: ".0-3" }}
-                </td>
-                <td width="auto" class="text-center" *ngIf="Reporte === 3" [title]="'A Crédito: ' + producto.acredito">
-                    {{ (producto.Ventas ) | number: ".0-3" }}
-                </td>
-                <td width="auto" class="text-center" *ngIf="Reporte === 3">
-                    {{(producto.InvFinal )| number: ".0-3" }}
-                </td>
-
-                <td class="text-center botones" *ngIf="Reporte === 1">
-                    <span class="btn btn-primary btn-sm" (click)="VerModal(producto.Id, Fecha)">
-                        <i class="fas fa-chart-line fa-fw"></i>
-                    </span>
-                </td>
-            </tr>
-
+          <tr>
+            @if (Reporte === 3) {
+              <td width="60px" class="text-center">
+                {{ producto.Id }}
+              </td>
+            }
+            @if (Reporte === 3) {
+              <td width="80px" class="text-center">
+                {{ producto.CodContable }}
+              </td>
+            }
+            @if (Reporte === 3) {
+              <td width="300px">{{ producto.Descripcion | uppercase }}</td>
+            }
+            @if (Reporte === 3) {
+              <td width="auto" class="text-center">
+                {{ producto.InvInicial | number: ".0-3" }}
+              </td>
+            }
+            @if (Reporte === 3) {
+              <td width="auto" class="text-center">
+                {{ producto.Compras | number: ".0-3" }}
+              </td>
+            }
+            @if (Reporte === 3) {
+              <td width="auto" class="text-center">
+                {{ producto.Bajas | number: ".0-3" }}
+              </td>
+            }
+            @if (Reporte === 3) {
+              <td width="auto" class="text-center">
+                {{ producto.traslados | number: ".0-3" }}
+              </td>
+            }
+            @if (Reporte === 3) {
+              <td width="auto" class="text-center">
+                {{ producto.trasladosRecibidos | number: ".0-3" }}
+              </td>
+            }
+            @if (Reporte === 3) {
+              <td width="auto" class="text-center">
+                {{ producto.acreditos | number: ".0-3" }}
+              </td>
+            }
+            @if (Reporte === 3) {
+              <td width="auto" class="text-center">
+                {{ producto.Facturado | number: ".0-3" }}
+              </td>
+            }
+            @if (Reporte === 3) {
+              <td width="auto" class="text-center" [title]="'A Crédito: ' + producto.acredito">
+                {{ (producto.Ventas ) | number: ".0-3" }}
+              </td>
+            }
+            @if (Reporte === 3) {
+              <td width="auto" class="text-center">
+                {{(producto.InvFinal )| number: ".0-3" }}
+              </td>
+            }
+            @if (Reporte === 1) {
+              <td class="text-center botones">
+                <span class="btn btn-primary btn-sm" (click)="VerModal(producto.Id, Fecha)">
+                  <i class="fas fa-chart-line fa-fw"></i>
+                </span>
+              </td>
+            }
+          </tr>
         </ng-template>
-
         <ng-template pTemplate="footer">
-            <tr class="stylofoot">
-                <th width="60px" scope="col" class="text-center"></th>
-                <th width="80px" scope="col" class="text-center"></th>
-                <th width="300px" scope="col" class="text-center">Totales</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ Invini | currency }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ InvComp | currency }} </th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ InvVenta | currency }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ InvFinal | currency }}</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 2">{{ InvGanancia | currency }}</th>
-
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ Invini | number: ".0-3" }}
-                </th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvComp | number: ".0-3" }}
-                </th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvBaja | number: ".0-3" }}
-                </th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvTaslados | number: ".0-3"
-                    }}</th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">
-                    {{ InvTasladosRecibidos | number: ".0-3" }}</th>
-
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvAcreditos | number: ".0-3"
-                    }}</th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvFacturado | number: ".0-3"
-                    }}</th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvVenta | number: ".0-3" }}
-                </th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvFinal | number: ".0-3" }}
-                </th>
-                <th width="auto" scope="col" class="text-center" *ngIf="Reporte === 3">{{ InvGanancia | number: ".0-3"
-                    }}</th>
-
-                <th scope="col" class="text-center" *ngIf="Reporte === 1">
-                    Utilidad
-                </th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 1">%</th>
-                <th scope="col" class="text-center" *ngIf="Reporte === 1">
-                    <span class="fas fa-chart-line fa-1x fa-fw"></span>
-                </th>
-            </tr>
+          <tr class="stylofoot">
+            <th width="60px" scope="col" class="text-center"></th>
+            <th width="80px" scope="col" class="text-center"></th>
+            <th width="300px" scope="col" class="text-center">Totales</th>
+            @if (Reporte === 2) {
+              <th scope="col" class="text-center">{{ Invini | currency }}</th>
+            }
+            @if (Reporte === 2) {
+              <th scope="col" class="text-center">{{ InvComp | currency }} </th>
+            }
+            @if (Reporte === 2) {
+              <th scope="col" class="text-center">{{ InvVenta | currency }}</th>
+            }
+            @if (Reporte === 2) {
+              <th scope="col" class="text-center">{{ InvFinal | currency }}</th>
+            }
+            @if (Reporte === 2) {
+              <th scope="col" class="text-center">{{ InvGanancia | currency }}</th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">{{ Invini | number: ".0-3" }}
+              </th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">{{ InvComp | number: ".0-3" }}
+              </th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">{{ InvBaja | number: ".0-3" }}
+              </th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">{{ InvTaslados | number: ".0-3"
+              }}</th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">
+              {{ InvTasladosRecibidos | number: ".0-3" }}</th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">{{ InvAcreditos | number: ".0-3"
+              }}</th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">{{ InvFacturado | number: ".0-3"
+              }}</th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">{{ InvVenta | number: ".0-3" }}
+              </th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">{{ InvFinal | number: ".0-3" }}
+              </th>
+            }
+            @if (Reporte === 3) {
+              <th width="auto" scope="col" class="text-center">{{ InvGanancia | number: ".0-3"
+              }}</th>
+            }
+            @if (Reporte === 1) {
+              <th scope="col" class="text-center">
+                Utilidad
+              </th>
+            }
+            @if (Reporte === 1) {
+              <th scope="col" class="text-center">%</th>
+            }
+            @if (Reporte === 1) {
+              <th scope="col" class="text-center">
+                <span class="fas fa-chart-line fa-1x fa-fw"></span>
+              </th>
+            }
+          </tr>
         </ng-template>
-    </p-table>
-</div>
+      </p-table>
+    }
+  </div>
+}
 
 <div class="TAB1">
-    <div class="container-fluid card border-primary" *ngIf="Reporte === 2 && ProdutosPesos.length > 0">
-        <div class="row cabecera mb-0">
-            <div class="col ancho borde">Categoria</div>
-            <div class='col'>
-                <div class="row alto">
-                    <div class="col-1 conCabecera tes">Id</div>
-                    <div class="col-1 conCabecera tes">Còdigo</div>
-                    <div class="col-4 conCabecera tes">Descripciòn</div>
-                    <div class="col conCabecera tes">Inicial</div>
-                    <div class="col conCabecera tes">Compra</div>
-                    <div class="col conCabecera tes">Ventas</div>
-                    <div class="col conCabecera tes">Final</div>
-                    <div class="col conCabecera tes">Utilidad</div>
-                </div>
-            </div>
+  @if (Reporte === 2 && ProdutosPesos.length > 0) {
+    <div class="container-fluid card border-primary">
+      <div class="row cabecera mb-0">
+        <div class="col ancho borde">Categoria</div>
+        <div class='col'>
+          <div class="row alto">
+            <div class="col-1 conCabecera tes">Id</div>
+            <div class="col-1 conCabecera tes">Còdigo</div>
+            <div class="col-4 conCabecera tes">Descripciòn</div>
+            <div class="col conCabecera tes">Inicial</div>
+            <div class="col conCabecera tes">Compra</div>
+            <div class="col conCabecera tes">Ventas</div>
+            <div class="col conCabecera tes">Final</div>
+            <div class="col conCabecera tes">Utilidad</div>
+          </div>
         </div>
+      </div>
     </div>
+  }
 
-    <div class="scrollBar" style="height: 465px; overflow: overlay;">
-        <div class="container-fluid card border-primary" *ngIf="Reporte === 2 && ProdutosPesos.length > 0">
-
-            <div class="row cusiana">
-
-                <div class="col ancho fila_0"
-                    style="text-align: center; display: flex; flex-direction: column; justify-content: center;">CUSIANA
-                </div>
-                <div class="col">
-                    <div *ngFor="let producto of ProdutosPesos;index as i">
-                        <div class="row margenes_filas" *ngIf="producto.Categoria == 2"
-                            [ngClass]="{' fila_0 ': i%2===0,'fila_1 ': i%2===1}">
-                            <div class="col-1 " style="padding: 1px;">{{producto.Id}}</div>
-                            <div class="col-1 " style="padding: 1px;">{{producto.CodContable}}</div>
-                            <div class="col-4 " style=" padding: 1px;">{{producto.Descripcion}}</div>
-                            <div class="col" style="padding: 1px;">{{producto.InvInicial | currency}}</div>
-                            <div class="col" style="padding: 1px;">{{producto.Compras | currency}}</div>
-                            <div class="col" style="padding: 1px;">{{producto.Ventas | currency}}</div>
-                            <div class="col" style="padding: 1px;">{{producto.InvFinal | currency}}</div>
-                            <div class="col" style="padding: 1px;">{{producto.ganancia | currency}}</div>
-                        </div>
-                    </div>
-                    <div class="row margenes_filas" style="background-color: darkseagreen;">
-                        <div class="col-6" style="padding: 1px;">SUBTOTAL CUSIANA</div>
-                        <div class="col" style="padding: 1px;">{{Invini | currency}}</div>
-                        <div class="col" style="padding: 1px;">{{InvComp | currency}}</div>
-                        <div class="col" style="padding: 1px;">{{InvVenta | currency}}</div>
-                        <div class="col" style="padding: 1px;">{{InvFinal | currency}}</div>
-                        <div class="col" style="padding: 1px;">{{InvGanancia | currency}}</div>
-                    </div>
-
-                </div>
-
+  <div class="scrollBar" style="height: 465px; overflow: overlay;">
+    @if (Reporte === 2 && ProdutosPesos.length > 0) {
+      <div class="container-fluid card border-primary">
+        <div class="row cusiana">
+          <div class="col ancho fila_0"
+            style="text-align: center; display: flex; flex-direction: column; justify-content: center;">CUSIANA
+          </div>
+          <div class="col">
+            @for (producto of ProdutosPesos; track producto; let i = $index) {
+              <div>
+                @if (producto.Categoria == 2) {
+                  <div class="row margenes_filas"
+                    [ngClass]="{' fila_0 ': i%2===0,'fila_1 ': i%2===1}">
+                    <div class="col-1 " style="padding: 1px;">{{producto.Id}}</div>
+                    <div class="col-1 " style="padding: 1px;">{{producto.CodContable}}</div>
+                    <div class="col-4 " style=" padding: 1px;">{{producto.Descripcion}}</div>
+                    <div class="col" style="padding: 1px;">{{producto.InvInicial | currency}}</div>
+                    <div class="col" style="padding: 1px;">{{producto.Compras | currency}}</div>
+                    <div class="col" style="padding: 1px;">{{producto.Ventas | currency}}</div>
+                    <div class="col" style="padding: 1px;">{{producto.InvFinal | currency}}</div>
+                    <div class="col" style="padding: 1px;">{{producto.ganancia | currency}}</div>
+                  </div>
+                }
+              </div>
+            }
+            <div class="row margenes_filas" style="background-color: darkseagreen;">
+              <div class="col-6" style="padding: 1px;">SUBTOTAL CUSIANA</div>
+              <div class="col" style="padding: 1px;">{{Invini | currency}}</div>
+              <div class="col" style="padding: 1px;">{{InvComp | currency}}</div>
+              <div class="col" style="padding: 1px;">{{InvVenta | currency}}</div>
+              <div class="col" style="padding: 1px;">{{InvFinal | currency}}</div>
+              <div class="col" style="padding: 1px;">{{InvGanancia | currency}}</div>
             </div>
-
-            <div class="row movilgas">
-                <div class="col ancho fila_1"
-                    style="text-align: center;display: flex; flex-direction: column; justify-content: center;">MOVILGAS
-                </div>
-                <div class="col">
-                    <div *ngFor="let producto of ProdutosPesos;index as i">
-                        <div class="row margenes_filas" *ngIf="producto.Categoria == 1"
-                            [ngClass]="{' fila_0 ': i%2===0,'fila_1 ': i%2===1}">
-                            <div class="col-1 " style="padding: 1px;">{{producto.Id}}</div>
-                            <div class="col-1" style="padding: 1px;">{{producto.CodContable}}</div>
-                            <div class="col-4" style="padding: 1px;">{{producto.Descripcion}}</div>
-                            <div class="col" style="padding: 1px;">{{producto.InvInicial | currency}}</div>
-                            <div class="col" style="padding: 1px;">{{producto.Compras | currency}}</div>
-                            <div class="col" style="padding: 1px;">{{producto.Ventas | currency}}</div>
-                            <div class="col" style="padding: 1px;">{{producto.InvFinal | currency}}</div>
-                            <div class="col" style="padding: 1px;">{{producto.ganancia | currency}}</div>
-                        </div>
-                    </div>
-                    <div class="row margenes_filas" style="background-color: darkseagreen;">
-                        <div class="col-6" style="padding: 1px; text-align: center;">SUBTOTAL MOVILGAS</div>
-                        <div class="col" style="padding: 1px;">{{InviniMov | currency}}</div>
-                        <div class="col" style="padding: 1px;">{{InvCompMov | currency}}</div>
-                        <div class="col" style="padding: 1px;">{{InvVentaMov | currency}}</div>
-                        <div class="col" style="padding: 1px;">{{InvFinalMov | currency}}</div>
-                        <div class="col" style="padding: 1px;">{{InvGananciaMov | currency}}</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row pie margenes_filas" style="padding: 3px 0px 0px 0px; background: springgreen;">
-                <div class="col-7" style="max-width:696px; padding: 3px 0px 0px 0px; text-align: center;">TOTAL</div>
-                <div class="col" style="padding: 3px 0px 0px 0px;">{{Invini+InviniMov | currency}}</div>
-                <div class="col" style="padding: 3px 0px 0px 0px;">{{InvComp+InvCompMov | currency}}</div>
-                <div class="col" style="padding: 3px 0px 0px 0px;">{{InvVenta+InvVentaMov | currency}}</div>
-                <div class="col" style="padding: 3px 0px 0px 0px;">{{InvFinal+InvFinalMov | currency}}</div>
-                <div class="col" style="padding: 3px 0px 0px 0px;">{{InvGanancia+InvGananciaMov | currency}}</div>
-            </div>
+          </div>
         </div>
-    </div>
+        <div class="row movilgas">
+          <div class="col ancho fila_1"
+            style="text-align: center;display: flex; flex-direction: column; justify-content: center;">MOVILGAS
+          </div>
+          <div class="col">
+            @for (producto of ProdutosPesos; track producto; let i = $index) {
+              <div>
+                @if (producto.Categoria == 1) {
+                  <div class="row margenes_filas"
+                    [ngClass]="{' fila_0 ': i%2===0,'fila_1 ': i%2===1}">
+                    <div class="col-1 " style="padding: 1px;">{{producto.Id}}</div>
+                    <div class="col-1" style="padding: 1px;">{{producto.CodContable}}</div>
+                    <div class="col-4" style="padding: 1px;">{{producto.Descripcion}}</div>
+                    <div class="col" style="padding: 1px;">{{producto.InvInicial | currency}}</div>
+                    <div class="col" style="padding: 1px;">{{producto.Compras | currency}}</div>
+                    <div class="col" style="padding: 1px;">{{producto.Ventas | currency}}</div>
+                    <div class="col" style="padding: 1px;">{{producto.InvFinal | currency}}</div>
+                    <div class="col" style="padding: 1px;">{{producto.ganancia | currency}}</div>
+                  </div>
+                }
+              </div>
+            }
+            <div class="row margenes_filas" style="background-color: darkseagreen;">
+              <div class="col-6" style="padding: 1px; text-align: center;">SUBTOTAL MOVILGAS</div>
+              <div class="col" style="padding: 1px;">{{InviniMov | currency}}</div>
+              <div class="col" style="padding: 1px;">{{InvCompMov | currency}}</div>
+              <div class="col" style="padding: 1px;">{{InvVentaMov | currency}}</div>
+              <div class="col" style="padding: 1px;">{{InvFinalMov | currency}}</div>
+              <div class="col" style="padding: 1px;">{{InvGananciaMov | currency}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row pie margenes_filas" style="padding: 3px 0px 0px 0px; background: springgreen;">
+          <div class="col-7" style="max-width:696px; padding: 3px 0px 0px 0px; text-align: center;">TOTAL</div>
+          <div class="col" style="padding: 3px 0px 0px 0px;">{{Invini+InviniMov | currency}}</div>
+          <div class="col" style="padding: 3px 0px 0px 0px;">{{InvComp+InvCompMov | currency}}</div>
+          <div class="col" style="padding: 3px 0px 0px 0px;">{{InvVenta+InvVentaMov | currency}}</div>
+          <div class="col" style="padding: 3px 0px 0px 0px;">{{InvFinal+InvFinalMov | currency}}</div>
+          <div class="col" style="padding: 3px 0px 0px 0px;">{{InvGanancia+InvGananciaMov | currency}}</div>
+        </div>
+      </div>
+    }
+  </div>
 </div>
 <!-- nuevo -->
-<div class="container-fluid border-primary TAB2" *ngIf="Reporte === 2 && ProdutosPesos.length > 0">
+@if (Reporte === 2 && ProdutosPesos.length > 0) {
+  <div class="container-fluid border-primary TAB2">
     <div class="col">
-        <div class="row">
-            <div class="col-12">
-                <div class="row margenes_filas" style="justify-content: center;">CATEGORIA</div>
-                <div class="row margenes_filas" style="justify-content: center;">CUSIANA</div>
-                <div class="row borde">
-                    <div class="col-1">
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Id</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Codigó</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Descripcion</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Inicial</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Compras</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Ventas</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Final</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Utilidad</div>
-                    </div>
-                    <div class="col-9">
-                        <div class="row"
-                            style="overflow-x:auto;overflow-y: hidden; flex-wrap: nowrap; white-space: nowrap;">
-                            <div *ngFor="let producto of ProdutosPesos;index as i">
-                                <div class="col" *ngIf="producto.Categoria == 2"
-                                    [ngClass]="{' fila_0 ': i%2===0,'fila_1 ': i%2===1}">
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Id}}
-                                    </div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
-                                        {{producto.CodContable}}</div>
-                                    <div class="row margenes_filas" style=" padding: 3px 3px 0px 3px;">
-                                        {{producto.Descripcion}}</div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
-                                        {{producto.InvInicial | currency}}
-                                    </div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Compras
-                                        | currency}}</div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Ventas
-                                        | currency}}</div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
-                                        {{producto.InvFinal | currency}}</div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
-                                        {{producto.ganancia | currency}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2" style="align-self: flex-end; margin-bottom: 17px;">
-                        <div class="row" style="justify-content: center; padding: 3px 3px 0px 3px;">SubTotal</div>
-                        <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
-                            {{Invini | currency}}</div>
-                        <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
-                            {{InvComp | currency}}</div>
-                        <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
-                            {{InvVenta | currency}}</div>
-                        <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
-                            {{InvFinal | currency}}</div>
-                        <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
-                            {{InvGanancia | currency}}</div>
-                    </div>
-                </div>
-
-                <div class="row margenes_filas" style="justify-content: center;">MOVILGAS</div>
-                <div class="row borde">
-                    <div class="col-1">
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Id</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Codigó</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Descripcion</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Inicial</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Compras</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Ventas</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Final</div>
-                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Utilidad</div>
-                    </div>
-                    <div class="col-9">
-                        <div class="row"
-                            style="overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; white-space: nowrap;">
-                            <div *ngFor="let producto of ProdutosPesos;index as i">
-                                <div class="col" *ngIf="producto.Categoria == 1"
-                                    [ngClass]="{' fila_0 ': i%2===0,'fila_1 ': i%2===1}">
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Id}}
-                                    </div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
-                                        {{producto.CodContable}}</div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
-                                        {{producto.Descripcion}}</div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
-                                        {{producto.InvInicial | currency}}
-                                    </div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Compras
-                                        | currency}}</div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Ventas
-                                        | currency}}</div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
-                                        {{producto.InvFinal | currency}}</div>
-                                    <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
-                                        {{producto.ganancia | currency}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2" style="align-self: flex-end; margin-bottom: 17px;">
-                        <div class="row" style="justify-content: center; padding: 3px 3px 0px 3px;">SubTotal</div>
-                        <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
-                            {{InviniMov | currency}}</div>
-                        <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
-                            {{InvCompMov | currency}}</div>
-                        <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
-                            {{InvVentaMov | currency}}</div>
-                        <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
-                            {{InvFinalMov | currency}}</div>
-                        <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
-                            {{InvGananciaMov | currency}}</div>
-                    </div>
-
-                </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="row margenes_filas" style="justify-content: center;">CATEGORIA</div>
+          <div class="row margenes_filas" style="justify-content: center;">CUSIANA</div>
+          <div class="row borde">
+            <div class="col-1">
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Id</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Codigó</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Descripcion</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Inicial</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Compras</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Ventas</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Final</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Utilidad</div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-6 Wm700">
-                <div class="row margenes_filas" style="justify-content: center;">
-                    <div class="col">TOTAL</div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="row margenes_filas">Inicial</div>
-                        <div class="row margenes_filas">Compras</div>
-                        <div class="row margenes_filas">Ventas</div>
-                        <div class="row margenes_filas">Final</div>
-                        <div class="row margenes_filas">Utilidad</div>
-                    </div>
-                    <div class="col-6" style="flex: none;">
-                        <div class="row margenes_filas">{{Invini+InviniMov | currency}}</div>
-                        <div class="row margenes_filas">{{InvComp+InvCompMov | currency}}</div>
-                        <div class="row margenes_filas">{{InvVenta+InvVentaMov | currency}}</div>
-                        <div class="row margenes_filas">{{InvFinal+InvFinalMov | currency}}</div>
-                        <div class="row margenes_filas">{{InvGanancia+InvGananciaMov | currency}}</div>
-                    </div>
-                </div>
+            <div class="col-9">
+              <div class="row"
+                style="overflow-x:auto;overflow-y: hidden; flex-wrap: nowrap; white-space: nowrap;">
+                @for (producto of ProdutosPesos; track producto; let i = $index) {
+                  <div>
+                    @if (producto.Categoria == 2) {
+                      <div class="col"
+                        [ngClass]="{' fila_0 ': i%2===0,'fila_1 ': i%2===1}">
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Id}}
+                        </div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
+                        {{producto.CodContable}}</div>
+                        <div class="row margenes_filas" style=" padding: 3px 3px 0px 3px;">
+                        {{producto.Descripcion}}</div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
+                          {{producto.InvInicial | currency}}
+                        </div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Compras
+                        | currency}}</div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Ventas
+                        | currency}}</div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
+                        {{producto.InvFinal | currency}}</div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
+                        {{producto.ganancia | currency}}</div>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
             </div>
+            <div class="col-2" style="align-self: flex-end; margin-bottom: 17px;">
+              <div class="row" style="justify-content: center; padding: 3px 3px 0px 3px;">SubTotal</div>
+              <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
+              {{Invini | currency}}</div>
+              <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
+              {{InvComp | currency}}</div>
+              <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
+              {{InvVenta | currency}}</div>
+              <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
+              {{InvFinal | currency}}</div>
+              <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
+              {{InvGanancia | currency}}</div>
+            </div>
+          </div>
+          <div class="row margenes_filas" style="justify-content: center;">MOVILGAS</div>
+          <div class="row borde">
+            <div class="col-1">
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Id</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Codigó</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Descripcion</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Inicial</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Compras</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Ventas</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Final</div>
+              <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">Utilidad</div>
+            </div>
+            <div class="col-9">
+              <div class="row"
+                style="overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; white-space: nowrap;">
+                @for (producto of ProdutosPesos; track producto; let i = $index) {
+                  <div>
+                    @if (producto.Categoria == 1) {
+                      <div class="col"
+                        [ngClass]="{' fila_0 ': i%2===0,'fila_1 ': i%2===1}">
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Id}}
+                        </div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
+                        {{producto.CodContable}}</div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
+                        {{producto.Descripcion}}</div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
+                          {{producto.InvInicial | currency}}
+                        </div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Compras
+                        | currency}}</div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">{{producto.Ventas
+                        | currency}}</div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
+                        {{producto.InvFinal | currency}}</div>
+                        <div class="row margenes_filas" style="padding: 3px 3px 0px 3px;">
+                        {{producto.ganancia | currency}}</div>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+            <div class="col-2" style="align-self: flex-end; margin-bottom: 17px;">
+              <div class="row" style="justify-content: center; padding: 3px 3px 0px 3px;">SubTotal</div>
+              <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
+              {{InviniMov | currency}}</div>
+              <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
+              {{InvCompMov | currency}}</div>
+              <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
+              {{InvVentaMov | currency}}</div>
+              <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
+              {{InvFinalMov | currency}}</div>
+              <div class="row margenes_filas" style="justify-content: center; padding: 3px 3px 0px 3px;">
+              {{InvGananciaMov | currency}}</div>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-6 Wm700">
+          <div class="row margenes_filas" style="justify-content: center;">
+            <div class="col">TOTAL</div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="row margenes_filas">Inicial</div>
+              <div class="row margenes_filas">Compras</div>
+              <div class="row margenes_filas">Ventas</div>
+              <div class="row margenes_filas">Final</div>
+              <div class="row margenes_filas">Utilidad</div>
+            </div>
+            <div class="col-6" style="flex: none;">
+              <div class="row margenes_filas">{{Invini+InviniMov | currency}}</div>
+              <div class="row margenes_filas">{{InvComp+InvCompMov | currency}}</div>
+              <div class="row margenes_filas">{{InvVenta+InvVentaMov | currency}}</div>
+              <div class="row margenes_filas">{{InvFinal+InvFinalMov | currency}}</div>
+              <div class="row margenes_filas">{{InvGanancia+InvGananciaMov | currency}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+}
 
 <app-modal-dialog (hide)="boolNovelty = false" [visible]="boolNovelty">
-    <app-report-ssrs #target [show]="boolNovelty" [https]="true"
-        serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params"
-        [width]="widthReport" [showParameter]="false">
-    </app-report-ssrs>
+  <app-report-ssrs #target [show]="boolNovelty" [https]="true"
+    serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params"
+    [width]="widthReport" [showParameter]="false">
+  </app-report-ssrs>
 </app-modal-dialog>

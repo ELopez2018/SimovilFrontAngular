@@ -1,9 +1,11 @@
-<div id="overlay" [@fade]="'in'" *ngIf="visible">
+@if (visible) {
+  <div id="overlay" [@fade]="'in'">
     <div id="bgOverlay" (click)="hideF()">
     </div>
     <div id="dialog" [class]="'col-md-' + width">
-        <div class="formDialog p-2">
-            <ng-content></ng-content>
-        </div>
+      <div class="formDialog p-2">
+        <ng-content></ng-content>
+      </div>
     </div>
-</div>
+  </div>
+}

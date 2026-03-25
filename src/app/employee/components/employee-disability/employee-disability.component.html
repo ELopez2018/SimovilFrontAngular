@@ -8,7 +8,9 @@
             <i class="fas fa-clipboard-list fa-fw"></i>
           </span>
           <select class="form-control" formControlName="motivo">
-            <option *ngFor="let motivo of motivos" [ngValue]="motivo">{{motivo.detalle}}</option>
+            @for (motivo of motivos; track motivo) {
+              <option [ngValue]="motivo">{{motivo.detalle}}</option>
+            }
           </select>
         </div>
         <label class="control-label col-sm-2">Responsable:</label>
@@ -17,7 +19,9 @@
             <i class="fas fa-building fa-fw"></i>
           </span>
           <select (ngModelChange)="validDate()" class="form-control" formControlName="administradora">
-            <option *ngFor="let administradora of administradoras" [ngValue]="administradora">{{administradora.nombreAdministradora}}</option>
+            @for (administradora of administradoras; track administradora) {
+              <option [ngValue]="administradora">{{administradora.nombreAdministradora}}</option>
+            }
           </select>
         </div>
       </div>
@@ -64,12 +68,12 @@
         <div class="col-sm-6">
           <button (click)="submit()" class="btn btn-primary btn-block" [disabled]="!noveltyForm.valid">
             <span class="fas fa-floppy-o fa-fw"></span>&nbsp;Guardar</button>
-        </div>
-        <div class="col-sm-6">
-          <button (click)="reset()" class="btn btn-danger btn-block">
-            <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar</button>
-        </div>
-      </div>
-    </fieldset>
-  </form>
-</div>
+          </div>
+          <div class="col-sm-6">
+            <button (click)="reset()" class="btn btn-danger btn-block">
+              <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>

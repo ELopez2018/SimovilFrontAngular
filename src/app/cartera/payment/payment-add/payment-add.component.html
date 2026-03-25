@@ -1,320 +1,345 @@
 
-  
+
 
 <form [formGroup]="addPaymentForm" novalidate class="form-horizontal">
-    <fieldset class="container m-auto p-4">
+  <fieldset class="container m-auto p-4">
 
-        <!-- agregar seleccion de estacion para cartera -->
-        <div class="form-group form-inline" style="justify-content: center;" *ngIf="area==7 && rol==4 || area==11 && rol==1">
-            <p-dropdown [options]="EstacionesMovilgas" 
-            [(ngModel)]="stationSel2" 
-            [showClear]="true" scrollHeight="460px" 
-            [filter]="true" filterBy="label,value.nombreEstacion"
-            formControlName="estacionseleccionada"
-            ></p-dropdown>
+    <!-- agregar seleccion de estacion para cartera -->
+    @if (area==7 && rol==4 || area==11 && rol==1) {
+      <div class="form-group form-inline" style="justify-content: center;">
+        <p-dropdown [options]="EstacionesMovilgas"
+          [(ngModel)]="stationSel2"
+          [showClear]="true" scrollHeight="460px"
+          [filter]="true" filterBy="label,value.nombreEstacion"
+          formControlName="estacionseleccionada"
+        ></p-dropdown>
+      </div>
+    }
+
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Fecha de pago: estacion:</label>
+      <div class="input-group col-sm-4">
+        <input type="date" class="form-control" formControlName="fechaPago">
+      </div>
+      @if (client.tipoCupo==1) {
+        <div class="col-sm-6" [@fade]="'in'">
+          <div class="btn-group special">
+            <button class="btn btn-primary" (click)="assigP(true)">Asignar pago</button>
+            <button class="btn btn-secondary" (click)="assigP(false)">No asignar</button>
+          </div>
         </div>
-
-        <div class="form-group form-inline">
-            <label class="control-label col-sm-2">Fecha de pago: estacion:</label>
-            <div class="input-group col-sm-4">
-                <input type="date" class="form-control" formControlName="fechaPago">
-            </div>
-            <div class="col-sm-6" *ngIf="client.tipoCupo==1" [@fade]="'in'">
-                <div class="btn-group special">
-                    <button class="btn btn-primary" (click)="assigP(true)">Asignar pago</button>
-                    <button class="btn btn-secondary" (click)="assigP(false)">No asignar</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group form-inline">
-            <label class="control-label col-sm-2">Identificación:</label>
-            <div class="input-group col-sm-4">
-                <div class="input-group-prepend">
-                    <button id="btnBoolClient" class="btn btn-outline-secondary left" type="button"
-                        (click)="boolClient(1)">
-                        <span class="far fa-hand-pointer fa-fw"></span>
-                    </button>
-                </div>
-                <input #searchIDPayment (keyup.enter)="SearchClientPayment(searchIDPayment.value)" type="number"
-                    class="form-control" placeholder="ID del cliente" formControlName="paymentId">
-                <button class="btn btn-info btn-left" type="button"
-                    (click)="SearchClientPayment(searchIDPayment.value)">
-                    <i class="fa fa-search"></i>
-                </button>
-            </div>
-
-            <label class="control-label col-sm-2">Nombre:</label>
-            <div class="input-group col-sm-4">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user fa-fw"></i></span>
-                </div>
-                <input type="text" class="form-control" placeholder="Nombre del cliente" name="nombre"
-                    formControlName="paymentName">
-            </div>
-        </div>
-
-        <div class="form-group form-inline">
-            <label class="control-label col-sm-2">Forma de pago:</label>
-            <div class="input-group col-sm-4">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i
-                            class="fas fa-hand-holding-usd fa-fw"></i></span>
-                </div>
-                <select class="form-control" formControlName="formaPago" [(ngModel)]="seleccionado"
-                    (click)="valideAnticipo()">
-                    <option *ngFor="let item of formasPago" [ngValue]="item"
-                        [ngStyle]="{'background-color':item.id == 8 ? 'gold' : 'white', 'font-weight':item.id == 8 ? 'bold':''}">
-                        {{item.text}}
-                    </option>
-                </select>
-
-            </div>
-            <label class="col-sm-2">Pago:</label>
-            <div class="input-group col-sm-4">
-                <input maxlength="16" (keyup)="observandoPago(); resultadoTotal(); actualizaMontoDeRetencion();"
-                    id="base" currencyMask [options]="" appLatestFocus class="form-control alinear_texto"
-                    formControlName="Valorpago">
-            </div>
-        </div>
-
-        <div *ngIf="client.codCliente == clienteTerpel">
-            <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-2">
-                    <label class="descuento_label">Descuento {{client.nombre}}:</label>
-                </div>
-                <div class="col-md-4" style="padding: 0px 29px 0px 9px;">
-                    <input maxlength="16"
-                        (keyup)="RestaTotal(); observandoPago(); actualizaMontoDeRetencion(); CalculoImpuesto();"
-                        currencyMask [options]="{thousands: '.', decimal: ',', precision: 2}"
-                        class="form-control caja_descuento alinear_texto" placeholder="$" formControlName="Descuento">
-                </div>
-            </div>
-        </div>
-
-        <div
-            *ngIf="dtoToEds && (client.codCliente == clienteSodexo || client.codCliente == clienteBigPass || client.codCliente == clienteMatDiscol || client.codCliente == moralvaInversionesColombia)">
-            <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-2">
-                    <label class="descuento_label">Descuento {{client.nombre}}:</label>
-                </div>
-                <div class="col-md-4" style="padding: 0px 29px 0px 9px;">
-                    <input maxlength="16"
-                        (keyup)="RestaTotal(); observandoPago(); actualizaMontoDeRetencion(); CalculoImpuesto();"
-                        currencyMask [options]="{thousands: '.', decimal: ',', precision: 2}"
-                        class="form-control caja_descuento alinear_texto" placeholder="$" formControlName="Descuento">
-                </div>
-            </div>
-        </div>
-
-        <div *ngIf="anticipo_boolean" class="row">
-            <div class="col-md-3 offset-md-3">
-                <div class="radio-toolbar">
-                    <input type="radio" name="inlineRadioOptions" id="1" value="Consignación/Transferencia"
-                        (click)="detalleAnticipo('Consignación/Transferencia')">
-                    <label for="1">Consignación/Transferencia</label>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="radio-toolbar">
-                    <input type="radio" name="inlineRadioOptions" id="2" value="Efectivo"
-                        (click)="detalleAnticipo('Efectivo')">
-                    <label for="2">Efectivo</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group form-inline" style="padding-top: 10px;">
-            <label class="control-label col-sm-2">Tipo de Retención: <img src="../../../../assets/img/fe/toTax.png"
-                    width="32" height="32" title="En caso de varias retenciones" (click)="openAddRetencion()"
-                    style="cursor: pointer;"></label>
-            <div class="input-group col-sm-4">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
-                </div>
-                <select class="form-control" formControlName="tipoRetencion" (change)="CalculoImpuesto()">
-                    <option>NO APLICA</option>
-                    <option *ngFor="let item of tiposImpuestos" [ngValue]="item">{{item.text}}</option>
-                </select>
-            </div>
-            <label class="col-sm-2">Retención {{tipoDeImpuesto}}:</label>
-            <div class="input-group col-sm-4">
-                <input maxlength="16" currencyMask [options]="{thousands: '.', decimal: ',', precision: 2}"
-                    class="form-control caja_descuento alinear_texto" placeholder="$" formControlName="montoRentencion">
-            </div>
-        </div>
-
-        <div class="form-group form-inline">
-            <div class="input-group col-sm-6">
-                <div *ngIf="openTipoDeImpuesto" id="informacion" class="card azul">
-                    <div class="card-header">Add varias retenciones<img src="../../../../../assets/img/fe/info_48.png"
-                            height="48" width="48"></div>
-                    <div class="card-body fondo_calendario mt-0">
-                        <div class="row justify-content-center">
-                            <div #mes_01 class="col decora_calendario" id="01" (click)="addRetencion('Retefuente');">
-                                Retefuente</div>
-                            <div #mes_02 class="col decora_calendario" id="02" (click)="addRetencion('Reteica');">
-                                Reteica</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <img src="../../../../../assets/img/fe/cerrar_info.png"
-                            title="Hacer click para cerrar este mensaje de información" width="48" height="48"
-                            (click)="closeAddRetencion();" style="cursor: pointer; display: block; margin: auto;">
-                    </div>
-                </div>
-            </div>
-
-            <div class="input-group col-sm-6">
-                <div class="card container marco_primax" *ngIf="arrayDeRetencion.length > 0">
-                    <div class="row">
-                        <div class="col titulo primax">
-                            Retenciones
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col_id titulo primax">No.</div>
-                        <div class="col_rete titulo primax">Retención</div>
-                        <div class="col_porcentaje titulo primax">%</div>
-                        <div class="col_valor titulo primax">Valor</div>
-                        <div class="col_borrar titulo primax">Borrar</div>
-                    </div>
-                    <div *ngFor="let r of arrayDeRetencion; index as i">
-                        <div class="row">
-                            <div class="col_id"
-                                [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{r.id}}
-                            </div>
-                            <div class="col_rete"
-                                [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{r.text}}
-                            </div>
-                            <div class="col_porcentaje"
-                                [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
-                                <input id="{{r.id}}" type="number" onKeyPress="if(this.value.length==5) return false;"
-                                    (input)="setImpuestoDeRetencion($event);" class="input_porcentaje"
-                                    #porcentaje_retencion>
-                            </div>
-                            <div class="col_valor"
-                                [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{r.valor |
-                                number}}</div>
-                            <div id="cursor_color" class="col_borrar"
-                                [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}"><img
-                                    class="img01" src="../../../../assets/img/fe/borrar.png" height="32" width="32"
-                                    title="borrar de esta lista" (click)="borrarRetencion(r.id)"
-                                    style="cursor: pointer;"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col_id contenido3_primax"></div>
-                        <div class="col_rete contenido3_primax"></div>
-                        <div class="col_porcentaje contenido3_primax"></div>
-                        <div class="col_valor contenido3_primax">{{sumatoriaDeRetencion() | number}}</div>
-                        <div class="col_borrar contenido3_primax"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-        <div class="form-group form-inline">
-            <label class="control-label col-sm-2">Detalles:</label>
-            <div class="input-group col-sm-4">
-                <textarea name="detalles" id="detalles" cols="45" rows="2" formControlName="detalles"
-                    value="{{detalleFPAnticipo}}" [(readonly)]="anticipo_boolean"></textarea>
-            </div>
-            <label class="col-sm-2">Total:</label>
-            <div class="input-group col-sm-4">
-                <input id="valorPag" currencyMask [options]="{thousands: '.', decimal: ',', precision: 2}"
-                    appLatestFocus class="form-control alinear_texto" formControlName="valuePayment">
-            </div>
-        </div>
-
-        <div class="form-group form-inline" *ngIf="assignPago" [@fade]="'in'">
-            <label class="col-sm-2">Cuenta de cobro</label>
-            <div class="input-group col-sm-4">
-                <div class="input-group-prepend">
-                    <button id="btnCuCobro" class="btn btn-outline-secondary left" type="button"
-                        (click)="getReceivable()">
-                        <i class="far fa-hand-pointer fa-fw"></i>
-                    </button>
-                </div>
-                <input type="number" class="form-control" formControlName="cuentaCobroNum" readonly>
-            </div>
-            <label class="col-sm-2">Saldo</label>
-            <div class="input-group col-sm-4">
-                <input appLatestFocus currencyMask [options]="{thousands: '.', decimal: ',', precision: 2}"
-                    class="form-control alinear_texto" placeholder="$" readonly formControlName="saldoCuentaCobro">
-            </div>
-        </div>
-        <div class="form-group form-inline" *ngIf="assignPago && PagoMayorACuentaCobro && receivableSelected"
-            [@fade]="'in'">
-            <div class="alert alert-danger col-sm-9 m-auto" role="alert">
-                Advertencia: El pago (${{ valorPago | number }}) es mayor al saldo (${{ valorCuentaCobro | number}}) de
-                la cuenta de cobro.
-                <ul>
-                    <li>Se creará un pago por el valor (${{ valorCuentaCobro | number}}) asignado a la cuenta de cobro
-                        numero {{receivableSelected.num}}.
-                    </li>
-                    <li>Se creará un pago por la diferencia (${{ valorPago - valorCuentaCobro | number }}) pendiente por
-                        asignar.
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="form-inline justify-content-center">
-            <div class="col-sm-5 ">
-                <button id="btnSave" (click)="submitAddPayment()" class="btn btn-primary btn-block"
-                    [disabled]="!addPaymentForm.valid">
-                    <span class="fa fa-save"></span>&nbsp;Guardar</button>
-            </div>
-            <div class="col-sm-5 ">
-                <button (click)="resetPaymentForm()" class="btn btn-danger btn-block">
-                    <span class="fas fa-eraser"></span>&nbsp;Limpiar</button>
-            </div>
-        </div>
-    </fieldset>
-</form>
-<app-modal-dialog [visible]="displayDialogReceivable" (hide)="displayDialogReceivable=false">
-    <div class="table-wrapper container" id="table-Consumption-Search">
-        <div class="align-self-center no-more-tables" id="table-Consumption-Search">
-            <div id="print-payments">
-                <table class="table table-hover table-sm table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Id</th>
-                            <th class="text-center">No</th>
-                            <th class="text-center">Fecha</th>
-                            <th class="text-center">Valor</th>
-                            <th class="text-center">Saldo</th>
-                            <th class="text-center">Seleccionar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of receivables; let i = index">
-                            <td class="text-center" data-title="num">{{item.id}}</td>
-                            <td class="text-center" data-title="Id">{{item.num}}</td>
-                            <td class="text-center" data-title="Fecha">{{item.fecha | date: 'dd/MM/yyyy' : '+0000'}}
-                            </td>
-                            <td class="text-right" data-title="Valor">{{item.valor | currency}}</td>
-                            <td class="text-right" data-title="Saldo">{{item.saldo | currency}}</td>
-                            <td>
-                                <button [id]="'btnReceivable'+i" class="btn btn-info btn-block"
-                                    (click)="ReceivableSelected(item)">
-                                    <i class="fa fa-check"></i>&nbsp;Seleccionar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+      }
     </div>
-</app-modal-dialog>
-<app-modal-dialog [visible]="boolSearchClient" (hide)="boolSearchClient = false">
-    <app-comp-search-client (submiter)="getCodClient($event)"></app-comp-search-client>
-</app-modal-dialog>
+
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Identificación:</label>
+      <div class="input-group col-sm-4">
+        <div class="input-group-prepend">
+          <button id="btnBoolClient" class="btn btn-outline-secondary left" type="button"
+            (click)="boolClient(1)">
+            <span class="far fa-hand-pointer fa-fw"></span>
+          </button>
+        </div>
+        <input #searchIDPayment (keyup.enter)="SearchClientPayment(searchIDPayment.value)" type="number"
+          class="form-control" placeholder="ID del cliente" formControlName="paymentId">
+          <button class="btn btn-info btn-left" type="button"
+            (click)="SearchClientPayment(searchIDPayment.value)">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+
+        <label class="control-label col-sm-2">Nombre:</label>
+        <div class="input-group col-sm-4">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user fa-fw"></i></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Nombre del cliente" name="nombre"
+            formControlName="paymentName">
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="control-label col-sm-2">Forma de pago:</label>
+          <div class="input-group col-sm-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><i
+              class="fas fa-hand-holding-usd fa-fw"></i></span>
+            </div>
+            <select class="form-control" formControlName="formaPago" [(ngModel)]="seleccionado"
+              (click)="valideAnticipo()">
+              @for (item of formasPago; track item) {
+                <option [ngValue]="item"
+                  [ngStyle]="{'background-color':item.id == 8 ? 'gold' : 'white', 'font-weight':item.id == 8 ? 'bold':''}">
+                  {{item.text}}
+                </option>
+              }
+            </select>
+
+          </div>
+          <label class="col-sm-2">Pago:</label>
+          <div class="input-group col-sm-4">
+            <input maxlength="16" (keyup)="observandoPago(); resultadoTotal(); actualizaMontoDeRetencion();"
+              id="base" currencyMask [options]="" appLatestFocus class="form-control alinear_texto"
+              formControlName="Valorpago">
+            </div>
+          </div>
+
+          @if (client.codCliente == clienteTerpel) {
+            <div>
+              <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-2">
+                  <label class="descuento_label">Descuento {{client.nombre}}:</label>
+                </div>
+                <div class="col-md-4" style="padding: 0px 29px 0px 9px;">
+                  <input maxlength="16"
+                    (keyup)="RestaTotal(); observandoPago(); actualizaMontoDeRetencion(); CalculoImpuesto();"
+                    currencyMask [options]="{thousands: '.', decimal: ',', precision: 2}"
+                    class="form-control caja_descuento alinear_texto" placeholder="$" formControlName="Descuento">
+                  </div>
+                </div>
+              </div>
+            }
+
+            @if (dtoToEds && (client.codCliente == clienteSodexo || client.codCliente == clienteBigPass || client.codCliente == clienteMatDiscol || client.codCliente == moralvaInversionesColombia)) {
+              <div
+                >
+                <div class="row">
+                  <div class="col-md-6">
+                  </div>
+                  <div class="col-md-2">
+                    <label class="descuento_label">Descuento {{client.nombre}}:</label>
+                  </div>
+                  <div class="col-md-4" style="padding: 0px 29px 0px 9px;">
+                    <input maxlength="16"
+                      (keyup)="RestaTotal(); observandoPago(); actualizaMontoDeRetencion(); CalculoImpuesto();"
+                      currencyMask [options]="{thousands: '.', decimal: ',', precision: 2}"
+                      class="form-control caja_descuento alinear_texto" placeholder="$" formControlName="Descuento">
+                    </div>
+                  </div>
+                </div>
+              }
+
+              @if (anticipo_boolean) {
+                <div class="row">
+                  <div class="col-md-3 offset-md-3">
+                    <div class="radio-toolbar">
+                      <input type="radio" name="inlineRadioOptions" id="1" value="Consignación/Transferencia"
+                        (click)="detalleAnticipo('Consignación/Transferencia')">
+                        <label for="1">Consignación/Transferencia</label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="radio-toolbar">
+                        <input type="radio" name="inlineRadioOptions" id="2" value="Efectivo"
+                          (click)="detalleAnticipo('Efectivo')">
+                          <label for="2">Efectivo</label>
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <div class="form-group form-inline" style="padding-top: 10px;">
+                    <label class="control-label col-sm-2">Tipo de Retención: <img src="../../../../assets/img/fe/toTax.png"
+                      width="32" height="32" title="En caso de varias retenciones" (click)="openAddRetencion()"
+                    style="cursor: pointer;"></label>
+                    <div class="input-group col-sm-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-percent"></i></span>
+                      </div>
+                      <select class="form-control" formControlName="tipoRetencion" (change)="CalculoImpuesto()">
+                        <option>NO APLICA</option>
+                        @for (item of tiposImpuestos; track item) {
+                          <option [ngValue]="item">{{item.text}}</option>
+                        }
+                      </select>
+                    </div>
+                    <label class="col-sm-2">Retención {{tipoDeImpuesto}}:</label>
+                    <div class="input-group col-sm-4">
+                      <input maxlength="16" currencyMask [options]="{thousands: '.', decimal: ',', precision: 2}"
+                        class="form-control caja_descuento alinear_texto" placeholder="$" formControlName="montoRentencion">
+                      </div>
+                    </div>
+
+                    <div class="form-group form-inline">
+                      <div class="input-group col-sm-6">
+                        @if (openTipoDeImpuesto) {
+                          <div id="informacion" class="card azul">
+                            <div class="card-header">Add varias retenciones<img src="../../../../../assets/img/fe/info_48.png"
+                            height="48" width="48"></div>
+                            <div class="card-body fondo_calendario mt-0">
+                              <div class="row justify-content-center">
+                                <div #mes_01 class="col decora_calendario" id="01" (click)="addRetencion('Retefuente');">
+                                Retefuente</div>
+                                <div #mes_02 class="col decora_calendario" id="02" (click)="addRetencion('Reteica');">
+                                Reteica</div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <img src="../../../../../assets/img/fe/cerrar_info.png"
+                                title="Hacer click para cerrar este mensaje de información" width="48" height="48"
+                                (click)="closeAddRetencion();" style="cursor: pointer; display: block; margin: auto;">
+                              </div>
+                            </div>
+                          }
+                        </div>
+
+                        <div class="input-group col-sm-6">
+                          @if (arrayDeRetencion.length > 0) {
+                            <div class="card container marco_primax">
+                              <div class="row">
+                                <div class="col titulo primax">
+                                  Retenciones
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col_id titulo primax">No.</div>
+                                <div class="col_rete titulo primax">Retención</div>
+                                <div class="col_porcentaje titulo primax">%</div>
+                                <div class="col_valor titulo primax">Valor</div>
+                                <div class="col_borrar titulo primax">Borrar</div>
+                              </div>
+                              @for (r of arrayDeRetencion; track r; let i = $index) {
+                                <div>
+                                  <div class="row">
+                                    <div class="col_id"
+                                      [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{r.id}}
+                                    </div>
+                                    <div class="col_rete"
+                                      [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{r.text}}
+                                    </div>
+                                    <div class="col_porcentaje"
+                                      [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">
+                                      <input id="{{r.id}}" type="number" onKeyPress="if(this.value.length==5) return false;"
+                                        (input)="setImpuestoDeRetencion($event);" class="input_porcentaje"
+                                        #porcentaje_retencion>
+                                      </div>
+                                      <div class="col_valor"
+                                        [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}">{{r.valor |
+                                      number}}</div>
+                                      <div id="cursor_color" class="col_borrar"
+                                        [ngClass]="{'contenido1_primax': i%2 == 1, 'contenido2_primax': i%2 == 0}"><img
+                                        class="img01" src="../../../../assets/img/fe/borrar.png" height="32" width="32"
+                                        title="borrar de esta lista" (click)="borrarRetencion(r.id)"
+                                      style="cursor: pointer;"></div>
+                                    </div>
+                                  </div>
+                                }
+                                <div class="row">
+                                  <div class="col_id contenido3_primax"></div>
+                                  <div class="col_rete contenido3_primax"></div>
+                                  <div class="col_porcentaje contenido3_primax"></div>
+                                  <div class="col_valor contenido3_primax">{{sumatoriaDeRetencion() | number}}</div>
+                                  <div class="col_borrar contenido3_primax"></div>
+                                </div>
+                              </div>
+                            }
+                          </div>
+                        </div>
+
+
+
+
+                        <div class="form-group form-inline">
+                          <label class="control-label col-sm-2">Detalles:</label>
+                          <div class="input-group col-sm-4">
+                            <textarea name="detalles" id="detalles" cols="45" rows="2" formControlName="detalles"
+                            value="{{detalleFPAnticipo}}" [(readonly)]="anticipo_boolean"></textarea>
+                          </div>
+                          <label class="col-sm-2">Total:</label>
+                          <div class="input-group col-sm-4">
+                            <input id="valorPag" currencyMask [options]="{thousands: '.', decimal: ',', precision: 2}"
+                              appLatestFocus class="form-control alinear_texto" formControlName="valuePayment">
+                            </div>
+                          </div>
+
+                          @if (assignPago) {
+                            <div class="form-group form-inline" [@fade]="'in'">
+                              <label class="col-sm-2">Cuenta de cobro</label>
+                              <div class="input-group col-sm-4">
+                                <div class="input-group-prepend">
+                                  <button id="btnCuCobro" class="btn btn-outline-secondary left" type="button"
+                                    (click)="getReceivable()">
+                                    <i class="far fa-hand-pointer fa-fw"></i>
+                                  </button>
+                                </div>
+                                <input type="number" class="form-control" formControlName="cuentaCobroNum" readonly>
+                              </div>
+                              <label class="col-sm-2">Saldo</label>
+                              <div class="input-group col-sm-4">
+                                <input appLatestFocus currencyMask [options]="{thousands: '.', decimal: ',', precision: 2}"
+                                  class="form-control alinear_texto" placeholder="$" readonly formControlName="saldoCuentaCobro">
+                                </div>
+                              </div>
+                            }
+                            @if (assignPago && PagoMayorACuentaCobro && receivableSelected) {
+                              <div class="form-group form-inline"
+                                [@fade]="'in'">
+                                <div class="alert alert-danger col-sm-9 m-auto" role="alert">
+                                  Advertencia: El pago (${{ valorPago | number }}) es mayor al saldo (${{ valorCuentaCobro | number}}) de
+                                  la cuenta de cobro.
+                                  <ul>
+                                    <li>Se creará un pago por el valor (${{ valorCuentaCobro | number}}) asignado a la cuenta de cobro
+                                      numero {{receivableSelected.num}}.
+                                    </li>
+                                    <li>Se creará un pago por la diferencia (${{ valorPago - valorCuentaCobro | number }}) pendiente por
+                                      asignar.
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            }
+                            <div class="form-inline justify-content-center">
+                              <div class="col-sm-5 ">
+                                <button id="btnSave" (click)="submitAddPayment()" class="btn btn-primary btn-block"
+                                  [disabled]="!addPaymentForm.valid">
+                                  <span class="fa fa-save"></span>&nbsp;Guardar</button>
+                                </div>
+                                <div class="col-sm-5 ">
+                                  <button (click)="resetPaymentForm()" class="btn btn-danger btn-block">
+                                    <span class="fas fa-eraser"></span>&nbsp;Limpiar</button>
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </form>
+                            <app-modal-dialog [visible]="displayDialogReceivable" (hide)="displayDialogReceivable=false">
+                              <div class="table-wrapper container" id="table-Consumption-Search">
+                                <div class="align-self-center no-more-tables" id="table-Consumption-Search">
+                                  <div id="print-payments">
+                                    <table class="table table-hover table-sm table-striped">
+                                      <thead>
+                                        <tr>
+                                          <th class="text-center">Id</th>
+                                          <th class="text-center">No</th>
+                                          <th class="text-center">Fecha</th>
+                                          <th class="text-center">Valor</th>
+                                          <th class="text-center">Saldo</th>
+                                          <th class="text-center">Seleccionar</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        @for (item of receivables; track item; let i = $index) {
+                                          <tr>
+                                            <td class="text-center" data-title="num">{{item.id}}</td>
+                                            <td class="text-center" data-title="Id">{{item.num}}</td>
+                                            <td class="text-center" data-title="Fecha">{{item.fecha | date: 'dd/MM/yyyy' : '+0000'}}
+                                            </td>
+                                            <td class="text-right" data-title="Valor">{{item.valor | currency}}</td>
+                                            <td class="text-right" data-title="Saldo">{{item.saldo | currency}}</td>
+                                            <td>
+                                              <button [id]="'btnReceivable'+i" class="btn btn-info btn-block"
+                                                (click)="ReceivableSelected(item)">
+                                                <i class="fa fa-check"></i>&nbsp;Seleccionar</button>
+                                              </td>
+                                            </tr>
+                                          }
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </app-modal-dialog>
+                              <app-modal-dialog [visible]="boolSearchClient" (hide)="boolSearchClient = false">
+                                <app-comp-search-client (submiter)="getCodClient($event)"></app-comp-search-client>
+                              </app-modal-dialog>

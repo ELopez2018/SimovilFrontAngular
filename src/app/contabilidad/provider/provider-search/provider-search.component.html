@@ -15,43 +15,45 @@
   <div class="col-sm-3 btn-group justify-content-center" role="group">
     <button class="btn btn-info" (click)="getProviders()">
       <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
-    <button class="btn btn-warning" (click)="clearUsers()">
-      <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
-    </button>
+      <button class="btn btn-warning" (click)="clearUsers()">
+        <span class="fas fa-eraser fa-fw"></span>&nbsp;Limpiar
+      </button>
+    </div>
   </div>
-</div>
-<div class="table-wrapper" id="table-users-Search">
-  <div class="align-self-center no-more-tables" id="table-Users">
-    <table class="table table-hover table-sm table-striped table-bordered">
-      <thead>
-        <tr class="text-center">
-          <th scope="col">Nit</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Correo</th>
-          <th scope="col">Teléfono</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let provider of providers">
-          <td data-title="Nit" class="text-center">{{provider.nit}}-{{provider.dv}}</td>
-          <td data-title="Nombre" class="text-center">{{provider.nombre}}</td>
-          <td data-title="Correo" class="text-center">{{provider.email}}</td>
-          <td data-title="Telefono" class="text-center">{{provider.telefono}}</td>
-          <td data-title="Estado" class="text-center">{{provider.estado == true ? 'Activo' : 'Inactivo'}}</td>
-          <td class="text-center">
-            <div id="btns">
-              <button (click)="editProvider(provider)" class="btn btn-info btn-sm" title="Editar">
-                <span class="fas fa-user-edit fa-fw"></span>
-              </button>
-              <button (click)="deleteProvider(provider)" class="btn btn-danger btn-sm" title="Borrar">
-                <span class="fas fa-trash-alt fa-fw"></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="table-wrapper" id="table-users-Search">
+    <div class="align-self-center no-more-tables" id="table-Users">
+      <table class="table table-hover table-sm table-striped table-bordered">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Nit</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (provider of providers; track provider) {
+            <tr>
+              <td data-title="Nit" class="text-center">{{provider.nit}}-{{provider.dv}}</td>
+              <td data-title="Nombre" class="text-center">{{provider.nombre}}</td>
+              <td data-title="Correo" class="text-center">{{provider.email}}</td>
+              <td data-title="Telefono" class="text-center">{{provider.telefono}}</td>
+              <td data-title="Estado" class="text-center">{{provider.estado == true ? 'Activo' : 'Inactivo'}}</td>
+              <td class="text-center">
+                <div id="btns">
+                  <button (click)="editProvider(provider)" class="btn btn-info btn-sm" title="Editar">
+                    <span class="fas fa-user-edit fa-fw"></span>
+                  </button>
+                  <button (click)="deleteProvider(provider)" class="btn btn-danger btn-sm" title="Borrar">
+                    <span class="fas fa-trash-alt fa-fw"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>

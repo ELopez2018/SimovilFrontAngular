@@ -1,112 +1,130 @@
 <div class="col-sm-12 p-2">
-    <div class="form-row">
+  <div class="form-row">
 
-        <div class="col-lg-6 mb-1">
-            <div class="form-row">
+    <div class="col-lg-6 mb-1">
+      <div class="form-row">
 
-                <!-- <div class="col-sm mb-1">
-                    <label for="type">Tipo</label>
-                    <select id="type" disabled class="form-control" [(ngModel)]="typeSel">
-                        <option *ngFor="let item of types" [ngValue]="item">{{item.text}}</option>
-                    </select>
-                </div> -->
+        <!-- <div class="col-sm mb-1">
+        <label for="type">Tipo</label>
+        <select id="type" disabled class="form-control" [(ngModel)]="typeSel">
+          <option *ngFor="let item of types" [ngValue]="item">{{item.text}}</option>
+        </select>
+      </div> -->
 
-                <div class="col-sm mb-1">
-                    <label for="station" style="font-weight: bold;">Estación</label>
-                    <select id="station" class="form-control" [disabled]="stationCod" [(ngModel)]="stationSel">
-            <option *ngFor="let item of stations"    [ngValue]="item">{{item.nombreEstacion}}</option>
-          </select>
-                </div>
+      <div class="col-sm mb-1">
+        <label for="station" style="font-weight: bold;">Estación</label>
+        <select id="station" class="form-control" [disabled]="stationCod" [(ngModel)]="stationSel">
+          @for (item of stations; track item) {
+            <option    [ngValue]="item">{{item.nombreEstacion}}</option>
+          }
+        </select>
+      </div>
 
-                <div class="mb-1" [ngClass]="{'col-sm-4': !anualBoolean, 'col-sm-6': anualBoolean}">
-                    <label for="type" style="font-weight: bold;">Reporte</label>
-                    <select (change)="changeReport(); getBooleanos();" id="type" class="form-control" [(ngModel)]="paramSel">
-                        <option *ngFor="let item of treeParams" [ngValue]="item">{{item.text}}</option>
-                    </select>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-lg-6 mb-1">
-            <div class="form-row">
-
-                <div class="col-sm mb-1" *ngIf="paramSel && paramSel.child && paramSel.child.length > 0">
-                    <label for="type" style="font-weight: bold;">Opción</label>
-                    <select id="type" class="form-control" [(ngModel)]="opcSel">
-            <option *ngFor="let item of paramSel.child" [ngValue]="item">{{item.text}}</option>
-          </select>
-                </div>
-
-                <div class="col-sm-4 mb-1" *ngIf="mesBoolean">
-                    <label for="date" style="font-weight: bold;">Desde</label>
-                    <input type="month" id="date" [(ngModel)]="date" class="form-control">
-                </div>
-
-                <div class="col-sm-2 mb-1" *ngIf="anualBoolean">
-                    <label for="date2" style="font-weight: bold;">Año</label>
-                    <select class="form-control" [(ngModel)]="yearSeleccionado">
-                            <option *ngFor="let periodo of anual">{{periodo.numero}}</option>
-                        </select>
-                </div>
-
-                <div *ngIf="openCalendario" id="informacion" class="card azul">
-                    <div class="card-header">Seleccione mes o meses<img src="../../../../../assets/img/fe/info_48.png" height="48" width="48"></div>
-                    <div class="card-body fondo_calendario mt-0">
-                        <div class="row justify-content-center">
-                            <div #mes_01 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('01') >= 0}" id="01" (click)="addMes('01', $event);">Ene</div>
-                            <div #mes_02 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('02') >= 0}" id="02" (click)="addMes('02', $event);">Feb</div>
-                            <div #mes_03 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('03') >= 0}" id="03" (click)="addMes('03', $event);">Mar</div>
-                            <div #mes_04 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('04') >= 0}" id="04" (click)="addMes('04', $event);">Abr</div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div #mes_05 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('05') >= 0}" id="05" (click)="addMes('05', $event);">May</div>
-                            <div #mes_06 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('06') >= 0}" id="06" (click)="addMes('06', $event);">Jun</div>
-                            <div #mes_07 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('07') >= 0}" id="07" (click)="addMes('07', $event);">Jul</div>
-                            <div #mes_08 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('08') >= 0}" id="08" (click)="addMes('08', $event);">Ago</div>
-                        </div>
-                        <div class="row">
-                            <div #mes_09 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('09') >= 0}" id="09" (click)="addMes('09', $event);">Sep</div>
-                            <div #mes_10 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('10') >= 0}" id="10" (click)="addMes('10', $event);">Oct</div>
-                            <div #mes_11 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('11') >= 0}" id="11" (click)="addMes('11', $event);">Nov</div>
-                            <div #mes_12 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('12') >= 0}" id="12" (click)="addMes('12', $event);">Dic</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <img src="../../../../../assets/img/fe/cerrar_info.png" title="Hacer click para cerrar este mensaje de información" width="48" height="48" (click)="closeMsgInfo();" style="cursor: pointer; display: block; margin: auto;">
-                    </div>
-                </div>
-
-                <div *ngIf="anualBoolean" class="col-sm-6">
-                    <label style="font-weight: bold;">Mes(es): <i class="fas fa-info-circle" (click)="openMsgInfo();" style="cursor: pointer;"></i></label>
-                    <input type="text" [(ngModel)]="subconjuntoMeses" class="form-control" readonly>
-                </div>
-
-                <div class="col-sm-4 mb-1">
-                    <button [disabled]="!valid" id="btnSearchCartera" (click)="getReport(prueba)" class="btn btn-block btn-sm btn-primary text-truncate">
-                    <i class="fas fa-search fa-fw"></i>&nbsp;Consultar</button>
-                    <button (click)="clear()" class="btn btn-block btn-sm btn-danger text-truncate">
-                    <i class="fas fa-eraser"></i>&nbsp;Limpiar</button>
-                </div>
-
-            </div>
-        </div>
+      <div class="mb-1" [ngClass]="{'col-sm-4': !anualBoolean, 'col-sm-6': anualBoolean}">
+        <label for="type" style="font-weight: bold;">Reporte</label>
+        <select (change)="changeReport(); getBooleanos();" id="type" class="form-control" [(ngModel)]="paramSel">
+          @for (item of treeParams; track item) {
+            <option [ngValue]="item">{{item.text}}</option>
+          }
+        </select>
+      </div>
 
     </div>
-</div>
+  </div>
 
-<app-report-ssrs #target [show]="showReport" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
-</app-report-ssrs>
+  <div class="col-lg-6 mb-1">
+    <div class="form-row">
 
-<div #prueba></div>
+      @if (paramSel && paramSel.child && paramSel.child.length > 0) {
+        <div class="col-sm mb-1">
+          <label for="type" style="font-weight: bold;">Opción</label>
+          <select id="type" class="form-control" [(ngModel)]="opcSel">
+            @for (item of paramSel.child; track item) {
+              <option [ngValue]="item">{{item.text}}</option>
+            }
+          </select>
+        </div>
+      }
 
-<div id="report" *ngIf="paramSel && paramSel.id == 7 && valid" [@fade]="'in'">
+      @if (mesBoolean) {
+        <div class="col-sm-4 mb-1">
+          <label for="date" style="font-weight: bold;">Desde</label>
+          <input type="month" id="date" [(ngModel)]="date" class="form-control">
+        </div>
+      }
 
-    <app-other-wholesaler [station]="stationSel" [pending]="opcSel ? opcSel.id : null" [fechaIni]="date ? date + '-01' : null" [search]="eventSearch">
-    </app-other-wholesaler> original
-    <!-- <app-other-wholesaler [station]="stationSel" [pending]="opcSel ? opcSel.id : null" [search]="eventSearch">
+      @if (anualBoolean) {
+        <div class="col-sm-2 mb-1">
+          <label for="date2" style="font-weight: bold;">Año</label>
+          <select class="form-control" [(ngModel)]="yearSeleccionado">
+            @for (periodo of anual; track periodo) {
+              <option>{{periodo.numero}}</option>
+            }
+          </select>
+        </div>
+      }
+
+      @if (openCalendario) {
+        <div id="informacion" class="card azul">
+          <div class="card-header">Seleccione mes o meses<img src="../../../../../assets/img/fe/info_48.png" height="48" width="48"></div>
+          <div class="card-body fondo_calendario mt-0">
+            <div class="row justify-content-center">
+              <div #mes_01 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('01') >= 0}" id="01" (click)="addMes('01', $event);">Ene</div>
+              <div #mes_02 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('02') >= 0}" id="02" (click)="addMes('02', $event);">Feb</div>
+              <div #mes_03 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('03') >= 0}" id="03" (click)="addMes('03', $event);">Mar</div>
+              <div #mes_04 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('04') >= 0}" id="04" (click)="addMes('04', $event);">Abr</div>
+            </div>
+            <div class="row justify-content-center">
+              <div #mes_05 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('05') >= 0}" id="05" (click)="addMes('05', $event);">May</div>
+              <div #mes_06 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('06') >= 0}" id="06" (click)="addMes('06', $event);">Jun</div>
+              <div #mes_07 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('07') >= 0}" id="07" (click)="addMes('07', $event);">Jul</div>
+              <div #mes_08 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('08') >= 0}" id="08" (click)="addMes('08', $event);">Ago</div>
+            </div>
+            <div class="row">
+              <div #mes_09 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('09') >= 0}" id="09" (click)="addMes('09', $event);">Sep</div>
+              <div #mes_10 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('10') >= 0}" id="10" (click)="addMes('10', $event);">Oct</div>
+              <div #mes_11 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('11') >= 0}" id="11" (click)="addMes('11', $event);">Nov</div>
+              <div #mes_12 class="col decora_calendario" [ngClass]="{'decora_calendario_luz': pilaMes.indexOf('12') >= 0}" id="12" (click)="addMes('12', $event);">Dic</div>
+            </div>
+          </div>
+          <div class="row">
+            <img src="../../../../../assets/img/fe/cerrar_info.png" title="Hacer click para cerrar este mensaje de información" width="48" height="48" (click)="closeMsgInfo();" style="cursor: pointer; display: block; margin: auto;">
+          </div>
+        </div>
+      }
+
+      @if (anualBoolean) {
+        <div class="col-sm-6">
+          <label style="font-weight: bold;">Mes(es): <i class="fas fa-info-circle" (click)="openMsgInfo();" style="cursor: pointer;"></i></label>
+          <input type="text" [(ngModel)]="subconjuntoMeses" class="form-control" readonly>
+        </div>
+      }
+
+      <div class="col-sm-4 mb-1">
+        <button [disabled]="!valid" id="btnSearchCartera" (click)="getReport(prueba)" class="btn btn-block btn-sm btn-primary text-truncate">
+          <i class="fas fa-search fa-fw"></i>&nbsp;Consultar</button>
+          <button (click)="clear()" class="btn btn-block btn-sm btn-danger text-truncate">
+            <i class="fas fa-eraser"></i>&nbsp;Limpiar</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <app-report-ssrs #target [show]="showReport" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
+  </app-report-ssrs>
+
+  <div #prueba></div>
+
+  @if (paramSel && paramSel.id == 7 && valid) {
+    <div id="report" [@fade]="'in'">
+      <app-other-wholesaler [station]="stationSel" [pending]="opcSel ? opcSel.id : null" [fechaIni]="date ? date + '-01' : null" [search]="eventSearch">
+      </app-other-wholesaler> original
+      <!-- <app-other-wholesaler [station]="stationSel" [pending]="opcSel ? opcSel.id : null" [search]="eventSearch">
     </app-other-wholesaler> -->
-
-</div>
+  </div>
+}
 
 <app-tanques-liq></app-tanques-liq>

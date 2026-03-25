@@ -1,93 +1,117 @@
 <div id="wrapper" [ngClass]="displayMenu">
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper" *ngIf="notLoginPath">
-            <nav>
-                <ul class="sidebar-nav">
-                    <li class="sidebar-brand" [title]="'V.' + version">
-                        <a class="titleApp">
-                        SIMOVIL
-                    </a>
-                    </li>
-                    <ng-container *ngFor="let item of navItems">
-                        <li class="dropdown" appCustomdropdown *ngIf="item.HIJO && item.HIJO.length > 0">
-                            <a class="dropdown-toggle">
-                                <span> <i [class]="item.ICONO"></i>&nbsp; </span>
-                                <span class="menu-item-title" *ngIf="item.DESCRIPCION == 'Administrar estación'" (click)="verCupoConsumido()">{{
-                                item.DESCRIPCION
-                            }}</span>
-                                <span class="menu-item-title" *ngIf="item.DESCRIPCION != 'Administrar estación'">{{
-                                item.DESCRIPCION
-                            }}</span>
-                                <!-- <span class="menu-item-title">{{
-                                item.DESCRIPCION
-                            }}</span> -->
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li *ngFor="let it of item.HIJO">
-                                    <a [routerLink]="it.URL" (click)="toggleVistaMin()">
-                                        <span>
-                                        <i [class]="it.ICONO"></i>&nbsp;
-                                    </span>
-                                        <span class="menu-item-title">{{
-                                        it.DESCRIPCION
-                                    }} <span *ngIf="it.DESCRIPCION == 'Planilla Diaria'"><img *ngIf='!dataCupoService.alertaCupoConsumido' src='../../../assets/img/alerta7.gif'> <img *ngIf='dataCupoService.alertaCupoConsumido' src='../../../assets/img/alerta2.gif'></span></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li *ngIf="item.HIJO == null">
-                            <a [routerLink]="item.URL" (click)="toggleVistaMin()">
-                                <span> <i [class]="item.ICONO"></i>&nbsp; </span>
-                                <span class="menu-item-title">{{
-                                item.DESCRIPCION
-                            }}</span>
-                            </a>
-                        </li>
-                    </ng-container>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    @if (notLoginPath) {
+      <div id="sidebar-wrapper">
+        <nav>
+          <ul class="sidebar-nav">
+            <li class="sidebar-brand" [title]="'V.' + version">
+              <a class="titleApp">
+                SIMOVIL
+              </a>
+            </li>
+            @for (item of navItems; track item) {
+              @if (item.HIJO && item.HIJO.length > 0) {
+                <li class="dropdown" appCustomdropdown>
+                  <a class="dropdown-toggle">
+                    <span> <i [class]="item.ICONO"></i>&nbsp; </span>
+                    @if (item.DESCRIPCION == 'Administrar estación') {
+                      <span class="menu-item-title" (click)="verCupoConsumido()">{{
+                        item.DESCRIPCION
+                      }}</span>
+                    }
+                    @if (item.DESCRIPCION != 'Administrar estación') {
+                      <span class="menu-item-title">{{
+                        item.DESCRIPCION
+                      }}</span>
+                    }
+                    <!-- <span class="menu-item-title">{{
+                    item.DESCRIPCION
+                  }}</span> -->
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  @for (it of item.HIJO; track it) {
                     <li>
-                        <a (click)="logout()">
-                            <span>
-                            <i class="fas fa-sign-out-alt fa-fw" ></i>&nbsp;
+                      <a [routerLink]="it.URL" (click)="toggleVistaMin()">
+                        <span>
+                          <i [class]="it.ICONO"></i>&nbsp;
                         </span>
-                            <span class="menu-item-title">Salir</span>
-                        </a>
+                        <span class="menu-item-title">{{
+                          it.DESCRIPCION
+                          }} @if (it.DESCRIPCION == 'Planilla Diaria') {
+                          <span>@if (!dataCupoService.alertaCupoConsumido) {
+                            <img src='../../../assets/img/alerta7.gif'>
+                            } @if (dataCupoService.alertaCupoConsumido) {
+                            <img src='../../../assets/img/alerta2.gif'>
+                          }</span>
+                        }</span>
+                      </a>
                     </li>
-                    <li class="text-center">
-                        <a routerLink="/welcome" class="Usuario">
-                            <div> {{ NombreUsuario }}</div>
-                            <div *ngIf="IdEstacion" id="nombreEstacion">{{ NombreEstacion }}</div>
-                        </a>
-                    </li>
+                  }
                 </ul>
-            </nav>
-            <div id="menu-toggle" (click)="toggle()" *ngIf="notLoginPath">
-                <span>
-                <i class="fa fa-bars fa-fw"></i>
-            </span>
-            </div>
+              </li>
+            }
+            @if (item.HIJO == null) {
+              <li>
+                <a [routerLink]="item.URL" (click)="toggleVistaMin()">
+                  <span> <i [class]="item.ICONO"></i>&nbsp; </span>
+                  <span class="menu-item-title">{{
+                    item.DESCRIPCION
+                  }}</span>
+                </a>
+              </li>
+            }
+          }
+          <li>
+            <a (click)="logout()">
+              <span>
+                <i class="fas fa-sign-out-alt fa-fw" ></i>&nbsp;
+              </span>
+              <span class="menu-item-title">Salir</span>
+            </a>
+          </li>
+          <li class="text-center">
+            <a routerLink="/welcome" class="Usuario">
+              <div> {{ NombreUsuario }}</div>
+              @if (IdEstacion) {
+                <div id="nombreEstacion">{{ NombreEstacion }}</div>
+              }
+            </a>
+          </li>
+        </ul>
+      </nav>
+      @if (notLoginPath) {
+        <div id="menu-toggle" (click)="toggle()">
+          <span>
+            <i class="fa fa-bars fa-fw"></i>
+          </span>
         </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <main class="transition_conten" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
-                    <router-outlet #o="outlet"></router-outlet>
-                </main>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-        <div class="topbar text-center" *ngIf="notLoginPath">
-            <a class="titleApp">
-            Simovil
-        </a>
-            <div class="topbar-item-right">
-                <span class="font-weight-bold">{{ getLetterUser() }}</span>
-            </div>
-        </div>
+      }
     </div>
+  }
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <main class="transition_conten" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+        <router-outlet #o="outlet"></router-outlet>
+      </main>
+    </div>
+  </div>
+  <!-- /#page-content-wrapper -->
+  @if (notLoginPath) {
+    <div class="topbar text-center">
+      <a class="titleApp">
+        Simovil
+      </a>
+      <div class="topbar-item-right">
+        <span class="font-weight-bold">{{ getLetterUser() }}</span>
+      </div>
+    </div>
+  }
+</div>
 </div>
 
 <!-- /#wrapper -->

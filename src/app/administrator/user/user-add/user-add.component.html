@@ -1,97 +1,99 @@
 <form [formGroup]="userAddForm" (ngSubmit)="submitUserAddForm()" novalidate class="form-horizontal">
-    <fieldset>
-        <legend class="text-center">Crear Usuario</legend>
-        <div class="form-group form-inline">
-            <label class="control-label col-sm-2">Usuario:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
-                    <i class="fas fa-user fa-fw"></i>
-                </span>
-                <input type="text" class="form-control" #idUsuario (blur)="validarUser(idUsuario.value)"
-                    placeholder="idUsuario" name="idUsuario" formControlName="idUsuario">
-            </div>
-            <label class="control-label col-sm-2">Rol:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
-                    <i class="fas fa-users-cog fa-fw"></i>
-                </span>
-                <select name="rol" class="form-control" formControlName="rol">
-                    <option *ngFor="let role of roles" [ngValue]="role">{{role.DESCRIPCION}}</option>
-                </select>
-            </div>
+  <fieldset>
+    <legend class="text-center">Crear Usuario</legend>
+    <div class="form-group form-inline">
+      <label class="control-label col-sm-2">Usuario:</label>
+      <div class="input-group col-sm-4">
+        <span class="input-group-addon">
+          <i class="fas fa-user fa-fw"></i>
+        </span>
+        <input type="text" class="form-control" #idUsuario (blur)="validarUser(idUsuario.value)"
+          placeholder="idUsuario" name="idUsuario" formControlName="idUsuario">
         </div>
-        <div class="form-group form-inline">
-            <label class="control-label col-sm-2">Primer nombre:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
-                    <i class="fas fa-user fa-fw"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="Primer nombre" name="primerNombre"
-                    formControlName="primerNombre">
-            </div>
-            <label class="control-label col-sm-2">Segundo nombre:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
-                    <i class="fas fa-user fa-fw"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="Segundo nombre" name="segundoNombre"
-                    formControlName="segundoNombre">
-            </div>
+        <label class="control-label col-sm-2">Rol:</label>
+        <div class="input-group col-sm-4">
+          <span class="input-group-addon">
+            <i class="fas fa-users-cog fa-fw"></i>
+          </span>
+          <select name="rol" class="form-control" formControlName="rol">
+            @for (role of roles; track role) {
+              <option [ngValue]="role">{{role.DESCRIPCION}}</option>
+            }
+          </select>
         </div>
-        <div class="form-group form-inline">
+      </div>
+      <div class="form-group form-inline">
+        <label class="control-label col-sm-2">Primer nombre:</label>
+        <div class="input-group col-sm-4">
+          <span class="input-group-addon">
+            <i class="fas fa-user fa-fw"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Primer nombre" name="primerNombre"
+            formControlName="primerNombre">
+          </div>
+          <label class="control-label col-sm-2">Segundo nombre:</label>
+          <div class="input-group col-sm-4">
+            <span class="input-group-addon">
+              <i class="fas fa-user fa-fw"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="Segundo nombre" name="segundoNombre"
+              formControlName="segundoNombre">
+            </div>
+          </div>
+          <div class="form-group form-inline">
             <label class="control-label col-sm-2">Primer Apellido:</label>
             <div class="input-group col-sm-4">
+              <span class="input-group-addon">
+                <i class="fas fa-user fa-fw"></i>
+              </span>
+              <input type="text" class="form-control" placeholder="Primer apellido" name="primerApellido"
+                formControlName="primerApellido">
+              </div>
+              <label class="control-label col-sm-2">Segundo Apellido:</label>
+              <div class="input-group col-sm-4">
                 <span class="input-group-addon">
-                    <i class="fas fa-user fa-fw"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="Primer apellido" name="primerApellido"
-                    formControlName="primerApellido">
-            </div>
-            <label class="control-label col-sm-2">Segundo Apellido:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
-                    <i class="fas fa-user fa-fw"></i>
+                  <i class="fas fa-user fa-fw"></i>
                 </span>
                 <input type="text" class="form-control" placeholder="Segundo apellido" name="segundoApellido"
-                    formControlName="segundoApellido">
-            </div>
-        </div>
-        <div class="form-group form-inline">
-            <label class="control-label col-sm-2">Contraseña:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
+                  formControlName="segundoApellido">
+                </div>
+              </div>
+              <div class="form-group form-inline">
+                <label class="control-label col-sm-2">Contraseña:</label>
+                <div class="input-group col-sm-4">
+                  <span class="input-group-addon">
                     <i class="fas fa-key fa-fw"></i>
-                </span>
-                <input (keyup)="validatePass(0)" (blur)="validatePass(1)" type="password" class="form-control"
+                  </span>
+                  <input (keyup)="validatePass(0)" (blur)="validatePass(1)" type="password" class="form-control"
                     placeholder="Contraseña" name="password" formControlName="password">
-            </div>
-            <label class="control-label col-sm-2">Confirmación:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
-                    <i class="fas fa-key fa-fw"></i>
-                </span>
-                <input (focus)="validatePass(2)" type="password" class="form-control"
-                    placeholder="Confirmar constraseña" name="password2" formControlName="password2">
-            </div>
-        </div>
-        <div class="form-group form-inline">
-            <label class="control-label col-sm-2">E-Mail:</label>
-            <div class="input-group col-sm-4">
-                <span class="input-group-addon">
-                    <i class="fas fa-envelope fa-fw"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="email" name="email" formControlName="email">
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="col-sm-6">
-                <button type="submit" class="btn btn-primary btn-block" [disabled]="!userAddForm.valid || sending">
-                    <i class="fa fa-floppy-o"></i>&nbsp; Guardar</button>
-            </div>
-            <div class="col-sm-6">
-                <button type="reset" class="btn btn-danger btn-block">
-                    <i class="fas fa-eraser"></i>&nbsp; Reset</button>
-            </div>
-        </div>
-    </fieldset>
-</form>
+                  </div>
+                  <label class="control-label col-sm-2">Confirmación:</label>
+                  <div class="input-group col-sm-4">
+                    <span class="input-group-addon">
+                      <i class="fas fa-key fa-fw"></i>
+                    </span>
+                    <input (focus)="validatePass(2)" type="password" class="form-control"
+                      placeholder="Confirmar constraseña" name="password2" formControlName="password2">
+                    </div>
+                  </div>
+                  <div class="form-group form-inline">
+                    <label class="control-label col-sm-2">E-Mail:</label>
+                    <div class="input-group col-sm-4">
+                      <span class="input-group-addon">
+                        <i class="fas fa-envelope fa-fw"></i>
+                      </span>
+                      <input type="text" class="form-control" placeholder="email" name="email" formControlName="email">
+                    </div>
+                  </div>
+                  <div class="form-inline">
+                    <div class="col-sm-6">
+                      <button type="submit" class="btn btn-primary btn-block" [disabled]="!userAddForm.valid || sending">
+                        <i class="fa fa-floppy-o"></i>&nbsp; Guardar</button>
+                      </div>
+                      <div class="col-sm-6">
+                        <button type="reset" class="btn btn-danger btn-block">
+                          <i class="fas fa-eraser"></i>&nbsp; Reset</button>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </form>

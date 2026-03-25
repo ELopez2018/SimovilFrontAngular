@@ -1,269 +1,301 @@
 <div [ngClass]="{'formulario': formulario == true}" style="background-color: rgb(208, 211, 210); border-radius: 12px; border: 1px solid rgb(4, 190, 247);">
-    <div class="row col-sm-12 py-2">
-        <div class="col-sm-3">
-            <div class="input-group">
-                <select class="form-control decora_cajas" [disabled]="stationCode" [(ngModel)]="stationSel">
-                    <option *ngFor="let item of stationsAll" [ngValue]="item">{{ item.nombreEstacion }}</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="input-group col-sm-3">
-            <div class="input-group-prepend">
-                <button id="btnClient" class="btn btn-outline-secondary left" (mouseover)="visitarElementoPadre();" (mouseleave)="leaveElementoPadre();" type="button" (click)="openModCli()">
-                    <span class="far fa-hand-pointer fa-fw"></span>
-                </button>
-            </div>
-            <input [(ngModel)]="client.codCliente" [disabled]="id != null" required class="form-control decora_cajas" type="number" name="codclient" id="codclient" placeholder="Buscar cliente" />
-        </div>
-
-        <div class="input-group col-sm-6">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i
-                ></span>
-            </div>
-            <input [(ngModel)]="client.nombre" disabled class="form-control decora_cajas" type="text" name="nameclient" id="nameclient">
-        </div>
-        <div *ngIf="id != null" class="col-sm-2">
-            <button class="btn btn-danger btn-block" (click)="back()">
-                <span class="fas fa-undo fa-fw"></span>&nbsp;Atras
-            </button>
-        </div>
-        <div *ngIf="id == null" class="col-sm-2">
-            <!-- <button
-                class="btn btn-info btn-block"
-                (click)="searchClient()"
-                [disabled]="client.codCliente == null"
-            >
-                <span class="fas fa-search fa-fw"></span>&nbsp;Consultar
-            </button> -->
-        </div>
+  <div class="row col-sm-12 py-2">
+    <div class="col-sm-3">
+      <div class="input-group">
+        <select class="form-control decora_cajas" [disabled]="stationCode" [(ngModel)]="stationSel">
+          @for (item of stationsAll; track item) {
+            <option [ngValue]="item">{{ item.nombreEstacion }}</option>
+          }
+        </select>
+      </div>
     </div>
-    <div class="row col-sm-12 pb-1">
-        <label class="control-label col-sm-1 m-0" style="font-weight: bold;">Desde:</label>
-        <div class="input-group col-sm-3">
-            <input [(ngModel)]="searchConsumoFechaIni" required class="form-control decora_cajas" type="date" name="fechaIniConsumoSearch" id="fechaIniConsumoSearch" />
-        </div>
-        <label class="control-label col-sm-1 m-0" style="font-weight: bold;">Hasta:</label>
-        <div class="input-group col-sm-3">
-            <input [(ngModel)]="searchConsumoFechaFin" required class="form-control decora_cajas" type="date" name="fechaFinConsumoSearch" id="fechaFinConsumoSearch" />
-        </div>
-        <div class="col-sm-4 btn-group justify-content-center" role="group">
-            <button id="btnSearch" class="btn btn-info" (click)="getConsumptionSearch()">
-                <span class="fa fa-search fa-fw"></span>&nbsp;Consultar
-            </button>
-            <button class="btn btn-warning" (click)="cleanConsumptionSearch()">
-                <span class="fas fa-eraser fa-fw"></span>
-            </button>
+
+    <div class="input-group col-sm-3">
+      <div class="input-group-prepend">
+        <button id="btnClient" class="btn btn-outline-secondary left" (mouseover)="visitarElementoPadre();" (mouseleave)="leaveElementoPadre();" type="button" (click)="openModCli()">
+          <span class="far fa-hand-pointer fa-fw"></span>
+        </button>
+      </div>
+      <input [(ngModel)]="client.codCliente" [disabled]="id != null" required class="form-control decora_cajas" type="number" name="codclient" id="codclient" placeholder="Buscar cliente" />
+    </div>
+
+    <div class="input-group col-sm-6">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i
+        ></span>
+      </div>
+      <input [(ngModel)]="client.nombre" disabled class="form-control decora_cajas" type="text" name="nameclient" id="nameclient">
+    </div>
+    @if (id != null) {
+      <div class="col-sm-2">
+        <button class="btn btn-danger btn-block" (click)="back()">
+          <span class="fas fa-undo fa-fw"></span>&nbsp;Atras
+        </button>
+      </div>
+    }
+    @if (id == null) {
+      <div class="col-sm-2">
+        <!-- <button
+        class="btn btn-info btn-block"
+        (click)="searchClient()"
+        [disabled]="client.codCliente == null"
+        >
+        <span class="fas fa-search fa-fw"></span>&nbsp;Consultar
+      </button> -->
+    </div>
+  }
+</div>
+<div class="row col-sm-12 pb-1">
+  <label class="control-label col-sm-1 m-0" style="font-weight: bold;">Desde:</label>
+  <div class="input-group col-sm-3">
+    <input [(ngModel)]="searchConsumoFechaIni" required class="form-control decora_cajas" type="date" name="fechaIniConsumoSearch" id="fechaIniConsumoSearch" />
+  </div>
+  <label class="control-label col-sm-1 m-0" style="font-weight: bold;">Hasta:</label>
+  <div class="input-group col-sm-3">
+    <input [(ngModel)]="searchConsumoFechaFin" required class="form-control decora_cajas" type="date" name="fechaFinConsumoSearch" id="fechaFinConsumoSearch" />
+  </div>
+  <div class="col-sm-4 btn-group justify-content-center" role="group">
+    <button id="btnSearch" class="btn btn-info" (click)="getConsumptionSearch()">
+      <span class="fa fa-search fa-fw"></span>&nbsp;Consultar
+    </button>
+    <button class="btn btn-warning" (click)="cleanConsumptionSearch()">
+      <span class="fas fa-eraser fa-fw"></span>
+    </button>
             <button class="btn btn-success" (click)="printConsumptionSearch()" [disabled]="
                     searchConsumos == null || searchConsumos.length == 0
                 ">
-                <span class="fa fa-print fa-fw"></span>
-            </button>
+      <span class="fa fa-print fa-fw"></span>
+    </button>
             <button class="btn btn-secondary" (click)="csvConsumptionSearch()" [disabled]="
                     searchConsumos == null || searchConsumos.length == 0
                 ">
-                <span class="fas fa-file-download fa-fw"></span>
-            </button>
-            <button class="btn btn-success" (click)="exportarConsumoToExcel()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-                <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-              </svg>Excel</button>
-        </div>
-    </div>
+      <span class="fas fa-file-download fa-fw"></span>
+    </button>
+    <button class="btn btn-success" (click)="exportarConsumoToExcel()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
+      <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+      <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+    </svg>Excel</button>
+  </div>
+</div>
 </div>
 
 <div class="table-wrapper mt-2" id="table-Consumption-Search">
-    <div id="print-consumption" class="align-self-center no-more-tables scroll">
-        <div class="tabla_encabezado_fijo">
-            <table id="tabla_consumos" class="table table-sm" *ngIf="searchConsumos.length > 0" style="margin-bottom: 3px;" #tabla_de_consumos>
-                <thead>
-                    <tr class="fila_titulo text-center">
-                        <td colspan="14">Consumos — {{ client.nombre }}</td>
-                    </tr>
-                    <tr class="text-center">
-                        <th scope="col">No</th>
-                        <th scope="col">Fecha</th>
-                        <!-- <th scope="col">Hora</th> -->
-                        <th scope="col" *ngIf="!(client && client.codCliente)">
-                            Cliente
-                        </th>
-                        <th scope="col">Tiquete</th>
-                        <th scope="col">Combustible</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Placa</th>
-                        <th scope="col">Km</th>
-                        <th scope="col">Valor</th>
-                        <!-- <th scope="col">Pedido</th> -->
-                        <th scope="col">Descuento</th>
-                        <th scope="col">A pagar</th>
-                        <th scope="col">Estación</th>
-                        <th scope="col">Cuenta</th>
-                        <th scope="col" *ngIf="rolSistemas">Acciones!</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let consumo of searchConsumos; let i = index;" [ngClass]="{'fila_0': i%2 == 1, 'fila_1': i%2 == 0}">
-                        <td data-title="Fecha consumo" class="text-center">
-                            {{ i + 1}}
-                        </td>
-                        <td data-title="Fecha consumo" class="text-center">
-                            {{ consumo.fechaConsumo | date: 'yyyy/MM/dd HH:mm:ss' : 'UTC +0001'| slice: 0: 10 }}
-                        </td>
-                        <!-- <td data-title="Hora consumo" class="text-center">
-                            {{ consumo.horaConsumo }}
-                        </td> -->
-                        <td data-title="Cliente" class="text-center" *ngIf="!(client && client.codCliente)">
-                            {{ consumo.nombreCliente }}
-                        </td>
-                        <td data-title="Tiquete" class="text-center">
-                            {{ consumo.ConsecutivoEstacion }}
-                        </td>
-                        <td data-title="Tiquete" class="text-center">
-                            {{ consumo.DESCRIPCION }}
-                        </td>
-                        <td data-title="Tiquete" class="text-center">
-                            {{ consumo.TipoCombustible }}
-                        </td>
-                        <td data-title="Cantidad" class="text-center">
-                            {{ consumo.cantidad | number }}
-                        </td>
-                        <td data-title="Placa" class="text-center">
-                            {{ consumo.placa }}
-                        </td>
-                        <td data-title="Kilometro" class="text-center">
-                            {{ consumo.Kilometraje }}
-                        </td>
-                        <td data-title="Valor" class="text-center">
-                            {{ consumo.valor | number }}
-                        </td>
-                        <!-- <td data-title="Pedido" class="text-center">
-                        {{ consumo.idPedido }}
-                    </td> -->
-                        <td data-title="Descuento" class="text-center">
-                            {{ consumo.descuento | number}}
-                        </td>
-                        <td data-title="Descuento" class="text-center">
-                            {{ consumo.valor - consumo.descuento | number}}
-                        </td>
-                        <td *ngIf="consumo.estacionCliente != 95" data-title="Estacion" class="text-center">
-                            {{ getNameStation(consumo.estacionConsumo) }}
-                        </td>
-                        <td *ngIf="consumo.estacionCliente == 95" data-title="Estacion" class="text-center">
-                            Sra V/cio
-                        </td>
-                        <td data-title="Cuenta de cobro" class="text-center">
-                            {{ consumo.numCuentaCobro }}
-                        </td>
-
-                        <td data-title="Acciones" class="btn-group" *ngIf="rolSistemas">
-                            <!--  -->
-                            <button type="button" class="btn btn-info" (click)="verAcciones(i)" title="Ver acciones">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                              </svg>
-                              <span class="visually-hidden"></span>
-                        </button>
-
-                            <button type="button" class="btn btn-warning" (click)="ocultarAcciones()" title="Ocultar acciones">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
-                                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
-                                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
-                                <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"/>
-                              </svg>
-                              <span class="visually-hidden"></span>
-                        </button>
-
-                            <div class="btn-group" *ngIf="ver && indice == i">
-                                <!-- acciones... -->
-                                <button *ngIf="rolSistemas" title="Borrar consumo" (click)="borrarConsumo(consumo.id, consumo.codCliente, i)" class="btn btn-danger btn-sm">
-                            <span class="pi pi-trash fa-fw"></span>
-                        </button>
-
-                                <button *ngIf="rolSistemas" type="button" title="Actualizar id_Identificador" (click)="updateIdIdentificador(consumo.id)" class="btn btn-info btn-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
-                               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
-                            </svg>
-                            <span class="visually-hidden"></span>
-                        </button>
-
-                                <button *ngIf="rolSistemas" title="Actualizar placa" (click)="updatePlacaCarro(consumo.id)" class="btn btn-outline-secondary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
-                            <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
-                            </svg>
-                            <span class="visually-hidden"></span>
-                        </button>
-                                <button *ngIf="rolSistemas" type="button" title="Actualizar fecha" (click)="updateFechaConsumo(consumo.id)" class="btn btn-warning btn-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-alarm" viewBox="0 0 16 16">
-                                    <path d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5z"/>
-                                    <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
-                            </svg>
-                            <span class="visually-hidden"></span>
-                        </button>
-                                <button *ngIf="rolSistemas" type="button" title="Actualizar valor" (click)="updateValorConsumo(consumo.id, consumo.cantidad)" class="btn btn-success btn-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
-                            <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"></path>
-                            </svg>
-                            <span class="visually-hidden"></span>
-                        </button>
-
-                                <button *ngIf="rolSistemas" title="combustible update" (click)="updateCombustible(consumo.id, consumo.TipoCombustible)" class="btn btn-info btn-sm">
-                            <span class="fas fa-gas-pump fa-fw"></span>
-                        </button>
-
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr *ngIf="searchConsumos != null" class="fila_pie">
-                        <td colspan="6" class="text-right" style="padding: 0px 3px 0px 0px;"><strong>Totales</strong></td>
-                        <td colspan="1" class="text-center"><strong> {{ sumTotalGalones() | number }} </strong></td>
-                        <td colspan="1"></td>
-                        <td colspan="1" class="text-center"><strong>${{ sumConsumption() | number }} </strong></td>
-                        <td colspan="1" class="text-center"><strong>${{ totalDescuento() | number }} </strong></td>
-                        <td colspan="1" class="text-center"><strong>${{ sumConsumption() - totalDescuento() | number }} </strong></td>
-                        <td colspan="1"></td>
-                        <td colspan="1"></td>
-                        <td colspan="1">
-                            <button *ngIf="rolSistemas" type="button" title="Borrar listado de consumos erróneos" (click)="borrarBugListaConsumos()" class="btn btn-danger btn-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bug" viewBox="0 0 16 16">
-                                <path d="M4.355.522a.5.5 0 0 1 .623.333l.291.956A4.979 4.979 0 0 1 8 1c1.007 0 1.946.298 2.731.811l.29-.956a.5.5 0 1 1 .957.29l-.41 1.352A4.985 4.985 0 0 1 13 6h.5a.5.5 0 0 0 .5-.5V5a.5.5 0 0 1 1 0v.5A1.5 1.5 0 0 1 13.5 7H13v1h1.5a.5.5 0 0 1 0 1H13v1h.5a1.5 1.5 0 0 1 1.5 1.5v.5a.5.5 0 1 1-1 0v-.5a.5.5 0 0 0-.5-.5H13a5 5 0 0 1-10 0h-.5a.5.5 0 0 0-.5.5v.5a.5.5 0 1 1-1 0v-.5A1.5 1.5 0 0 1 2.5 10H3V9H1.5a.5.5 0 0 1 0-1H3V7h-.5A1.5 1.5 0 0 1 1 5.5V5a.5.5 0 0 1 1 0v.5a.5.5 0 0 0 .5.5H3c0-1.364.547-2.601 1.432-3.503l-.41-1.352a.5.5 0 0 1 .333-.623zM4 7v4a4 4 0 0 0 3.5 3.97V7H4zm4.5 0v7.97A4 4 0 0 0 12 11V7H8.5zM12 6a3.989 3.989 0 0 0-1.334-2.982A3.983 3.983 0 0 0 8 2a3.983 3.983 0 0 0-2.667 1.018A3.989 3.989 0 0 0 4 6h8z"/>
-                              </svg>
-                        </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+  <div id="print-consumption" class="align-self-center no-more-tables scroll">
+    <div class="tabla_encabezado_fijo">
+      @if (searchConsumos.length > 0) {
+        <table id="tabla_consumos" class="table table-sm" style="margin-bottom: 3px;" #tabla_de_consumos>
+          <thead>
+            <tr class="fila_titulo text-center">
+              <td colspan="14">Consumos — {{ client.nombre }}</td>
+            </tr>
+            <tr class="text-center">
+              <th scope="col">No</th>
+              <th scope="col">Fecha</th>
+              <!-- <th scope="col">Hora</th> -->
+              @if (!(client && client.codCliente)) {
+                <th scope="col">
+                  Cliente
+                </th>
+              }
+              <th scope="col">Tiquete</th>
+              <th scope="col">Combustible</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Placa</th>
+              <th scope="col">Km</th>
+              <th scope="col">Valor</th>
+              <!-- <th scope="col">Pedido</th> -->
+              <th scope="col">Descuento</th>
+              <th scope="col">A pagar</th>
+              <th scope="col">Estación</th>
+              <th scope="col">Cuenta</th>
+              @if (rolSistemas) {
+                <th scope="col">Acciones!</th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (consumo of searchConsumos; track consumo; let i = $index) {
+              <tr [ngClass]="{'fila_0': i%2 == 1, 'fila_1': i%2 == 0}">
+                <td data-title="Fecha consumo" class="text-center">
+                  {{ i + 1}}
+                </td>
+                <td data-title="Fecha consumo" class="text-center">
+                  {{ consumo.fechaConsumo | date: 'yyyy/MM/dd HH:mm:ss' : 'UTC +0001'| slice: 0: 10 }}
+                </td>
+                <!-- <td data-title="Hora consumo" class="text-center">
+                {{ consumo.horaConsumo }}
+              </td> -->
+              @if (!(client && client.codCliente)) {
+                <td data-title="Cliente" class="text-center">
+                  {{ consumo.nombreCliente }}
+                </td>
+              }
+              <td data-title="Tiquete" class="text-center">
+                {{ consumo.ConsecutivoEstacion }}
+              </td>
+              <td data-title="Tiquete" class="text-center">
+                {{ consumo.DESCRIPCION }}
+              </td>
+              <td data-title="Tiquete" class="text-center">
+                {{ consumo.TipoCombustible }}
+              </td>
+              <td data-title="Cantidad" class="text-center">
+                {{ consumo.cantidad | number }}
+              </td>
+              <td data-title="Placa" class="text-center">
+                {{ consumo.placa }}
+              </td>
+              <td data-title="Kilometro" class="text-center">
+                {{ consumo.Kilometraje }}
+              </td>
+              <td data-title="Valor" class="text-center">
+                {{ consumo.valor | number }}
+              </td>
+              <!-- <td data-title="Pedido" class="text-center">
+              {{ consumo.idPedido }}
+            </td> -->
+            <td data-title="Descuento" class="text-center">
+              {{ consumo.descuento | number}}
+            </td>
+            <td data-title="Descuento" class="text-center">
+              {{ consumo.valor - consumo.descuento | number}}
+            </td>
+            @if (consumo.estacionCliente != 95) {
+              <td data-title="Estacion" class="text-center">
+                {{ getNameStation(consumo.estacionConsumo) }}
+              </td>
+            }
+            @if (consumo.estacionCliente == 95) {
+              <td data-title="Estacion" class="text-center">
+                Sra V/cio
+              </td>
+            }
+            <td data-title="Cuenta de cobro" class="text-center">
+              {{ consumo.numCuentaCobro }}
+            </td>
+            @if (rolSistemas) {
+              <td data-title="Acciones" class="btn-group">
+                <!--  -->
+                <button type="button" class="btn btn-info" (click)="verAcciones(i)" title="Ver acciones">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                  </svg>
+                  <span class="visually-hidden"></span>
+                </button>
+                <button type="button" class="btn btn-warning" (click)="ocultarAcciones()" title="Ocultar acciones">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                    <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
+                    <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
+                    <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"/>
+                  </svg>
+                  <span class="visually-hidden"></span>
+                </button>
+                @if (ver && indice == i) {
+                  <div class="btn-group">
+                    <!-- acciones... -->
+                    @if (rolSistemas) {
+                      <button title="Borrar consumo" (click)="borrarConsumo(consumo.id, consumo.codCliente, i)" class="btn btn-danger btn-sm">
+                        <span class="pi pi-trash fa-fw"></span>
+                      </button>
+                    }
+                    @if (rolSistemas) {
+                      <button type="button" title="Actualizar id_Identificador" (click)="updateIdIdentificador(consumo.id)" class="btn btn-info btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
+                        </svg>
+                        <span class="visually-hidden"></span>
+                      </button>
+                    }
+                    @if (rolSistemas) {
+                      <button title="Actualizar placa" (click)="updatePlacaCarro(consumo.id)" class="btn btn-outline-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
+                          <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
+                        </svg>
+                        <span class="visually-hidden"></span>
+                      </button>
+                    }
+                    @if (rolSistemas) {
+                      <button type="button" title="Actualizar fecha" (click)="updateFechaConsumo(consumo.id)" class="btn btn-warning btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-alarm" viewBox="0 0 16 16">
+                          <path d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5z"/>
+                          <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
+                        </svg>
+                        <span class="visually-hidden"></span>
+                      </button>
+                    }
+                    @if (rolSistemas) {
+                      <button type="button" title="Actualizar valor" (click)="updateValorConsumo(consumo.id, consumo.cantidad)" class="btn btn-success btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                          <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"></path>
+                        </svg>
+                        <span class="visually-hidden"></span>
+                      </button>
+                    }
+                    @if (rolSistemas) {
+                      <button title="combustible update" (click)="updateCombustible(consumo.id, consumo.TipoCombustible)" class="btn btn-info btn-sm">
+                        <span class="fas fa-gas-pump fa-fw"></span>
+                      </button>
+                    }
+                  </div>
+                }
+              </td>
+            }
+          </tr>
+        }
+        @if (searchConsumos != null) {
+          <tr class="fila_pie">
+            <td colspan="6" class="text-right" style="padding: 0px 3px 0px 0px;"><strong>Totales</strong></td>
+            <td colspan="1" class="text-center"><strong> {{ sumTotalGalones() | number }} </strong></td>
+            <td colspan="1"></td>
+            <td colspan="1" class="text-center"><strong>${{ sumConsumption() | number }} </strong></td>
+            <td colspan="1" class="text-center"><strong>${{ totalDescuento() | number }} </strong></td>
+            <td colspan="1" class="text-center"><strong>${{ sumConsumption() - totalDescuento() | number }} </strong></td>
+            <td colspan="1"></td>
+            <td colspan="1"></td>
+            <td colspan="1">
+              @if (rolSistemas) {
+                <button type="button" title="Borrar listado de consumos erróneos" (click)="borrarBugListaConsumos()" class="btn btn-danger btn-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bug" viewBox="0 0 16 16">
+                    <path d="M4.355.522a.5.5 0 0 1 .623.333l.291.956A4.979 4.979 0 0 1 8 1c1.007 0 1.946.298 2.731.811l.29-.956a.5.5 0 1 1 .957.29l-.41 1.352A4.985 4.985 0 0 1 13 6h.5a.5.5 0 0 0 .5-.5V5a.5.5 0 0 1 1 0v.5A1.5 1.5 0 0 1 13.5 7H13v1h1.5a.5.5 0 0 1 0 1H13v1h.5a1.5 1.5 0 0 1 1.5 1.5v.5a.5.5 0 1 1-1 0v-.5a.5.5 0 0 0-.5-.5H13a5 5 0 0 1-10 0h-.5a.5.5 0 0 0-.5.5v.5a.5.5 0 1 1-1 0v-.5A1.5 1.5 0 0 1 2.5 10H3V9H1.5a.5.5 0 0 1 0-1H3V7h-.5A1.5 1.5 0 0 1 1 5.5V5a.5.5 0 0 1 1 0v.5a.5.5 0 0 0 .5.5H3c0-1.364.547-2.601 1.432-3.503l-.41-1.352a.5.5 0 0 1 .333-.623zM4 7v4a4 4 0 0 0 3.5 3.97V7H4zm4.5 0v7.97A4 4 0 0 0 12 11V7H8.5zM12 6a3.989 3.989 0 0 0-1.334-2.982A3.983 3.983 0 0 0 8 2a3.983 3.983 0 0 0-2.667 1.018A3.989 3.989 0 0 0 4 6h8z"/>
+                  </svg>
+                </button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+</div>
 </div>
 <app-modal-dialog [visible]="booleanClient" (hide)="booleanClient = false">
-    <app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
+  <app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanIdIdentificador" (hide)="booleanIdIdentificador = false">
-    <app-identificador [idConsumo]="idConsumo" [idEstacion]="stationSel.idEstacion"></app-identificador>
+  <app-identificador [idConsumo]="idConsumo" [idEstacion]="stationSel.idEstacion"></app-identificador>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanPlacaCarro" (hide)="booleanPlacaCarro = false">
-    <app-placa-carro [idConsumo]="idConsumo" (cambioPlacaCarro)="getCambioPlacaCarro($event)"></app-placa-carro>
+  <app-placa-carro [idConsumo]="idConsumo" (cambioPlacaCarro)="getCambioPlacaCarro($event)"></app-placa-carro>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanFechaConsumo" (hide)="booleanFechaConsumo = false">
-    <app-fecha-consumo [idConsumo]="idConsumo" (cambioFechaConsumo)="getCambioFechaConsumo($event)"></app-fecha-consumo>
+  <app-fecha-consumo [idConsumo]="idConsumo" (cambioFechaConsumo)="getCambioFechaConsumo($event)"></app-fecha-consumo>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanValorConsumo" (hide)="booleanValorConsumo = false">
-    <app-valor-consumo [idConsumo]="idConsumo" [cantidadConsumo]="cantidadConsumo" (cambioValorConsumo)="getCambioValorConsumo($event)"></app-valor-consumo>
+  <app-valor-consumo [idConsumo]="idConsumo" [cantidadConsumo]="cantidadConsumo" (cambioValorConsumo)="getCambioValorConsumo($event)"></app-valor-consumo>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanCombustible" (hide)="booleanCombustible = false">
-    <app-combustible [idConsumo]="idConsumo" [articulo]="articulo"></app-combustible>
+  <app-combustible [idConsumo]="idConsumo" [articulo]="articulo"></app-combustible>
 </app-modal-dialog>
 
 <app-modal-dialog [visible]="booleanBugConsumos" (hide)="booleanBugConsumos = false">
-    <app-listado-consumos [idEstacion]="stationSel.idEstacion" [codCliente]="client.codCliente" [nombreCliente]="client.nombre" [fechaInicial]="searchConsumoFechaIni" [fechaFin]="searchConsumoFechaFin"></app-listado-consumos>
+  <app-listado-consumos [idEstacion]="stationSel.idEstacion" [codCliente]="client.codCliente" [nombreCliente]="client.nombre" [fechaInicial]="searchConsumoFechaIni" [fechaFin]="searchConsumoFechaFin"></app-listado-consumos>
 </app-modal-dialog>

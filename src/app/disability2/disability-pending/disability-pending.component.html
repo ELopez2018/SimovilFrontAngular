@@ -24,39 +24,39 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let disability of disabilities" [@fade]="'in'" [class]="Color(disability.estado)">
-            <td data-title="Número" class="text-center">{{disability.id}}</td>
-            <td data-title="Empleado" class="text-center">{{disability.primerNombre + ' ' + disability.primerApellido}}</td>
-            <td data-title="Motivo" class="text-center">{{getMotiveName(disability.motivo)}}</td>
-            <td data-title="Responsable" class="text-center">{{getAdminstratorName(disability.administradora)}}</td>
-            <td data-title="Desde" class="text-center">{{disability.fechaIni | date: 'dd/MM/yy' : '+0000'}}</td>
-            <td data-title="Hasta" class="text-center">{{disability.fechaFin | date: 'dd/MM/yy' : '+0000'}}</td>
-            <td data-title="Días" class="text-center">{{disability.dias}}</td>
-            <td data-title="Estado" class="text-center">{{getStatusName(disability.estado)}}</td>
-            <td data-title="Radicado" class="text-center">
-              <button class="btn btn-sm btn-secondary" (click)="toFiled(disability)">
-                <div *ngIf="disability.radicado; then content1 else content2"></div>
-                <ng-template #content1>
-                  {{disability.radicado}}
-                </ng-template>
-                <ng-template #content2>
-                  Crear
-                </ng-template>
-              </button>
-            </td>
-            <!-- <td data-title="Valor" class="text-right">{{disability.valor | currency }}</td> -->
-            <td data-title="Saldo" class="text-right">{{disability.saldo | currency }}</td>
-            <td data-title="Acciones" class="text-center">
-              <div id="btns">
-                <button class="btn btn-info btn-sm" (click)="addNovelty(disability)" title="Novedad">
-                  <span class="fas fa-plus fa-fw"></span>
+          @for (disability of disabilities; track disability) {
+            <tr [@fade]="'in'" [class]="Color(disability.estado)">
+              <td data-title="Número" class="text-center">{{disability.id}}</td>
+              <td data-title="Empleado" class="text-center">{{disability.primerNombre + ' ' + disability.primerApellido}}</td>
+              <td data-title="Motivo" class="text-center">{{getMotiveName(disability.motivo)}}</td>
+              <td data-title="Responsable" class="text-center">{{getAdminstratorName(disability.administradora)}}</td>
+              <td data-title="Desde" class="text-center">{{disability.fechaIni | date: 'dd/MM/yy' : '+0000'}}</td>
+              <td data-title="Hasta" class="text-center">{{disability.fechaFin | date: 'dd/MM/yy' : '+0000'}}</td>
+              <td data-title="Días" class="text-center">{{disability.dias}}</td>
+              <td data-title="Estado" class="text-center">{{getStatusName(disability.estado)}}</td>
+              <td data-title="Radicado" class="text-center">
+                <button class="btn btn-sm btn-secondary" (click)="toFiled(disability)">
+                  @if (disability.radicado) {
+                    {{disability.radicado}}
+                  } @else {
+                    Crear
+                  }
                 </button>
-                <button (click)="searchHistory(disability)" class="btn btn-success btn-sm" title="Historial">
-                  <span class="fas fa-history fa-fw"></span>
-                </button>
-              </div>
-            </td>
-          </tr>
+              </td>
+              <!-- <td data-title="Valor" class="text-right">{{disability.valor | currency }}</td> -->
+              <td data-title="Saldo" class="text-right">{{disability.saldo | currency }}</td>
+              <td data-title="Acciones" class="text-center">
+                <div id="btns">
+                  <button class="btn btn-info btn-sm" (click)="addNovelty(disability)" title="Novedad">
+                    <span class="fas fa-plus fa-fw"></span>
+                  </button>
+                  <button (click)="searchHistory(disability)" class="btn btn-success btn-sm" title="Historial">
+                    <span class="fas fa-history fa-fw"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>

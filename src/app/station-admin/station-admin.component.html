@@ -1,61 +1,65 @@
 <ul class="nav nav-tabs mb-1" id="myTab" role="tablist">
-    <!-- <li class="nav-item text-center" title="Resumen">
-    <a routerLink="./home" routerLinkActive="active" class="nav-link" id="home-tab" data-toggle="tab" role="tab"
-      aria-controls="home" aria-selected="true">
-      <span class="fas fa-home fa-fw"></span>&nbsp;
-      <span class="nameTab">Resumen</span>
+  <!-- <li class="nav-item text-center" title="Resumen">
+  <a routerLink="./home" routerLinkActive="active" class="nav-link" id="home-tab" data-toggle="tab" role="tab"
+    aria-controls="home" aria-selected="true">
+    <span class="fas fa-home fa-fw"></span>&nbsp;
+    <span class="nameTab">Resumen</span>
+  </a>
+</li> -->
+<li class="nav-item text-center" title="Consumos de clientes">
+  <a routerLink="./consumption" routerLinkActive="active" class="nav-link" id="consumption-tab" data-toggle="tab" role="tab" aria-controls="consumption" aria-selected="false">
+    <span class="fas fa-gas-pump fa-fw"></span>&nbsp;
+    <span class="nameTab">Consumos de clientes</span>
+  </a>
+</li>
+<li class="nav-item text-center" title="Planilla Diaria">
+  <a routerLink="./sheetDaily" routerLinkActive="active" class="nav-link" id="dailySheet-tab" data-toggle="tab" role="tab" aria-controls="dailySheet" aria-selected="false">
+    <span class="fas fa-file-invoice fa-fw"></span>&nbsp;
+    <span class="nameTab">Planilla Diaria</span>
+  </a>
+</li>
+<li class="nav-item text-center" title="Cuenta de cobro">
+  <a routerLink="./receivable" routerLinkActive="active" class="nav-link" id="receivable-tab" data-toggle="tab" role="tab" aria-controls="receivable" aria-selected="false">
+    <span class="fas fa-file-invoice-dollar fa-fw"></span>&nbsp;
+    <span class="nameTab">Cuenta de cobro</span>
+  </a>
+</li>
+<li class="nav-item text-center" title="Cupos consumidos">
+  <a routerLink="./cuposConsumidos" routerLinkActive="active" class="nav-link" id="cuposConsumidos-tab" data-toggle="tab" role="tab" aria-controls="cuposConsumidos" aria-selected="false">
+    <span class="fas fa-balance-scale fa-fw"></span>&nbsp;
+    @if (!dataCupoService.alertaCupoConsumido) {
+      <img src='../../../assets/img/alerta7.gif'>
+      } @if (dataCupoService.alertaCupoConsumido) {
+      <img src='../../../assets/img/alerta2.gif'>
+      }&nbsp;
+      <span class="nameTab">Cupos consumidos</span>
     </a>
-  </li> -->
-    <li class="nav-item text-center" title="Consumos de clientes">
-        <a routerLink="./consumption" routerLinkActive="active" class="nav-link" id="consumption-tab" data-toggle="tab" role="tab" aria-controls="consumption" aria-selected="false">
-            <span class="fas fa-gas-pump fa-fw"></span>&nbsp;
-            <span class="nameTab">Consumos de clientes</span>
-        </a>
-    </li>
-    <li class="nav-item text-center" title="Planilla Diaria">
-        <a routerLink="./sheetDaily" routerLinkActive="active" class="nav-link" id="dailySheet-tab" data-toggle="tab" role="tab" aria-controls="dailySheet" aria-selected="false">
-            <span class="fas fa-file-invoice fa-fw"></span>&nbsp;
-            <span class="nameTab">Planilla Diaria</span>
-        </a>
-    </li>
-    <li class="nav-item text-center" title="Cuenta de cobro">
-        <a routerLink="./receivable" routerLinkActive="active" class="nav-link" id="receivable-tab" data-toggle="tab" role="tab" aria-controls="receivable" aria-selected="false">
-            <span class="fas fa-file-invoice-dollar fa-fw"></span>&nbsp;
-            <span class="nameTab">Cuenta de cobro</span>
-        </a>
-    </li>
-    <li class="nav-item text-center" title="Cupos consumidos">
-        <a routerLink="./cuposConsumidos" routerLinkActive="active" class="nav-link" id="cuposConsumidos-tab" data-toggle="tab" role="tab" aria-controls="cuposConsumidos" aria-selected="false">
-            <span class="fas fa-balance-scale fa-fw"></span>&nbsp;
-            <img *ngIf='!dataCupoService.alertaCupoConsumido' src='../../../assets/img/alerta7.gif'> <img *ngIf='dataCupoService.alertaCupoConsumido' src='../../../assets/img/alerta2.gif'>&nbsp;
-            <span class="nameTab">Cupos consumidos</span>
-        </a>
-    </li>
+  </li>
 
-    <li class="nav-item text-center" title="Factura electrónica">
-        <a routerLink="./fe" routerLinkActive="active" class="nav-link" id="fe-tab" data-toggle="tab" role="tab" aria-controls="fe" aria-selected="false">
-            <button type="button" [ngClass]="{'ondas_green': true}">
-            </button>&nbsp;
-            <span class="nameTab">Factura Electrónica</span>
-        </a>
-    </li>
-
-
-    <!-- <li class="nav-item text-center" title="Cuenta de cobro">
-    <a routerLink="/AntAProveedor" routerLinkActive="active" class="nav-link" id="AntAProveedor-tab" data-toggle="tab" role="tab"
-      aria-controls="AntAProveedor" aria-selected="false">
-      <span class="fas fa-file-invoice-dollar fa-fw"></span>&nbsp;
-      <span class="nameTab">Anticipo a Proveedor</span>
+  <li class="nav-item text-center" title="Factura electrónica">
+    <a routerLink="./fe" routerLinkActive="active" class="nav-link" id="fe-tab" data-toggle="tab" role="tab" aria-controls="fe" aria-selected="false">
+      <button type="button" [ngClass]="{'ondas_green': true}">
+      </button>&nbsp;
+      <span class="nameTab">Factura Electrónica</span>
     </a>
-  </li> -->
-    <!-- <li class="nav-item text-center" title="Calibración">
-    <a routerLink="./calibration" routerLinkActive="active" class="nav-link" id="calibration-tab" data-toggle="tab"
-      role="tab" aria-controls="calibration" aria-selected="false">
-      <span class="fas fa-balance-scale fa-fw"></span>&nbsp;
-      <span class="nameTab">Calibración</span>
-    </a>
-  </li> -->
+  </li>
+
+
+  <!-- <li class="nav-item text-center" title="Cuenta de cobro">
+  <a routerLink="/AntAProveedor" routerLinkActive="active" class="nav-link" id="AntAProveedor-tab" data-toggle="tab" role="tab"
+    aria-controls="AntAProveedor" aria-selected="false">
+    <span class="fas fa-file-invoice-dollar fa-fw"></span>&nbsp;
+    <span class="nameTab">Anticipo a Proveedor</span>
+  </a>
+</li> -->
+<!-- <li class="nav-item text-center" title="Calibración">
+<a routerLink="./calibration" routerLinkActive="active" class="nav-link" id="calibration-tab" data-toggle="tab"
+  role="tab" aria-controls="calibration" aria-selected="false">
+  <span class="fas fa-balance-scale fa-fw"></span>&nbsp;
+  <span class="nameTab">Calibración</span>
+</a>
+</li> -->
 </ul>
 <main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
-    <router-outlet #o="outlet"></router-outlet>
+  <router-outlet #o="outlet"></router-outlet>
 </main>

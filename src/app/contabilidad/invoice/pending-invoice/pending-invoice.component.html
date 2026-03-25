@@ -20,51 +20,97 @@
       <table class="table table-hover table-dark table-sm table-striped">
         <thead>
           <tr class="text-center">
-            <th scope="col" *ngIf="exits('Número')">Número</th>
-            <th scope="col" *ngIf="exits('Proveedor')">Proveedor</th>
-            <th scope="col" *ngIf="exits('Nombre')">Nombre</th>
-            <th scope="col" *ngIf="exits('Recibido')">Recibido</th>
-            <th scope="col" *ngIf="exits('Vence')">Vence</th>
-            <th scope="col" *ngIf="exits('Estado')">Estado</th>
-            <th scope="col" *ngIf="exits('Egreso')">Egreso</th>
-            <th scope="col" *ngIf="exits('Historial')"
+            @if (exits('Número')) {
+              <th scope="col">Número</th>
+            }
+            @if (exits('Proveedor')) {
+              <th scope="col">Proveedor</th>
+            }
+            @if (exits('Nombre')) {
+              <th scope="col">Nombre</th>
+            }
+            @if (exits('Recibido')) {
+              <th scope="col">Recibido</th>
+            }
+            @if (exits('Vence')) {
+              <th scope="col">Vence</th>
+            }
+            @if (exits('Estado')) {
+              <th scope="col">Estado</th>
+            }
+            @if (exits('Egreso')) {
+              <th scope="col">Egreso</th>
+            }
+            @if (exits('Historial')) {
+              <th scope="col"
               title="R = Revisado&#xA;A = Autorizado&#xA;C = Causado&#xA;P = Pagado">Historial</th>
-            <th scope="col" *ngIf="exits('Estación')">Estación</th>
-            <th scope="col" *ngIf="exits('Valor')">Valor</th>
-            <th scope="col" *ngIf="exits('Saldo')">Saldos</th>
+            }
+            @if (exits('Estación')) {
+              <th scope="col">Estación</th>
+            }
+            @if (exits('Valor')) {
+              <th scope="col">Valor</th>
+            }
+            @if (exits('Saldo')) {
+              <th scope="col">Saldos</th>
+            }
             <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let invoice of invoices" [ngClass]="porCobrar(invoice.estado)" [@fade]="'in'">
-            <td *ngIf="exits('Número')" data-title="Número" class="text-center">{{invoice.numero}}</td>
-            <td *ngIf="exits('Proveedor')" data-title="Proveedor" class="text-center"
-              [title]="getNameProvider(invoice.proveedor)">{{invoice.proveedor}}</td>
-            <td *ngIf="exits('Nombre')" data-title="Nombre" class="text-center">{{getNameProvider(invoice.proveedor)}}
-            </td>
-            <td *ngIf="exits('Recibido')" data-title="Recibido" class="text-center">{{invoice.recibido | date:
-              'dd/MM/yy' : '+0000'}}</td>
-            <td *ngIf="exits('Vence')" data-title="Vence" class="text-center">{{invoice.fechaVen | date: 'dd/MM/yy' :
-              '+0000'}}</td>
-            <td *ngIf="exits('Estado')" data-title="Estado" class="text-center">{{getStatusName(invoice.estado)}}</td>
-            <td *ngIf="exits('Egreso')" data-title="Egreso" class="text-center">{{invoice.egreso}}</td>
-            <td *ngIf="exits('Historial')" data-title=" Historial" class="text-center">{{invoice.historial}}</td>
-            <td *ngIf="exits('Estación')" data-title="Estación" class="text-center">
-              <div id="truncat">{{getNameStation(invoice.estacion)}}</div>
-            </td>
-            <td *ngIf="exits('Valor')" data-title="Valor" class="text-right">{{invoice.valor | currency }}</td>
-            <td *ngIf="exits('Saldo')" data-title="Saldo" class="text-right">{{invoice.saldo | currency }}</td>
-            <td data-title="Acciones" class="text-center">
-              <div id="btns">
-                <button class="btn btn-info btn-sm" (click)="addNovelty(invoice)" title="Novedad">
-                  <span class="fas fa-plus fa-fw"></span>
-                </button>
-                <button (click)="searchHistory(invoice)" class="btn btn-success btn-sm" title="Historial">
-                  <span class="fas fa-history fa-fw"></span>
-                </button>
-              </div>
-            </td>
-          </tr>
+          @for (invoice of invoices; track invoice) {
+            <tr [ngClass]="porCobrar(invoice.estado)" [@fade]="'in'">
+              @if (exits('Número')) {
+                <td data-title="Número" class="text-center">{{invoice.numero}}</td>
+              }
+              @if (exits('Proveedor')) {
+                <td data-title="Proveedor" class="text-center"
+                [title]="getNameProvider(invoice.proveedor)">{{invoice.proveedor}}</td>
+              }
+              @if (exits('Nombre')) {
+                <td data-title="Nombre" class="text-center">{{getNameProvider(invoice.proveedor)}}
+                </td>
+              }
+              @if (exits('Recibido')) {
+                <td data-title="Recibido" class="text-center">{{invoice.recibido | date:
+                'dd/MM/yy' : '+0000'}}</td>
+              }
+              @if (exits('Vence')) {
+                <td data-title="Vence" class="text-center">{{invoice.fechaVen | date: 'dd/MM/yy' :
+                '+0000'}}</td>
+              }
+              @if (exits('Estado')) {
+                <td data-title="Estado" class="text-center">{{getStatusName(invoice.estado)}}</td>
+              }
+              @if (exits('Egreso')) {
+                <td data-title="Egreso" class="text-center">{{invoice.egreso}}</td>
+              }
+              @if (exits('Historial')) {
+                <td data-title=" Historial" class="text-center">{{invoice.historial}}</td>
+              }
+              @if (exits('Estación')) {
+                <td data-title="Estación" class="text-center">
+                  <div id="truncat">{{getNameStation(invoice.estacion)}}</div>
+                </td>
+              }
+              @if (exits('Valor')) {
+                <td data-title="Valor" class="text-right">{{invoice.valor | currency }}</td>
+              }
+              @if (exits('Saldo')) {
+                <td data-title="Saldo" class="text-right">{{invoice.saldo | currency }}</td>
+              }
+              <td data-title="Acciones" class="text-center">
+                <div id="btns">
+                  <button class="btn btn-info btn-sm" (click)="addNovelty(invoice)" title="Novedad">
+                    <span class="fas fa-plus fa-fw"></span>
+                  </button>
+                  <button (click)="searchHistory(invoice)" class="btn btn-success btn-sm" title="Historial">
+                    <span class="fas fa-history fa-fw"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>

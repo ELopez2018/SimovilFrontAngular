@@ -1,34 +1,42 @@
 <div class="col-sm-12 p-2">
-    <div class="form-row">
-        <div class="col-sm-4 mb-1">
-            <label for="paramSel" style="font-weight: bold;">Reporte</label>
-            <select (change)="getBooleanos();" name="paramSel" class="form-control" [(ngModel)]="paramSel">
-                <option *ngFor="let item of reportes" [ngValue]="item">
-                    {{item.nombre}}
-                </option>
-            </select>
-        </div>
+  <div class="form-row">
+    <div class="col-sm-4 mb-1">
+      <label for="paramSel" style="font-weight: bold;">Reporte</label>
+      <select (change)="getBooleanos();" name="paramSel" class="form-control" [(ngModel)]="paramSel">
+        @for (item of reportes; track item) {
+          <option [ngValue]="item">
+            {{item.nombre}}
+          </option>
+        }
+      </select>
+    </div>
 
-        <div class="col-sm-2 mb-1">
-            <label *ngIf="diaBoolean" for="date" style="font-weight: bold;">Día</label>
-            <label *ngIf="desde" for="date" style="font-weight: bold;">Fecha desde</label>
-            <input type="date" id="date" [(ngModel)]="dia" class="form-control">
-        </div>
+    <div class="col-sm-2 mb-1">
+      @if (diaBoolean) {
+        <label for="date" style="font-weight: bold;">Día</label>
+      }
+      @if (desde) {
+        <label for="date" style="font-weight: bold;">Fecha desde</label>
+      }
+      <input type="date" id="date" [(ngModel)]="dia" class="form-control">
+    </div>
 
-        <div *ngIf="hasta" class="col-sm-2">
-            <label for="date2" style="font-weight: bold;">Fecha hasta</label>
-            <input type="date" id="date2" [(ngModel)]="fechaHasta" class="form-control">
-        </div>
+    @if (hasta) {
+      <div class="col-sm-2">
+        <label for="date2" style="font-weight: bold;">Fecha hasta</label>
+        <input type="date" id="date2" [(ngModel)]="fechaHasta" class="form-control">
+      </div>
+    }
 
-        <div class="col-sm-2 mb-1">
-            <button id="" (click)="getReport(prueba)" class="btn btn-primary" style="margin-top: 34px;">
-                <i class="fas fa-search fa-fw"></i>&nbsp;Consultar</button>
-        </div>
+    <div class="col-sm-2 mb-1">
+      <button id="" (click)="getReport(prueba)" class="btn btn-primary" style="margin-top: 34px;">
+        <i class="fas fa-search fa-fw"></i>&nbsp;Consultar</button>
+      </div>
 
     </div>
-</div>
+  </div>
 
-<app-report-ssrs #target [show]="showReport" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
-</app-report-ssrs>
+  <app-report-ssrs #target [show]="showReport" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
+  </app-report-ssrs>
 
-<div #prueba></div>
+  <div #prueba></div>

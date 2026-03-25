@@ -2,9 +2,13 @@
 <input type="file" (change)="onFileChange($event)" multiple="false" />
 
 <table class="sjs-table">
-    <tr *ngFor="let row of data">
-      <td *ngFor="let val of row">
-        {{val}}
-      </td>
+  @for (row of data; track row) {
+    <tr>
+      @for (val of row; track val) {
+        <td>
+          {{val}}
+        </td>
+      }
     </tr>
-  </table>
+  }
+</table>

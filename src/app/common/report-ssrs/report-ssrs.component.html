@@ -1,2 +1,4 @@
-<iframe *ngIf="show" [src]="url" frameborder="1" name="reportSSRS" id="reportSSRS"
-    class="text-center justify-content-center"></iframe>
+@if (show) {
+  <iframe [src]="url" frameborder="1" name="reportSSRS" id="reportSSRS"
+  class="text-center justify-content-center"></iframe>
+}

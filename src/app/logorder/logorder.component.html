@@ -28,17 +28,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of logs">
-        <td>{{ item.Cedula}}</td>
-        <td>{{ item.EnrollNumber }}</td>
-        <td>{{ item.Entrada | date : "dd/MM/yyyy hh:mm:ss a" : '+0000'}}</td>
-        <td>{{ item.Salida | date : "dd/MM/yyyy hh:mm:ss a" : '+0000'}} </td>
-        <td>{{ item.CantidadHoras | date : "HH:mm:ss" : '+0000'}}</td>
-        <td>{{ item.Estacion }}</td>
-        <td>{{ item.nombreEstacion }}</td>
-        <td>{{ item.nombreCiudad }}</td>
-        <td>{{ item.HoraExtra }}</td>
-      </tr>
+      @for (item of logs; track item) {
+        <tr>
+          <td>{{ item.Cedula}}</td>
+          <td>{{ item.EnrollNumber }}</td>
+          <td>{{ item.Entrada | date : "dd/MM/yyyy hh:mm:ss a" : '+0000'}}</td>
+          <td>{{ item.Salida | date : "dd/MM/yyyy hh:mm:ss a" : '+0000'}} </td>
+          <td>{{ item.CantidadHoras | date : "HH:mm:ss" : '+0000'}}</td>
+          <td>{{ item.Estacion }}</td>
+          <td>{{ item.nombreEstacion }}</td>
+          <td>{{ item.nombreCiudad }}</td>
+          <td>{{ item.HoraExtra }}</td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>
