@@ -12,10 +12,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 //import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-	IgxButtonModule,
-	IgxToggleModule
- } from "igniteui-angular";
+import { IgxButtonModule, IgxToggleModule } from 'igniteui-angular/directives';
 
 import { DsCarteraComponent } from './components/ds-cartera/ds-cartera.component';
 // import { CplModule } from './cpl/cpl.module';
