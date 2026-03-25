@@ -64,18 +64,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "movilgas-system:build"
+                      "buildTarget": "movilgas-system:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "movilgas-system:build:production"
+                          "buildTarget": "movilgas-system:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "movilgas-system:build"
+                      "buildTarget": "movilgas-system:build"
                     }
                 },
                 "test": {
