@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 /*@import '../node_modules/primeng/resources/themes/omega/theme.css';*/
-@import "~font-awesome/css/font-awesome.css";
+@import "font-awesome/css/font-awesome.css";
 #main > .container {
 	box-shadow: 0 7px 18px rgba(0, 0, 0, .5);
 }

@@ -3,7 +3,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -172,8 +172,7 @@ import { NotifyComponent } from './administrator/notify/notify.component';
 import { RippleModule } from 'primeng/ripple';
 
 //I keep the new line
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         NavComponent,
         EmployeeComponent,
@@ -284,13 +283,12 @@ import { RippleModule } from 'primeng/ripple';
         CalidadComponent,
         AyudaVisualComponent,
         InventarioFisicoComponent,
-        NotifyComponent    
+        NotifyComponent
     ],
-    imports: [
-        BrowserModule,
+    exports: [],
+    bootstrap: [AppComponent], imports: [BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        HttpClientModule,
         ReactiveFormsModule,
         NgbModule,
         // Division en modulos
@@ -330,9 +328,7 @@ import { RippleModule } from 'primeng/ripple';
         MessageModule,
         SliderModule,
         VirtualScrollerModule,
-        RippleModule
-    ],
-    providers: [
+        RippleModule], providers: [
         AuthenticationService,
         NominaService,
         AuthGuard,
@@ -343,10 +339,8 @@ import { RippleModule } from 'primeng/ripple';
         PrintService,
         BasicDataService,
         UtilService,
-        SubirArchivoService
-    ],
-    exports: [],
-    bootstrap: [AppComponent]
-})
+        SubirArchivoService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }
