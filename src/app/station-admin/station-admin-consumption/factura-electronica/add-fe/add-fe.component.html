@@ -1,0 +1,159 @@
+<div class="form-group col-sm-12 p-0 form-inline mb-0 justify-content-center">
+    <div class="row col-sm-12 pb-1">
+        <div class="input-group col-sm-3">
+            <div class="input-group-prepend">
+                <button id="btnClient" class="btn btn-outline-secondary left" type="button" (click)="openModCli()">
+                <span class="far fa-hand-pointer fa-fw"></span>
+                </button>
+            </div>
+            <input [(ngModel)]="client.codCliente" (keyup.enter)="searchClient()" [disabled]="id!=null" required class="form-control" type="number" name="codclient" id="codclient">
+        </div>
+
+        <div class="input-group col-sm-6">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i></span>
+            </div>
+            <input [(ngModel)]="client.nombre" disabled class="form-control" type="text" name="nameclient" id="nameclient">
+        </div>
+
+        <div *ngIf="id!=null" class="col-sm-2">
+            <button class="btn btn-danger btn-block" (click)="back()">
+            <span class="fas fa-undo fa-fw"></span>&nbsp;Atras</button>
+        </div>
+    </div>
+
+    <div class="row col-sm-12 pb-1">
+        <label class="control-label col-sm-1 m-0 atributo">Desde:</label>
+        <div class="input-group col-sm-3">
+            <input [(ngModel)]="searchFechaIni" required class="form-control" type="date" name="searchFechaIni" id="searchFechaIni">
+        </div>
+
+        <label class="control-label col-sm-1 m-0 atributo">Hasta:</label>
+        <div class="input-group col-sm-3">
+            <input [(ngModel)]="searchFechaFin" required class="form-control" type="date" name="searchFechaFin" id="searchFechaFin">
+        </div>
+
+        <div class="form-check col-sm-1 p-0 input-check">
+            <input [(ngModel)]="searchStatus" class="mr-2" type="checkbox" value="" id="defaultCheck1">
+            <label class="form-check-label m-0 text-truncate" for="defaultCheck1">Activo</label>
+        </div>
+
+        <div class="col-sm-3 btn-group justify-content-center" role="group">
+            <button id="btnSearch" class="btn btn-info" (click)="getReceivableSearch()">
+                <span class="fa fa-search fa-fw"></span>&nbsp;Consultar
+            </button>
+
+            <button class="btn btn-warning" (click)="cleanReceivableSearch()">
+                    <span class="fas fa-eraser fa-fw"></span>
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<div class='container card border-primary mb-3'>
+    <div class="row fila_titulo justify-content-xl-center">
+        Cuentas de cobro — {{client.nombre}} — {{ client.codCliente }}
+    </div>
+
+    <div class='row titulo_col'>
+        <div class='col texto texto4'><img src="../../../../../assets/img/fe/registros.png" title="registros"></div>
+        <div class='col texto texto1'> No. </div>
+        <div class='col texto texto2'> Nit </div>
+        <div class='col texto texto3'> Inicio </div>
+        <div class='col texto texto3'> Fin </div>
+        <div class='col texto texto3'> Fecha </div>
+        <div class='col texto texto3'> Vence </div>
+        <div class='col texto'> Valor </div>
+        <div class='col texto'> Saldo </div>
+        <div class='col texto texto4'><img src="../../../../../assets/img/fe/lapiz16.png" title="seleccionar"></div>
+    </div>
+
+    <div *ngFor="let receivable of searchReceivable; index as contador ">
+        <div *ngIf="receivable.idFacturaE == null" class="row fila_ciclo" [ngClass]="{'fila_0 ': contador%2===0, 'fila_1 ': contador%2===1, 'marcado': isChecked.indexOf(receivable.num) >= 0 }">
+            <div class='col texto texto4'> {{ contador}} </div>
+            <!-- <div class='col texto'>{{ contador + 1 }} <span *ngIf="receivable.estado == true" class="fab fa-font-awesome-flag fa-fw"></span> </div> -->
+            <div class='col texto texto1'> {{receivable.num}} </div>
+            <div class='col texto texto2'> {{receivable.codCliente}} </div>
+            <div class='col texto texto3'> {{receivable.periodoIni | date: 'yyyy/MM/dd' : '+0000'}} </div>
+            <div class='col texto texto3'> {{receivable.periodoFin | date: 'dd/MM/yyyy' : '+0000'}} </div>
+            <div class='col texto texto3'> {{receivable.fecha | date: 'yyyy/MM/dd' : '+0000'}} </div>
+            <div class='col texto texto3'> {{addDate(receivable.fecha) | date: 'dd/MM/yyyy' : '+0000'}} </div>
+            <div class='col texto fila_der'> {{receivable.valor | currency }} </div>
+            <div class='col texto fila_der'> {{receivable.saldo | currency }} </div>
+            <div class='col texto texto4'>
+                <input type="checkbox" name="{{nombreCS}}{{contador}}" id="{{receivable.num}}" [value]="receivable.num" (click)="validaChecked(receivable, $event.target.checked, $event, contador+1);">
+                <label for="{{receivable.num}}"></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="searchReceivable != null && searchReceivable.length > 0" style="background-color: cornflowerblue;">
+        <div class="col fila_titulo sumaTotal">{{sumReceivables() | currency}}</div>
+    </div>
+</div>
+
+<!-- <div class="row fila_titulo justify-content-xl-center">
+        <img src="../../../../../assets/img/fe/puente.png" title="¡Estamos en construcción!"> Estamos en construcción
+     </div> -->
+
+<div class="card container" style="background-color: rgb(247, 242, 242);">
+    <div class="row" style="margin: 5px;">
+
+        <div class="col-2 ajedrezCuentasCobro">
+            <div class="row">
+                <div class="col" style="text-align: center; margin: 3px">
+                    <div class="row" style="font-weight:bold;">Cuentas</div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div *ngFor="let numCuenta of isChecked; index as i">
+                                    <div class="col-xs cuentas" [ngClass]="{'fila_0': i%2 == 0, 'fila_1': i%2 == 1}">{{numCuenta}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col ml-1">
+            <div class="row align-items-center">
+                <div class="col-xs" style="padding: 0px;"><span class="atributo">Factura Electrónica</span></div>
+                <!-- [value]="numeroFacturaE | uppercase" -->
+                <div class="col"><input type="text" id="_fe" maxLength="18" #input_text_fe (keydown)="digitaFactura($event); validarLongitudInput($event);" class="form-control fe" placeholder="prefijo (EDS) + número" [value]="numeroFacturaE | uppercase" [(ngModel)]="numeroFacturaE"
+                        [ngClass]="{'deshabilitado': deshabilita == 1 && numeroFacturaE.length != 0}" [disabled]="deshabilita == 1 && numeroFacturaE.length != 0"></div>
+                <div class="col-xs">
+                    <button type="button" class="boton" (click)="validarFacturaElectronica()">Validar</button>
+                    <button type="button" class="botonLimpiar" (click)="limpiarCajas()">Borrar</button>
+                </div>
+                <div class="col">
+                    <span class="atributo">Fecha factura {{fechaFacturaE}}</span>
+                    <input type="date" class="form-control fe" [(ngModel)]="fechaFacturaE">
+                </div>
+                <div class="col">
+                    <span class="atributo">Fecha vence {{fechaVenceFacturaE}}</span>
+                    <input type="date" class="form-control fe" [(ngModel)]="fechaVenceFacturaE">
+                </div>
+            </div>
+
+            <div class="row mt-1">
+                <div class="col">
+                    <textarea class="form-control area_de_texto" id="_text_area" rows="3" cols="70" maxLength="360" (keydown)="validarLongitudInput($event);" placeholder="Observaciones" [(ngModel)]="observaciones"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-2 mb-2">
+        <div class="col">
+            <button type="button" class="btn btn-success btn-lg btn-block" (click)="saveFacturaE();">Guardar</button>
+        </div>
+    </div>
+
+</div>
+
+<app-modal-dialog [visible]="booleanClient" (hide)="booleanClient=false">
+    <app-comp-search-client (submiter)="resultClient($event)"></app-comp-search-client>
+</app-modal-dialog>

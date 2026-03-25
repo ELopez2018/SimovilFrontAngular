@@ -40,6 +40,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
 export class SheetDailyEditComponent extends ComponentCanDeactivate implements OnInit {
     notdecimal = currencyNotDecimal();
     station: EntStation;
+    codEstacion: EntStation;
     otherForm: FormGroup;
     paymentForm: FormGroup;
     cashForm: FormGroup;
@@ -86,7 +87,10 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
     otrosAEliminar = [];
     anticiposAEliminar: any[] = [];
     AcumProvee: number;
-
+    estacionId: number;
+    estacionesAprovechamientos:any = [63,21,96,94,61,65,62,73,92,95,11,91,102,98,64,51,12,111,131]
+    estacionesBono:any = [91,92,51,73,61,65,11,12,96,94,95,102,99,121,131,111,64,98]
+    estacionesBonoTaxi:any = [91,92,93]
 
     canDeactivate(): boolean {
         let val: boolean;
@@ -107,10 +111,20 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         super();
         this.title.setTitle('Editar Planilla - Simovil');
         this.initial();
+        this.noEsCusiana();
     }
 
     ngOnInit() {
         this.buildForms();
+    }
+
+    noEsCusiana(){
+        this.nominaService.GetStations(this.storageService.getCurrentStation()
+        ).subscribe(data => {
+            this.codEstacion = data[0];
+            this.estacionId = this.codEstacion.idEstacion;
+            //console.log('ver id de estación:) '+ this.codEstacion.idEstacion);//b
+        }, error => console.log(error));
     }
 
     assignDailySheet(planilla: EntDailySheet) {
@@ -225,6 +239,8 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
             premio: planilla.OI_PREMIO,
             aprovNom: planilla.OI_APROV_DET,
             aprovVal: planilla.OI_APROV,
+            aprov2Nom: planilla.OI_APROV2_DET,
+            aprov2Val: planilla.OI_APROV2,
             presLiq: planilla.OI_PRESTAMO_LIQ,
             cusiana: planilla.OI_CUSIANA,
             cliente: planilla.PLA_DIA_PAG_CLI && planilla.PLA_DIA_PAG_CLI.length > 0 ? planilla.PLA_DIA_PAG_CLI.reduce((a, b) => a + b.VALOR, 0) : 0,
@@ -238,10 +254,15 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
             bonoPunto: planilla.FP_BONO_PUNTO,
             bonoCumple: planilla.FP_BONO_CUMPLE,
             bonoSoat: planilla.FP_BONO_SOAT,
+            CantbonoSoat: planilla.FP_CANTBONO_SOAT,
+            CantbonoPunto: planilla.FP_CANTBONOSAUTOPUNTOS, // aqui
+            CantbonoCumple: planilla.FP_CANTBONOSCUMPLE, // aqui
             calibracion: planilla.FP_CALIBRACION,
             cliente: planilla.PLA_DIA_VEN_CLI && planilla.PLA_DIA_VEN_CLI.length > 0 ? planilla.PLA_DIA_VEN_CLI.reduce((a, b) => a + b.VALOR, 0) : 0,
             datafono: planilla.FP_DATAFONO,
+            Cantdatafono: planilla.FP_CANTDATAFONO,
             descuento: planilla.FP_DESC,
+            Cantdescuento: planilla.FP_CANTDESC,
             devolucion: planilla.FP_DEV,
             donacion: planilla.FP_DONACION,
             mantenimiento: planilla.FP_MANT,
@@ -254,6 +275,8 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
             proveedor: planilla.PLA_DIA_PAG_PRO && planilla.PLA_DIA_PAG_PRO.length > 0 ? planilla.PLA_DIA_PAG_PRO.reduce((a, b) => a + b.VALOR, 0) : 0,
             reembolsoNum: planilla.DE_REEM_CAJ_MEN_NUM,
             reembolso: planilla.DE_REEM_CAJ_MEN,
+            reembolsoNum2: planilla.DE_REEM_CAJ_MEN_NUM2,
+            reembolso2: planilla.DE_REEM_CAJ_MEN2,
             servicioNom: planilla.DE_SERV_PUB_DET,
             servicioVal: planilla.DE_SERV_PUB,
             otroNom: planilla.DE_OTRO_DET,
@@ -299,6 +322,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         }
         this.utilService.loader(true);
         this.carteraService.getDailySheet(this.station.idEstacion, this.planilla, this.fecha).subscribe(res => {
+            //console.log(JSON.stringify(res));
             this.utilService.loader(false);
             this.deleteAllClient();
             this.deleteAllProvider();
@@ -479,7 +503,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
             planilla.V_TOTAL = this.salesTurn.VALOR;
         }
 
-       console.log( planilla.PLA_DIA_TUR);
+       //console.log( planilla.PLA_DIA_TUR);
 
         planilla.V_CANT = planilla.PLA_DIA_TUR.reduce((a, b) => a + b.CANT_VENTA, 0);
 
@@ -496,7 +520,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         });
         if (this.pla_bef.PLA_DIA_PAG_CLI_DET && this.pla_bef.PLA_DIA_PAG_CLI_DET.length > 0) {
             this.pla_bef.PLA_DIA_PAG_CLI_DET.map(e => {
-                listclient.push({ ID: e.ID, COD_CLIENTE: e.COD_CLIENTE, TIPO_CLIENTE: e.TIPO_CLIENTE, VALOR: e.VALOR });
+                listclient.push({ ID: e.ID, COD_CLIENTE: e.COD_CLIENTE, TIPO_CLIENTE: e.TIPO_CLIENTE, VALOR: e.VALOR });            
             });
         }
         // if (this.dataDailySheet.PLA_DIA_PAG_CLI_DET && this.dataDailySheet.PLA_DIA_PAG_CLI_DET.length >= 0 && this.dataDailySheet.PLA_DIA_PAG_CLI_DET !== undefined) {
@@ -516,6 +540,8 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         planilla.OI_PREMIO = OI.premio;
         planilla.OI_APROV_DET = cleanString(OI.aprovNom);
         planilla.OI_APROV = OI.aprovVal;
+        planilla.OI_APROV2_DET = cleanString(OI.aprov2Nom);
+        planilla.OI_APROV2 = OI.aprov2Val;
         planilla.OI_PRESTAMO_LIQ = OI.presLiq;
         planilla.OI_CUSIANA = OI.cusiana;
         planilla.OI_PAG_CAR_CLI = car;
@@ -539,7 +565,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         });
         if (this.pla_bef.PLA_DIA_VEN_CLI && this.pla_bef.PLA_DIA_VEN_CLI.length > 0) {
             this.pla_bef.PLA_DIA_VEN_CLI_DET.map(e => {
-                listclientVen.push({ ID: e.ID, COD_CLIENTE: e.COD_CLIENTE, TIPO_CLIENTE: e.TIPO_CLIENTE, VALOR: e.VALOR });
+                listclientVen.push({ ID: e.ID, COD_CLIENTE: e.COD_CLIENTE, TIPO_CLIENTE: e.TIPO_CLIENTE, VALOR: e.VALOR,CANTIDADVENTAS: e.CANTIDADVENTAS, PLACA: e.PLACA  });
             });
         }
         // if (this.dataDailySheet.PLA_DIA_VEN_CLI && this.dataDailySheet.PLA_DIA_VEN_CLI.length > 0) {
@@ -552,11 +578,16 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         planilla.FP_BONO_PUNTO = FP.bonoPunto;
         planilla.FP_BONO_CUMPLE = FP.bonoCumple;
         planilla.FP_BONO_SOAT = FP.bonoSoat;
+        planilla.FP_CANTBONO_SOAT = FP.CantbonoSoat;
+        planilla.FP_CANTBONOSAUTOPUNTOS = FP.CantbonoPunto;
+        planilla.FP_CANTBONOSCUMPLE = FP.CantbonoCumple;
         planilla.FP_CALIBRACION = FP.calibracion;
         planilla.FP_CLI_CRE = car2;
         planilla.FP_CLI_ANT = ant2;
         planilla.FP_DATAFONO = FP.datafono;
+        planilla.FP_CANTDATAFONO = FP.Cantdatafono;
         planilla.FP_DESC = FP.descuento;
+        planilla.FP_CANTDESC = FP.Cantdescuento;
         planilla.FP_DEV = FP.devolucion;
         planilla.FP_DONACION = FP.donacion;
         planilla.FP_MANT = FP.mantenimiento;
@@ -593,8 +624,8 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
             listAnticiposAProvee.push({
                 idAnticipo: e.idAnticipo,
                 proveedor: e.proveedor,
-                valor: e.valor,
-                detalle: ' ' + e.detalle + 'VALOR: ' + e.valor,
+                valor: e.AntValor,
+                detalle: 'Se actualizó el anticipo, valor anterior: '+  e.valor + '; '+ e.detalle,
                 estado: e.estado,
                 factura: e.factura,
                 fecha: e.fecha,
@@ -606,6 +637,8 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         planilla.DE_PROV = DE.proveedor;
         planilla.DE_REEM_CAJ_MEN_NUM = Number.isInteger(DE.reembolsoNum) ? +DE.reembolsoNum : 0;
         planilla.DE_REEM_CAJ_MEN = DE.reembolso;
+        planilla.DE_REEM_CAJ_MEN_NUM2 = Number.isInteger(DE.reembolsoNum2) ? +DE.reembolsoNum2 : 0;
+        planilla.DE_REEM_CAJ_MEN2 = DE.reembolso2;
         planilla.DE_SERV_PUB_DET = cleanString(DE.servicioNom);
         planilla.DE_SERV_PUB = DE.servicioVal;
 
@@ -671,14 +704,14 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                         this.principalComponent.showMsg('success', 'Éxito', 'Planilla Actualizada Exitosamente');
                     }, error => {
                         this.utilService.loader(false);
-                        console.log(error);
+                        //console.log(error);
                         this.principalComponent.showMsg('error', 'Error', error.error.message);
                     });
                 } else {
                     this.principalComponent.showMsg('error', 'Error', 'Código sin resultados');
                 }
             }, error => {
-                console.log(error);
+                //console.log(error);
                 this.principalComponent.showMsg('error', 'Error', error.error.message);
             });
         }
@@ -746,7 +779,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
     }
 
     buildForms() {
-        this.otherForm = this.fb.group({
+        /*this.otherForm = this.fb.group({
             lubricante: ['', [Validators.required, Validators.min(0)]],
             soatRef: [''],
             soatValue: [0, [Validators.required, Validators.min(0)]],
@@ -769,13 +802,18 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
         });
         this.paymentForm = this.fb.group({
             bonoPunto: [0, [Validators.required, Validators.min(0)]],
+            CantbonoPunto: [0, [Validators.required, Validators.min(0)]],
             bonoCumple: [0, [Validators.required, Validators.min(0)]],
+            CantbonoCumple: [0, [Validators.required, Validators.min(0)]],
             bonoSoat: [0, [Validators.required, Validators.min(0)]],
+            CantbonoSoat: [0, [Validators.required, Validators.min(0)]],
             calibracion: [0, [Validators.required, Validators.min(0)]],
             cliente: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
             clienteList: this.fb.array([]),
             datafono: [0, [Validators.required, Validators.min(0)]],
+            Cantdatafono: [0, [Validators.required, Validators.min(0)]],
             descuento: [0, [Validators.required, Validators.min(0)]],
+            Cantdescuento: [0, [Validators.required, Validators.min(0)]],
             devolucion: [0, [Validators.required, Validators.min(0)]],
             donacion: [0, [Validators.required, Validators.min(0)]],
             mantenimiento: [0, [Validators.required, Validators.min(0)]],
@@ -857,7 +895,133 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 const a = this.bankForm.getRawValue();
                 this.bankForm.get('total').setValue(a.lubricanteVal + a.liquidoVal + a.gasVal + a.cusianaVal + a.seguroVal + a.recaudo, this.emitFalse);
             }, 10);
+        }); //asi estaba */
+
+        this.otherForm = this.fb.group({
+            lubricante: ['', [Validators.required, Validators.min(0)]],
+            soatRef: [''],
+            soatValue: [0, [Validators.min(0)]],
+            soatCom: [0, [Validators.min(0)]],
+            soatVen: [0, [Validators.min(0)]],
+            soatAnu: [0, [ Validators.min(0)]],
+            soatReem: [0, [Validators.min(0)]],
+            premio: [0, [Validators.required, Validators.min(0)]],
+            aprovNom: '',
+            aprovVal: [0, [Validators.required, Validators.min(-999999)]],
+            aprov2Nom: '',
+            aprov2Val: [0, [Validators.required, Validators.min(0)]],
+            cliente: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
+            clienteList: this.fb.array([]),
+            presLiq: [0, [Validators.min(0)]],
+            cusiana: [0, [Validators.min(0)]],
+            otroNom: '',
+            otroVal: [0, [Validators.min(0)]],
+            prestamoNom: '',
+            prestamoVal: [0, [Validators.min(0)]],
+            total: [0, [Validators.required, Validators.min(-999999)]]
         });
+        this.paymentForm = this.fb.group({
+            bonoPunto: [0, [Validators.min(0)]],
+            CantbonoPunto: [0, [Validators.min(0)]],
+            bonoCumple: [0, [Validators.min(0)]],
+            CantbonoCumple: [0, [ Validators.min(0)]],
+            bonoSoat: [0, [Validators.min(0)]],
+            CantbonoSoat: [0, [Validators.min(0)]],
+            calibracion: [0, [Validators.min(0)]],
+            cliente: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
+            clienteList: this.fb.array([]),
+            datafono: [0, [Validators.min(0)]],
+            Cantdatafono: [0, [Validators.min(0)]],
+            descuento: [0, [Validators.min(0)]],
+            Cantdescuento: [0, [Validators.min(0)]],
+            devolucion: [0, [Validators.min(0)]],
+            donacion: [0, [Validators.min(0)]],
+            mantenimiento: [0, [Validators.min(0)]],
+            prestamo: [0, [Validators.min(0)]],
+            otro: [0, [Validators.min(0)]],
+            otroDetalle: '',
+            total: [0, [Validators.required, Validators.min(0)]]
+        });
+        this.cashForm = this.fb.group({
+            proveedorList: this.fb.array([]),
+            proveedor: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
+            proveedorAnticipoList: this.fb.array([]),
+            Anticipos: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
+            OtrosList: this.fb.array([]),
+            TotalOtros: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
+            reembolsoNum: 0,
+            reembolso: [0, [Validators.min(0)]],
+            reembolsoNum2: 0,
+            reembolso2: [0, [Validators.min(0)]],
+            servicioNom: '',
+            servicioVal: [0, [Validators.min(0)]],
+            otroNom: '',
+            otroVal: [0, [Validators.min(0)]],
+            totalEfe: [0, [Validators.required, Validators.min(0)]],
+            total: [0, [Validators.required, Validators.min(0)]]
+        });
+        this.bankForm = this.fb.group({
+            lubricanteVal: [0, [Validators.required, Validators.min(0)]],
+            lubricanteDet: '',
+            liquidoVal: [0, [Validators.required, Validators.min(0)]],
+            liquidoDet: '',
+            gasVal: [0, [Validators.required, Validators.min(0)]],
+            gasDet: '',
+            cusianaVal: [0, [Validators.min(0)]],
+            cusianaDet: '',
+            seguroVal: [0, [Validators.min(0)]],
+            seguroDet: '',
+            recaudo: [0, [Validators.min(0)]],
+            total: [0, [Validators.required, Validators.min(0)]]
+        });
+        this.otherForm.valueChanges.subscribe(() => {
+            setTimeout(() => {
+                const a = this.otherForm.getRawValue();
+                let resCli = 0;
+                a.clienteList.map(el => resCli += el.val);
+                this.otherForm.get('cliente').setValue(resCli, this.emitFalse);
+                this.otherForm.get('total').setValue(a.aprovVal + a.aprov2Val + resCli + a.lubricante + a.otroVal + a.premio + a.prestamoVal + a.soatCom + a.soatValue + a.presLiq + a.cusiana, this.emitFalse);
+            }, 10);
+        });
+        this.paymentForm.valueChanges.subscribe(() => {
+            setTimeout(() => {
+                const a = this.paymentForm.getRawValue();
+                let resCli2 = a.clienteList.reduce((a, b) => a + b.val, 0);
+                this.paymentForm.get('cliente').setValue(resCli2, this.emitFalse);
+                this.paymentForm.get('total').setValue((a.bonoSoat || 0) + (a.calibracion || 0) + (resCli2 || 0) + (a.datafono || 0) + (a.descuento || 0) + (a.devolucion || 0) + (a.donacion || 0) + (a.mantenimiento || 0) + (a.prestamo || 0) + (a.otro || 0) + (a.bonoCumple || 0) + (a.bonoPunto || 0), this.emitFalse);
+            }, 10);
+        });
+        this.cashForm.valueChanges.subscribe(() => {
+            let sum = 0;
+            var sum2 = 0;
+            var otroVal = 0;
+
+            setTimeout(() => {
+                const a = this.cashForm.getRawValue();
+                a.proveedorList.map((e => sum += e.val));
+                a.proveedorAnticipoList.map(e => sum2 += e.AntValor);
+                a.OtrosList.map(e => otroVal += e.otroVal);
+
+                const re = this.cashForm.get('reembolso').value;
+                const re2 = this.cashForm.get('reembolso2').value;
+                // this.cashForm.get('reembolsoNum').setValue(re);
+                this.cashForm.get('reembolsoNum').setValue(re && re > 0 ? (this.pla_bef.DE_REEM_CAJ_MEN_NUM ? this.pla_bef.DE_REEM_CAJ_MEN_NUM : this.station.num_caja + 1) : 0, this.emitFalse);
+                this.cashForm.get('reembolsoNum2').setValue(re2 && re2 > 0 ? (this.pla_bef.DE_REEM_CAJ_MEN_NUM2 ? this.pla_bef.DE_REEM_CAJ_MEN_NUM2 : this.station.num_caja2 + 1) : 0, this.emitFalse);
+                this.cashForm.get('proveedor').setValue(sum, this.emitFalse);
+                this.cashForm.get('Anticipos').setValue(sum2, this.emitFalse);
+                this.cashForm.get('TotalOtros').setValue(otroVal, this.emitFalse);
+                this.cashForm.get('totalEfe').setValue(a.reembolso + a.reembolso2 + a.servicioVal + otroVal, this.emitFalse);
+                this.cashForm.get('total').setValue(sum + sum2 + this.cashForm.get('totalEfe').value, this.emitFalse);
+            }, 10);
+        });
+        this.bankForm.valueChanges.subscribe(() => {
+            setTimeout(() => {
+                const a = this.bankForm.getRawValue();
+                this.bankForm.get('total').setValue(a.lubricanteVal + a.liquidoVal + a.gasVal + a.cusianaVal + a.seguroVal + a.recaudo, this.emitFalse);
+            }, 10);
+        });
+
+       
     }
 
     createItemProvider() {
@@ -1144,7 +1308,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 this.loadBeforeValues(result[0]);
             }
         }, error => {
-            console.log(error);
+            //console.log(error);
             this.utilService.loader(false);
             this.principalComponent.showMsg('error', 'Error', error.error.message);
         });
@@ -1287,7 +1451,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 this.cant = result[0].DETALLE.reduce((a, b) => a + b.CANTIDAD, 0);
                 this.cant = Math.round(this.cant);
                 this.salesTurn = result[0];
-                console.log(this.salesTurn)
+                //console.log(this.salesTurn)
                 this.salesTurn.VALOR = Math.round(this.salesTurn.VALOR);
                 this.show[0] = true;
                 this.salesTurnBefore = JSON.parse(JSON.stringify(result[0]));
@@ -1296,7 +1460,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                 this.principalComponent.showMsg('info', 'Información', 'Sin resultados');
             }
         }, error => {
-            console.log(error);
+            //console.log(error);
             this.utilService.loader(false);
             this.principalComponent.showMsg('error', 'Error', error.error.message);
         });
@@ -1343,6 +1507,10 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
             this.otherForm.get('cusiana').enable();
             this.paymentForm.get('bonoCumple').enable();
             this.paymentForm.get('bonoPunto').enable();
+            this.paymentForm.get('CantbonoPunto').enable();
+            this.paymentForm.get('CantbonoCumple').enable();
+            this.paymentForm.get('CantbonoPunto').setValue(0, [Validators.required, Validators.min(0)]);
+            this.paymentForm.get('CantbonoCumple').setValue(0, [Validators.required, Validators.min(0)]);
             this.otherForm.get('prestamoVal').setValue(0);
             this.otherForm.get('prestamoNom').setValue('');
             this.otherForm.get('prestamoVal').disable();
@@ -1386,8 +1554,12 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
             this.paymentForm.get('bonoPunto').setValue(0);
             this.otherForm.get('presLiq').disable();
             //this.otherForm.get('cusiana').disable();
-            this.paymentForm.get('bonoCumple').disable();
+            this.paymentForm.get('bonoCumple').enable();
             this.paymentForm.get('bonoPunto').disable();
+            this.paymentForm.get('CantbonoPunto').setValue(0);
+            this.paymentForm.get('CantbonoCumple').setValue(0);
+            this.paymentForm.get('CantbonoPunto').disable();
+            this.paymentForm.get('CantbonoCumple').enable();
             this.otherForm.get('prestamoVal').setValue(0, [Validators.required, Validators.min(0)]);
             this.otherForm.get('prestamoNom').setValue(0, [Validators.required, Validators.min(0)]);
             this.otherForm.get('prestamoVal').enable();
@@ -1483,6 +1655,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                     this.utilService.loader(false);
                     if (res0.length == 1) {
                         this.utilService.loader(true);
+                        console.log("holaa1111")
                         this.printService.printSheetDailyEasy(res0[0], true, res =>
                             this.principalComponent.showMsg('error', 'error', res)
                         );
@@ -1491,7 +1664,7 @@ export class SheetDailyEditComponent extends ComponentCanDeactivate implements O
                     }
                 }, error => {
                     this.utilService.loader(false);
-                    console.log(error);
+                    //console.log(error);
                     this.principalComponent.showMsg('error', 'Error', error.error.message);
                 });
             }

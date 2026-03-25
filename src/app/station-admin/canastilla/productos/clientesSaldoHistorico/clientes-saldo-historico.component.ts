@@ -35,7 +35,6 @@ export class ClientesSaldoHistoricoComponent implements OnInit {
   }
 
   getClientesFacturado(){
-    alert('Recibido código con valor: '+this.codigoDeEstacion);
     console.log('%c Recibido código con valor: '+this.codigoDeEstacion+', nombre de estación+: '+this.nombreDeEstacion, 'color: green; font-weight: bold;');
     this.utilService.loader(true);
     this.carteraService.getClientesConSaldosIniciales(this.codigoDeEstacion).subscribe(data => {

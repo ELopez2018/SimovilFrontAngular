@@ -44,6 +44,14 @@ export class ConsolidadoComponent implements OnInit {
     InvVenta = 0;
     InvFinal = 0;
     InvGanancia = 0;
+
+    InviniMov = 0;
+    InvCompMov = 0;
+    InvBajaMov = 0;
+    InvVentaMov = 0;
+    InvFinalMov = 0;
+    InvGananciaMov = 0;
+
     InvTaslados = 0;
     InvTasladosRecibidos = 0;
     InvAcreditos = 0;
@@ -120,7 +128,7 @@ export class ConsolidadoComponent implements OnInit {
     getProductos(estacion?: number, Fecha?: Date) {
         // this.utilService.loader(true);
         this.nominaService.GetProductosConsolidado(estacion, Fecha).subscribe(data => {
-            this.ProdutosPesos = [];
+            /* this.ProdutosPesos = []; */
             this.productos = data;
             this.cargando = false;
             // this.utilService.loader(false);
@@ -143,9 +151,11 @@ export class ConsolidadoComponent implements OnInit {
         });
     }
     getProductosPesos(estacion?: number, Fecha?: Date) {
+        this.productos = [];
+        this.ProdutosPesos = [];
         this.utilService.loader(true);
-        this.nominaService.GetProductosConsolidadoPesos(estacion, Fecha).subscribe(data => {
-            this.productos = [];
+        this.nominaService.GetProductosConsolidadoPesos(estacion, Fecha).subscribe(data => {            
+            console.log(data)
             this.ProdutosPesos = data;
             this.cargando = false;
             this.utilService.loader(false);
@@ -185,6 +195,8 @@ export class ConsolidadoComponent implements OnInit {
         this.boolNovelty = this.showReport;
     }
     PrintReport(Mes: Date) {
+        console.log('productos: '+this.productos);
+        console.log('productos pesos: '+this.ProdutosPesos);
         if (this.productos.length > 0) {
             console.log('EN unidades');
             this.showReport = true;
@@ -217,7 +229,10 @@ export class ConsolidadoComponent implements OnInit {
     VerEstacion(estacion) {
         this.IdStacion = estacion.idEstacion;
     }
+
     Cambiar(Fecha: Date, Reporte: number, elemento: any) {
+        this.productos = [];
+        this.ProdutosPesos = [];
         this.Reporte = Reporte;
         switch (this.Reporte) {
             case 2:
@@ -231,16 +246,35 @@ export class ConsolidadoComponent implements OnInit {
         }
     }
     Totalizar() {
+        this.Invini = 0
+        this.InvComp = 0
+        this.InvVenta = 0
+        this.InvFinal = 0
+        this.InvGanancia =0
+        this.InviniMov = 0
+        this.InvCompMov = 0
+        this.InvVentaMov = 0
+        this.InvFinalMov = 0
+        this.InvGananciaMov =0 
         switch (this.Reporte) {
             case 2:
                 // tslint:disable-next-line: forin
                 for (const I in this.ProdutosPesos) {
                     // Totales Acumulados
-                    this.Invini = this.Invini + (this.ProdutosPesos[I].InvInicial);
-                    this.InvComp = this.InvComp + (this.ProdutosPesos[I].Compras);
-                    this.InvVenta = this.InvVenta + (this.ProdutosPesos[I].Ventas);
-                    this.InvFinal = this.InvFinal + (this.ProdutosPesos[I].InvFinal);
-                    this.InvGanancia += this.ProdutosPesos[I].ganancia;
+                    if (this.ProdutosPesos[I].Categoria == 2){
+                        this.Invini = this.Invini + (this.ProdutosPesos[I].InvInicial);
+                        this.InvComp = this.InvComp + (this.ProdutosPesos[I].Compras);
+                        this.InvVenta = this.InvVenta + (this.ProdutosPesos[I].Ventas);
+                        this.InvFinal = this.InvFinal + (this.ProdutosPesos[I].InvFinal);
+                        this.InvGanancia += this.ProdutosPesos[I].ganancia;  
+                    }
+                    if (this.ProdutosPesos[I].Categoria == 1){
+                        this.InviniMov = this.Invini + (this.ProdutosPesos[I].InvInicial);
+                        this.InvCompMov = this.InvComp + (this.ProdutosPesos[I].Compras);
+                        this.InvVentaMov = this.InvVenta + (this.ProdutosPesos[I].Ventas);
+                        this.InvFinalMov = this.InvFinal + (this.ProdutosPesos[I].InvFinal);
+                        this.InvGananciaMov += this.ProdutosPesos[I].ganancia;  
+                    }
                 }
                 break;
             case 3:

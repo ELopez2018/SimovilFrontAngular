@@ -7,6 +7,14 @@
               <option *ngFor="let item of treeParams" [ngValue]="item">{{item.text}}</option>
             </select>
         </div>
+
+        <div class="col-sm-1 mb-1" *ngIf="deTipoCupo">
+            <label for="type">Tipo Cliente</label>
+            <select id="type" class="form-control" [(ngModel)]="tipoCupoSel" (change)="activeEstacion();">
+              <option *ngFor="let item of tipoCupos" [ngValue]="item">{{item.detalleTipoCupo}}</option>
+            </select>
+        </div>
+
         <!--
                 <div class="col-sm mb-1">
                     <label for="nit">Nit cliente</label>
@@ -17,7 +25,7 @@
         <div class="col-sm-2 mb-1" *ngIf="deEstacion">
             <div class="form-group form-row">
                 <label class="control-label display-block">Estación</label>
-                <select class="form-control display-block" [(ngModel)]="stationSel" (change)="getTipoEstacion()">
+                <select class="form-control display-block" [(ngModel)]="stationSel" (change)="getTipoEstacion()" (change)="getClientesDeCartera()">
                           <option *ngFor="let item of stations" [ngValue]="item">
                               {{ item.nombreEstacion }}
                           </option>
@@ -32,19 +40,30 @@
             </select>
         </div>
 
-        <div class="col-sm-1 mb-1" *ngIf="deTipoCupo">
-            <label for="type">Cupo</label>
-            <select id="type" class="form-control" [(ngModel)]="tipoCupoSel">
-              <option *ngFor="let item of tipoCupos" [ngValue]="item">{{item.detalleTipoCupo}}</option>
+        <div class="col-sm-2 mb-1" *ngIf="porTipoClientes">
+            <label class="control-label">Cliente</label>
+            <div class="input-group">
+                <select class="form-control" [(ngModel)]="clienteSelCartera">
+                      <option *ngFor="let cliente of clientesDeCartera" [ngValue]="cliente">
+                          {{ cliente.nombre }}
+                      </option>
+                    </select>
+            </div>
+        </div>
+
+        <div class="col-sm-1 mb-1" *ngIf="deAnyo">
+            <label for="dateini">Año</label>
+            <select name="paramAnyo" class="form-control" [(ngModel)]="paramAnyo">
+                <option *ngFor="let itemAnual of anyos" [ngValue]="itemAnual">{{itemAnual.detalleAnyo}}</option>
             </select>
         </div>
 
-        <div class="col-sm-2 mb-1">
+        <div class="col-sm-2 mb-1" *ngIf="deDesde">
             <label for="dateini">Desde</label>
             <input type="date" id="dateini" [(ngModel)]="dateIni" class="form-control">
         </div>
 
-        <div class="col-sm-2 mb-1">
+        <div class="col-sm-2 mb-1" *ngIf="deHasta">
             <label for="datefin">Hasta</label>
             <input type="date" id="datefin" [(ngModel)]="dateEnd" class="form-control">
         </div>

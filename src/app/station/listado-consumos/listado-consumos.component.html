@@ -1,0 +1,39 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <h5 class='mt-2 mb-2 titulo'>
+            Favor verificar (c/u) de los parámetros antes de borrar bug de consumos
+        </h5>
+    </div>
+</div>
+
+<div class='card color_tabla'>
+    <div class='card-header'>
+        <div class='row mt-2'>
+            <div class='col-sm-2'>
+                <span style='font-family: cursive; font-weight: bold;'>id estación:<img src='../../../assets/img/alerta7.gif'></span>
+                <input type='number' class='form-control' [(ngModel)]="idEstacion" placeholder='{{ idEstacion}}' readonly>
+            </div>
+            <div class="col-sm-2">
+                <span style="font-family: cursive; font-weight: bold;">Código Cliente</span>
+                <input type="number" class="form-control" [(ngModel)]="codCliente" placeholder='{{codCliente}}' readonly>
+            </div>
+            <div class="col-sm-2">
+                <span style="font-family: cursive; font-weight: bold;">Nombre Cliente</span>
+                <input type="text" class="form-control" [(ngModel)]="nombreCliente" placeholder='{{nombreCliente}}' readonly>
+            </div>
+            <div class="col-sm-2">
+                <span style="font-family: cursive; font-weight: bold;">fecha desde</span>
+                <input [(ngModel)]="fechaInicial" required type="date" class="form-control" placeholder='{{fechaInicial}}'>
+            </div>
+            <div class="col-sm-2">
+                <span style="font-family: cursive; font-weight: bold;">fecha hasta</span>
+                <input [(ngModel)]="fechaFin" required type="date" class="form-control" placeholder='{{fechaFin}}'>
+            </div>
+            <div class='col-sm-2' style="text-align: center;">
+                <div class=''></div>
+                <br>
+                <button type='button' class='boton' (click)="borrarBugConsumos(idEstacion, codCliente, fechaInicial, fechaFin)">Borrar Bug</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -37,7 +37,8 @@
         <div *ngIf="tabs[1].estado" id="Resumen" role="tabpanel" class="mb-3" aria-labelledby="resumen-tab"
             [@fade]="'in'">
             <legend>Pendientes por generar cuenta de cobro</legend>
-            <div class="table-wrapper" id="tableCuentas">
+            
+            <div class="table-wrapper" id="tableCuentas" *ngIf="show==false">
                 <div class="align-self-center no-more-tables">
                     <table class="table table-hover table-sm table-striped table-bordered">
                         <thead>
@@ -69,6 +70,103 @@
                         </tbody>
                     </table>
                 </div>
+            </div> 
+
+            <div class="card" *ngIf="show==true">
+                <p-table
+                    #dt1
+                    [value]="clients"            
+                    [rows]="10"
+                    [showCurrentPageReport]="true"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    [loading]="cargando"
+                    [paginator]="true"    
+                    [responsive]="true"
+                    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} clientes"
+                    [globalFilterFields]="['codCliente', 'nombre', 'estacionConsumo','detalleTipoCupo']"
+                    styleClass="p-datatable-striped"
+                    >
+                    <ng-template pTemplate="caption">
+                        <div class="flex">                            
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search iconColor"></i>
+                                <input class="form-control pl-4" pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Buscar" />
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="min-width:15rem" class="col-1">
+                                <div class="flex align-items-center">
+                                    Nit                                    
+                                </div>
+                            </th>
+                            <th style="min-width:15rem" class="col-3">
+                                <div class="flex align-items-center">
+                                    Nombre                                    
+                                </div>
+                            </th>
+                            <th style="min-width:15rem" class="col-2">
+                                <div class="flex align-items-center">
+                                    Estacion                                    
+                                </div>
+                            </th> 
+                            <th style="min-width:10rem" class="col-1">
+                                <div class="flex align-items-center">
+                                    Estado Cupo       
+                                </div>
+                            </th>
+                            <th style="min-width:10rem" class="col-1">
+                                <div class="flex align-items-center">
+                                    Tipo       
+                                </div>
+                            </th>
+                            <th style="min-width:10rem" class="col-2">
+                                <div class="flex align-items-center">
+                                    Cupo Disponible      
+                                </div>
+                            </th>
+                            <th style="min-width:10rem" class="col-2">
+                                <div class="flex align-items-center">
+                                    Acciones       
+                                </div>
+                            </th>                    
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-client>
+                        <tr>
+                            <td class="col-1">
+                                {{ client.codCliente }}
+                            </td>
+                            <td class="col-3">
+                                {{ client.nombre }}
+                            </td>
+                            <td class="col-2">                                
+                                <span class="ml-1 vertical-align-middle">{{ client.estacionConsumo }}</span>
+                            </td>        
+                            <td class="col-1">
+                                <span [class]="'estado-'+getSeverity(client.estadoCupo)">{{getSeverity(client.estadoCupo)}}</span>
+                            </td>
+                            <td class="col-1">
+                                {{ client.detalleTipoCupo }}
+                            </td>
+                            <td class="col-2">
+                                {{ client.cupoDisponible | currency: 'USD':'symbol' }}
+                            </td>
+                            <td class="col-2">
+                                <button pButton pRipple type="button" 
+                                label="Crear Cuenta Cobro" 
+                                (click)="SelectClient(client)"
+                                class="p-button-raised p-button-info p-button-text"></button>                                
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="7">sin resultados.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
         </div>
         <div *ngIf="tabs[2].estado" id="Resumen" role="tabpanel" aria-labelledby="resumen-tab" [@fade]="'in'">

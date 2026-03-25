@@ -9,6 +9,7 @@ import { EntProductos } from '../../../../Class/EntProductos';
 import { EntStation } from '../../../../Class/EntStation';
 import { EntProductoInvEstacion } from '../../../../Class/EntProductoInvEstacion';
 import { GuardsCheckStart } from '@angular/router';
+import { JsonpClientBackend } from '@angular/common/http';
 
 @Component({
     selector: 'app-product-inventario',
@@ -19,6 +20,7 @@ export class ProductInventarioComponent implements OnInit {
 
     stationsAll: EntStation[];
     stationCode: any;
+    nombreEstacion: any;
     productos: EntProductos[];
     fecha: Date;
     es: any;
@@ -27,6 +29,10 @@ export class ProductInventarioComponent implements OnInit {
     InventarioEstacion: EntProductoInvEstacion = new EntProductoInvEstacion();
     cargando = false;
     bloqueado = true;
+    radioCodigoContable1: string;
+    radioCodigoContable2: string;
+    sinCodigo: string = 'sinCodigo';
+
     constructor(private nominaService: NominaService,
         private title: Title,
         private storageService: StorageService,
@@ -38,15 +44,18 @@ export class ProductInventarioComponent implements OnInit {
         this.fecha = new Date();
     }
     AgregarInventario(forma: EntProductos) {
-        console.log(forma);
-        const Porcentaje = Math.round(((forma.PrecioVenta - forma.PrecioCompra) / forma.PrecioCompra) * 100)
+        const Porcentaje = Math.round(((forma.PrecioVenta - forma.PrecioCompra) / forma.PrecioCompra) * 100);
         if (forma.Mileniumgas) {
             this.Guardar(forma);
         } else {
-            if (Porcentaje >= 20 && Porcentaje <= 40) {
+                if(forma.utilidadMin == null || forma.utilidadMax == null){
+                    this.principalComponent.showMsg('error', 'Info', 'la utilidad min registrada es: '+forma.utilidadMin+', y la max registrada es: '+forma.utilidadMax);
+                }
+            if (Porcentaje >= forma.utilidadMin && Porcentaje <= forma.utilidadMax) {
                 this.Guardar(forma);
-            } else {
-                this.principalComponent.showMsg('error', 'Advertencia', 'El margen de utilidad  es del ' + Porcentaje + '% y debe ser del 20 al 40%');
+            }
+            if((Porcentaje < forma.utilidadMin || Porcentaje > forma.utilidadMax) && (forma.utilidadMin != null || forma.utilidadMax != null)){
+                this.principalComponent.showMsg('error', 'Advertencia', 'El margen de utilidad es del ' + Porcentaje + '% y debe ser del '+forma.utilidadMin+'% al '+forma.utilidadMax+'%');
             }
         }
     }
@@ -58,6 +67,22 @@ export class ProductInventarioComponent implements OnInit {
         this.InventarioEstacion.ExistenciaInicial = forma.existencia;
         this.InventarioEstacion.PrecioCompra = forma.PrecioCompra;
         this.InventarioEstacion.Precio = forma.PrecioVenta;
+        //condición para que tome valor del checkbox
+        /* this.InventarioEstacion.codigoContable = forma.codContable;//c */
+
+        if(this.radioCodigoContable1 != 'sin click' && this.radioCodigoContable2 != 'sin click'){
+            this.principalComponent.showMsg('error', 'Información', '¡No se ha seleccionado ningún código contable de: MovilGas o Cusiana!');
+            return console.log('N☻ se ha selecci☻nad☻ ningún c☻dig☻ c☻ntable: M☻vilGas ☻ Cusiana');
+        }
+        if(this.radioCodigoContable1 != 'sin click'){
+            this.InventarioEstacion.codigoContable = this.radioCodigoContable1;
+        }
+        if(this.radioCodigoContable2 != 'sin click'){
+            this.InventarioEstacion.codigoContable = this.radioCodigoContable2;
+        }
+
+        console.log('Productos:) '+JSON.stringify(forma));
+        console.log('Inventario estación:) '+JSON.stringify(this.InventarioEstacion));
         this.nominaService.InserProductosInvEstacion(this.InventarioEstacion).subscribe(data => {
             this.principalComponent.showMsg('success', 'Éxito', 'Se guardó correctamente.');
         }, error => this.principalComponent.showMsg('error', 'Advertencia', error.error.message));
@@ -79,6 +104,12 @@ export class ProductInventarioComponent implements OnInit {
         this.cargando = true;
         this.nominaService.GetStations().subscribe(data => {
             this.stationsAll = data;
+            data.forEach(element => {
+                if(element.idEstacion == this.stationCode){
+                    this.nombreEstacion = element.nombreEstacion;
+                }
+            });
+
         }, error => console.log(error.error.message));
         this.getProductos(this.stationCode);
 
@@ -129,7 +160,7 @@ export class ProductInventarioComponent implements OnInit {
     Evaluar(forma: EntProductos) {
         const Porcentaje = ((forma.PrecioVenta - forma.PrecioCompra) / forma.PrecioCompra) * 100;
         if (!forma.Mileniumgas) {
-            if (Porcentaje >= 20 && Porcentaje <= 40) {
+            if (Porcentaje >= forma.utilidadMin && Porcentaje <= forma.utilidadMax) {
                 this.bloqueado = false;
             } else {
                 this.bloqueado = true;
@@ -137,5 +168,15 @@ export class ProductInventarioComponent implements OnInit {
             }
         }
 
+    }
+
+    asignarCodigo1(codigo1){
+        this.radioCodigoContable1 = codigo1;
+        this.radioCodigoContable2 = 'sin click';
+    }
+
+    asignarCodigo2(codigo2){
+        this.radioCodigoContable2 = codigo2;
+        this.radioCodigoContable1 = 'sin click';
     }
 }

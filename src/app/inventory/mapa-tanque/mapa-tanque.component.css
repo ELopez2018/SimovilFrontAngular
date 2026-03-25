@@ -1,0 +1,780 @@
+@keyframes grow {
+    from {
+        height: 0%;
+    }
+    to {
+        height: var(--porcentaje);
+    }
+}
+
+@keyframes grow2 {
+    from {
+        height: 0%;
+    }
+    to {
+        height: var(--porcentaje);
+    }
+}
+
+
+/* tanques */
+
+
+/* tanque 1 */
+
+#tanque1,
+#tanque2,
+#tanque3 {
+    position: relative;
+    width: 70px;
+    height: 100px;
+    top: 10px;
+}
+
+#water {
+    transform: rotate(180deg);
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #000000 transparent;
+    border-radius: 230px/25px;
+    border: 2px solid black;
+    overflow: hidden;
+    box-shadow: var(--borde);
+}
+
+#water:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 10px;
+    border-radius: 230px/25px;
+    background: rgba(9, 9, 9, 94%);
+    content: '';
+}
+
+#water:after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 10px;
+    border-radius: 230px/25px;
+    background: rgb(160, 160, 160, 40%);
+    content: '';
+}
+
+#fill {
+    border-radius: 300px/25px;
+    position: relative;
+    bottom: 0px;
+    padding-top: 0px;
+    height: 0;
+    width: 100%;
+    animation: grow 2s forwards;
+    background: rgb(221 152 3 / 52%);
+    box-shadow: 0 0 20px 0px #e4ff00 inset;
+}
+
+#fill:before {
+    border-radius: 300px/25px;
+    transform: rotate(180deg);
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(https://media.giphy.com/media/J4pjVcTLUqr5qACCMX/giphy.gif);
+    opacity: 0.5;
+}
+
+#fill:after {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    height: 10px;
+    border-radius: 230px/25px;
+    background: url(https://media.giphy.com/media/UWpwtfCXmL1rxeEz12/giphy.gif);
+    content: '';
+}
+
+#text {
+    text-align: center;
+    bottom: 50%;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    transform: rotate(180deg);
+    position: absolute;
+    color: black;
+    z-index: 100;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+
+/* tanque2 */
+
+#fill2 {
+    border-radius: 300px/25px;
+    position: relative;
+    bottom: 0px;
+    padding-top: 0px;
+    height: 0;
+    width: 100%;
+    animation: grow2 2s forwards;
+    background: rgb(221 152 3 / 52%);
+    box-shadow: 0 0 20px 0px #e4ff00 inset;
+}
+
+#fill2:before {
+    border-radius: 300px/25px;
+    transform: rotate(180deg);
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(https://media.giphy.com/media/J4pjVcTLUqr5qACCMX/giphy.gif);
+    opacity: 0.5;
+}
+
+#fill2:after {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    height: 10px;
+    border-radius: 230px/25px;
+    background: url(https://media.giphy.com/media/UWpwtfCXmL1rxeEz12/giphy.gif);
+    content: '';
+}
+
+#text2 {
+    text-align: center;
+    bottom: 50%;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    transform: rotate(180deg);
+    position: absolute;
+    color: black;
+    z-index: 100;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+
+/* tanque3 */
+
+#fill3 {
+    border-radius: 300px/25px;
+    position: relative;
+    bottom: 0px;
+    padding-top: 0px;
+    height: 0;
+    width: 100%;
+    animation: grow2 2s forwards;
+    background: rgb(221 152 3 / 52%);
+    box-shadow: 0 0 20px 0px #e4ff00 inset;
+}
+
+#fill3:before {
+    border-radius: 300px/25px;
+    transform: rotate(180deg);
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(https://media.giphy.com/media/J4pjVcTLUqr5qACCMX/giphy.gif);
+    opacity: 0.5;
+}
+
+#fill3:after {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    height: 10px;
+    border-radius: 230px/25px;
+    background: url(https://media.giphy.com/media/UWpwtfCXmL1rxeEz12/giphy.gif);
+    content: '';
+}
+
+#text3 {
+    text-align: center;
+    bottom: 50%;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    transform: rotate(180deg);
+    position: absolute;
+    color: black;
+    z-index: 100;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+
+/* animacion de tarjeta */
+
+#prueba {
+    position: relative;
+    height: 200px;
+    width: 300px;
+    background: #17a2b8b5;
+    display: block;
+    border-radius: 15px;
+    box-shadow: 20px 15px 9px 0px rgba(0, 0, 0, 0.75);
+    bottom: -170px;
+    left: 80px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    animation: slide-out-blurred-left 0ms cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+}
+
+#titulo {
+    text-align: center;
+    padding: 15px;
+    white-space: nowrap;
+    animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+#info {
+    font: bold;
+    font-size: 12;
+    padding: 5px;
+    margin: auto;
+    white-space: nowrap;
+    animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+#triangulo {
+    position: relative;
+    left: -10px;
+    top: 27px;
+    width: 0;
+    height: 0;
+    border-right: 10px solid #000000;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    z-index: 100;
+}
+
+#tanque1:hover~#prueba {
+    animation: corriente 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+#tanque2:hover~#prueba {
+    animation: extra 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+#tanque2:hover~#prueba h3#titulo {
+    visibility: hidden;
+}
+
+#tanque2:hover~#prueba h3#titulo::after {
+    position: relative;
+    visibility: visible;
+    content: "TANQUE 2";
+    right: 75px;
+    padding: 15px;
+    white-space: nowrap;
+}
+
+#tanque3:hover~#prueba {
+    animation: diesel 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+#tanque3:hover~#prueba h3#titulo {
+    visibility: hidden;
+}
+
+#tanque3:hover~#prueba h3#titulo::after {
+    position: relative;
+    visibility: visible;
+    content: "TANQUE 3";
+    right: 75px;
+    padding: 15px;
+    white-space: nowrap;
+}
+
+@keyframes corriente {
+    0% {
+        -webkit-transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
+        transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
+        -webkit-transform-origin: 0% 50%;
+        transform-origin: 0% 50%;
+    }
+    100% {
+        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+        transform: translateX(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
+}
+
+@keyframes extra {
+    0% {
+        -webkit-transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
+        transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
+        -webkit-transform-origin: 0% 50%;
+        transform-origin: 0% 50%;
+    }
+    100% {
+        -webkit-transform: translateX(97px) scaleY(1) scaleX(1);
+        transform: translateX(97px) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
+}
+
+@keyframes diesel {
+    0% {
+        -webkit-transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
+        transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
+        -webkit-transform-origin: 0% 50%;
+        transform-origin: 0% 50%;
+    }
+    100% {
+        -webkit-transform: translateX(190px) scaleY(1) scaleX(1);
+        transform: translateX(190px) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+    }
+}
+
+
+/**
+ * ----------------------------------------
+ * animation slide-out-blurred-left
+ * ----------------------------------------
+ */
+
+@-webkit-keyframes slide-out-blurred-left {
+    0% {
+        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+        transform: translateX(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        /* -webkit-filter: blur(0);
+            filter: blur(0);
+    opacity: 1; */
+    }
+    100% {
+        -webkit-transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+        transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        /* -webkit-filter: blur(40px);
+            filter: blur(40px);
+    opacity: 0; */
+    }
+}
+
+@keyframes slide-out-blurred-left {
+    0% {
+        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+        transform: translateX(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        /* -webkit-filter: blur(0);
+            filter: blur(0);
+    opacity: 1; */
+    }
+    100% {
+        -webkit-transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+        transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        /* -webkit-filter: blur(40px);
+            filter: blur(40px);
+    opacity: 0; */
+    }
+}
+
+.tipoCombustible {
+    font-size: 13px;
+}
+
+#diesel,
+#extra {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+#nombreEstacion {
+    white-space: nowrap;
+    top: -145px;
+    position: relative;
+    color: black;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+#contieneEstacion {
+    flex-direction: row;
+    padding: 10px;
+    align-content: stretch;
+    justify-content: space-between;
+    align-items: flex-end;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    width: 280px;
+    height: 200px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 15px 5px #000000;
+    box-shadow: 0px 0px 15px 5px #000000;
+    background: rgb(179, 220, 237);
+    background: -moz-linear-gradient(-45deg, rgb(179, 220, 237) 0%, rgb(41, 184, 229) 50%, rgb(188, 224, 238) 100%);
+    background: -webkit-linear-gradient(-45deg, rgb(179, 220, 237) 0%, rgb(41, 184, 229) 50%, rgb(188, 224, 238) 100%);
+    background: linear-gradient(135deg, rgb(179, 220, 237) 0%, rgb(41, 184, 229) 50%, rgb(188, 224, 238) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#bce0ee', GradientType=1);
+}
+
+#mapaColombia {
+    overflow: hidden;
+    position: relative;
+    width: 672px;
+    height: 910px;
+    top: 25px;
+    z-index: 1;
+}
+
+#CAQUETA {
+    position: relative;
+    transform: scale(0.95);
+    top: -380px;
+    bottom: 1px;
+    left: 147px;
+    right: 1px;
+}
+
+
+/* #CAQUETA:hover {
+  transform: scale(1.5);
+  z-index: 100;
+} */
+
+#CAUCA {
+    position: relative;
+    transform: scale(0.95);
+    top: -437px;
+    bottom: 1px;
+    left: -205px;
+    right: 1px;
+}
+
+
+/* #CAUCA:hover {
+  transform: scale(1.5);
+  z-index: 100;
+} */
+
+#CUNDINAMARCA {
+    position: relative;
+    transform: scale(0.95);
+    top: -578px;
+    bottom: 1px;
+    left: -164px;
+    right: 1px;
+}
+
+
+/* #CUNDINAMARCA:hover {
+  transform: scale(1.5);
+  z-index: 100;
+} */
+
+#HUILA {
+    position: relative;
+    transform: scale(0.95);
+    top: -464px;
+    bottom: 1px;
+    left: -357px;
+    right: 1px;
+}
+
+
+/* #HUILA:hover {
+  transform: scale(1.5);
+  z-index: 100;
+} */
+
+#META {
+    position: relative;
+    transform: scale(0.95);
+    top: -669px;
+    bottom: 1px;
+    left: 216px;
+    right: 1px;
+}
+
+
+/* #META:hover {
+  transform: scale(1.5);
+  z-index: 100;
+} */
+
+#TOLIMA {
+    position: relative;
+    transform: scale(0.95);
+    top: -718px;
+    bottom: 1px;
+    left: -67px;
+    right: 1px;
+}
+
+
+/* #TOLIMA:hover {
+  transform: scale(1.5);
+  z-index: 100;
+} */
+
+
+/* para el mapa */
+
+.tank {
+    background: black;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+    margin: 3px;
+    height: 15px;
+    width: 15px;
+    transform: scale(0.5);
+}
+
+.tank.red {
+    display: inline-block;
+    background: rgba(255, 82, 82, 1);
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 1);
+    animation: pulse-red 3s linear infinite;
+    /* animation: animate_red 3s linear infinite */
+}
+
+
+/* #tankCaqueta:hover{
+  position: relative;
+  transform: scale(2.5);
+  z-index: 100;
+} */
+
+#tankCaqueta:hover~#CAQUETA {
+    position: relative;
+    transform: scale(1.2);
+    z-index: 100;
+}
+
+
+/* Ciudades */
+
+#tankVillavicencio,
+#tankCaqueta,
+#tankTolima,
+#tankHuila,
+#tankCundinamarca {
+    display: inline-block;
+    position: relative;
+    top: -100%;
+    left: 54%;
+}
+
+
+/* estaciones */
+
+#tanksCusiana,
+#tanksCatama,
+#tanksSraVillavicencio,
+#tanksPavitos,
+#tanksPasoGanadero,
+#tanksGasollano,
+#tanksLaVictoria,
+#tanksElCarmen,
+#tanksLaMolienda,
+#tanksCra5,
+#tanksJordan,
+#tanksJardin,
+#tanksGalarza,
+#tanksColombia,
+#tanksCalle13 {
+    position: relative;
+    display: inline-block;
+}
+
+#tanksCusiana {
+    top: -92px;
+    left: 9px;
+}
+
+#tanksCatama {
+    top: -47px;
+    left: -57px;
+}
+
+#tanksGasollano {
+    transform: translate(-207px, -110px);
+}
+
+#tanksPasoGanadero {
+    transform: translate(-308px, -87px) rotate(122deg);
+}
+
+#tanksPavitos {
+    transform: translate(-371px, -17px) rotate(26deg);
+}
+
+#tanksSraVillavicencio {
+    transform: translate(-417px, -45px) rotate(26deg);
+}
+
+#tankVillavicencio {
+    top: -105%;
+    left: 54%;
+}
+
+#tankCaqueta {
+    top: -101%;
+    left: -50%;
+}
+
+#tankHuila {
+    top: -104%;
+    left: -54%;
+}
+
+#tankTolima {
+    top: -115%;
+    left: -40%;
+}
+
+#tankCundinamarca {
+    top: -121%;
+    left: -20%;
+}
+
+.nombreDepartamento {
+    position: relative;
+    top: -97%;
+    left: 44%;
+    font-size: 36px;
+}
+
+#departamentoCaqueta {
+    position: relative;
+    top: -71%;
+    left: 32%;
+    width: 156px;
+}
+
+#departamentoCauca {
+    display: none;
+    font-size: 24px;
+    top: -87%;
+    left: 11%;
+}
+
+#departamentoHuila {
+    top: -91%;
+    left: 24%;
+    font-size: 25px;
+    width: 73px;
+}
+
+#departamentoTolima {
+    top: -106%;
+    left: 26%;
+    font-size: 22px;
+    width: 80px;
+}
+
+#departamentoMeta {
+    top: -99%;
+    left: 44%;
+    width: 92px;
+}
+
+#departamentoCundinamarca {
+    top: -97%;
+    left: 32%;
+    font-size: 15px;
+    width: 120px;
+}
+
+@keyframes pulse-red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0), 0 0 0 0 rgb(255, 0, 0)
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgb(255, 0, 0, 0), 0 0 0 0 rgb(255, 0, 0)
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgb(255, 0, 0, 0), 0 0 0 15px rgb(255, 0, 0, 0)
+    }
+}
+
+.tank.orange {
+    background: rgba(255, 121, 63, 1);
+    box-shadow: 0 0 0 0 rgba(255, 121, 63, 1);
+    animation: pulse-orange 3s linear infinite;
+}
+
+@keyframes pulse-orange {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 121, 63), 0 0 0 0 rgb(255, 121, 63)
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgb(255, 0, 0, 0), 0 0 0 0 rgb(255, 121, 63)
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgb(255, 0, 0, 0), 0 0 0 15px rgb(255, 0, 0, 0)
+    }
+}
+
+.tank.green {
+    background: rgb(21, 255, 0);
+    box-shadow: 0 0 0 0 rgba(51, 217, 178, 1);
+    animation: pulse-green 3s linear infinite;
+}
+
+@keyframes pulse-green {
+    0% {
+        box-shadow: 0 0 0 0 rgb(0, 255, 0, 0.7), 0 0 0 0 rgb(0, 255, 0, 0.7)
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgb(255, 0, 0, 0), 0 0 0 0 rgb(0, 255, 0, 0.7)
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgb(255, 0, 0, 0), 0 0 0 15px rgb(255, 0, 0, 0)
+    }
+}
+
+.ondas_red {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(255, 0, 0);
+    border-radius: 50%;
+    position: relative;
+    animation: animate_red 3s linear infinite
+}
+
+@keyframes animate_red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7), 0 0 0 0 rgb(255, 0, 0, 0.7)
+    }
+    40% {
+        box-shadow: 0 0 0 50px rgb(255, 0, 0, 0), 0 0 0 0 rgb(255, 0, 0, 0.7)
+    }
+    80% {
+        box-shadow: 0 0 0 50px rgb(255, 0, 0, 0), 0 0 0 30px rgb(255, 0, 0, 0)
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgb(255, 0, 0, 0), 0 0 0 30px rgb(255, 0, 0, 0)
+    }
+}

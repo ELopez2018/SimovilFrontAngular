@@ -9,6 +9,7 @@ import { AdvanceHistoryComponent } from './advance/advance-history/advance-histo
 import { ContabilidadRoutes } from './contabilidad.routing';
 import { AdvanceBalanceComponent } from './advance/advance-balance/advance-balance.component';
 import { CardModule } from 'primeng/card';
+import { VentasContaSearchComponent } from './ventas/ventas-conta-search.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +24,8 @@ import { CardModule } from 'primeng/card';
     AdvanceComponent,
     AdvanceSearchComponent,
     AdvanceHistoryComponent,
-    AdvanceBalanceComponent
+    AdvanceBalanceComponent,
+    VentasContaSearchComponent
 
   ],
   exports: [

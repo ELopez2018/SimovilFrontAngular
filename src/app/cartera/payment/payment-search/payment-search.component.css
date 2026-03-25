@@ -1,0 +1,116 @@
+#tabla_pagos tr:hover {
+    background-color: rgb(255, 255, 0);
+    color: rgb(1, 1, 29);
+    font-weight: bold;
+}
+
+
+/* Fix table head */
+
+.tabla_encabezado_fijo {
+    overflow: auto;
+    height: 430px;
+    /* border-radius: 12px; */
+}
+
+.tabla_encabezado_fijo th {
+    position: sticky;
+    top: 0;
+}
+
+
+/* ************* */
+
+.fila_titulo {
+    background-color: rgb(7, 143, 255);
+    color: black;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+.fila_pie {
+    background-color: rgb(4, 115, 218);
+    color: black;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+#tabla_pagos th {
+    background-color: rgb(4, 115, 218);
+    color: black;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+#tabla_pagos td,
+#tabla_pagos th {
+    border: 1px solid rgb(4, 190, 247);
+    padding: 0px;
+}
+
+
+/* Works on Firefox */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(25, 118, 210) rgb(251, 255, 0);
+}
+
+
+/* Works on Chrome, Edge, and Safari */
+
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #1976d2;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #f1f107;
+    border-radius: 20px;
+    border: 1px solid rgb(46, 250, 6);
+}
+
+.fila_0 {
+    background-color: #E3F2FD;
+}
+
+.fila_1 {
+    background-color: #7bdbfc;
+}
+
+.decora_cajas {
+    background-color: rgb(247, 247, 247);
+    border-radius: 12px;
+    border: 1px solid rgb(4, 190, 247);
+    font-weight: bold;
+    color: rgb(1, 8, 27);
+}
+
+.btn-outline-secondary {
+    color: rgb(53, 75, 88);
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #06f0f8;
+    border-color: rgb(4, 190, 247);
+}
+
+.formulario {
+    background-color: #768796 !important;
+    color: #fff;
+}
+
+.icon_fecha {
+    filter: blur(1px);
+}
+
+.icon_fecha:hover {
+    filter: blur(0px);
+    cursor: pointer;
+}

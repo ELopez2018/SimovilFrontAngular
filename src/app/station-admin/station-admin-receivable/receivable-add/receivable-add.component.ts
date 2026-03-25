@@ -1,3 +1,4 @@
+import { DataTipoCupoService } from './../../../services/data-tipo-cupo.service';
 import { EntCtaCobroPrductosPorCliente } from './../../../Class/EntCtaCobroProductosPorCliente';
 import { EntTipoConcepto } from './../../../Class/EntTipoConcepto';
 import { PrincipalComponent } from './../../../principal/principal.component';
@@ -8,7 +9,7 @@ import { StorageService } from '../../../services/storage.service';
 import { EntConsumptionClient } from '../../../Class/EntConsumptionClient';
 import { EntBasicClient } from '../../../Class/EntBasicClient';
 import { NominaService } from '../../../services/nomina.service';
-import { dateToISOString, rangedate } from '../../../util/util-lib';
+import { dateToISOString, focusById, rangedate } from '../../../util/util-lib';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
@@ -45,16 +46,24 @@ export class ReceivableAddComponent implements OnInit {
     ];
     public tipoConceptos: EntTipoConcepto[] = this.treeTipoConceptos;
     public conceptoSelected: EntTipoConcepto;
+    public retencionSelected: any[] = [];
+    noAplica;
     //elementos
     deConsumos: boolean = false;
     deProductos: boolean = false;
+    botonDeRetenciones: boolean = false;
+    tipoCupo: string;
+    botonNoAplica: boolean = false;
+    rol: number;
+    areaRol: number;
 
     constructor(
         public carteraService: CarteraService,
         public storageService: StorageService,
         public nominaService: NominaService,
         public utilService: UtilService,
-        public principalCompo: PrincipalComponent
+        public principalCompo: PrincipalComponent,
+        public dataTipoCupo: DataTipoCupoService
     ) {
         this.cols = [
             { field: 'id', header: 'id' },
@@ -71,6 +80,9 @@ export class ReceivableAddComponent implements OnInit {
         this.GetTipoImpuestos();
         this.Fechas();
         this.Reset();
+
+        this.rol = this.storageService.getCurrentUserDecode().idRol;
+        this.areaRol = this.storageService.getCurrentUserDecode().Area
     }
     Cancel() {
         this.Reset();
@@ -89,22 +101,52 @@ export class ReceivableAddComponent implements OnInit {
         });
     }
 
-    get validaConcepto(){
-        if(this.conceptoSelected == undefined){
+    get validaRetencionCredito() {
+        if (this.dataTipoCupo.detalleTipoCupo == '"CREDITO"') {
             return true;
-        }else {
+        }
+    }
+
+    get validaRetencionAnticipo() {
+        if (this.dataTipoCupo.detalleTipoCupo == '"ANTICIPO"') {
+            return true;
+        }
+    }
+
+    retencionValidadaCredito() {
+        if (this.validaRetencionCredito) {
+            this.botonDeRetenciones = false;
+            this.principalCompo.showMsg('success', 'Información', 'Cliente tipo crédito no requiere seleccionar el botón retenciones');
+            return;
+        }
+    }
+
+    retencionValidadaAnticipo() {
+        if (this.validaRetencionAnticipo) {
+            this.botonDeRetenciones = true;
+            this.principalCompo.showMsg('info', 'Información', '¡Para el cliente tipo anticipo favor siga los pasos desde 1 al 3, hasta hacer click en botón con el simbolo "+" que agrega la retención seleccionada! En caso "no aplica" retención hasta el paso 2.');
+            return;
+        }
+    }
+
+    get validaConcepto() {
+        if (this.conceptoSelected == undefined) {
+            return true;
+        } else {
             return false;
         }
     }
 
-    getConceptoValidado(){
-        if(this.validaConcepto){
-            this.principalCompo.showMsg('info', 'Atención', 'Favor seleccione el concepto (Combustible o Lubricantes) que requiere consultar porque está: '+this.conceptoSelected);
+    getConceptoValidado() {
+        if (this.validaConcepto) {
+            this.principalCompo.showMsg('info', 'Atención', 'Favor seleccione el concepto (Combustible o Lubricantes) que requiere consultar porque está: ' + this.conceptoSelected);
             return;
         }
     }
 
     consultarArticulo() {
+        this.retencionValidadaAnticipo();
+        this.retencionValidadaCredito();
         this.getConceptoValidado();
         if (this.conceptoSelected.idConcepto == 0) {
             this.deConsumos = true;
@@ -118,50 +160,89 @@ export class ReceivableAddComponent implements OnInit {
         }
     }
 
-    consultarProductos(){
+    consultarProductos() {
         this.utilService.loader(true);
         this.productosAll = [];
-        this.carteraService
-            .getConsumosCtaCobroClieXProducto(
-                this.estacion,
-                this.fechaIni,
-                this.fechaFin,
-                this.cliente.codCliente
-            )
-            .subscribe((productos) => {
-                this.utilService.loader(false);
-                this.productosAll = productos;
-                this.totalDeProductos();
-            });
+
+        let roles = [4, 1]
+        let areas = [7, 11]
+        if (roles.includes(this.rol) && areas.includes(this.areaRol)) {
+            this.carteraService
+                .getConsumosCtaCobroClieXProducto(
+                    this.cliente.idEstacion,
+                    this.fechaIni,
+                    this.fechaFin,
+                    this.cliente.codCliente
+                )
+                .subscribe((productos) => {
+                    this.utilService.loader(false);
+                    this.productosAll = productos;
+                    this.totalDeProductos();
+                });
+        } else {
+            this.carteraService
+                .getConsumosCtaCobroClieXProducto(
+                    this.estacion,
+                    this.fechaIni,
+                    this.fechaFin,
+                    this.cliente.codCliente
+                )
+                .subscribe((productos) => {
+                    this.utilService.loader(false);
+                    this.productosAll = productos;
+                    this.totalDeProductos();
+                });
+        }
+
+
     }
 
     consultarConsumos() {
         this.utilService.loader(true);
         this.consumosAll = [];
-        this.carteraService
-            .getConsumptionReceivable(
-                this.cliente.codCliente,
-                this.fechaIni,
-                this.fechaFin,
-                null,
-                this.estacion
-            )
-            .subscribe((consumos) => {
-                this.utilService.loader(false);
-                this.consumosAll = consumos;
-                this.totales();
-            });
+        console.log("rol:"+this.rol+ ' areaRol:'+this.areaRol+' estation: '+this.cliente.idEstacion);
+        let roles = [4, 1]
+        let areas = [7, 11]
+        if (roles.includes(this.rol) && areas.includes(this.areaRol)) {
+            this.carteraService
+                .getConsumptionReceivable(
+                    this.cliente.codCliente,
+                    this.fechaIni,
+                    this.fechaFin,
+                    null,
+                    this.cliente.idEstacion
+                )
+                .subscribe((consumos) => {
+                    this.utilService.loader(false);
+                    this.consumosAll = consumos;
+                    this.totales();
+                });
+        } else {
+            this.carteraService
+                .getConsumptionReceivable(
+                    this.cliente.codCliente,
+                    this.fechaIni,
+                    this.fechaFin,
+                    null,
+                    this.estacion
+                )
+                .subscribe((consumos) => {
+                    this.utilService.loader(false);
+                    this.consumosAll = consumos;
+                    this.totales();
+                });
+        }
     }
 
-    totalDeProductos(){
-       this.totalProductos = 0;
-       this.totalCantidadesProducto = 0;
-       this.totalDeLaVenta = 0;
-       this.productosAll.forEach((items) => {
-           this.totalCantidadesProducto += items.Cantidad;
-           this.totalDeLaVenta += items.totalVenta;
-           this.totalProductos++;
-       });
+    totalDeProductos() {
+        this.totalProductos = 0;
+        this.totalCantidadesProducto = 0;
+        this.totalDeLaVenta = 0;
+        this.productosAll.forEach((items) => {
+            this.totalCantidadesProducto += items.Cantidad;
+            this.totalDeLaVenta += items.totalVenta;
+            this.totalProductos++;
+        });
     }
 
     totales() {
@@ -186,6 +267,10 @@ export class ReceivableAddComponent implements OnInit {
         this.fechaIni = dateToISOString(fecha[0]);
     }
     Guardar() {
+        if (this.validarPaso2() == true || this.validarPaso3() == true) {
+            return;
+        }
+
         if (this.consumosAll && this.consumosAll.length > 0) {
             this.retencionSubmitterAll.emit({
                 fechaIni: this.fechaIni,
@@ -254,12 +339,14 @@ export class ReceivableAddComponent implements OnInit {
         });
     }
 
-    borrarProducto(index: number){
+    borrarProducto(index: number) {
 
-        console.log('Borrar producto de la lista... con índice: '+index);
+        console.log('Borrar producto de la lista... con índice: ' + index);
     }
 
     AgregarRetencion() {
+        this.validarPaso2();
+
         if (!this.impuesto || this.impuesto.formaPago === null) {
             this.mensaje = 'Debe seleccionar un concepto';
             return;
@@ -282,27 +369,56 @@ export class ReceivableAddComponent implements OnInit {
     }
     CalculoRet() {
         this.impuestoValor = Math.round(this.totalValor * this.impuesto.valor);
+        this.noAplica = this.impuesto;
+        if (this.noAplica == 'NO APLICA') {
+            this.botonNoAplica = true;
+            console.log('elementos siguientes desactivados porque: ' + this.impuesto);
+        }
+        if (this.noAplica != 'NO APLICA') {
+            this.botonNoAplica = false;
+            console.log('elementos siguientes activados porque sí aplica');
+        }
     }
     RetencionesMoc() {
         let i = 0;
-        // for (let a = 0; a < 5; a++) {
         this.retencionesAll.push({
             id: i,
             descripcion: 'Retencion ' + i,
             valor: Math.round(Math.random()),
         });
         i++;
-        // }
     }
     Retenciones() {
+        setTimeout(() => {
+            focusById('selectRetenciones');
+        }, 10);
+
         this.retenciones = !this.retenciones;
 
         if (this.retenciones) {
             this.classRet = 'p-button-rounded';
-            // this.RetencionesMoc();
         } else {
             this.classRet = 'p-button-rounded p-button-danger';
             this.retencionesAll = [];
+        }
+    }
+
+    getValidarRetencion() {
+        this.principalCompo.showMsg('info', 'Atención', 'Favor seleccione el concepto (Combustible o Lubricantes) que requiere consultar porque está: ' + this.conceptoSelected);
+        this.principalCompo.showMsg('info', 'Atención', 'Favor seleccione el tipo de retención, pulse en el símbolo "+" ');
+    }
+
+    validarPaso2() {
+        if (this.impuesto.id == null && JSON.stringify(this.impuesto) != '"NO APLICA"' && this.dataTipoCupo.detalleTipoCupo == '"ANTICIPO"') {
+            this.principalCompo.showMsg('warn', 'Atención', 'Favor seleccione una retención del paso 2, sino aplica: seleccione "NO APLICA" :)');
+            return true;
+        }
+    }
+
+    validarPaso3() {
+        if (this.retencionesAll.length == 0 && this.dataTipoCupo.detalleTipoCupo == '"ANTICIPO"' && this.noAplica != 'NO APLICA') {
+            this.principalCompo.showMsg('error', 'Atención', 'Favor agregue la retención en el paso 3, pulse en el botón del símbolo "+" para adicionarla al listado');
+            return true;
         }
     }
 }

@@ -42,10 +42,10 @@ export class BasicDataService {
         if (this.storageService.isAuthenticated()) {
 
             this.nominaService.GetPermission(this.storageService.getCurrentUserDecode().Usuario).subscribe(result => {
-                // console.log(result);
+                 //console.log(result);
                 this.setAllowedRoutes(result);
                 const resultPadre = result.filter(e => e.OPCION_PADRE == null);
-                // console.log(resultPadre);
+                 //console.log(resultPadre);
                 const resultHijos = result.filter(e => e.OPCION_PADRE != null && resultPadre.find(r => r.ID == e.OPCION_PADRE) != null);
                 const promise = new Promise((resolve, reject) => {
                     resultPadre.forEach(e => {

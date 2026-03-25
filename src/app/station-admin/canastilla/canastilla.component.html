@@ -45,7 +45,7 @@
                 <div class="col-sm-4">Descripción</div>
                 <div class="col-sm-1">Existencia</div>
                 <div class="col-sm-2">Cantidad</div>
-                <div class="col-sm-2">Acciones</div>
+                <div class="col-sm-3">Acciones</div>
             </div>
             <fieldset *ngIf="true" [@fade]="'in'" [formGroup]="ventas">
                 <div [@fade]="'in'" class="form-row" formArrayName="lista" *ngFor="
@@ -56,14 +56,10 @@
                         <div class="form-row no-gutters">
 
                             <div class="form-group col-sm-1">
-                                <input style="background-color: orange;" [id]="'fecha_item' + i" readonly type="number" [class]="[
-                                            list.value[i].pfacturado == true ?
-                                            'form-control form-control-sm text-center bg-success'
-                                            : 'form-control form-control-sm text-center'||
-                                            list.value[i].acredito == true ?
-                                             'form-control form-control-sm text-center bg-info'
-                                            : 'form-control form-control-sm text-center'
-                                ]" formControlName="id" />
+                                <input [id]="'fecha_item' + i" readonly type="number" [ngClass]="{
+                                            'input_venta_normal': list.value[i].pfacturado == false && list.value[i].acredito == false,
+                                            'input_venta_facturado': list.value[i].pfacturado == true,
+                                            'input_venta_credito': list.value[i].acredito == true}" formControlName="id" />
                             </div>
 
                             <div class="form-group col-sm-1">
@@ -184,7 +180,6 @@
 </app-modal-dialog>
 
 <app-modal-dialog (hide)="listClientFacturado = false" [visible]="listClientFacturado">
-    <!-- [codigoDeEstacion]="idDeEstacion" -->
     <app-clientes-saldo-historico (submiter)="clienteSeleccionado($event, botonplus)" [codigoDeEstacion]="stationCode" [nombreDeEstacion]="nameStation"></app-clientes-saldo-historico>
 </app-modal-dialog>
 

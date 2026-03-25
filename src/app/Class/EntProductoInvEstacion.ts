@@ -6,4 +6,5 @@ export class EntProductoInvEstacion {
   PrecioCompra?: number;
   Precio?: number;
   Mileniumgas?: boolean;
+  codigoContable: string;
 }

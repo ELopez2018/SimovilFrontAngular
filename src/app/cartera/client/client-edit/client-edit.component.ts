@@ -1,3 +1,4 @@
+import { EntDataDescuento } from './../../../Class/EntDataDescuento';
 import { Component, OnInit } from '@angular/core';
 import {
     FormBuilder,
@@ -74,6 +75,8 @@ export class ClientEditComponent implements OnInit {
     boolDiscountShow = false;
     indexselDiscount;
     notdecimal = currencyNotDecimal();
+    data2Descuento: any;
+    dataII = [];
 
     constructor(
         private fb: FormBuilder,
@@ -86,7 +89,6 @@ export class ClientEditComponent implements OnInit {
     ) {
         this.buildForm();
         this.title.setTitle('Editar- Clientes - Simovil');
-
     }
 
     ngOnInit() {
@@ -114,6 +116,7 @@ export class ClientEditComponent implements OnInit {
                 this.cities = res3;
                 this.quotaTypes = res4;
                 this.stationsAll = res5;
+                //console.log('todas las estaciones: '+JSON.stringify(this.stationsAll));//b
                 this.articleTypes = res6;
                 this.stations = res5.filter((e) => e.listoSimovil == true);
                 this.GetParam();
@@ -367,6 +370,10 @@ export class ClientEditComponent implements OnInit {
             this.carteraService.getDiscount(value)
         ).subscribe(
             ([data1, data2]) => {
+                this.dataII = data2;
+                //console.log('data1: '+JSON.stringify(data1));//b
+                //console.log('data2: '+JSON.stringify(data2));//b
+                this.transformData();
                 if (data1 && data1.length == 1) {
                     this.quotaSearch = data1[0];
                     this.disp = this.quotaSearch.cupoDisponible;
@@ -380,6 +387,8 @@ export class ClientEditComponent implements OnInit {
                         ),
                     });
                     this.editQuotaSearch = true;
+                    this.data2Descuento = data2;
+                    console.log('data dto: '+JSON.stringify(this.data2Descuento));//b
                     if (data2 && data2.length > 0) {
                         data2.map((e) => this.addDiscount(e));
                         this.boolDiscountShow = true;
@@ -391,6 +400,12 @@ export class ClientEditComponent implements OnInit {
         this.quotaSearchForm.disable();
         this.listDiscount.disable();
         this.editQuotaSearch = true;
+    }
+
+    transformData(){
+        //this.dataII.filter
+        //b
+        console.log('transform data: '+JSON.stringify(this.dataII));
     }
 
     ActCupoAsig() {
@@ -416,6 +431,7 @@ export class ClientEditComponent implements OnInit {
     }
 
     addDiscount(val?: EntDiscount) {
+        console.log(JSON.stringify(val))
         let val1 = val == null ? new EntDiscount() : val;
         this.listDiscount = this.quotaSearchForm.get(
             'listDescuento'
@@ -424,6 +440,7 @@ export class ClientEditComponent implements OnInit {
             articletype: [val1.TIPO_ARTICULO, Validators.required],
             detalle: this.getNameArticleType(val1.TIPO_ARTICULO),
             valor: [val1.VALOR, [Validators.required, Validators.min(0)]],
+            nombreEstacion: [val1.nombreEstacion],
         });
         if (val != null) { a.disable(); }
         this.listDiscount.push(a);
@@ -477,26 +494,31 @@ export class ClientEditComponent implements OnInit {
         return val && this.quotaSearchForm.enabled;
     }
 
-    selArticle(val: EntArticleType) {
+    selArticle(val: EntArticleType) {                   
         if (
             this.listDiscount.controls.find(
-                (e) => e.get('articletype').value == val.ID
-            )
-        ) {
+                (e) => e.get('articletype').value == val.ID                
+            )            
+        ) {                     
             this.principalComponent.showMsg(
                 'error',
                 'Error',
                 'El combustible ya fue seleccionado'
             );
         }
-        else {
+        else {    
+            console.log(this.indexselDiscount)
             this.listDiscount.controls[this.indexselDiscount].setValue({
                 articletype: val.ID,
                 detalle: this.getNameArticleType(val.ID),
                 valor: 0,
+                ID_ESTACION: 92,
+                nombreEstacion: 'pavitos'
             });
             this.boolDiscountForm = false;
+            this.boolDiscountShow = true;
             focusById('val-' + this.indexselDiscount);
+            console.log("aqui");
         }
     }
 
@@ -514,18 +536,25 @@ export class ClientEditComponent implements OnInit {
         cupo.tipoCupo = Number(
             this.quotaSearchForm.controls['searchQuotaType'].value.idTipoCupo
         );
-        let desc: EntDiscount[] = [];
+        //let desc: EntDiscount[] = [];//original
+        let desc: EntDataDescuento[] = [];//new
         let rv = this.listDiscount.getRawValue();
         for (let num = 0; num < rv.length; num++) {
             desc.push({
+                id: this.data2Descuento[num].id,//new
                 COD_CLIENTE: cupo.codCliente,
                 TIPO_ARTICULO: rv[num].articletype,
                 VALOR: rv[num].valor,
+                ID_ESTACION: this.data2Descuento[num].ID_ESTACION,//new
+                nombreEstacion: this.data2Descuento[num].nombreEstacion,
             });
+            console.log('data2:) ');
         }
         cupo.descuento = desc;
         cupo.estadoCupo = true;
         cupo.editable = false;
+
+        console.log('json:) '+JSON.stringify(cupo));
         this.carteraService.UpdateQuota(cupo, this.reasonForChange).subscribe(
             (fila) => {
                 this.principalComponent.showMsg(

@@ -51,7 +51,7 @@ export class ListProductosComponent implements OnInit {
     ngOnInit() {
         this.cargando = true;
         this.getProductos(this.stationCode, null, this.date3);
-        console.log('ngOnInit listado de pruductos: ', this.stationCode);
+        console.log('ngOnInit listado de productos: ', this.stationCode);
         this.es = {
             firstDayOfWeek: 1,
             dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
@@ -138,7 +138,7 @@ export class ListProductosComponent implements OnInit {
 
 
     EnviarProducto(Producto: EntProductos) {
-        console.log('EnviarProducto', Producto);
+        console.log('EnviarProducto', JSON.stringify(Producto));
         this.submiter.emit(Producto);
         this.productos = [];
     }

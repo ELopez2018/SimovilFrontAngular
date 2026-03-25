@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,LOCALE_ID } from '@angular/core';
 import { EntProductosSoliciBaja } from '../../../../Class/EntProductosSoliciBaja';
 import { NominaService } from '../../../../services/nomina.service';
 import { Title } from '@angular/platform-browser';
@@ -6,13 +6,17 @@ import { StorageService } from '../../../../services/storage.service';
 import { PrincipalComponent } from '../../../../principal/principal.component';
 import { UtilService } from '../../../../services/util.service';
 import { EntStation } from '../../../../Class/EntStation';
+import { registerLocaleData } from '@angular/common';
+import localePy from '@angular/common/locales/es';
+registerLocaleData(localePy, 'es');
 
 @Component({
     selector: 'app-solicitud-baja-productos',
     templateUrl: './solicitud-baja-productos.component.html',
     styleUrls: ['./solicitud-baja-productos.component.css']
 })
-export class SolicitudBajaProductosComponent implements OnInit {
+
+export class SolicitudBajaProductosComponent implements OnInit {    
     Solicitudes: EntProductosSoliciBaja[] = [];
     stationsAll: EntStation[];
     stationCode: any;

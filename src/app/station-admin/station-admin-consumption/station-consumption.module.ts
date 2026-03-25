@@ -8,7 +8,6 @@ import { StationConsumptionReportsComponent } from './station-consumption-report
 import { StationConsumptionSearchComponent } from './station-consumption-search/station-consumption-search.component';
 import { StationConsumptionFormapagoComponent } from './stationConsumptionFormapago/stationConsumptionFormapago.component';
 
-
 @NgModule({
     imports: [
         CommonModule,
@@ -22,6 +21,6 @@ import { StationConsumptionFormapagoComponent } from './stationConsumptionFormap
         // StationConsumptionReportsComponent,
         // StationConsumptionSearchComponent,
         // StationConsumptionFormapagoComponent
-    ]
+]
 })
 export class StationConsumptionModule { }

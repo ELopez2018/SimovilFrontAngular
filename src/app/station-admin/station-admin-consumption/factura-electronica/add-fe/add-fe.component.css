@@ -1,0 +1,285 @@
+.titulo {
+    background-color: #343a40;
+    color: #E3F2FD;
+    text-align: center;
+    font-family: cursive;
+    font-size: calc(1em + 1vw);
+}
+
+.encabezado_tabla {
+    background-color: #1565C0;
+    color: #E3F2FD;
+    font-weight: bold;
+}
+
+.margenes_contenido_tabla {
+    padding: 0px;
+}
+
+.marco_tabla {
+    border: 3px solid #212121;
+    padding: 0px;
+}
+
+.texto {
+    font-family: Courier;
+    height: 21px;
+    border: 1px solid rgb(185, 235, 241);
+    padding: 0px;
+}
+
+.fila_titulo {
+    background-color: cornflowerblue;
+    color: black;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+.titulo_col {
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 rgb(51, 255, 0), 1px -1px 0 rgb(51, 255, 0), -1px 1px 0 rgb(51, 255, 0), 1px 1px 0 rgb(51, 255, 0);
+}
+
+.fila_ciclo {
+    text-align: center;
+}
+
+.fila_der {
+    text-align: right !important;
+}
+
+.texto1 {
+    max-width: 70px;
+}
+
+.texto2 {
+    max-width: 130px;
+}
+
+.texto3 {
+    max-width: 120px;
+}
+
+.texto4 {
+    max-width: 33px;
+}
+
+.textoNumero {
+    font-family: Courier;
+    height: 21px;
+    max-width: 20px;
+}
+
+.color_tabla {
+    background-color: #E3F2FD;
+}
+
+.fila_0 {
+    background-color: #E3F2FD;
+}
+
+.fila_0:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+}
+
+.fila_1 {
+    background-color: #82B1FF;
+}
+
+.fila_1:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+}
+
+.pie_tabla {
+    background-color: #1976D2;
+}
+
+.boton {
+    color: #fff;
+    background-color: #046ef8;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+}
+
+.botonMax {
+    color: #fff;
+    background-color: #17cf20;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+    size: 30px;
+}
+
+.botonMax:hover {
+    color: #fff;
+    background-color: #04a70d;
+}
+
+.botonLimpiar {
+    color: #fff;
+    background-color: #ee1b37;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+}
+
+.boton:hover {
+    color: #fff;
+    background-color: #0957a0;
+}
+
+.botonLimpiar:hover {
+    color: #fff;
+    background-color: #c70404;
+}
+
+.atributo {
+    font-weight: bold;
+    color: black;
+}
+
+.input_cuentaCobro {
+    background-color: rgb(242, 253, 87);
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+    font-weight: bold;
+}
+
+.input_cuentaCobro:hover {
+    color: rgb(6, 2, 63);
+    background-color: rgb(236, 248, 64);
+}
+
+
+/* sea fe: factura electrónica */
+
+.fe {
+    background-color: mediumspringgreen;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+    font-weight: bold;
+}
+
+.fe:hover {
+    color: rgb(6, 2, 63);
+    background-color: rgb(101, 245, 190);
+}
+
+.area_de_texto {
+    background-color: lightgrey;
+    color: blue;
+    font-weight: bold;
+}
+
+.deshabilitado {
+    color: blue;
+    border: 2px solid #006308;
+    cursor: not-allowed;
+    box-shadow: -1px -1px 8px 1px #00800085, 1px 1px 8px 1px #00800085;
+}
+
+.ajedrezCuentasCobro {
+    border: 1px solid black;
+    border-radius: 8px;
+    background: rgb(242, 253, 87);
+    cursor: help;
+}
+
+.sumaTotal {
+    text-align: start;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 228px;
+    /* background-color: cornflowerblue;
+    color: black;
+    font-weight: bold; */
+}
+
+
+/*************selector****************/
+
+.marcado {
+    background-color: #7cf8b0;
+    font-weight: 900;
+    box-shadow: inset -1px -1px 8px 1px green, inset 1px 1px 8px 1px green;
+    scale: 1;
+}
+
+.cuentas {
+    border: 1px solid rgb(175, 126, 1);
+    margin: 1px 1px 1px 1px;
+    padding: 0px 2px 0px 2px;
+    font-weight: bolder;
+}
+
+input[type="checkbox"]+label:before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin: 2px -1px 5px;
+    border: 1px solid rgb(170, 170, 170);
+    background: rgb(113, 217, 248);
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked+label:after {
+    content: "";
+    width: 15px;
+    height: 8px;
+    border: 4px solid #20214f;
+    float: left;
+    margin-left: -11px;
+    border-right: 0;
+    border-top: 0;
+    margin-top: 2px;
+    transform: rotate(-55deg);
+    cursor: pointer;
+}
+
+
+/* #defaultCheck1[type="checkbox"]+#Activocheck:before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin: 2px -1px 5px;
+    border: 1px solid rgb(170, 170, 170);
+    background: #fff
+}
+
+#defaultCheck1[type="checkbox"] {
+    display: none;
+}
+
+#defaultCheck1[type="checkbox"]:checked+#Activocheck:after {
+    content: "";
+    width: 15px;
+    height: 8px;
+    border: 4px solid #20214f;
+    float: left;
+    margin-left: -11px;
+    border-right: 0;
+    border-top: 0;
+    margin-top: 2px;
+    transform: rotate(-55deg) translate3d(-21px, -39px, 10px) !important;
+}
+
+#defaultCheck1[type="checkbox"]+#Activocheck:before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin: 2px -1px 5px;
+    border: 1px solid rgb(170, 170, 170);
+    background: #fff;
+} */
+
+
+/*************end selector************/

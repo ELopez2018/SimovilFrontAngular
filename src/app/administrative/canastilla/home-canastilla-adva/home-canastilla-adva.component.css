@@ -6,12 +6,14 @@ p {
     cursor: pointer;
     -webkit-transform: scale(1.015);
     transform: scale(1.015);
+    box-shadow: 0 0 20px rgb(241 239 100);
 }
 
 .h7 {
     font-size: 12px;
 }
+
+
 /*
-.contenedor {
-    overflow: hidden;
+.con    overflow: hidden;
 } */

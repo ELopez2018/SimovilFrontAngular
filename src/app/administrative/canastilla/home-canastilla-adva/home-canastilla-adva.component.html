@@ -32,14 +32,14 @@
                         <th scope="col">Nombre</th>
                         <th scope="col" class="text-center">Venta Bruta</th>
                         <th scope="col" class="text-center">Utilidad</th>
-                        <th scope="col" colspan="2" class="text-center">Ultimo Registro</th>
+                        <th scope="col" colspan="2" class="text-center">Último Registro</th>
                         <!-- <th scope="col" class="text-center"><i class="fas fa-info"></i></th> -->
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let estacion of stationsAll; index as i" >
+                    <tr *ngFor="let estacion of stationsAll; index as i">
                         <td class="text-center" *ngIf="estacion.ventaBruta">
-                            {{ i+ 1  }}
+                            {{ i+ 1 }}
                         </td>
                         <td class="text-center" *ngIf="estacion.ventaBruta">
                             {{ estacion.idEstacion }}
@@ -47,15 +47,15 @@
                         <td *ngIf="estacion.ventaBruta">
                             {{ estacion.nombreEstacion }}
                         </td>
-                        <td class="text-center"*ngIf="estacion.ventaBruta"> {{ estacion.ventaBruta | currency }}</td>
+                        <td class="text-center" *ngIf="estacion.ventaBruta"> {{ estacion.ventaBruta | currency }}</td>
 
                         <td class="text-center" *ngIf="estacion.ventaBruta">
-                            {{ estacion.utilidad | currency  }}
+                            {{ estacion.utilidad | currency }}
                         </td>
                         <td class="text-center" *ngIf="estacion.ventaBruta">
                             {{ estacion.fechaUltimoRegistro | date: "dd/MM/yyyy" }}
                         </td>
-                        <td *ngIf="estacion.ventaBruta" >
+                        <td *ngIf="estacion.ventaBruta">
                             <button class="btn btn-info btn-sm" title="Detalles" (click)="VerModal(estacion)"><i
                                     class="fas fa-info"></i></button>
                         </td>
@@ -67,9 +67,9 @@
                 <tfoot class="thead-dark">
                     <tr>
                         <th colspan="3" scope="col" class="text-center">Totales</th>
-                        <th scope="col" class="text-center" title ="Total Ventas Brutas">{{  totalVentasBrutas | currency }}</th>
-                        <th scope="col" class="text-center" title ="Total Utilidad Neta">{{  totalUtilidad | currency }}</th>
-                        <th scope="col" colspan="2" class="text-center" title="Porcentaje de Utilidad Neta" > {{ totalUtilidad/(totalVentasBrutas- totalUtilidad) | percent:'.2-2' }} </th>
+                        <th scope="col" class="text-center" title="Total Ventas Brutas">{{ totalVentasBrutas | currency }}</th>
+                        <th scope="col" class="text-center" title="Total Utilidad Neta">{{ totalUtilidad | currency }}</th>
+                        <th scope="col" colspan="2" class="text-center" title="Porcentaje de Utilidad Neta"> {{ totalUtilidad/(totalVentasBrutas- totalUtilidad) | percent:'.2-2' }} </th>
                     </tr>
                 </tfoot>
             </table>
@@ -80,9 +80,7 @@
 
 
 <app-modal-dialog (hide)="boolNovelty = false" [visible]="boolNovelty">
-    <app-report-ssrs #target [show]="boolNovelty" [https]="true"
-        serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params"
-        [width]="widthReport" [showParameter]="false">
+    <app-report-ssrs #target [show]="boolNovelty" [https]="true" serverReport="simovil.mileniumgas.com:1451/ReportsServer" [urlReport]="nameReport" [parameters]="params" [width]="widthReport" [showParameter]="false">
     </app-report-ssrs>
 
 </app-modal-dialog>

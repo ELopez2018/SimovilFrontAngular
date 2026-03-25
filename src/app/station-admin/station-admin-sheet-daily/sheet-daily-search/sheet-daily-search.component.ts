@@ -180,7 +180,7 @@ export class SheetDailySearchComponent implements OnInit {
     download(dailySheet: EntDailySheet, view) {
         this.getDailySheetComplete(dailySheet).subscribe(
             (planilla) => {
-                console.log('download=>planilla', JSON.stringify(planilla));
+                //console.log('download=>planilla 1 ', JSON.stringify(planilla));//b de solo el console
                 this.printService.printSheetDailyEasy(planilla, view, (res) =>
                     this.principal.showMsg('error', 'error', res)
                 );

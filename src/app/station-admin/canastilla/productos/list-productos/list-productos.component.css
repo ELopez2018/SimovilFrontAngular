@@ -3,5 +3,25 @@ table {
 }
 
 table:hover {
-    cursor: pointer ;
+    cursor: pointer;
+}
+
+.fila_0 {
+    background-color: #E3F2FD;
+}
+
+.fila_0:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+    color: blue;
+}
+
+.fila_1 {
+    background-color: #82B1FF;
+}
+
+.fila_1:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+    color: blue;
 }

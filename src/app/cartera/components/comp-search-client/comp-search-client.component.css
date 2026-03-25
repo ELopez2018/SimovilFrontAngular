@@ -1,0 +1,13 @@
+#tabla_clientes tr:hover {
+    background-color: rgb(250, 250, 57) !important;
+    color: rgb(1, 1, 29);
+    font-weight: bold;
+}
+
+.fila_0 {
+    background-color: #E3F2FD !important;
+}
+
+.fila_1 {
+    background-color: #7bdbfc !important;
+}

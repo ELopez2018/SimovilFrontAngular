@@ -1,0 +1,345 @@
+.titulo {
+    background-color: #343a40;
+    color: #E3F2FD;
+    text-align: center;
+    font-family: cursive;
+    font-size: calc(1em + 1vw);
+}
+
+.encabezado_tabla {
+    background-color: #1565C0;
+    color: #E3F2FD;
+    font-weight: bold;
+}
+
+.margenes_contenido_tabla {
+    padding: 0px;
+}
+
+.marco_tabla {
+    border: 3px solid #212121;
+    padding: 0px;
+}
+
+.texto {
+    font-family: Courier;
+    height: 21px;
+    border: 1px solid rgb(185, 235, 241);
+    padding: 0px;
+}
+
+.fila_titulo {
+    background-color: cornflowerblue;
+    color: black;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+.titulo_col {
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    /* text-shadow: -1px -1px 0 yellow, 1px -1px 0 yellow, -1px 1px 0 yellow, 1px 1px 0 yellow; */
+}
+
+.titulo_observaciones {
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 rgb(0, 255, 13), 1px -1px 0 rgb(81, 255, 0), -1px 1px 0 rgb(51, 255, 0), 1px 1px 0 rgb(72, 255, 0);
+}
+
+.fila_ciclo {
+    text-align: center;
+}
+
+.fila_der {
+    text-align: right !important;
+}
+
+.texto1 {
+    max-width: 70px;
+}
+
+.texto2 {
+    max-width: 130px;
+}
+
+.texto3 {
+    max-width: 150px;
+}
+
+.texto4 {
+    max-width: 33px;
+}
+
+.texto5 {
+    max-width: 230px;
+}
+
+.texto_observacion {
+    max-width: auto;
+}
+
+.textoNumero {
+    font-family: Courier;
+    height: 21px;
+    max-width: 20px;
+}
+
+.color_tabla {
+    background-color: #E3F2FD;
+}
+
+.fila_0 {
+    background-color: #E3F2FD;
+}
+
+.fila_0:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+}
+
+.fila_1 {
+    background-color: #82B1FF;
+}
+
+.fila_1:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+}
+
+.pie_tabla {
+    background-color: #1976D2;
+}
+
+.boton {
+    color: #fff;
+    background-color: #046ef8;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+}
+
+.boton:hover {
+    color: #fff;
+    background-color: #0957a0;
+}
+
+.boton_validar_nc {
+    color: #fff;
+    background-color: #f8a304;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+}
+
+.boton_validar_nc:hover {
+    color: #fff;
+    background-color: #c07e04;
+}
+
+.boton_factura {
+    color: #fff;
+    background-color: #25ad37;
+    border-radius: 7px;
+    border: 1px solid #155f1e;
+}
+
+.boton_factura:hover {
+    color: #fff;
+    background-color: #0d6b19;
+}
+
+.botonMax {
+    color: #fff;
+    background-color: #17cf20;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+    size: 30px;
+}
+
+.botonMax:hover {
+    color: #fff;
+    background-color: #16b41e;
+}
+
+.botonLimpiar {
+    color: #fff;
+    background-color: #ee1b37;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+}
+
+.botonLimpiar:hover {
+    color: #fff;
+    background-color: #c70404;
+}
+
+.atributo {
+    font-weight: bold;
+    color: black;
+}
+
+.input_cuentaCobro {
+    background-color: rgb(242, 253, 87);
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+    font-weight: bold;
+}
+
+.input_cuentaCobro:hover {
+    color: rgb(6, 2, 63);
+    background-color: rgb(236, 248, 64);
+}
+
+
+/* sea nce: Nota crédito electrónica */
+
+.nce {
+    background-color: rgb(245, 253, 125);
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+    font-weight: bold;
+}
+
+.nce:hover {
+    color: rgb(6, 2, 63);
+    background-color: rgb(250, 246, 33);
+}
+
+.fe {
+    background-color: rgb(165, 253, 125);
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+    font-weight: bold;
+}
+
+.fe:hover {
+    color: rgb(6, 2, 63);
+    background-color: rgb(122, 245, 66);
+}
+
+.area_de_texto {
+    background-color: lightgrey;
+    color: blue;
+    font-weight: bold;
+}
+
+.deshabilitado {
+    color: blue;
+    border: 2px solid #006308;
+    cursor: not-allowed;
+    box-shadow: -1px -1px 8px 1px #00800085, 1px 1px 8px 1px #00800085;
+}
+
+.ajedrezCuentasCobro {
+    border: 1px solid black;
+    border-radius: 8px;
+    background: rgb(242, 253, 87);
+    cursor: help;
+}
+
+
+/*************selector****************/
+
+.marcado {
+    background-color: #7cf8b0;
+    font-weight: 900;
+    box-shadow: inset -1px -1px 8px 1px green, inset 1px 1px 8px 1px green;
+    scale: 1;
+}
+
+.cuentas {
+    border: 1px solid rgb(175, 126, 1);
+    margin: 1px 1px 1px 1px;
+    padding: 0px 2px 0px 2px;
+    font-weight: bolder;
+}
+
+
+/*************end selector************/
+
+.input_text_fe {
+    color: rgb(1, 13, 34) !important;
+    font-weight: bold !important;
+    background-color: rgb(97, 240, 84) !important;
+    border: 2px solid rgb(9, 39, 1) !important;
+    box-shadow: -1px -1px 8px 1px rgb(2, 73, 11), 1px 1px 8px 1px rgb(2, 73, 11) !important;
+}
+
+.name_fecha {
+    border: 2px solid red !important;
+}
+
+.name_fecha_vence {
+    border: 2px solid red !important;
+}
+
+.name_valor_total {
+    border: 2px solid red !important;
+}
+
+.name_observacion {
+    border: 2px solid red !important;
+}
+
+.input_text_nc {
+    color: rgb(1, 13, 34) !important;
+    font-weight: bold !important;
+    background-color: rgb(224, 240, 84) !important;
+    border: 2px solid rgb(9, 39, 1) !important;
+    box-shadow: -1px -1px 8px 1px rgb(2, 73, 11), 1px 1px 8px 1px rgb(2, 73, 11) !important;
+}
+
+.caracteresEspeciales_fe {
+    color: rgb(1, 13, 34) !important;
+    font-weight: bold !important;
+    background-color: rgb(9, 248, 129) !important;
+    border: 2px solid rgb(206, 252, 3) !important;
+    box-shadow: -1px -1px 8px 1px rgb(1, 34, 17), 1px 1px 8px 1px rgb(1, 34, 17) !important;
+}
+
+.caracteresEspeciales_nc {
+    color: rgb(1, 13, 34) !important;
+    font-weight: bold !important;
+    background-color: rgb(237, 240, 83) !important;
+    border: 2px solid rgb(206, 252, 3) !important;
+    box-shadow: -1px -1px 8px 1px rgb(1, 34, 17), 1px 1px 8px 1px rgb(1, 34, 17) !important;
+}
+
+.input_text_fe2 {
+    color: #000;
+    font-weight: bold;
+}
+
+.input_text_nc2 {
+    color: #000;
+    font-weight: bold;
+}
+
+.parecer_boton {
+    box-shadow: inset 0px 0px 11px 2px #0a78ff;
+    cursor: pointer;
+}
+
+i.fas.fa-info-circle::before {
+    color: royalblue;
+}
+
+div#informacion {
+    width: 268px;
+    height: 350px;
+    position: absolute;
+}
+
+.azul {
+    background: rgba(2, 117, 216, 0.95);
+    color: white;
+    z-index: 1;
+    left: 484px;
+}
+
+
+/* div#informacion.card.azul {
+    box-shadow: 0 0 20px rgb(241 239 100);
+    border-radius: 5px;
+} */

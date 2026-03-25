@@ -1,0 +1,95 @@
+<div class="container-fluid my-4">
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            <div class="input-group">
+                <select class="form-control form-control-sm " (change)="CambiaEstacion()" [disabled]="stationCode || !estadoLecturas" [(ngModel)]="stationSel">
+                    <option *ngFor="let item of stationsAll" [ngValue]="item">{{
+                        item.nombreEstacion
+                    }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 justify-content-center">
+            <p-calendar [(ngModel)]="Fecha" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy" [disabled]="!estadoLecturas"></p-calendar>           
+        </div>
+
+        <div class="col-sm-2 justify-content-center">
+            <div class="input-group">
+                <select class="form-control form-control-sm " [(ngModel)]="TurnoSel" [disabled]="!estadoLecturas">
+                    <option *ngFor="let item of Turnos" [ngValue]="item">{{
+                            item.Value
+                        }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-2 justify-content-center">
+            <button class="btn btn-block btn-info mr-3" (click)="Agregar()" [disabled]="!estadoLecturas">
+                <span class="fas fa-file-download fa-fw"></span> Registrar+
+            </button>
+        </div>
+    </div>
+
+    <div class="row justify-content-center pt-5" [hidden]="estadoLecturas">
+        <div class="col" *ngIf="estacionesTerpelPOS.includes(stationCode)">
+            <form enctype="multipart/form-data">
+                <fieldset class="pt-0">
+                    <legend>Seleccionar reporte de Terpel POS (Excel)</legend>
+                    <div class="form-row">
+                        <div class="form-group mb-0">
+                            <input type="file" (change)="fileChangeTerpel($event);" #FileReaderTerpel
+                                class="btn btn-block btn-sm btn-primary text-truncate" />
+                            <i class="fas fa-upload fa-fw"></i> de TERPEL
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col" *ngIf="estacionesDominus.includes(stationCode)">
+            <form enctype="multipart/form-data">
+                <fieldset class="pt-0">
+                    <legend>Seleccionar reporte de Dominus (Excel)</legend>
+                    <div class="form-row">
+                        <div class="form-group mb-0">
+                            <input type="file" (change)="fileChangeDominus($event);" #FileReaderDominus
+                                class="btn btn-block btn-sm btn-primary text-truncate" />
+                            <i class="fas fa-upload fa-fw"></i> de DOMINUS
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="col" *ngIf="estacionesFuelControl.includes(stationCode)">
+            <form enctype="multipart/form-data">
+                <fieldset class="pt-0">
+                    <legend>Seleccionar reporte de FuelControl (Excel)</legend>
+                    <div class="form-row">
+                        <div class="form-group mb-0">
+                            <input type="file" (change)="fileChangeTerpel($event);"
+                                class="btn btn-block btn-sm btn-primary text-truncate" />
+                            <i class="fas fa-upload fa-fw"></i> de FUEL CONTROL
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="row justify-content-center pt-5">
+        <div class="col-sm-2 justify-content-center">
+            <button class="btn btn-block btn-success mr-3" (click)="Guardar()" [hidden]="estadoLecturas">
+                <span class="fas fa-thumbs-up"></span> Guardar Lecturas
+            </button>
+        </div>
+        <div class="col-sm-2 justify-content-center">
+            <button class="btn btn-block btn-danger mr-3" (click)="Limpiar()" [hidden]="estadoLecturas">
+                <span class="fas fa-thumbs-down"></span> Cancelar
+            </button>
+        </div>
+    </div>
+
+</div>

@@ -26,7 +26,7 @@ export class StationConsumptionAddComponent implements OnInit {
     articles: EntArticle[];
     numitem: number;
     boolWarn = false;
-
+    bonoSoat: boolean = false;
     boolClient = false;
     clientSel: EntClient;
     codStation: number;
@@ -93,9 +93,10 @@ export class StationConsumptionAddComponent implements OnInit {
             tiquete: [null, [Validators.required, Validators.min(0)]],
             fecha: [a.fecha, Validators.required],
             hora: [null],
+            kilometraje: [null, [Validators.required, Validators.min(0)]],
             placa: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
             articulo: [a.articulo, Validators.required],
-            cantidad: [null, [Validators.required, Validators.min(0), Validators.max(999)]],
+            cantidad: [null, [Validators.required, Validators.min(0), Validators.max(9999)]],
             total: [null, [Validators.required, Validators.pattern('^[0-9]*$')]]
         });
     }
@@ -279,6 +280,7 @@ export class StationConsumptionAddComponent implements OnInit {
                 tiquete: number,
                 fecha: string,
                 hora: string,
+                kilometraje: number,
                 placa: string,
                 articulo: number,
                 cantidad: number,
@@ -304,6 +306,7 @@ export class StationConsumptionAddComponent implements OnInit {
                     tiquete: a.tiquete,
                     fecha: a.fecha,
                     hora: (a.hora != null ? a.hora : '00:00'),
+                    kilometraje: a.kilometraje,
                     placa: cleanString(a.placa).toUpperCase(),
                     articulo: (a.articulo as EntArticle).ID,
                     cantidad: a.cantidad,

@@ -1,0 +1,26 @@
+.titulo {
+    background-color: #343a40;
+    color: #E3F2FD;
+    text-align: center;
+    font-family: cursive;
+    font-size: calc(1em + 1vw);
+}
+
+.color_tabla {
+    background-color: #E3F2FD;
+    /* background: #232c35 url(../../../assets/img/textura.png) repeat fixed;
+    padding-top: 60px;
+    padding-bottom: 60px; */
+}
+
+.boton {
+    color: #000;
+    background-color: #06f13d;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+}
+
+.boton:hover {
+    color: #000;
+    background-color: #04d134;
+}

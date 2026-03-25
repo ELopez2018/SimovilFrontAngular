@@ -1,0 +1,24 @@
+.ondas_green {
+    width: 16px;
+    height: 16px;
+    background-color: rgb(7, 143, 255);
+    border-radius: 50%;
+    border: 0px;
+    position: relative;
+    animation: animate_green 3s linear infinite
+}
+
+@keyframes animate_green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(4, 253, 170, 0.7), 0 0 0 0 rgb(4, 253, 170, 0.7)
+    }
+    80% {
+        box-shadow: 0 0 0 50px rgb(4, 253, 170, 0), 0 0 0 0 rgb(4, 253, 170, 0.7)
+    }
+    160% {
+        box-shadow: 0 0 0 50px rgb(4, 253, 170, 0), 0 0 0 30px rgb(4, 253, 170, 0)
+    }
+    200% {
+        box-shadow: 0 0 0 0 rgb(4, 253, 170, 0), 0 0 0 30px rgb(4, 253, 170, 0)
+    }
+}

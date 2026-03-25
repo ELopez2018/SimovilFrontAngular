@@ -1,0 +1,62 @@
+/* https://htmlcolorcodes.com/es/tabla-de-colores/tabla-de-colores-diseno-de-materiales/ */
+
+.titulo {
+    background-color: #343a40;
+    color: #E3F2FD;
+    text-align: center;
+    font-family: cursive;
+    font-size: calc(1em + 1vw);
+}
+
+.encabezado_tabla {
+    background-color: #1565C0;
+    color: #E3F2FD;
+    font-weight: bold;
+}
+
+.fila_0 {
+    background-color: #E3F2FD;
+}
+
+.fila_0:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+}
+
+.fila_1 {
+    background-color: #82B1FF;
+}
+
+.fila_1:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+}
+
+.pie_tabla {
+    background-color: #1976D2;
+}
+
+.boton {
+    color: #fff;
+    background-color: #42486b;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+}
+
+.boton:hover {
+    color: #fff;
+    background-color: #2e3044;
+}
+
+.margenes_contenido_tabla {
+    padding: 0px;
+}
+
+.marco_tabla {
+    border: 3px solid #212121;
+    padding: 0px;
+}
+
+.color_tabla {
+    background-color: #E3F2FD;
+}

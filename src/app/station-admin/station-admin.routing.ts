@@ -1,6 +1,12 @@
+import { AddNCEComponent } from './station-admin-consumption/factura-electronica/add-nce/add-nce.component';
+import { AuthGuard } from './../guards/auth.guard';
+import { FacturaElectronicaComponent } from './station-admin-consumption/factura-electronica/factura-electronica.component';
+import { CuposConsumidosComponent } from './station-admin-consumption/cupos-consumidos/cupos-consumidos.component';
+import { SheetDailyEditMGComponent } from './station-admin-sheet-daily/sheet-daily-edit-mg/sheet-daily-edit-mg.component';
+import { SheetDailyAddMGComponent } from './station-admin-sheet-daily/sheet-daily-add-mg/sheet-daily-add-mg.component';
+import { Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { StationAdminComponent } from './station-admin.component';
-import { AuthGuard } from '../guards/auth.guard';
 import { StationAdminSheetDailyComponent } from './station-admin-sheet-daily/station-admin-sheet-daily.component';
 import { SheetDailySearchComponent } from './station-admin-sheet-daily/sheet-daily-search/sheet-daily-search.component';
 import { SheetDailyAddComponent } from './station-admin-sheet-daily/sheet-daily-add/sheet-daily-add.component';
@@ -10,6 +16,7 @@ import { ReportLecturasComponent } from './cpl/report-lecturas/report-lecturas.c
 import { StationAdminConsumptionComponent } from './station-admin-consumption/station-admin-consumption.component';
 import { StationConsumptionSearchComponent } from './station-admin-consumption/station-consumption-search/station-consumption-search.component';
 import { StationConsumptionAddComponent } from './station-admin-consumption/station-consumption-add/station-consumption-add.component';
+import { StationConsumptionFLMComponent } from './station-admin-consumption/station-consumption-flm/station-consumption-flm.component';
 import { StationConsumptionEditComponent } from './station-admin-consumption/station-consumption-edit/station-consumption-edit.component';
 import { StationConsumptionFormapagoComponent } from './station-admin-consumption/stationConsumptionFormapago/stationConsumptionFormapago.component';
 import { StationConsumptionReportsComponent } from './station-admin-consumption/station-consumption-reports/station-consumption-reports.component';
@@ -42,6 +49,8 @@ import { FuelUnloadComponent } from '../inventory/fuel-unload/fuel-unload.compon
 import { StationAdminCalibrationComponent } from './station-admin-calibration/station-admin-calibration.component';
 import { ReturnedComponent } from '../inventory/returned/returned.component';
 import { FuelTransferComponent } from '../inventory/fuel-transfer/fuel-transfer.component';
+import { MapaTanqueComponent } from './../inventory/mapa-tanque/mapa-tanque.component';
+import { InventarioFisicoComponent } from './../inventory/fisico/inventario-fisico.component';
 import { CplComponent } from './cpl/cpl.component';
 import { HomeCPLComponent } from './cpl/home-cpl/home-cpl.component';
 import { IngresoLecturasComponent } from './cpl/ingreso-lecturas/ingreso-lecturas.component';
@@ -55,6 +64,8 @@ import { StationConsumptionComponent } from '../station/station-consumption/stat
 import { StationOrderComponent } from '../station/station-order/station-order.component';
 import { StationPaymentComponent } from '../station/station-payment/station-payment.component';
 import { ProductCodigoEditComponent } from './canastilla/productos/product-add/product-codigo-edit/product-codigo-edit.component';
+import { AddFEComponent } from './station-admin-consumption/factura-electronica/add-fe/add-fe.component';
+import { IngresoAutomaticoComponent } from './cpl/ingreso-automatico/ingreso-automatico.component';
 
 const ROUTES: Routes = [
     {
@@ -65,6 +76,8 @@ const ROUTES: Routes = [
                     { path: 'search', component: SheetDailySearchComponent },
                     { path: 'add', component: SheetDailyAddComponent, canDeactivate: [CanDesactivateGuard] },
                     { path: 'edit', component: SheetDailyEditComponent, canDeactivate: [CanDesactivateGuard] },
+                    { path: 'addMG', component: SheetDailyAddMGComponent, canDeactivate: [CanDesactivateGuard] },
+                    { path: 'editMG', component: SheetDailyEditMGComponent, canDeactivate: [CanDesactivateGuard] },
                     { path: 'ReportesCpl', component: ReportLecturasComponent },
                     { path: '', redirectTo: 'search', pathMatch: 'full' },
                 ]
@@ -77,13 +90,22 @@ const ROUTES: Routes = [
                     { path: 'formaPagos', component: StationConsumptionFormapagoComponent },
                     { path: 'consumptionReports', component: StationConsumptionReportsComponent },
                     { path: 'otrasVentasAdd', component: OtrasVentasAddComponent },
+                    { path: 'addFlotaMacarena', component: StationConsumptionFLMComponent},
+                    { path: 'verCuposConsumidos', component: CuposConsumidosComponent},
                     { path: '', redirectTo: 'search', pathMatch: 'full' },
                 ]
             },
             { path: 'receivable', component: StationAdminReceivableComponent },
-
+            { path: 'cuposConsumidos', component: CuposConsumidosComponent },
+            {
+                path: 'fe', component: FacturaElectronicaComponent, canActivateChild: [AuthGuard], children: [
+                { path: 'addfe', component: AddFEComponent},
+                { path: 'addnce', component: AddNCEComponent}
+            ]
+        },
         ]
     },
+
     {
         path: 'ppalCanastilla', component: PpalCanastillaComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
             { path: '', redirectTo: 'homeCanastilla', pathMatch: 'full' },
@@ -118,7 +140,9 @@ const ROUTES: Routes = [
             { path: 'fuelUnload', component: FuelUnloadComponent },
             { path: 'calibration', component: StationAdminCalibrationComponent },
             { path: 'returned', component: ReturnedComponent },
-            { path: 'fuelTransfer', component: FuelTransferComponent }
+            { path: 'fuelTransfer', component: FuelTransferComponent },
+            { path: 'mapatanques', component: MapaTanqueComponent },
+            { path: 'fisico', component: InventarioFisicoComponent }
         ]
     },
     {
@@ -126,6 +150,7 @@ const ROUTES: Routes = [
             { path: '', redirectTo: 'homeCPL', pathMatch: 'full' },
             { path: 'homeCPL', component: HomeCPLComponent },
             { path: 'ingresoLecturas', component: IngresoLecturasComponent },
+            { path: 'ingresoAutomatico', component: IngresoAutomaticoComponent },
             { path: 'EditLecturas', component: EditLecturasComponent },
             { path: 'ConfigMangeras', component: ConfigMangerasComponent },
             { path: 'ReportesCpl', component: ReportLecturasComponent },

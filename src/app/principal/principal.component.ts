@@ -1,3 +1,6 @@
+import { EntCupo } from './../Class/EntCupo';
+import { CarteraService } from './../services/cartera.service';
+import { DataCupoService } from './../services/data-cupo.service';
 import { Component, OnInit, HostListener, Injectable } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
 import { AuthenticationService } from '../services/authentication.service';
@@ -33,6 +36,11 @@ export class PrincipalComponent implements OnInit {
     NombreUsuario = null;
     IdEstacion: number;
     NombreEstacion = null;
+    cupoCartera: EntCupo[] = [];
+    estadoCupo: string;
+    abrirChat:number = 0;
+    miniChat:number=0;
+    contenidoChat:string ='';
     constructor(
         private locationStrategy: LocationStrategy,
         private authenticationService: AuthenticationService,
@@ -40,7 +48,9 @@ export class PrincipalComponent implements OnInit {
         private utilService: UtilService,
         private basicDataService: BasicDataService,
         private messageService: MessageService,
-        private nominaService: NominaService
+        private nominaService: NominaService,
+        public dataCupoService: DataCupoService,
+        private carteraService: CarteraService
     ) {
         this.url = this.locationStrategy;
         this.version = basicDataService.version;
@@ -51,7 +61,8 @@ export class PrincipalComponent implements OnInit {
     ngOnInit() {
         this.innerWidth = window.innerWidth;
         this.NombreUsuario = this.storageService.getCurrentUserDecode().Nombre;
-        this.IdEstacion = this.storageService.getCurrentStation()
+        this.IdEstacion = this.storageService.getCurrentStation();
+        this.dataCupoService.idEstacion = this.IdEstacion;
         if (this.IdEstacion) {
             this.nominaService.GetStations().subscribe(res => {
                     this.NombreEstacion = res.find(e => e.idEstacion == this.IdEstacion).nombreEstacion;
@@ -99,19 +110,10 @@ export class PrincipalComponent implements OnInit {
     }
 
     logout() {
+
         this.utilService.confirm('¿Deseas salir de Simovil?', result => {
             if (result) {
                 this.storageService.logout();
-                // this.utilService.loader(true);
-                // this.show(false);
-                // this.authenticationService.logout().subscribe((data: boolean) => {
-                //   this.utilService.loader(false);
-                //   if (data)
-                //     this.storageService.logout();
-                // }, error => {
-                //   this.utilService.loader(false);
-                //   console.log(error);
-                // });
             }
         });
     }
@@ -150,10 +152,6 @@ export class PrincipalComponent implements OnInit {
 
     getMenuItem() {
 
-        // this.basicDataService.ObsMenu.subscribe(resp => {
-        //     this.navItems = resp;
-        //     console.log(resp);
-        // });
         if (this.basicDataService.menu.length != 0) {
             this.navItems = this.basicDataService.menu;
         } else {
@@ -171,4 +169,106 @@ export class PrincipalComponent implements OnInit {
     get notLoginPath() {
         return this.url.path().indexOf('/login') < 0;
     }
+
+    verCupoConsumido(){
+            this.carteraService.getDatosCupoConsumido(this.IdEstacion).subscribe(data => {
+            console.log('verificar parámetros:) estación:) ' + this.IdEstacion);
+            if (data && data.length == 0) {
+                console.log('%c' + 'no hay registros de cupo que le falte el 20% por consumir. '+JSON.stringify(data), 'color: blue; font-weight: bold;' );
+                this.dataCupoService.alertaCupoConsumido = false;//alerta verde
+                this.limpiar();
+            }
+            if(data.length > 0){
+                console.log('%c' + 'notificar al correo. ', 'background-color: yellow; color: black; font-weight: bold;' );
+                this.notificarAdmon(data);//here notificar al correo
+            }
+            }, error => {
+            console.log('error=> '+error+' ha ocurrido un error durante la consulta al cupo consumido. '+error.error.message);
+            });
+    }
+
+    notificarAdmon(data){
+        console.log('%c' + 'notificando... '+JSON.stringify(data), 'background-color: lime; color: black; font-weight: bold;' );//quitar solo json-data
+            this.cupoCartera = data;
+            for(var id in this.cupoCartera){
+                if(this.cupoCartera[id].cupoConsumido >= 80 && this.cupoCartera[id].notifyMail == 0){
+                    this.dataCupoService.alertaCupoConsumido = true;//alerta roja
+                    //here enviar correos
+                    console.log('verificar id_cupo: '+this.cupoCartera[id].idCupo);
+                    this.setEstadoCupo(this.cupoCartera[id].estadoCupo);
+                    const parametros = {
+                        'idCupo': this.cupoCartera[id].idCupo,
+                        'nombre': this.cupoCartera[id].nombre,
+                        'codCliente': this.cupoCartera[id].codCliente,
+                        'cupoAsignado': this.cupoCartera[id].cupoAsignado,
+                        'cupoDisponible': this.cupoCartera[id].cupoDisponible,
+                        'estadoCupo': this.estadoCupo,
+                        'detalleTipoCupo': this.cupoCartera[id].detalleTipoCupo,
+                        'nombreEstacion': this.cupoCartera[id].nombreEstacion,
+                        'cupoConsumido': this.cupoCartera[id].cupoConsumido,
+                        'emailAdminEds': this.cupoCartera[id].emailAdminEds
+                    };
+                    console.log('objeto component: '+JSON.stringify(parametros));
+                    this.carteraService.notificacionHaciaClienteAnticipo(parametros).subscribe(result => {
+                        console.log('success', 'Éxito', 'campo notify_mail ha sido actualizado con éxito. '+JSON.stringify(result));
+                        }, error => {
+                        console.log('error, ubicación: clase Component '+error.error.message);
+                        });
+                    //here actualizar campo notifyMail a 1 en la bd por registros de 1 en 1 where idCupo = var id del for
+                }
+                if(this.cupoCartera[id].cupoConsumido >= 80 && this.cupoCartera[id].notifyMail == 1){
+                    this.dataCupoService.alertaCupoConsumido = true;//alerta roja
+                }
+                if(this.cupoCartera[id].cupoConsumido < 80 && this.cupoCartera[id].notifyMail == 0){
+                    this.dataCupoService.alertaCupoConsumido = false;//alerta verde
+                    console.log('luz verde... length'+this.cupoCartera.length);
+                }
+            }
+    }
+
+    setEstadoCupo(estadoDelCupo){
+        if(estadoDelCupo == true){
+            this.estadoCupo = 'Activo';
+        }
+        if(estadoDelCupo == false){
+            this.estadoCupo = 'Inactivo';
+        }
+    }
+
+    limpiar(){
+        this.cupoCartera = [];
+    }
+    
+    abreChat(){
+        if(this.abrirChat==1){
+            this.abrirChat=0;
+            this.contenidoChat = ''
+        } else {
+            this.abrirChat=1;
+            this.miniChat=0
+        }
+    }
+
+    minimizaChat() {
+        if(this.miniChat==1){
+            this.miniChat=0;
+        } else {
+            this.miniChat=1;
+        }
+        console.log(this.miniChat)
+    }
+    
+    guardar(){
+        if(this.contenidoChat.length <= 0){
+            this.showMsg('error', 'ERROR', 'El mensaje no tiene un contenido');
+        }
+
+        if(this.contenidoChat.length > 0){
+            this.showMsg('success', 'MENSAJE ENVIADO', 'El mensaje se envio a: Coordinadorsistemas@mineliumgas.com');
+            this.contenidoChat = '';
+            this.abrirChat=0;
+        }
+        console.log(this.contenidoChat, ' - ', this.NombreUsuario,' - ', this.NombreEstacion)
+    }
+
 }

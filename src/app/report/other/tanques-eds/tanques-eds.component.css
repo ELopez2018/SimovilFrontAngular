@@ -1,0 +1,106 @@
+.marco_tabla {
+    padding: 10px 10px 10px 10px;
+    border-radius: 3px;
+    background: linear-gradient(45deg, #C9CDCE 0%, #1C6EA4 50%, #74F5FF 100%);
+}
+
+.marco_tablaII {
+    padding: 10px 10px 10px 10px;
+    border-radius: 2px;
+    background: linear-gradient(45deg, #C9CDCE 0%, #1C6EA4 50%, #122627 100%);
+}
+
+.encabezado_tabla {
+    border: 1px solid rgb(4, 247, 247);
+    background-color: rgb(7, 143, 255);
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+    border-radius: 2px;
+    padding: 0px;
+}
+
+.col_encabezado {
+    border-right: 1px solid rgb(4, 247, 247);
+}
+
+@media (min-width: 768px) {
+    .margenes_filas {
+        border-top: 0px solid rgb(4, 247, 247);
+        text-align: left;
+        font-weight: bold;
+        padding: 0px;
+        height: 32px;
+    }
+}
+
+.tanque_rojo {
+    background-color: rgb(226, 17, 17);
+}
+
+.tanque_fila_roja {
+    background-color: rgb(226, 17, 17);
+    font-weight: bold;
+    color: white;
+}
+
+.tanque_amarillo {
+    background-color: yellow;
+    font-weight: bold;
+    color: black;
+}
+
+.tanque_green {
+    background-color: green;
+}
+
+.fila_0 {
+    background-color: #015b8f;
+    color: rgb(6, 245, 47);
+    font-weight: bold;
+}
+
+.fila_1 {
+    background-color: #0989d3;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.fila_0:hover {
+    background-color: #07fafa;
+    font-weight: bold;
+    color: #000;
+}
+
+.fila_1:hover {
+    background-color: #07fafa;
+    font-weight: bold;
+    color: #000;
+}
+
+.margenes_columnas {
+    border-right: 1px solid #05ecf7;
+    border-bottom: 1px solid #05ecf7;
+    padding-left: 5px;
+    margin: 0px;
+    height: 32px;
+}
+
+.progress-bar-vertical {
+    width: 70px;
+    min-height: 100px;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 40px;
+    float: left;
+    border: 1px solid #06f5c9;
+}
+
+.progress-bar-vertical .progress-bar {
+    width: 100%;
+    height: 0;
+    -webkit-transition: height 0.6s ease;
+    -o-transition: height 0.6s ease;
+    transition: height 0.6s ease;
+}

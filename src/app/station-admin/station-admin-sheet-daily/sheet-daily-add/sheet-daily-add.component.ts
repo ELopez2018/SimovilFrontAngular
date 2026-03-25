@@ -46,6 +46,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     // tslint:disable-next-line: member-ordering
     notdecimal = currencyNotDecimal();
     station: EntStation;
+    codEstacion: EntStation;
     paymentForm: FormGroup;
     // tslint:disable-next-line: member-ordering
     cashForm: FormGroup;
@@ -63,6 +64,9 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     boolSearchProvider = false;
     indexselProvider;
     show = [false, false, false, false, false, false];
+    estacionesAprovechamientos:any = [63,21,96,94,61,65,62,73,92,95,11,91,102,98,64,51,12,111,131]
+    estacionesBono:any = [91,92,51,73,61,65,11,12,96,94,95,102,99,121,131,111,64,98]
+    estacionesBonoTaxi:any = [91,92,93]
 
     proveedorList: FormArray;
 
@@ -98,6 +102,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     pagBank = 0;
     cant = null;
     fileToUp = [null, null, null, null, null, null, null, null, null, null];
+    estacionId: number;
 
     constructor(
         private carteraService: CarteraService,
@@ -112,11 +117,20 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         super();
         this.title.setTitle('Crear Planilla - Simovil');
         this.initial();
-
+        this.noEsCusiana();
     }
 
     ngOnInit() {
         this.buildForms();
+    }
+
+    noEsCusiana() {
+        this.nominaService.GetStations(this.storageService.getCurrentStation()
+        ).subscribe(data => {
+            this.codEstacion = data[0];
+            this.estacionId = this.codEstacion.idEstacion;
+            console.log('ver id de estación:) ' + this.codEstacion.idEstacion);//b
+        }, error => console.log(error));
     }
 
     initial() {
@@ -204,9 +218,9 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
             planilla.V_CANT = planilla.PLA_DIA_TUR.reduce((a, b) => a + b.CANT_VENTA, 0);
         } else if (this.salesTurn && this.salesTurn.DETALLE && this.salesTurn.DETALLE.length > 0) {
             // agregar validacion de numeros de turnos editados.
-            let turnoMax: number=0;
-            this.salesTurn.DETALLE.forEach( e =>{
-                if (turnoMax<e.NUM_TURNO)turnoMax=e.NUM_TURNO
+            let turnoMax: number = 0;
+            this.salesTurn.DETALLE.forEach(e => {
+                if (turnoMax < e.NUM_TURNO) turnoMax = e.NUM_TURNO
             })
             for (let index = 1; index <= turnoMax; index++) {
                 const element = this.salesTurn.DETALLE.filter(e => e.NUM_TURNO === index);
@@ -248,6 +262,8 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         planilla.OI_PREMIO = OI.premio;
         planilla.OI_APROV_DET = cleanString(OI.aprovNom);
         planilla.OI_APROV = OI.aprovVal;
+        planilla.OI_APROV2_DET = cleanString(OI.aprov2Nom);
+        planilla.OI_APROV2 = OI.aprov2Val;
         planilla.OI_PRESTAMO_LIQ = OI.presLiq;
         planilla.OI_CUSIANA = OI.cusiana;
         planilla.OI_PAG_CAR_CLI = car;
@@ -256,12 +272,13 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         planilla.OI_OTRO_DET = cleanString(OI.otroNom);
         planilla.OI_OTRO = OI.otroVal;
         planilla.OI_PRESTAMO_DET = cleanString(OI.prestamoNom);
-        planilla.OI_PRESTAMO = OI.prestamoVal;
+        planilla.OI_PRESTAMO = 0//OI.prestamoVal;
         planilla.OI_TOTAL = OI.total;
         planilla.TOTAL_OI_VENTAS = this.ventaTotal;
 
         // FORMAS DE PAGO
         let FP = this.paymentForm.getRawValue();
+        console.log("formas de pago: " + JSON.stringify(FP));
         let listclientVen: EntDailySheetVenCli[] = [];
         var car2 = 0;
         var ant2 = 0;
@@ -270,24 +287,30 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         });
         if (this.dataDaily.PLA_DIA_VEN_CLI && this.dataDaily.PLA_DIA_VEN_CLI.length > 0) {
             this.dataDaily.PLA_DIA_VEN_CLI_DET.map(e => {
-                listclientVen.push({ ID: e.ID, COD_CLIENTE: e.COD_CLIENTE, TIPO_CLIENTE: e.TIPO_CLIENTE, VALOR: e.VALOR });
+                listclientVen.push({ ID: e.ID, COD_CLIENTE: e.COD_CLIENTE, TIPO_CLIENTE: e.TIPO_CLIENTE, VALOR: e.VALOR, CANTIDADVENTAS: e.CANTIDADVENTAS, PLACA: e.PLACA });
+
             });
         }
         planilla.FP_BONO_PUNTO = FP.bonoPunto;
         planilla.FP_BONO_CUMPLE = FP.bonoCumple;
         planilla.FP_BONO_SOAT = FP.bonoSoat;
+        planilla.FP_CANTBONO_SOAT = FP.CantbonoSoat;
         planilla.FP_CALIBRACION = FP.calibracion;
         planilla.FP_CLI_CRE = car2;
         planilla.FP_CLI_ANT = ant2;
         planilla.FP_DATAFONO = FP.datafono;
+        planilla.FP_CANTDATAFONO = FP.Cantdatafono;
         planilla.FP_DESC = FP.descuento;
-        planilla.FP_DEV = FP.devolucion;
+        planilla.FP_CANTDESC = FP.Cantdescuento;
+        planilla.FP_DEV = 0//FP.devolucion;
         planilla.FP_DONACION = FP.donacion;
         planilla.FP_MANT = FP.mantenimiento;
         planilla.FP_PREST = FP.prestamo;
         planilla.FP_OTRO_DET = cleanString(FP.otroDetalle);
         planilla.FP_OTRO = FP.otro;
         planilla.FP_TOTAL = FP.total;
+        planilla.FP_CANTBONOSAUTOPUNTOS = FP.CantbonoPunto;
+        planilla.FP_CANTBONOSCUMPLE = FP.CantbonoCumple;
         planilla.TOTAL_EFEC_REC = this.efectivoRecibido;
         planilla.CAJ_CUST_SALDO = this.cajaCustodia;
 
@@ -318,8 +341,9 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         DE.proveedorAnticipoList.map((e: any) => {
             listAnticiposAProvee.push({
                 proveedor: e.proveedor,
-                valor: e.valor,
-                detalle: 'ANTICIPO POR PLANILLA DIARIA - ' + 'VALOR: ' + e.valor + ' ' + e.detalle,
+                /* valor: e.valor, */ //original
+                valor: e.AntValor,
+                detalle: 'ANTICIPO POR PLANILLA DIARIA - ' + 'VALOR: ' + e.AntValor + ' ' + e.detalle,
                 estado: e.estado,
                 factura: e.factura,
                 fecha: e.fecha,
@@ -329,7 +353,9 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
 
         planilla.DE_PROV = DE.proveedor;
         planilla.DE_REEM_CAJ_MEN_NUM = Number.isInteger(DE.reembolsoNum) ? +DE.reembolsoNum : null;
+        planilla.DE_REEM_CAJ_MEN_NUM2 = Number.isInteger(DE.reembolsoNum2) ? +DE.reembolsoNum2 : null;
         planilla.DE_REEM_CAJ_MEN = DE.reembolso;
+        planilla.DE_REEM_CAJ_MEN2 = DE.reembolso2;
         planilla.DE_SERV_PUB_DET = cleanString(DE.servicioNom);
         planilla.DE_SERV_PUB = DE.servicioVal;
         planilla.DE_OTRO_DET = DetallesOtros;
@@ -359,7 +385,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         planilla.PLA_DIA_PAG_PRO = listprovider;
         planilla.PLA_DIA_VEN_CLI = listclientVen;
         planilla.FILES = this.fileToUp;
-        console.log(planilla);
+        //console.log(planilla);
         this.showPreview(planilla, val);
 
         this.boolSave = true;
@@ -476,123 +502,259 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     }
 
     buildForms() {
-        this.otherForm = this.fb.group({
-            lubricante: [null, [Validators.required, Validators.min(0)]],
-            soatRef: [null],
-            soatValue: [null, [Validators.required, Validators.min(0)]],
-            soatCom: [null, [Validators.required, Validators.min(0)]],
-            soatVen: [null, [Validators.required, Validators.min(0)]],
-            soatAnu: [null, [Validators.required, Validators.min(0)]],
-            soatReem: [null, [Validators.required, Validators.min(0)]],
-            premio: [null, [Validators.required, Validators.min(0)]],
-            aprovNom: null,
-            aprovVal: [null, [Validators.required]],
-            cliente: null,
-            clienteList: this.fb.array([]),
-            presLiq: [null, [Validators.required, Validators.min(0)]],
-            cusiana: [null, [Validators.required, Validators.min(0)]],
-            otroNom: null,
-            otroVal: [null, [Validators.required, Validators.min(0)]],
-            prestamoNom: null,
-            prestamoVal: [null, [Validators.required, Validators.min(0)]],
-            total: [null, [Validators.required, Validators.min(0)]]
-        });
+        /*
+            this.otherForm = this.fb.group({
+                lubricante: [null, [Validators.required, Validators.min(0)]],
+                soatRef: [null],
+                soatValue: [null, [Validators.required, Validators.min(0)]],
+                soatCom: [null, [Validators.required, Validators.min(0)]],
+                soatVen: [null, [Validators.required, Validators.min(0)]],
+                soatAnu: [null, [Validators.required, Validators.min(0)]],
+                soatReem: [null, [Validators.required, Validators.min(0)]],
+                premio: [null, [Validators.required, Validators.min(0)]],
+                aprovNom: null,
+                aprovVal: [null, [Validators.required]],
+                cliente: null,
+                clienteList: this.fb.array([]),
+                presLiq: [null, [Validators.required, Validators.min(0)]],
+                cusiana: [null, [Validators.required, Validators.min(0)]],
+                otroNom: null,
+                otroVal: [null, [Validators.required, Validators.min(0)]],
+                prestamoNom: null,
+                prestamoVal: [null, [Validators.required, Validators.min(0)]],
+                total: [null, [Validators.required, Validators.min(0)]]
+            });
 
-        this.paymentForm = this.fb.group({
-            bonoPunto: [null, [Validators.required, Validators.min(0)]],
-            bonoCumple: [null, [Validators.required, Validators.min(0)]],
-            bonoSoat: [null, [Validators.required, Validators.min(0)]],
-            calibracion: [null, [Validators.required, Validators.min(0)]],
-            cliente: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
-            clienteList: this.fb.array([]),
-            datafono: [null, [Validators.required, Validators.min(0)]],
-            descuento: [null, [Validators.required, Validators.min(0)]],
-            devolucion: [null, [Validators.required, Validators.min(0)]],
-            donacion: [null, [Validators.required, Validators.min(0)]],
-            mantenimiento: [null, [Validators.required, Validators.min(0)]],
-            prestamo: [null, [Validators.required, Validators.min(0)]],
-            otro: [null, [Validators.required, Validators.min(0)]],
-            otroDetalle: null,
-            total: [null, [Validators.required, Validators.min(0)]]
-        });
-        this.cashForm = this.fb.group({
-            proveedorList: this.fb.array([]),
-            proveedor: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
-            proveedorAnticipoList: this.fb.array([]),
-            Anticipos: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
-            OtrosList: this.fb.array([]),
-            TotalOtros: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
-            reembolsoNum: null,
-            reembolso: [null, [Validators.required, Validators.min(0)]],
-            servicioNom: null,
-            servicioVal: [null, [Validators.required, Validators.min(0)]],
-            otroNom: null,
-            otroVal: [null],
-            totalEfe: [null, [Validators.required, Validators.min(0)]],
-            total: [null, [Validators.required, Validators.min(0)]]
-        });
+            this.paymentForm = this.fb.group({
+                bonoPunto: [null, [Validators.required, Validators.min(0)]],
+                CantbonoPunto: [null, [Validators.required, Validators.min(0)]],
+                bonoCumple: [null, [Validators.required, Validators.min(0)]],
+                CantbonoCumple: [null, [Validators.required, Validators.min(0)]],
+                bonoSoat: [null, [Validators.required, Validators.min(0)]],
+                calibracion: [null, [Validators.required, Validators.min(0)]],
+                cliente: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
+                clienteList: this.fb.array([]),
+                datafono: [null, [Validators.required, Validators.min(0)]],
+                Cantdatafono: [null, [Validators.required, Validators.min(0)]],
+                descuento: [null, [Validators.required, Validators.min(0)]],
+                Cantdescuento: [null, [Validators.required, Validators.min(0)]],
+                devolucion: [null, [Validators.required, Validators.min(0)]],
+                donacion: [null, [Validators.required, Validators.min(0)]],
+                mantenimiento: [null, [Validators.required, Validators.min(0)]],
+                prestamo: [null, [Validators.required, Validators.min(0)]],
+                otro: [null, [Validators.required, Validators.min(0)]],
+                otroDetalle: null,
+                total: [null, [Validators.required, Validators.min(0)]]
+            });
+            this.cashForm = this.fb.group({
+                proveedorList: this.fb.array([]),
+                proveedor: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
+                proveedorAnticipoList: this.fb.array([]),
+                Anticipos: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
+                OtrosList: this.fb.array([]),
+                TotalOtros: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
+                reembolsoNum: null,
+                reembolso: [null, [Validators.required, Validators.min(0)]],
+                servicioNom: null,
+                servicioVal: [null, [Validators.required, Validators.min(0)]],
+                otroNom: null,
+                otroVal: [null],
+                totalEfe: [null, [Validators.required, Validators.min(0)]],
+                total: [null, [Validators.required, Validators.min(0)]]
+            });
 
-        this.bankForm = this.fb.group({
-            lubricanteVal: [null, [Validators.required, Validators.min(0)]],
-            lubricanteDet: null,
-            liquidoVal: [null, [Validators.required, Validators.min(0)]],
-            liquidoDet: null,
-            gasVal: [null, [Validators.required, Validators.min(0)]],
-            gasDet: null,
-            cusianaVal: [null, [Validators.required, Validators.min(0)]],
-            cusianaDet: null,
-            seguroVal: [null, [Validators.required, Validators.min(0)]],
-            seguroDet: null,
-            recaudo: [null, [Validators.required, Validators.min(0)]],
-            total: [null, [Validators.required, Validators.min(0)]]
-        });
-        this.attachedForm = this.fb.group({
-            attachedTypes: this.fb.array([])
-        });
-        this.otherForm.valueChanges.subscribe(e => {
-            setTimeout(() => {
-                let a = this.otherForm.getRawValue();
-                var resCli = 0;
-                a.clienteList.map(el => resCli += el.val);
-                this.otherForm.get('cliente').setValue(resCli, this.emitFalse);
-                this.otherForm.get('total').setValue(a.aprovVal + resCli + a.lubricante + a.otroVal + a.premio + a.prestamoVal + a.soatCom + a.soatValue + a.presLiq + a.cusiana, this.emitFalse);
-            }, 10);
-        });
-        this.paymentForm.valueChanges.subscribe(e => {
-            setTimeout(() => {
-                let a = this.paymentForm.getRawValue();
-                var resCli2 = a.clienteList.reduce((a, b) => a + b.val, 0);
-                this.paymentForm.get('cliente').setValue(resCli2, this.emitFalse);
-                this.paymentForm.get('total').setValue((a.bonoSoat || 0) + (a.calibracion || 0) + (resCli2 || 0) + (a.datafono || 0) + (a.descuento || 0) + (a.devolucion || 0) + (a.donacion || 0) + (a.mantenimiento || 0) + (a.prestamo || 0) + (a.otro || 0) + (a.bonoCumple || 0) + (a.bonoPunto || 0), this.emitFalse);
-            }, 10);
-        });
-        this.cashForm.valueChanges.subscribe(e => {
-            var sum = 0;
-            var sum2 = 0;
-            var otroVal = 0;
-            setTimeout(() => {
-                let a = this.cashForm.getRawValue();
+            this.bankForm = this.fb.group({
+                lubricanteVal: [null, [Validators.required, Validators.min(0)]],
+                lubricanteDet: null,
+                liquidoVal: [null, [Validators.required, Validators.min(0)]],
+                liquidoDet: null,
+                gasVal: [null, [Validators.required, Validators.min(0)]],
+                gasDet: null,
+                cusianaVal: [null, [Validators.required, Validators.min(0)]],
+                cusianaDet: null,
+                seguroVal: [null, [Validators.required, Validators.min(0)]],
+                seguroDet: null,
+                recaudo: [null, [Validators.required, Validators.min(0)]],
+                total: [null, [Validators.required, Validators.min(0)]]
+            });
+            this.attachedForm = this.fb.group({
+                attachedTypes: this.fb.array([])
+            });
+            this.otherForm.valueChanges.subscribe(e => {
+                setTimeout(() => {
+                    let a = this.otherForm.getRawValue();
+                    var resCli = 0;
+                    a.clienteList.map(el => resCli += el.val);
+                    this.otherForm.get('cliente').setValue(resCli, this.emitFalse);
+                    this.otherForm.get('total').setValue(a.aprovVal + resCli + a.lubricante + a.otroVal + a.premio + a.prestamoVal + a.soatCom + a.soatValue + a.presLiq + a.cusiana, this.emitFalse);
+                }, 10);
+            });
+            this.paymentForm.valueChanges.subscribe(e => {
+                setTimeout(() => {
+                    let a = this.paymentForm.getRawValue();
+                    var resCli2 = a.clienteList.reduce((a, b) => a + b.val, 0);
+                    this.paymentForm.get('cliente').setValue(resCli2, this.emitFalse);
+                    this.paymentForm.get('total').setValue((a.bonoSoat || 0) + (a.calibracion || 0) + (resCli2 || 0) + (a.datafono || 0) + (a.descuento || 0) + (a.devolucion || 0) + (a.donacion || 0) + (a.mantenimiento || 0) + (a.prestamo || 0) + (a.otro || 0) + (a.bonoCumple || 0) + (a.bonoPunto || 0), this.emitFalse);
+                }, 10);
+            });
+            this.cashForm.valueChanges.subscribe(e => {
+                var sum = 0;
+                var sum2 = 0;
+                var otroVal = 0;
+                setTimeout(() => {
+                    let a = this.cashForm.getRawValue();
 
-                a.proveedorList.map(e => sum += e.val);
-                a.proveedorAnticipoList.map(e => sum2 += e.AntValor);
-                a.OtrosList.map(e => otroVal += e.otroVal);
+                    a.proveedorList.map(e => sum += e.val);
+                    a.proveedorAnticipoList.map(e => sum2 += e.AntValor);
+                    a.OtrosList.map(e => otroVal += e.otroVal);
 
-                let re = this.cashForm.get('reembolso').value;
-                this.cashForm.get('reembolsoNum').setValue(re && re > 0 ? this.station.num_caja + 1 : null, this.emitFalse);
-                this.cashForm.get('proveedor').setValue(sum, this.emitFalse);
-                this.cashForm.get('Anticipos').setValue(sum2, this.emitFalse);
-                this.cashForm.get('TotalOtros').setValue(otroVal, this.emitFalse);
-                this.cashForm.get('totalEfe').setValue(a.reembolso + a.servicioVal + otroVal, this.emitFalse);
-                this.cashForm.get('total').setValue(sum + sum2 + this.cashForm.get('totalEfe').value, this.emitFalse);
-            }, 10);
-        });
+                    let re = this.cashForm.get('reembolso').value;
+                    this.cashForm.get('reembolsoNum').setValue(re && re > 0 ? this.station.num_caja + 1 : null, this.emitFalse);
+                    this.cashForm.get('proveedor').setValue(sum, this.emitFalse);
+                    this.cashForm.get('Anticipos').setValue(sum2, this.emitFalse);
+                    this.cashForm.get('TotalOtros').setValue(otroVal, this.emitFalse);
+                    this.cashForm.get('totalEfe').setValue(a.reembolso + a.servicioVal + otroVal, this.emitFalse);
+                    this.cashForm.get('total').setValue(sum + sum2 + this.cashForm.get('totalEfe').value, this.emitFalse);
+                }, 10);
+            });
 
-        this.bankForm.valueChanges.subscribe(e => {
-            setTimeout(() => {
-                let a = this.bankForm.getRawValue();
-                this.bankForm.get('total').setValue(a.lubricanteVal + a.liquidoVal + a.gasVal + a.cusianaVal + a.seguroVal + a.recaudo, this.emitFalse);
-            }, 10);
-        });
+            this.bankForm.valueChanges.subscribe(e => {
+                setTimeout(() => {
+                    let a = this.bankForm.getRawValue();
+                    this.bankForm.get('total').setValue(a.lubricanteVal + a.liquidoVal + a.gasVal + a.cusianaVal + a.seguroVal + a.recaudo, this.emitFalse);
+                }, 10);
+            }); asi estaba */ 
+            this.otherForm = this.fb.group({
+                lubricante: [null, [Validators.min(0)]],
+                soatRef: 0,
+                soatValue: 0,
+                soatCom: 0,
+                soatVen: 0,
+                soatAnu: 0,
+                soatReem: 0,
+                premio: [0, [ Validators.min(0)]],
+                aprovNom: 0,
+                aprovVal: [0, [ Validators.min(-999999)]],
+                aprov2Nom: 0,
+                aprov2Val: [0, [ Validators.min(0)]],
+                cliente: 0,
+                clienteList: this.fb.array([]),
+                presLiq: 0,
+                cusiana: 0,
+                otroNom: '',
+                otroVal: 0,
+                prestamoNom: 0,
+                prestamoVal: 0,
+                total: [null, [Validators.required,  Validators.min(-999999)]]
+            });
+
+            this.paymentForm = this.fb.group({
+                bonoPunto: [0, [Validators.min(0)]],
+                CantbonoPunto: [0, [Validators.min(0)]],
+                bonoCumple: [0, [Validators.min(0)]],
+                CantbonoCumple: [0, [Validators.min(0)]],
+                bonoSoat: [0, [Validators.min(0)]],
+                CantbonoSoat: [0, [Validators.min(0)]],
+                calibracion: [0, [Validators.min(0)]],
+                cliente: [{ value: 0, disabled: true }, [Validators.min(0)]],
+                clienteList: this.fb.array([]),
+                datafono: [0, [ Validators.min(0)]],
+                Cantdatafono: [0, [Validators.min(0)]],
+                descuento: [0, [Validators.min(0)]],
+                Cantdescuento: [0, [Validators.min(0)]],
+                devolucion: 0,
+                donacion: 0,
+                mantenimiento: 0,
+                prestamo: 0,
+                otro: 0,
+                otroDetalle: 0,
+                total: [null, [Validators.required, Validators.min(0)]]
+            });
+            this.cashForm = this.fb.group({
+                proveedorList: this.fb.array([]),
+                proveedor: [{ value: 0, disabled: true }, [Validators.min(0)]],
+                proveedorAnticipoList: this.fb.array([]),
+                Anticipos: [{ value: 0, disabled: true }, [Validators.min(0)]],
+                OtrosList: this.fb.array([]),
+                TotalOtros: [{ value: 0, disabled: true }, [Validators.min(0)]],
+                reembolsoNum: 0,
+                reembolsoNum2: 0,
+                reembolso: 0,
+                reembolso2: 0,
+                servicioNom: 0,
+                servicioVal: 0,
+                otroNom: '',
+                otroVal: [0],
+                totalEfe: 0,
+                total: 0,
+            });
+
+            this.bankForm = this.fb.group({
+                lubricanteVal: [null, [Validators.required, Validators.min(0)]],
+                lubricanteDet: null,
+                liquidoVal: [null, [Validators.required, Validators.min(0)]],
+                liquidoDet: null,
+                gasVal: [null, [Validators.required, Validators.min(0)]],
+                gasDet: null,
+                cusianaVal: 0,
+                cusianaDet: 0,
+                seguroVal: 0,
+                seguroDet: 0,
+                recaudo: 0,
+                total: [null, [Validators.required, Validators.min(0)]]
+            });
+            this.attachedForm = this.fb.group({
+                attachedTypes: this.fb.array([])
+            });
+            this.otherForm.valueChanges.subscribe(e => {                
+                setTimeout(() => {
+                    let a = this.otherForm.getRawValue();
+                    var resCli = 0;                    
+                    a.clienteList.map(el => resCli += el.val);
+                    this.otherForm.get('cliente').setValue(resCli, this.emitFalse);
+                    this.otherForm.get('total').setValue(a.aprovVal + a.aprov2Val + resCli + a.lubricante + a.otroVal + a.premio + a.prestamoVal + a.soatCom + a.soatValue + a.presLiq + a.cusiana, this.emitFalse);
+                }, 10);
+            });
+            this.paymentForm.valueChanges.subscribe(e => {
+                setTimeout(() => {
+                    let a = this.paymentForm.getRawValue();
+                    var resCli2 = a.clienteList.reduce((a, b) => a + b.val, 0);
+                    this.paymentForm.get('cliente').setValue(resCli2, this.emitFalse);
+                    this.paymentForm.get('total').setValue((a.bonoSoat || 0) + (a.calibracion || 0) + (resCli2 || 0) + (a.datafono || 0) + (a.descuento || 0) + (a.devolucion || 0) + (a.donacion || 0) + (a.mantenimiento || 0) + (a.prestamo || 0) + (a.otro || 0) + (a.bonoCumple || 0) + (a.bonoPunto || 0), this.emitFalse);
+                }, 10);
+            });
+
+            this.cashForm.valueChanges.subscribe(e => {
+                var sum = 0;
+                var sum2 = 0;
+                var otroVal = 0;                
+                setTimeout(() => {
+                    let a = this.cashForm.getRawValue();
+                    
+                    a.proveedorList.map(e => sum += e.val);
+                    a.proveedorAnticipoList.map(e => sum2 += e.AntValor);
+                    a.OtrosList.map(e => otroVal += e.otroVal);
+                    
+                    let re = this.cashForm.get('reembolso').value;
+                    let re2 = this.cashForm.get('reembolso2').value;
+                    this.cashForm.get('reembolsoNum').setValue(re && re > 0 ? this.station.num_caja + 1 : null, this.emitFalse);
+                    this.cashForm.get('reembolsoNum2').setValue(re2 && re2 > 0 ? this.station.num_caja2 + 1 : null, this.emitFalse);
+                    this.cashForm.get('proveedor').setValue(sum, this.emitFalse);
+                    this.cashForm.get('Anticipos').setValue(sum2, this.emitFalse);
+                    this.cashForm.get('TotalOtros').setValue(otroVal, this.emitFalse);
+                    this.cashForm.get('totalEfe').setValue(a.reembolso + a.reembolso2 + a.servicioVal + a.otroVal + otroVal, this.emitFalse);
+                    this.cashForm.get('total').setValue(sum + sum2 + this.cashForm.get('totalEfe').value, this.emitFalse);
+                }, 10);
+            });
+
+            this.bankForm.valueChanges.subscribe(e => {
+                setTimeout(() => {
+                    let a = this.bankForm.getRawValue();
+                    this.bankForm.get('total').setValue(a.lubricanteVal + a.liquidoVal + a.gasVal + a.cusianaVal + a.seguroVal + a.recaudo, this.emitFalse);
+                }, 10);
+            });
+
+
     }
 
     createItemProvider() {
@@ -829,6 +991,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
             // CPL
             this.carteraService.getCPL(this.station.idEstacion, this.fecha).subscribe(result => {
                 this.utilService.loader(false);
+                console.log('%c data cpl:) ' + JSON.stringify(result), 'color: green; font-weight: bold;');
                 if (result.length == 1) {
                     this.assignCPLToEdit(result[0]);
                     this.principalComponent.showMsg('info', 'INFORMACION', 'Se encontró datos de CPL');
@@ -854,13 +1017,13 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
             arraySum.push(e.TOTAL);
             this.cplTotalGalones += e.CANTIDAD;
         });
-        this.cplSum = Math.round( arraySum.reduce((a, b) => a + b, 0));
+        this.cplSum = Math.round(arraySum.reduce((a, b) => a + b, 0));
         this.TotalSumaEnc = this.cplSum;
     }
 
 
     get ventaTotal() {
-        return this.cplSum + (this.salesTurn ?  Math.round(this.salesTurn.VALOR) : 0) + this.otherForm.get('total').value;
+        return this.cplSum + (this.salesTurn ? Math.round(this.salesTurn.VALOR) : 0) + this.otherForm.get('total').value;
     }
 
     get efectivoRecibido() {
@@ -932,7 +1095,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         this.utilService.loader(true);
 
         // Obtiene las ultimas Lecturas
-        console.log(this.station.idEstacion, newFecha );
+        console.log(this.station.idEstacion, newFecha);
         this.carteraService.getCPL(this.station.idEstacion, newFecha).subscribe(result => {
 
             this.utilService.loader(false);
@@ -1044,7 +1207,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
                     if (result.length == 1) {
                         this.cant = result[0].DETALLE.reduce((a, b) => a + b.CANTIDAD, 0);
                         this.salesTurn = result[0];
-                        this.salesTurn.VALOR = Math.round(this.salesTurn.VALOR );
+                        this.salesTurn.VALOR = Math.round(this.salesTurn.VALOR);
                         this.show[0] = true;
                         this.salesTurnBefore = JSON.parse(JSON.stringify(result[0]));
                         this.lock = true;
@@ -1099,14 +1262,19 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     assignSheet(val: string) {
         this.planilla = val;
         if (val === 'G') {
-            this.otherForm.get('presLiq').setValue(null, [Validators.required, Validators.min(0)]);
-            this.otherForm.get('cusiana').setValue(null, [Validators.required, Validators.min(0)]);
-            this.paymentForm.get('bonoCumple').setValue(null, [Validators.required, Validators.min(0)]);
-            this.paymentForm.get('bonoPunto').setValue(null, [Validators.required, Validators.min(0)]);
+            this.otherForm.get('presLiq').setValue(0, [Validators.min(0)]);
+            this.otherForm.get('cusiana').setValue(0, [Validators.min(0)]);
+            this.paymentForm.get('bonoCumple').setValue(0, [Validators.required, Validators.min(0)]);
+            this.paymentForm.get('bonoPunto').setValue(0, [Validators.required, Validators.min(0)]);
+            this.paymentForm.get('CantbonoPunto').setValue(0, [Validators.required, Validators.min(0)]);
+            this.paymentForm.get('CantbonoCumple').setValue(0, [Validators.required, Validators.min(0)]);
+            this.paymentForm.get('calibracion').setValue(0, [Validators.required, Validators.min(0)]);
             this.otherForm.get('presLiq').enable();
             this.otherForm.get('cusiana').enable();
             this.paymentForm.get('bonoCumple').enable();
             this.paymentForm.get('bonoPunto').enable();
+            this.paymentForm.get('CantbonoPunto').enable();
+            this.paymentForm.get('CantbonoCumple').enable();
             this.otherForm.get('prestamoVal').setValue(0);
             this.otherForm.get('prestamoNom').setValue('');
             this.otherForm.get('prestamoVal').disable();
@@ -1129,9 +1297,9 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
             this.bankForm.get('gasDet').enable();
             this.bankForm.get('cusianaVal').enable();
             this.bankForm.get('cusianaDet').enable();
-            this.bankForm.get('gasVal').setValue(null, [Validators.required, Validators.min(0)]);
+            this.bankForm.get('gasVal').setValue(0, [Validators.min(0)]);
             this.bankForm.get('gasDet').setValue('');
-            this.bankForm.get('cusianaVal').setValue(null, [Validators.required, Validators.min(0)]);
+            this.bankForm.get('cusianaVal').setValue(0, [Validators.min(0)]);
             this.bankForm.get('cusianaDet').setValue('');
             if (this.station.tipoEstacion === 3) {
                 this.otherForm.get('lubricante').setValue(0, this.emitFalse);
@@ -1141,6 +1309,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
                 this.otherForm.get('soatAnu').setValue(0, this.emitFalse);
                 this.otherForm.get('soatReem').setValue(0);
                 this.cashForm.get('reembolso').setValue(0, this.emitFalse);
+                this.cashForm.get('reembolso2').setValue(0, this.emitFalse);
                 this.cashForm.get('servicioVal').setValue(0, this.emitFalse);
                 this.cashForm.get('otroVal').setValue(0);
                 this.bankForm.get('lubricanteVal').setValue(0, this.emitFalse);
@@ -1148,11 +1317,11 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
                 this.bankForm.get('recaudo').setValue(0);
             }
         } else if (val === 'L') {
-            this.paymentForm.get('descuento').setValue(null, [Validators.required, Validators.min(0)]);
-            this.paymentForm.get('devolucion').setValue(null, [Validators.required, Validators.min(0)]);
-            this.paymentForm.get('donacion').setValue(null, [Validators.required, Validators.min(0)]);
-            this.paymentForm.get('mantenimiento').setValue(null, [Validators.required, Validators.min(0)]);
-            this.paymentForm.get('prestamo').setValue(null, [Validators.required, Validators.min(0)]);
+            this.paymentForm.get('descuento').setValue(0, [Validators.min(0)]);
+            this.paymentForm.get('devolucion').setValue(0, [Validators.min(0)]);
+            this.paymentForm.get('donacion').setValue(0, [Validators.min(0)]);
+            this.paymentForm.get('mantenimiento').setValue(0, [Validators.min(0)]);
+            this.paymentForm.get('prestamo').setValue(0, [Validators.min(0)]);
             this.paymentForm.get('descuento').enable();
             this.paymentForm.get('devolucion').enable();
             this.paymentForm.get('donacion').enable();
@@ -1162,25 +1331,29 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
             this.otherForm.get('cusiana').setValue(0);
             this.paymentForm.get('bonoCumple').setValue(0);
             this.paymentForm.get('bonoPunto').setValue(0);
+            this.paymentForm.get('CantbonoPunto').setValue(0);
+            this.paymentForm.get('CantbonoCumple').setValue(0);
             this.otherForm.get('presLiq').disable();
             //this.otherForm.get('cusiana').disable();
-            this.paymentForm.get('bonoCumple').disable();
+            this.paymentForm.get('bonoCumple').enable();
             this.paymentForm.get('bonoPunto').disable();
-            this.otherForm.get('prestamoVal').setValue(null, [Validators.required, Validators.min(0)]);
-            this.otherForm.get('prestamoNom').setValue(null, [Validators.required, Validators.min(0)]);
+            this.paymentForm.get('CantbonoPunto').disable();
+            this.paymentForm.get('CantbonoCumple').enable();
+            this.otherForm.get('prestamoVal').setValue(0, [Validators.min(0)]);
+            this.otherForm.get('prestamoNom').setValue(0, [Validators.min(0)]);
             this.otherForm.get('prestamoVal').enable();
             this.otherForm.get('prestamoNom').enable();
             this.bankForm.get('liquidoVal').enable();
             this.bankForm.get('liquidoDet').enable();
-            this.bankForm.get('liquidoVal').setValue(null, [Validators.required, Validators.min(0)]);
+            this.bankForm.get('liquidoVal').setValue(0, [Validators.min(0)]);
             this.bankForm.get('liquidoDet').setValue('');
             this.bankForm.get('gasVal').disable();
             this.bankForm.get('gasDet').disable();
             //this.bankForm.get('cusianaVal').disable();
             //this.bankForm.get('cusianaDet').disable();
-            this.bankForm.get('gasVal').setValue(0, [Validators.required, Validators.min(0)]);
+            this.bankForm.get('gasVal').setValue(0, [Validators.min(0)]);
             this.bankForm.get('gasDet').setValue('');
-            this.bankForm.get('cusianaVal').setValue(0, [Validators.required, Validators.min(0)]);
+            this.bankForm.get('cusianaVal').setValue(0, [Validators.min(0)]);
             this.bankForm.get('cusianaDet').setValue('');
         }
     }

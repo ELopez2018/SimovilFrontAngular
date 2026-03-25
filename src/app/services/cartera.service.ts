@@ -1,3 +1,12 @@
+import { EntVentasClient } from './../Class/ent-ventas-client';
+import { FacturaElectronica } from './../Class/factura-electronica';
+import { DtoPago } from './../Class/dto-pago';
+import { EntCupo } from './../Class/EntCupo';
+import { EntVehicle } from './../Class/EntVehicle';
+import { EntIdentificators } from './../Class/EntIdentificators';
+import { EntCarteraCliente } from './../Class/EntCarteraCliente';
+import { EntCreditDescuento } from './../Class/EntCreditDescuento';
+import { EntConsumoFLM } from './../Class/EntConsumoFLM';
 import { EntCtaCobroPrductosPorCliente } from './../Class/EntCtaCobroProductosPorCliente';
 import { ICarteraConsumosAsociados } from './../Class/iRPT';
 import { Injectable } from '@angular/core';
@@ -12,7 +21,6 @@ import { EntDepartament } from '../Class/EntDepartament';
 import { EntCity } from '../Class/EntCity';
 import { EntQuotaType } from '../Class/EntQuotaType';
 import { EntQuota } from '../Class/EntQuota';
-import { EntVehicle } from '../Class/EntVehicle';
 import { EntTask } from '../Class/EntTask';
 import { EntReceivable } from '../Class/EntReceivable';
 import { EntPayment } from '../Class/EntPayment';
@@ -188,6 +196,16 @@ export class CarteraService {
             .pipe(tap((result) => console.log('Realizado con éxito')));
     }
 
+    public actualizarCombustible(id_consumo: number, id_articulo: number): Observable<any> {
+        const Actualizar = {
+        'id_consumo': id_consumo,
+        'id_articulo': id_articulo
+        };
+        console.log('service:) '+JSON.stringify(Actualizar));
+        return this.http.post(Parametros.GetParametros().servidorLocal + '/api/actualizarCombustible', JSON.stringify(Actualizar), this.httpOptions).pipe(
+        tap((data) => console.log('service: Actualizar combustible, ha sido realizado con éxito')));
+    }
+
     public getArticleTypes(): Observable<EntArticleType[]> {
         return this.http
             .get<EntArticleType[]>(
@@ -252,6 +270,16 @@ Observable<ICarteraConsumosAsociados[]>{
             ),
         catchError(this.handleError('getUser', []))
     );
+    }
+
+    public getClientesDeCartera(station: number, tipoCupo: number): Observable<EntCarteraCliente[]>{
+        const query = '/api/getClientesDeCartera';
+        const parameters = [[station, 'station'], [tipoCupo, 'tipoCupo']];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http.get<EntCarteraCliente[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
+            tap((data)=>console.log('Obtener clientes de cartera realizado con éxito')),
+            catchError(this.handleError('getUser', []))
+        );
     }
 
     public GetCarteraForStation(
@@ -455,9 +483,9 @@ Observable<ICarteraConsumosAsociados[]>{
     }
 
     public getProvider(
-        idProveedor?: any,
-        estado?: boolean,
+        idProveedor?: any,        
         exacto: boolean = true,
+        estado?: boolean,
         tipo?: number
     ): Observable<EntProvider[]> {
         const query = '/api/provider';
@@ -494,6 +522,31 @@ Observable<ICarteraConsumosAsociados[]>{
                 this.httpOptions
             )
             .pipe(tap((result) => console.log('Realizado con éxito')));
+    }
+
+    public getRolAdmin(id?:number, descripcion?: string, estado?: boolean):Observable<EntRole[]> {
+        const query = '/api/getRolAdmin';
+        const parameters = [
+            [id, 'id'],
+            [descripcion, 'descripcion'],
+            [estado, 'estado'],
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http
+            .get<EntRole[]>(
+                Parametros.GetParametros().servidorLocal + consulta,
+                this.httpOptions
+            )
+            .pipe(tap((result) => console.log('Obtener rol de administrador realizado con éxito')));
+    }
+
+    public eliminarPagoCartera(idPago: number): Observable<any> {
+        const Actualizar = {
+        'idPago': idPago
+        };
+        console.log('service:) '+JSON.stringify(Actualizar));
+        return this.http.post(Parametros.GetParametros().servidorLocal + '/api/borrarPagoDeCartera', JSON.stringify(Actualizar), this.httpOptions).pipe(
+        tap((data) => console.log('i am service: borrar pago de cartera en el procedimiento almacenado, ha sido realizado con éxito')));
     }
 
     public GetProfiles(
@@ -640,6 +693,7 @@ Observable<ICarteraConsumosAsociados[]>{
         ];
         //console.log('parameters', parameters);
         const consulta = OrderParametersToGet(query, parameters);
+        console.log("consulta: "+JSON.stringify(consulta))
         return this.http
             .get<EntDailySheet[]>(
                 Parametros.GetParametros().servidorLocal + consulta,
@@ -647,6 +701,7 @@ Observable<ICarteraConsumosAsociados[]>{
             )
             .pipe(
                 tap((result) => {
+                    console.log("resultado: "+JSON.stringify(result));
                     result.map((e) => {
                         e.DE_ACUM_ANTICIPOS != null
                             ? (e.DE_ACUM_ANTICIPOS = JSON.parse(
@@ -839,6 +894,20 @@ Observable<ICarteraConsumosAsociados[]>{
             this.httpOptions
         );
     }
+
+    public getFacturaElectronica(codClient: number, station: number): Observable<FacturaElectronica[]> {
+        const query = '/api/facturaElectronica';
+        const parameters = [
+            [codClient, 'codClient'],
+            [station, 'station']
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http.get<FacturaElectronica[]>(
+            Parametros.GetParametros().servidorLocal + consulta,
+            this.httpOptions
+        );
+    }
+
     public MakeReceivable(
         codClient: number,
         idEstacion: number,
@@ -1092,35 +1161,14 @@ Observable<ICarteraConsumosAsociados[]>{
             .pipe(tap((result) => console.log('Realizado con éxito')));
     }
 
-    // public getProvider(nit?: number): Observable<EntProvider[]> {
-    //   var query = '/api/provider';
-    //   let parameters = [
-    //     [nit, nit, "nit"]
-    //   ];
-    //   let consulta = OrderParametersToGet(query, parameters);
-    //   return this.http.get<EntProvider[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
-    //     tap(departaments => console.log("Realizado con éxito"))
-    //   );
-    // }
-
-    // public getPayment(codClient: number, dateIni: string, dateFin: string, status: boolean): Observable<EntPayment[]> {
-    //   var consulta = '/api/payment';
-    //   var estadoNum = Number(status);
-    //   consulta = (codClient != null) ? consulta + '/?codClient=' + codClient : consulta;
-    //   consulta = (status != null) ? consulta + '/?estado=' + estadoNum : consulta;
-    //   consulta = (status != null && codClient != null) ? '/api/payment/?estado=' + estadoNum + '&codCliente=' + codClient : consulta;
-    //   return this.http.get<EntPayment[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
-    //     tap(departaments => console.log("Realizado con éxito"))
-    //   );
-    // }
-
     public getPayment2(
-        codClient,
-        dateIni,
-        dateFin,
-        status: boolean,
+        codClient?: number,
+        dateIni?: string,
+        dateFin?: string,
+        status?: boolean,
         asignado?: boolean,
-        planilla?: number
+        planilla?: number,
+        estacion?: number,
     ): Observable<EntPayment[]> {
         const query = '/api/payment';
         const parameters = [
@@ -1130,8 +1178,8 @@ Observable<ICarteraConsumosAsociados[]>{
             [status, 'estado'],
             [asignado, 'asignado'],
             [planilla, 'planilla'],
+            [estacion, 'estacion']
         ];
-        console.log(parameters);
         const consulta = OrderParametersToGet(query, parameters);
         return this.http
             .get<EntPayment[]>(
@@ -1245,6 +1293,7 @@ Observable<ICarteraConsumosAsociados[]>{
             station: station,
             consumptions: consumptions,
         });
+        console.log('estación: '+station+', json: '+body);
         return this.http
             .post<any>(
                 Parametros.GetParametros().servidorLocal +
@@ -1391,22 +1440,6 @@ Observable<ICarteraConsumosAsociados[]>{
             this.httpOptions
         );
     }
-
-    // public getPayment5(codClient, dateIni, dateFin, status: boolean, asignado?: boolean, planilla?: number): Observable<EntPayment[]> {
-    //     const query = '/api/payment';
-    //     const parameters = [
-    //         [codClient, 'codClient'],
-    //         [dateIni, 'fechaIni'],
-    //         [dateFin, 'fechaFin'],
-    //         [status, 'estado'],
-    //         [asignado, 'asignado'],
-    //         [planilla, 'planilla']
-    //     ];
-    //     const consulta = OrderParametersToGet(query, parameters);
-    //     return this.http.get<EntPayment[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
-    //         tap(departaments => console.log('Realizado con éxito'))
-    //     );
-    // }
 
     public InsertOrder(
         order: EntOrder,
@@ -1706,6 +1739,16 @@ Observable<ICarteraConsumosAsociados[]>{
             );
     }
 
+    public actualizarIdentificator(id_consumo: number, id_identificator: number): Observable<any> {
+        const Actualizar = {
+            'id_consumo': id_consumo,
+            'id_identificador': id_identificator
+        };
+        console.log('service:) '+JSON.stringify(Actualizar));
+        return this.http.post(Parametros.GetParametros().servidorLocal + '/api/actualizarIdIdentificadorB', JSON.stringify(Actualizar), this.httpOptions).pipe(
+            tap((data) => console.log('service: Actualizar id identificador del cliente A al cliente B, ha sido realizado con éxito')));
+    }
+
     public UpdateOrder(order: EntOrder): Observable<any> {
         const body = JSON.stringify(order);
         return this.http
@@ -1725,6 +1768,7 @@ Observable<ICarteraConsumosAsociados[]>{
 
     public UpdateDailySheet(sheet: EntDailySheet): Observable<EntDailySheet> {
         const body = JSON.stringify(sheet);
+        //console.log("planilla enviando a actualizar: "+ body);
         return this.http
             .put<EntDailySheet>(
                 Parametros.GetParametros().servidorLocal +
@@ -1936,15 +1980,19 @@ Observable<ICarteraConsumosAsociados[]>{
     public InsertPayment(payment: EntPayment): Observable<any> {
         const body = JSON.stringify(payment);
         console.log(body);
-        return this.http
-            .post(
-                Parametros.GetParametros().servidorLocal + '/api/payment',
-                body,
-                this.httpOptions
-            )
-            .pipe(
+        return this.http.post(Parametros.GetParametros().servidorLocal + '/api/payment', body, this.httpOptions).pipe(
                 tap((filas) => {
                     console.log('InsertPayment: Realizado con éxito');
+                })
+            );
+    }
+
+    public InsertPayment_de_pruebas(payment: EntPayment): Observable<any> {
+        const body = JSON.stringify(payment);
+        console.log(body);
+        return this.http.post(Parametros.GetParametros().servidorLocal + '/api/payment_de_pruebas', body, this.httpOptions).pipe(
+                tap((filas) => {
+                    console.log('InsertPayment_de_pruebas: Realizado con éxito');
                 })
             );
     }
@@ -2093,6 +2141,133 @@ Observable<ICarteraConsumosAsociados[]>{
             .pipe(tap((data) => console.log('Realizado con éxito')));
     }
 
+    public getDtoAllClteCredito(Cliente: string, Producto: string, idEds: number): Observable<EntCreditDescuento[]> {
+        console.log('clase servicio datos a enviar:) '+Cliente+', '+Producto+', '+idEds);
+        const query = '/api/getDtoAllClteCredito';
+        const parameters = [
+            [Cliente, 'Cliente'],
+            [Producto, 'Producto'],
+            [idEds, 'idEds'],
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http
+            .get<any[]>(
+                Parametros.GetParametros().servidorLocal + consulta,
+                this.httpOptions
+            )
+            .pipe(tap((data) => console.log('Obtener clientes tipo crédito ha sido realizado con éxito')));
+    }
+
+    public getBusquedaCliente(nombreCliente: string, idEstacion: number): Observable<EntCreditDescuento[]> {
+        const query = '/api/buscarClientes';
+        const parameters = [
+            [nombreCliente, 'nombreCliente'],
+            [idEstacion, 'idEstacion'],
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http
+            .get<any[]>(
+                Parametros.GetParametros().servidorLocal + consulta,
+                this.httpOptions
+            )
+            .pipe(tap((data) => console.log('Obtener búsqueda de clientes ha sido realizado con éxito')));
+    }
+
+public getDatosCupoConsumido(idEstacion: number): Observable<EntCupo[]> {
+    const query = '/api/findCupoConsumido';
+    const parameters = [
+    [idEstacion, 'idEstacion'],
+    ];
+    const consulta = OrderParametersToGet(query, parameters);
+    return this.http.get<any[]>(Parametros.GetParametros().servidorLocal + consulta,this.httpOptions).pipe(tap((data) =>
+    console.log('Obtener búsqueda de cupos consumidos por cliente anticipo ha sido realizado con éxito')));
+}
+
+public notificacionHaciaClienteAnticipo(atributos: any): Observable<any> {
+    console.log('service:) objeto '+JSON.stringify(atributos));//b
+    return this.http.post(Parametros.GetParametros().servidorLocal + '/api/notificaHaciaClienteAnticipo', JSON.stringify(atributos), this.httpOptions).pipe(
+    tap((data) => console.log('service: Actualizar notify-mail, ha sido realizado con éxito')));
+}
+    public getIdentificadores(codCliente: number): Observable<EntIdentificators[]> {
+        const query = '/api/findIdentificadores';
+        const parameters = [
+            [codCliente, 'codCliente'],
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http
+            .get<any[]>(
+                Parametros.GetParametros().servidorLocal + consulta,
+                this.httpOptions
+            )
+            .pipe(tap((data) => console.log('Obtener búsqueda de identificadores y placas de vehículos ha sido realizado con éxito')));
+    }
+
+public getDatosPlacaCarro(placa: string): Observable<EntVehicle[]> {
+    const query = '/api/findPlacaCarro';
+    const parameters = [
+        [placa, 'placa'],
+    ];
+    const consulta = OrderParametersToGet(query, parameters);
+    return this.http
+    .get<any[]>(
+        Parametros.GetParametros().servidorLocal + consulta,
+        this.httpOptions
+    )
+    .pipe(tap((data) => console.log('Obtener búsqueda de placas de vehículos ha sido realizado con éxito')));
+}
+
+public actualizarDatosPlacaCarro(idConsumo: number, placa: string): Observable<any> {
+    const Actualizar = {
+    'idConsumo': idConsumo,
+    'placa': placa
+    };
+    console.log('service:) '+JSON.stringify(Actualizar));//b
+    return this.http.post(Parametros.GetParametros().servidorLocal + '/api/actualizarDatosPlacaCarro', JSON.stringify(Actualizar), this.httpOptions).pipe(
+    tap((data) => console.log('service: Actualizar placa del carro, ha sido realizado con éxito')));
+}
+
+public actualizarDatosFechaConsumo(idConsumo: number, fecha: string): Observable<any> {
+    const Actualizar = {
+    'idConsumo': idConsumo,
+    'fecha': fecha
+    };
+    console.log('service:) '+JSON.stringify(Actualizar));//b
+    return this.http.post(Parametros.GetParametros().servidorLocal + '/api/actualizarDatosFechaConsumo', JSON.stringify(Actualizar), this.httpOptions).pipe(
+    tap((data) => console.log('service: Actualizar fecha del consumo, ha sido realizado con éxito')));
+}
+
+public actualizarFechaPago(idPago: number, fecha: string): Observable<any> {
+    const Actualizar = {
+    'idPago': idPago,
+    'fecha': fecha
+    };
+    console.log('service:) '+JSON.stringify(Actualizar));//b
+    return this.http.post(Parametros.GetParametros().servidorLocal + '/api/actualizarFechaPago', JSON.stringify(Actualizar), this.httpOptions).pipe(
+    tap((data) => console.log('service: Actualizar fecha del pago de cartera, ha sido realizado con éxito')));
+}
+
+public actualizarDatosValorConsumo(idConsumo: number, cantidad: number, valor: number): Observable<any> {
+    const Actualizar = {
+    'idConsumo': idConsumo,
+    'cantidad': cantidad,
+    'valor': valor
+    };
+    console.log('service:) '+JSON.stringify(Actualizar));//b
+    return this.http.post(Parametros.GetParametros().servidorLocal + '/api/actualizarDatosValorConsumo', JSON.stringify(Actualizar), this.httpOptions).pipe(
+    tap((data) => console.log('service: Actualizar valor del consumo, ha sido realizado con éxito')));
+}
+
+public borrarDatosBugConsumos(idEstacion: number, codCliente: number, fechaInicial: string, fechaFin: string): Observable<any> {
+    const BorrarBug = {
+    'idEstacion': idEstacion,
+    'codCliente': codCliente,
+    'fechaInicial': fechaInicial,
+    'fechaFin': fechaFin
+    };
+    console.log('service:) '+JSON.stringify(BorrarBug));
+    return this.http.post(Parametros.GetParametros().servidorLocal + '/api/borrarBugDatosConsumos', JSON.stringify(BorrarBug), this.httpOptions).pipe(
+    tap((data) => console.log('service: Actualizar en el procedimiento almacenado, ha sido realizado con éxito')));
+}
     public GetVehicle(
         codClient: number,
         placa: string
@@ -2253,6 +2428,14 @@ Observable<ICarteraConsumosAsociados[]>{
             .pipe(tap((data) => console.log('[getConsumption] Realizado con éxito')));
     }
 
+    public getVentas(codClient: number, fechaIni, fechaFin, estacion: number, tipo): Observable<EntVentasClient[]> {
+        const query = '/api/ventasDiariasCombustible';
+        const parameters = [ [codClient, 'codClient'], [fechaIni, 'fechaIni'], [fechaFin, 'fechaFin'], [estacion, 'estacion'], [tipo, 'tipo']];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http.get<EntVentasClient[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
+            tap((data) => console.log('[getVentas] Realizado con éxito')));
+    }
+
     public getConsumptionReceivable(
         codClient: number,
         fechaIni,
@@ -2401,6 +2584,12 @@ Observable<ICarteraConsumosAsociados[]>{
         );
     }
 
+    public getDtoPago(): Observable<DtoPago[]> {
+        const query = '/api/getDtoPago';
+        return this.http.get<any[]>(Parametros.GetParametros().servidorLocal + query, this.httpOptions)
+        .pipe(tap((data) => console.log('Obtener búsqueda con descuento en Pago ha sido realizado con éxito')));
+    }
+
     public getTaxes(): Observable<TaxesModel[]> {
         return this.http.get<TaxesModel[]>(
             Parametros.GetParametros().servidorLocal + '/api/taxes',
@@ -2415,7 +2604,17 @@ Observable<ICarteraConsumosAsociados[]>{
                     idCuentaCobro,
                 this.httpOptions
             )
-            .pipe(tap((_) => console.log('Eliminado Correctamente')));
+            .pipe(tap((_) => console.log('Cuenta de cobro eliminada Correctamente')));
+    }
+
+    public borrarConsumo(idConsumo: number, codCliente: number): Observable<any>{
+        const Borrar = {
+            'idConsumo': idConsumo,
+            'codCliente': codCliente
+        };
+        console.log('servicio: '+JSON.stringify(Borrar));
+        return this.http.post<any>(Parametros.GetParametros().servidorLocal+'/api/borrarConsumo', JSON.stringify(Borrar), this.httpOptions).pipe(
+            tap((_) => console.log('consumo eliminado correctamente')));
     }
 
     // CODIGO CONTABLES
@@ -2435,4 +2634,55 @@ Observable<ICarteraConsumosAsociados[]>{
                 })
             );
     }
+
+    public guardarFacturaElectronica(idsCuentasCobro: any, numeroFe: string, fechaFE: string, fechaVence: string, observaciones: string, usuario: string): Observable<any> {
+        const Actualizar = {
+        'idsCuentasCobro': idsCuentasCobro,
+        'numeroFe': numeroFe,
+        'fechaFE': fechaFE,
+        'fechaVence': fechaVence,
+        'observaciones': observaciones,
+        'usuario': usuario
+        };
+        console.log('service: guardar factura Electrónica) '+JSON.stringify(Actualizar));//b
+        return this.http.post(Parametros.GetParametros().servidorLocal + '/api/guardarFacturaElectronica', JSON.stringify(Actualizar), this.httpOptions).pipe(
+        tap((data) => console.log('service: Registrar factura electrónica, ha sido realizado con éxito')));
+    }
+
+    public guardarNotaCreditoElectronica(numeroNCE: string, idFacturaE: number, fecha: string, fechaVence: string, valor: number, observaciones: string): Observable<any> {
+        const Actualizar = {
+        'numeroNCE': numeroNCE,
+        'idFacturaE': idFacturaE,
+        'fecha': fecha,
+        'fechaVence': fechaVence,
+        'valor': valor,
+        'observaciones': observaciones
+        };
+        console.log('service: guardar nota de crédito Electrónica) '+JSON.stringify(Actualizar));//b
+        return this.http.post(Parametros.GetParametros().servidorLocal + '/api/saveNotaCreditoElectronica', JSON.stringify(Actualizar), this.httpOptions).pipe(
+        tap((data) => console.log('service: Registrar nota de crédito electrónica, ha sido realizado con éxito')));
+    }
+
+    public getDatoFacturaElectronica(numFactura: string): Observable<any[]> {
+        const query = '/api/findFacturaElectronica';
+        const parameters = [
+        [numFactura, 'numFactura'],
+        ];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http
+        .get<any[]>(
+        Parametros.GetParametros().servidorLocal + consulta,
+        this.httpOptions
+        )
+        .pipe(tap((data) => console.log('Búsqueda número de factura electrónica ha sido realizado con éxito')));
+    }
+
+    public getNotaCreditoElectronica(numNotaCredito: string): Observable<any[]> {
+        const query = '/api/findNotaCreditoElectronica';
+        const parameters = [[numNotaCredito, 'numNotaCredito']];
+        const consulta = OrderParametersToGet(query, parameters);
+        return this.http.get<any[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(tap((data) =>
+            console.log('Búsqueda número de nota crédito electrónica ha sido realizado con éxito')));
+    }
+
 }

@@ -26,26 +26,35 @@
                     <input id="fechaIni" type="date" [(ngModel)]="fechaIni" class="form-control" />
                 </div>
             </div>
+
             <div class="col-sm-2">
                 <div class="form-group">
-                    <label class="control-label">Fecha corte</label>
+                    <label class="control-label">Fecha corte:</label>
                     <input id="fechaCorte" type="date" [(ngModel)]="fechaFin" class="form-control" />
                 </div>
             </div>
+
             <div class="col-sm-3 pt-2">
                 <label class="control-label mb-2"></label>
-                <button [disabled]="false" (click)="consultarArticulo()" class="btn btn-primary mt-4">
+                <button [disabled]="false" (click)="consultarArticulo();" class="btn btn-primary mt-4">
                     <i class="fas fa-file-invoice"></i>&nbsp;Consultar
                 </button>
-
-                <button pButton pRipple type="button" class="p-button-secondary mt-4" (click)="Retenciones()" label="Retenciones" *ngIf="consumosAll && consumosAll.length > 0"></button>
-
+                <div *ngIf="botonDeRetenciones">
+                    <button pButton pRipple type="button" class="p-button-success mt-4" (click)="Retenciones()" label="Retenciones" *ngIf="consumosAll && consumosAll.length > 0"></button>
+                    <b> « </b>
+                    <img src="../../../assets/img/numeroUno.png" width="32" height="32" class="ondas">
+                </div>
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-sm-5" *ngIf="retenciones">
-                <select class="form-control" [(ngModel)]="impuesto" (change)="CalculoRet()">
+        <div class="row mb-4">
+            <div class="col-sm-1" *ngIf="retenciones">
+                <img src="../../../assets/img/numeroDos.png" width="32" height="32" class="ondas"> <b> »</b>
+            </div>
+
+            <div class="col-sm-3" *ngIf="retenciones">
+                <select class="form-control" [(ngModel)]="impuesto" (change)="CalculoRet()" id="selectRetenciones">
+                    <option style="background: lightblue; font-weight: bold;">NO APLICA</option>
                     <option
                         *ngFor="let item of tiposImpuestos"
                         [ngValue]="item"
@@ -54,19 +63,27 @@
                     </option>
                 </select>
             </div>
-            <div class="col-sm-3" *ngIf="retenciones">
+
+            <div class="col-sm-3" *ngIf="retenciones && !botonNoAplica">
                 <input type="text" class="form-control" currencyMask [disabled]="impuesto.id !== 8" [(ngModel)]="impuestoValor" />
             </div>
-            <div class="col-sm-2">
-                <button type="button" class="btn btn-secondary mr-1" *ngIf="retenciones" (click)="AgregarRetencion()">
+
+            <div class="col-sm-3">
+                <img *ngIf="retenciones && !botonNoAplica" src="../../../assets/img/numeroTres.png" width="32" height="32" class="ondas">
+                <b> »</b>
+                <button type="button" class="btn btn-info mr-1" *ngIf="retenciones && !botonNoAplica" (click)="AgregarRetencion()">
                     <i class="fas fa-plus"></i>
                 </button>
-                <button *ngIf="retenciones" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="Retenciones()"></button>
+                <button *ngIf="retenciones && !botonNoAplica" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="Retenciones()" id="botonRete"></button>
+
             </div>
+
             <div class="col-sm-2">
                 <ng-template> <span> {{ mensaje }} </span> </ng-template>
             </div>
+
         </div>
+
         <div class="card mb-4 text-center" *ngIf="retencionesAll && retencionesAll.length > 0">
             <p-table [value]="retencionesAll" [scrollable]="true" scrollHeight="200px" [responsive]="true">
                 <ng-template pTemplate="header">
@@ -120,7 +137,7 @@
                                 <th style="width: 95px" class="text-center">
                                     Placa
                                 </th>
-                                <th class="text-center" style="color: blue;">Combustible</th>
+                                <th class="text-center">Combustible</th>
                                 <th style="width: 90px;" class="text-center">
                                     Cant.
                                 </th>

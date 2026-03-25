@@ -1,3 +1,5 @@
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+//import { FacturaElectronicaComponent } from './station-admin/station-admin-consumption/factura-electronica/factura-electronica.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -5,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Componentes PrimeNG
 import { CheckboxModule } from 'primeng/checkbox';
@@ -156,9 +159,19 @@ import { TableConfigComponent } from './util/table-config/table-config.component
 import { AsociadosComponent } from './report/cartera/flotaMacarena/asociados.component';
 import { ConsumosComponent } from './report/facturacion/consumos/consumos.component';
 import { FacturacionComponent } from './report/facturacion/facturacion.component';
+import { AuditoriaComponent } from './report/auditoria/auditoria.component';
+import { ReportesComponent } from './report/auditoria/reportes/reportes.component';
+import { TanquesLiqComponent } from './report/other/tanques-liq/tanques-liq.component';
+import { TanquesEdsComponent } from './report/other/tanques-eds/tanques-eds.component';
+import { InformesRHComponent } from './employee/informes-rh/informes-rh.component';
+import { MapaTanqueComponent } from './inventory/mapa-tanque/mapa-tanque.component';
+import { CalidadComponent } from './report/calidad/calidad.component';
+import { AyudaVisualComponent } from './ayuda-visual/ayuda-visual.component';
+import { InventarioFisicoComponent } from './inventory/fisico/inventario-fisico.component';
+import { NotifyComponent } from './administrator/notify/notify.component';
+import { RippleModule } from 'primeng/ripple';
 
-
-
+//I keep the new line
 @NgModule({
     declarations: [
         AppComponent,
@@ -261,6 +274,17 @@ import { FacturacionComponent } from './report/facturacion/facturacion.component
         AsociadosComponent,
         ConsumosComponent,
         FacturacionComponent,
+        //FacturaElectronicaComponent,
+        AuditoriaComponent,
+        ReportesComponent,
+        TanquesLiqComponent,
+        TanquesEdsComponent,
+        InformesRHComponent,
+        MapaTanqueComponent,
+        CalidadComponent,
+        AyudaVisualComponent,
+        InventarioFisicoComponent,
+        NotifyComponent    
     ],
     imports: [
         BrowserModule,
@@ -268,13 +292,13 @@ import { FacturacionComponent } from './report/facturacion/facturacion.component
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-
+        NgbModule,
         // Division en modulos
         CarteraModule,
         StationAdminModule,
         ContabilidadModule,
         AppRoutingModule,
-
+        AutocompleteLibModule,
         CurrencyMaskModule,
         CalendarModule,
         TabMenuModule,
@@ -300,12 +324,13 @@ import { FacturacionComponent } from './report/facturacion/facturacion.component
         DropdownModule,
         RadioButtonModule,
         MultiSelectModule,
+        TableModule,
         AccordionModule,
         MessagesModule,
         MessageModule,
         SliderModule,
         VirtualScrollerModule,
-
+        RippleModule
     ],
     providers: [
         AuthenticationService,
@@ -320,8 +345,8 @@ import { FacturacionComponent } from './report/facturacion/facturacion.component
         UtilService,
         SubirArchivoService
     ],
-    exports: [
-    ],
+    exports: [],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

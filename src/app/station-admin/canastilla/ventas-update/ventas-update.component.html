@@ -13,7 +13,7 @@
                     <select class="form-control" [disabled]="stationCode" [(ngModel)]="stationSel">
                         <option *ngFor="let item of stationsAll" [ngValue]="item">{{
                             item.nombreEstacion
-                        }} </option>
+                            }} </option>
                     </select>
                 </div>
             </div>
@@ -31,7 +31,7 @@
             </div>
 
         </div>
-
+        <!-- de aqui -->
         <table class="table table-sm table-striped table-responsive-sm animated fadeIn fast table-hover mb-4 "
             *ngIf="productos.length > 0 ">
             <thead class="thead-dark ">
@@ -60,25 +60,25 @@
                         {{ producto.codCont }}
                     </td>
                     <td class="text-center">
-                        <!-- {{ producto.FechaV }} -->
-                        <input type="text" #Cant [(ngModel)]="producto.FechaV" class=" form-control form-control-sm text-center fecha " required>
+                        <input type="text" #Cant [(ngModel)]="producto.FechaV"
+                            class=" form-control form-control-sm text-center fecha " required>
                     </td>
                     <td>
                         {{ producto.descripcion }}
                     </td>
                     <td class="text-center">
-                        <input type="text" #Cant [(ngModel)]="producto.ventasV" class="form-control form-control-sm text-center cantidad" required>
-                        <!-- {{ producto.ventasV }} -->
+                        <input type="text" #Cant [(ngModel)]="producto.ventasV"
+                            class="form-control form-control-sm text-center cantidad" required>
 
                     </td>
                     <td class="text-center">
-                        <input type="text" #COSTO [(ngModel)]="producto.PrecioCompra" class="form-control form-control-sm text-center tamano " required>
-                        <!-- {{ producto.PrecioCompra }} -->
+                        <input type="text" #COSTO [(ngModel)]="producto.PrecioCompra"
+                            class="form-control form-control-sm text-center tamano " required>
 
                     </td>
                     <td class="text-center">
-                        <input type="text" #PVP [(ngModel)]="producto.PrecioV" class=" form-control form-control-sm text-center tamano" required>
-                        <!-- {{ producto.PrecioV }} -->
+                        <input type="text" #PVP [(ngModel)]="producto.PrecioV"
+                            class=" form-control form-control-sm text-center tamano" required>
 
                     </td>
                     <td class="text-center">
@@ -96,5 +96,66 @@
             <tfoot class="thead-dark">
             </tfoot>
         </table>
+        <!-- hasta aqui -->
+
+        <div>
+            <div class="grid titulo">
+                <div>#</div>
+                <div>Id</div>
+                <div>Código</div>
+                <div>Descripción</div>
+                <div>Cantidad</div>
+                <div>Facturado</div>
+                <div id="acciones" >Acciones</div>
+            </div>
+
+            <div *ngFor="let producto of productos; index as i">
+                <div class="grid cuerpo" #productoRow [ngClass]="{'fila_par':i%2 == 0,'fila_impar':i%2 !== 0,
+                'bg-primary':producto.credito == true,'bg-success':producto.facturado == true}">
+                    <div class="center">{{i+1}}</div>
+                    <div class="center">{{producto.idProductoV}}</div>
+                    <div class="center">{{producto.codCont}}</div>
+                    <div class="center">{{producto.descripcion}}</div>
+                    <div class="center respon"><input type="text" [(ngModel)]="producto.ventasV - facturado.value"
+                            class="form-control form-control-sm text-center" disabled></div>
+                    <div class="center"><input #facturado type="text" placeholder="0" [disabled]="producto.credito || producto.facturado"
+                            class="form-control form-control-sm text-center"></div>
+                    <div class="center">
+                        <div class="row responCol">
+                            <button class="btn btn-sm btn-dark" (click)="GuardarCambios2(producto,productoRow)"
+                                title="Guardar los cambios">
+                                <i class="far fa-save"></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary" (click)="Acredito(producto.idProductoV,producto.idVenta,
+                            stationSel.idEstacion,producto.FechaV,producto.ventasV,
+                            producto.PrecioCompra,producto.PrecioV,facturado.value,productoRow,producto)" title="Crédito">
+                                <img src="../../../assets/icons/credito16.png">
+                            </button>
+                            <div class="saltodeLinea"></div>
+                            <button class="btn btn-sm btn-success" (click)="pFacturado(producto.idProductoV,producto.idVenta,
+                            stationSel.idEstacion,producto.FechaV,producto.ventasV,
+                            producto.PrecioCompra,producto.PrecioV,facturado.value,productoRow,producto)" title="Facturado">
+                                <img src="../../../assets/icons/facturado2_16.png">
+                            </button>
+                            <button class="btn btn-sm btn-danger" title="Cancelar" (click)="limpiar(producto.idVenta,productoRow)">
+                                <svg width="16" height="16" fill="currentColor" class="bi bi-eraser-fill"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <app-modal-dialog (hide)="listClientCred = false" [visible]="listClientCred">
+            <app-lista-clientes (submiter)="clienteElegido($event)"></app-lista-clientes>
+        </app-modal-dialog>
+
+        <app-modal-dialog (hide)="listClientFacturado = false" [visible]="listClientFacturado">
+            <app-clientes-saldo-historico (submiter)="clienteSeleccionado($event)"></app-clientes-saldo-historico>
+        </app-modal-dialog>
     </div>
 </div>

@@ -5,4 +5,6 @@ export class EntDailySheetVenCli {
     NOMBRE?: string;
     VALOR: number;
     TIPO_CLIENTE: string;
+    CANTIDADVENTAS: number;
+    PLACA: string;
 }

@@ -174,6 +174,7 @@ export class IngresoLecturasComponent implements OnInit {
         });
 
     }
+
     Onkey(event) {
         console.log(event);
     }

@@ -1,0 +1,47 @@
+<div class="card marco_tabla">
+    <div class="row justify-content-center">
+        <div *ngFor="let tank of dataTanqueEds">
+            <div class="col">
+                <b>{{tank.combustible}}</b><br>
+                <div class="progress progress-bar-vertical">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{height: tank.porcentaje+'%'}" [ngClass]="{'tanque_green': tank.porcentaje >= 70, 'tanque_amarillo': tank.porcentaje >= 50 && tank.porcentaje < 70, 'tanque_rojo': tank.porcentaje <= 50}">
+                        <span class="">{{ tank.porcentaje }}%</span>
+                    </div>
+                </div>
+                <br>
+                <b>Tanque: {{tank.tanque}}</b>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card marco_tablaII mt-2">
+    <div class="col">
+        <div class="row encabezado_tabla">
+            <div class="col col_encabezado"> Ciudad </div>
+            <div class="col-md-3  col_encabezado"> EDS </div>
+            <div class="col  col_encabezado"> Tanque </div>
+            <div class="col  col_encabezado"> Producto </div>
+            <div class="col  col_encabezado"> Aforado </div>
+            <div class="col  col_encabezado"> Máxima </div>
+            <div class="col  col_encabezado"> Disponible </div>
+            <div class="col  col_encabezado"> Vendida </div>
+            <div class="col  col_encabezado"> % </div>
+        </div>
+
+        <div *ngFor="let tanque of dataTanqueEds; index as contador">
+            <div class="row margenes_filas" [ngClass]="{'fila_0': contador%2===0, 'fila_1': contador%2===1}">
+                <div class="col margenes_columnas"> {{ tanque.ciudad }} </div>
+                <div class="col-md-3 margenes_columnas"> {{ tanque.eds }} </div>
+                <div class="col margenes_columnas"> {{ tanque.tanque }} </div>
+                <div class="col margenes_columnas"> {{ tanque.combustible }} </div>
+                <div class="col margenes_columnas"> {{ tanque.fechaAfora | date: 'yyyy/MM/dd': '+0000'}} </div>
+                <div class="col margenes_columnas"> {{ tanque.cantidadMaxima | number }} GL</div>
+                <div class="col margenes_columnas"> {{ tanque.cantidadDisponible | number }} GL </div>
+                <div class="col margenes_columnas"> {{ tanque.cantidadVendida | number}} GL</div>
+                <div class="col margenes_columnas" [ngClass]="{'tanque_fila_roja': tanque.porcentaje <= 50 && tanque.porcentaje != null}"> {{ tanque.porcentaje }}%</div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,5 +1,8 @@
+import { VentasContaSearchComponent } from './contabilidad/ventas/ventas-conta-search.component';
+import { CalidadComponent } from './report/calidad/calidad.component';
+import { AuditoriaComponent } from './report/auditoria/auditoria.component';
 import { NgModule, Component } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { LogorderComponent } from './logorder/logorder.component';
@@ -73,6 +76,8 @@ import { UserEditComponent } from './administrator/user/user-edit/user-edit.comp
 import { UserComponent } from './administrator/user/user.component';
 import { AdvanceBalanceComponent } from './contabilidad/advance/advance-balance/advance-balance.component';
 import { FacturacionComponent } from './report/facturacion/facturacion.component';
+import { InformesRHComponent } from './employee/informes-rh/informes-rh.component';
+import { NotifyComponent } from './administrator/notify/notify.component'
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -97,6 +102,10 @@ const routes: Routes = [
             },
             {
                 path: 'roster', component: RosterComponent, canActivateChild: [AuthGuard], children: [
+                ]
+            },
+            {
+                path: 'ver', component: InformesRHComponent, canActivateChild: [AuthGuard], children: [
                 ]
             }
         ]
@@ -140,6 +149,8 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'ventas', component: VentasContaSearchComponent, canActivate: [AuthGuard] },
+    {
         path: 'provider', component: ProviderComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
             { path: '', redirectTo: 'search', pathMatch: 'full' },
             { path: 'search', component: ProviderSearchComponent },
@@ -156,7 +167,9 @@ const routes: Routes = [
         path: 'report', component: ReportComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
             { path: 'cartera', component: CarteraComponent },
             { path: 'other', component: OtherComponent },
-            { path: 'facturacion', component: FacturacionComponent }
+            { path: 'facturacion', component: FacturacionComponent },
+            { path: 'auditoria', component: AuditoriaComponent },
+            { path: 'calidad', component: CalidadComponent}
         ]
     },
     {
@@ -202,6 +215,11 @@ const routes: Routes = [
             { path: '', redirectTo: 'search', pathMatch: 'full' },
             { path: 'search', component: RoleSearchComponent },
             { path: 'add', component: RoleAddComponent }
+        ]
+    },
+    {
+        path: 'notify', component: NotifyComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
+            { path: '', redirectTo: 'notify', pathMatch: 'full' },
         ]
     },
     {

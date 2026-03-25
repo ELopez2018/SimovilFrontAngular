@@ -14,7 +14,8 @@
         "<node_internals>/**"
       ],*/
       //"program": "${workspaceFolder}\\serve"
-      "url": "http://localhost:4200",
+      /* "url": "http://localhost:4200", */
+      "url": "http://localhost:8090",
       "webRoot": "${workspaceFolder}"
     }
   ]

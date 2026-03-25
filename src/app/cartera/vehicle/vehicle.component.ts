@@ -8,6 +8,7 @@ import { PrincipalComponent } from '../../principal/principal.component';
 import { EntVehicle } from '../../Class/EntVehicle';
 import { Title } from '@angular/platform-browser';
 import { fadeTransition } from '../../routerAnimation';
+import { TareaEnvioCorreo } from '../../Class/patrones/comportamiento/comando/tarea-envio-correo';
 
 @Component({
   selector: 'app-vehicle',
@@ -24,6 +25,9 @@ export class VehicleComponent implements OnInit {
   vehicles: EntVehicle[];
   fuelTypes: any[];
   selectedFuelType = null;
+  enviaNombre;
+  enviaCantidad;
+  mensajes: string[]=[];
 
   constructor(
     private fb: FormBuilder,
@@ -125,4 +129,39 @@ export class VehicleComponent implements OnInit {
       console.log(error);
     });
   }
+
+    prueba(nombre, cantidad){
+
+       /*  let abcStock = new Stock(nombre, cantidad);//crear una clase de solicitud
+        //let buyStockOrder = new BuyStock(abcStock);
+        let sellStockOrder = new SellStock(abcStock);//encapsula la solicitud en un objeto
+        let broker = new Broker();//llama al objeto de comando
+        broker.addTarea(sellStockOrder); */
+        //broker.placeOrders();
+        //let st = new Broker();
+        /* let gt = new GestorTareas();
+        let p = new Stock(nombre, cantidad); */
+
+        /* broker.verListadoDeOrdenes(); */
+    }
+
+    deshacerOrden(){
+        /* let broker = new Broker();
+        broker.deshacerOrden();
+        broker.listOrders(); */
+    }
+
+    add(mensaje: string){
+        this.mensajes.push(mensaje);
+        this.verMensajes();
+    }
+
+    quitarMensaje(){
+        this.mensajes.pop();
+        this.verMensajes();
+    }
+
+    verMensajes(){
+        console.log(this.mensajes);
+    }
 }

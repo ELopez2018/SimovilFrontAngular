@@ -1,5 +1,21 @@
+import { CombustibleComponent } from './../station/combustible/combustible.component';
+import { CuposConsumidosComponent } from './station-admin-consumption/cupos-consumidos/cupos-consumidos.component';
+import { ListadoConsumosComponent } from './../station/listado-consumos/listado-consumos.component';
+import { ValorConsumoComponent } from './../station/valor-consumo/valor-consumo.component';
+import { FechaConsumoComponent } from './../station/fecha-consumo/fecha-consumo.component';
+import { PlacaCarroComponent } from './../station/placa-carro/placa-carro.component';
+import { IdentificadorComponent } from './../station/identificador/identificador.component';
+import { AppComponent } from './../app.component';
+import { SheetDailyEditMGComponent } from './station-admin-sheet-daily/sheet-daily-edit-mg/sheet-daily-edit-mg.component';
+import { SheetDailyAddMGComponent } from './station-admin-sheet-daily/sheet-daily-add-mg/sheet-daily-add-mg.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+	IgxButtonModule,
+	IgxToggleModule
+ } from "igniteui-angular";
 
 import { DsCarteraComponent } from './components/ds-cartera/ds-cartera.component';
 // import { CplModule } from './cpl/cpl.module';
@@ -49,6 +65,7 @@ import { StationReceivableComponent } from '../station/station-receivable/statio
 import { StationAdminConsumptionComponent } from './station-admin-consumption/station-admin-consumption.component';
 import { OtrasVentasAddComponent } from './station-admin-consumption/otras-ventas-add/otras-ventas-add.component';
 import { StationConsumptionAddComponent } from './station-admin-consumption/station-consumption-add/station-consumption-add.component';
+import { StationConsumptionFLMComponent } from './station-admin-consumption/station-consumption-flm/station-consumption-flm.component';
 import { StationConsumptionEditComponent } from './station-admin-consumption/station-consumption-edit/station-consumption-edit.component';
 import { StationConsumptionReportsComponent } from './station-admin-consumption/station-consumption-reports/station-consumption-reports.component';
 import { StationConsumptionSearchComponent } from './station-admin-consumption/station-consumption-search/station-consumption-search.component';
@@ -89,8 +106,11 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { ProductosListaGeneralComponent } from './canastilla/productos/product-add/productos-lista-general/productos-lista-general.component';
 import { ReceivableAddComponent } from './station-admin-receivable/receivable-add/receivable-add.component';
 import { ClientesSaldoHistoricoComponent } from './canastilla/productos/clientesSaldoHistorico/clientes-saldo-historico.component';
+import { FacturaElectronicaComponent } from './station-admin-consumption/factura-electronica/factura-electronica.component';
+import { AddFEComponent } from './station-admin-consumption/factura-electronica/add-fe/add-fe.component';
+import { AddNCEComponent } from './station-admin-consumption/factura-electronica/add-nce/add-nce.component';
+import { IngresoAutomaticoComponent } from './cpl/ingreso-automatico/ingreso-automatico.component';
 // import { ReceivableAddComponent } from "./station-admin-receivable/receivable-add/ReceivableAddComponent";
-
 
 
 @NgModule({
@@ -111,7 +131,9 @@ import { ClientesSaldoHistoricoComponent } from './canastilla/productos/clientes
         SliderModule,
         TableModule,
         MultiSelectModule,
-        DialogModule
+        DialogModule,
+        BrowserModule
+        //NgbModule
     ],
     declarations: [
         DsCarteraComponent,
@@ -153,11 +175,14 @@ import { ClientesSaldoHistoricoComponent } from './canastilla/productos/clientes
         HomeCPLComponent,
         IngresoLecturasComponent,
         ReportLecturasComponent,
+        IngresoAutomaticoComponent,
         // Admin-Sheet
         StationAdminSheetDailyComponent,
         AnticipoAProveedoresComponent,
-        SheetDailyAddComponent,
-        SheetDailyEditComponent,
+        SheetDailyAddComponent,//original
+        SheetDailyEditComponent,//original
+        SheetDailyAddMGComponent,
+        SheetDailyEditMGComponent,
         SheetDailySearchComponent,
         ///
         StationAdminConsumptionComponent,
@@ -167,6 +192,11 @@ import { ClientesSaldoHistoricoComponent } from './canastilla/productos/clientes
         StationConsumptionReportsComponent,
         StationConsumptionSearchComponent,
         StationConsumptionFormapagoComponent,
+        StationConsumptionFLMComponent,
+        CuposConsumidosComponent,
+        FacturaElectronicaComponent,
+        AddFEComponent,
+        AddNCEComponent,
         // Otros
         StationReceivableComponent,
         ReceivableComponent,
@@ -193,6 +223,12 @@ import { ClientesSaldoHistoricoComponent } from './canastilla/productos/clientes
         ProductosListaGeneralComponent,
         ReceivableAddComponent,
         ClientesSaldoHistoricoComponent,
+        IdentificadorComponent,
+        PlacaCarroComponent,
+        FechaConsumoComponent,
+        ValorConsumoComponent,
+        ListadoConsumosComponent,
+        CombustibleComponent
     ],
 
     exports: [
@@ -203,7 +239,13 @@ import { ClientesSaldoHistoricoComponent } from './canastilla/productos/clientes
         CompSearchClientComponent,
         CompSearchProviderComponent,
         CarteraPlanillaComponent,
-        WholesalerInvoicesComponent
+        WholesalerInvoicesComponent,
+        IdentificadorComponent,
+        PlacaCarroComponent,
+        FechaConsumoComponent,
+        ValorConsumoComponent,
+        ListadoConsumosComponent,
+        CombustibleComponent
     ]
 })
 export class StationAdminModule { }

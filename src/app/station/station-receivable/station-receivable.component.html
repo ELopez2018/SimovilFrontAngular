@@ -1,109 +1,150 @@
-<div class="form-group col-sm-12 p-0 form-inline mb-0 justify-content-center">
-    <div class="row col-sm-12 pb-1">
+<div class="form-group col-sm-12 p-0 form-inline mb-2 justify-content-center" style="background-color: rgb(208, 211, 210); border-radius: 12px; border: 1px solid rgb(4, 190, 247);">
+    <div class="row col-sm-12 mt-2 pb-1">
+
+        <div class="col-sm-3">
+            <div class="input-group">
+                <select class="form-control decora_cajas" [disabled]="stationCode" [(ngModel)]="stationSel">
+                    <option *ngFor="let item of stationsAll" [ngValue]="item">{{ item.nombreEstacion }}</option>
+                </select>
+            </div>
+        </div>
+
         <div class="input-group col-sm-3">
             <div class="input-group-prepend">
                 <button id="btnClient" class="btn btn-outline-secondary left" type="button" (click)="openModCli()">
           <span class="far fa-hand-pointer fa-fw"></span>
         </button>
             </div>
-            <input [(ngModel)]="client.codCliente" (keyup.enter)="searchClient()" [disabled]="id!=null" required class="form-control" type="number" name="codclient" id="codclient">
+            <input [(ngModel)]="client.codCliente" (keyup.enter)="searchClient()" [disabled]="id!=null" required class="form-control decora_cajas" type="number" name="codclient" id="codclient">
         </div>
+
         <div class="input-group col-sm-6">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-user fa-fw"></i></span>
             </div>
-            <input [(ngModel)]="client.nombre" disabled class="form-control" type="text" name="nameclient" id="nameclient">
+            <input [(ngModel)]="client.nombre" disabled class="form-control decora_cajas" type="text" name="nameclient" id="nameclient">
         </div>
-        <div *ngIf="id!=null" class="col-sm-2">
+
+        <!-- <div *ngIf="id!=null" class="col-sm-2">
             <button class="btn btn-danger btn-block" (click)="back()">
         <span class="fas fa-undo fa-fw"></span>&nbsp;Atras</button>
-        </div>
-        <!-- <div *ngIf="id==null" class="col-sm-2">
-      <button class="btn btn-info btn-block" (click)="searchClient()" [disabled]="client.codCliente==null">
-        <span class="fas fa-search fa-fw"></span>&nbsp;Consultar</button>
-    </div> -->
+        </div> -->
+
     </div>
-    <!-- <div class="row col-sm-12 pb-1" *ngIf="client.nombre != null"> -->
+
     <div class="row col-sm-12 pb-1">
-        <label class="control-label col-sm-1 m-0">Desde:</label>
-        <div class="input-group col-sm-3">
-            <input [(ngModel)]="searchFechaIni" required class="form-control" type="date" name="searchFechaIni" id="searchFechaIni">
+
+        <label class="control-label m-0 pl-4" style="font-weight: bold;">Desde:</label>
+        <div class="input-group col-sm-2">
+            <input [(ngModel)]="searchFechaIni" required class="form-control decora_cajas" type="date" name="searchFechaIni" id="searchFechaIni">
         </div>
-        <label class="control-label col-sm-1 m-0">Hasta:</label>
-        <div class="input-group col-sm-3">
-            <input [(ngModel)]="searchFechaFin" required class="form-control" type="date" name="searchFechaFin" id="searchFechaFin">
+
+        <label class="control-label m-0 pl-5" style="font-weight: bold;">Hasta:</label>
+        <div class="input-group col-sm-2">
+            <input [(ngModel)]="searchFechaFin" required class="form-control decora_cajas" type="date" name="searchFechaFin" id="searchFechaFin">
         </div>
-        <div class="form-check col-sm-1 p-0 input-check">
-            <input [(ngModel)]="searchStatus" class="mr-2" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label m-0 text-truncate" for="defaultCheck1">
-        Activo
-      </label>
+
+        <div class="form-check col-sm-1 input-check">
+            <label class="form-check-label m-0 text-truncate" for="defaultCheck1" style="font-weight: bold;">Activo</label>
+            <input [(ngModel)]="searchStatus" class="mr-2 decora_cajas" type="checkbox" value="" id="defaultCheck1">
         </div>
-        <div class="col-sm-3 btn-group justify-content-center" role="group">
+
+        <div class="col-sm-4 btn-group justify-content-center" role="group">
             <button id="btnSearch" class="btn btn-info" (click)="getReceivableSearch()">
-        <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+            <span class="fa fa-search fa-fw"></span>&nbsp;Consultar</button>
+
             <button class="btn btn-warning" (click)="cleanReceivableSearch()">
-        <span class="fas fa-eraser fa-fw"></span>
-      </button>
-            <button class="btn btn-success" title="Imprimir PDF" (click)="printReceivableSearch()" [disabled]="searchReceivable == null || searchReceivable.length == 0">
-        <span class="fa fa-print fa-fw"></span>
-      </button>
-            <button class="btn btn-secondary" (click)="csvReceivableSearch()" [disabled]="searchReceivable == null || searchReceivable.length == 0">
-        <span class="fas fa-file-download fa-fw"></span>
-      </button>
-        </div>
-    </div>
-</div>
-<div class="table-wrapper container" id="table-Consumption-Search">
-    <div id="print-receivables">
-        <table class="table table-hover table-sm table-striped table-dark" *ngIf="searchReceivable != null">
-            <thead>
-                <tr class="text-center">
-                    <th scope="col">Activo</th>
-                    <th scope="col">N°</th>
-                    <th scope="col">Nit</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Inicio</th>
-                    <th scope="col">Fin</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Vence</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Saldo</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let receivable of searchReceivable; index as i " [ngClass]="porCobrar(receivable)">
-                    <td data-title="Activo" class="text-center">
-                        <span *ngIf="receivable.estado == true" class="fab fa-font-awesome-flag fa-fw"></span>
-                    </td>
-                    <td data-title="N°" class="">{{receivable.num}}</td>
-                    <td data-title="Nit" class="">{{receivable.codCliente}}</td>
-                    <td data-title="Nombre">{{receivable.nombre}}</td>
-                    <td data-title="Fecha" class="text-center">{{receivable.periodoIni | date: 'dd/MM/yyyy' : '+0000'}}</td>
-                    <td data-title="Fecha" class="text-center">{{receivable.periodoFin| date: 'dd/MM/yyyy' : '+0000'}}</td>
-                    <td data-title="Fecha" class="text-center">{{receivable.fecha | date: 'dd/MM/yyyy' : '+0000'}}</td>
-                    <td data-title="Vence" class="text-center">{{addDate(receivable.fecha) | date: 'dd/MM/yyyy' : '+0000'}}</td>
-                    <td data-title="Valor" class="text-right">{{receivable.valor | currency }}</td>
-                    <td data-title="Saldo" class="text-right">{{receivable.saldo | currency }}</td>
-                    <td data-title="Acciones" class="text-center">
-                        <button title="Imprimir PDF" (click)="printReceivable(receivable)" class="btn btn-success btn-sm mr-1">
-              <span class="fas fa-print fa-fw"></span>
+            <span class="fas fa-eraser fa-fw"></span>
             </button>
-                        <button title="Vista previa PDF" (click)="printReceivable(receivable, true)" class="btn btn-info btn-sm mr-1">
-                <span class="far fa-eye fa-fw"></span>
-              </button>
-                        <button *ngIf="!codEstation" title="Eliminar" (click)="Eliminar( receivable.id, i )" class="btn btn-danger btn-sm">
-                <span class="pi pi-trash fa-fw"></span>
-              </button>
-                    </td>
-                </tr>
-                <tr *ngIf="searchReceivable != null && searchReceivable.length > 0">
-                    <td colspan="8"></td>
-                    <td>Total = {{sumReceivables() | currency}}</td>
-                </tr>
-            </tbody>
-        </table>
+
+            <button class="btn btn-success" title="Imprimir PDF" (click)="printReceivableSearch()" [disabled]="searchReceivable == null || searchReceivable.length == 0">
+            <span class="fa fa-print fa-fw"></span>
+            </button>
+
+            <button class="btn btn-secondary" (click)="csvReceivableSearch()" [disabled]="searchReceivable == null || searchReceivable.length == 0">
+            <span class="fas fa-file-download fa-fw"></span>
+            </button>
+
+            <button class="btn btn-success" (click)="exportarCuentaCobroToExcel()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
+                <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+              </svg>Excel</button>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="table-wrapper" id="table-Consumption-Search">
+    <div id="print-receivables">
+        <div class="tabla_encabezado_fijo">
+            <table id="tabla_cuenta_cobro" class="table table-sm table-striped table-dark" *ngIf="searchReceivable != null" #tabla_de_cuentas_de_cobro>
+                <thead>
+                    <tr class="fila_titulo_1">
+                        <td colspan="11" class="text-center">Cuentas de Cobro — {{ stationSel.nombreEstacion }} — Cliente: {{ client.nombre }}</td>
+                    </tr>
+                    <tr class="fila_titulo">
+                        <th scope="col" class="text-center">Activo</th>
+                        <th scope="col" class="text-center">N°</th>
+                        <th scope="col" class="text-center">Nit</th>
+                        <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center">Inicio</th>
+                        <th scope="col" class="text-center">Fin</th>
+                        <th scope="col" class="text-center">Fecha</th>
+                        <th scope="col" class="text-center">Vence</th>
+                        <th scope="col" class="text-center">Valor</th>
+                        <th scope="col" class="text-center">Saldo</th>
+                        <th scope="col" *ngIf="!rolSistemas" class="text-center">Acciones</th>
+                        <th scope="col" *ngIf="rolSistemas" class="text-center">Acciones!</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let receivable of searchReceivable; index as i " [ngClass]="porCobrar(receivable)">
+                        <td *ngIf="cuentaRoja && receivable.estado == true" data-title="Activo" class="text-center">
+                            <img src="../../../assets/img/alerta2.gif">
+                        </td>
+                        <td *ngIf="cuentaVerde && receivable.estado == true" data-title="Activo" class="text-center">
+                            <img src="../../../assets/img/alerta7.gif">
+                        </td>
+                        <td *ngIf="!cuentaRoja && !cuentaVerde && receivable.estado == true" data-title="Activo" class="text-center">
+                            <span class="fab fa-font-awesome-flag fa-fw"></span>
+                        </td>
+                        <td *ngIf="receivable.estado == false" data-title="Activo" class="text-center">
+                            <span></span>
+                        </td>
+                        <td data-title="N°" class="text-center">{{receivable.num}}</td>
+                        <td data-title="Nit" class="text-center">{{receivable.codCliente}}</td>
+                        <td data-title="Nombre" class="text-center" style="font-size: 12px;">{{receivable.nombre}}</td>
+                        <td data-title="Fecha" class="text-center">{{receivable.periodoIni | date: 'yyyy/MM/dd HH:mm:ss' : 'UTC +0001' | slice: 0: 10}}</td>
+                        <td data-title="Fecha" class="text-center">{{receivable.periodoFin | date: 'yyyy/MM/dd HH:mm:ss' : 'UTC +0001' | slice: 0: 10}}</td>
+                        <td data-title="Fecha" class="text-center">{{receivable.fecha | date: 'yyyy/MM/dd HH:mm:ss' : 'UTC +0001' | slice: 0: 10}}</td>
+                        <td data-title="Vence" class="text-center">{{addDate(receivable.fecha) | date: 'dd/MM/yyyy' : '+0000'}}</td>
+                        <td data-title="Valor" class="text-center">{{receivable.valor | currency }}</td>
+                        <td data-title="Saldo" class="text-center">{{receivable.saldo | currency }}</td>
+
+                        <td data-title="Acciones" class="text-center">
+                            <button title="Imprimir PDF" (click)="printReceivable(receivable)" class="btn btn-success btn-sm mr-1">
+                                <span class="fas fa-print fa-fw"></span>
+                            </button>
+                            <button title="Vista previa PDF" (click)="printReceivable(receivable, true)" class="btn btn-info btn-sm mr-1">
+                                <span class="far fa-eye fa-fw"></span>
+                            </button>
+                            <button *ngIf="rolSistemas" title="Eliminar" (click)="Eliminar( receivable.id, i )" class="btn btn-danger btn-sm">
+                                <span class="pi pi-trash fa-fw"></span>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="searchReceivable != null && searchReceivable.length > 0">
+                        <td colspan="7" class="fila_titulo text-right"></td>
+                        <td colspan="1" class="text-center fila_titulo">Total</td>
+                        <td class="text-center fila_titulo"> {{sumReceivables() | currency}}</td>
+                        <td colspan="2" class="fila_titulo"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <app-modal-dialog [visible]="booleanClient" (hide)="booleanClient=false">

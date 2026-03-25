@@ -4,7 +4,7 @@
         <div class="input-group-prepend">
             <button class="btn btn-outline-secondary left" type="button" (click)="searchClient()">
                 <span class="fas fa-hand-pointer fa-fw"></span>
-                Buscar Cliente
+                Buscar Cliente!
             </button>
         </div>
         <input appAutofocus type="number" class="form-control" id="numDocumento" placeholder="Identificación" [(ngModel)]="id" (keyup.enter)="SearchClient(id)" />
@@ -201,7 +201,7 @@
             </div>
         </div>
         <div class="form-group form-inline align-items-start" [hidden]="quotaSearch == null">
-            <label class="control-label col-sm-3">Descuento</label>
+            <label class="control-label col-sm-3">Descuento!</label>
             <div class="col-sm-9">
                 <div class="btn-group btn-group-sm w-100 pb-2">
                     <button [disabled]="!enableListDiscount" id="DE" (click)="addDiscount()" class="btn btn-primary" title="Agregar Descuento">
@@ -233,6 +233,7 @@
                                     </button>
                                 </div>
                                 <input type="text" class="form-control" placeholder="Combustible" formControlName="detalle" />
+                                <input type="text" class="form-control" placeholder="Estacion" formControlName="nombreEstacion" />
                             </div>
                             <div class="col-sm-6 input-group">
                                 <input [id]="'val-' + i" type="text" class="form-control" currencyMask [options]="notdecimal" appLatestFocus formControlName="valor" />
@@ -259,7 +260,7 @@
                     {{ editQuotaSearchString }}
                 </button>
             </div>
-            <div class="col-sm-5" *ngIf="editQuotaSearchString == 'Guardar'">
+            <div class="col-sm-5" *ngIf="editQuotaSearchString == 'Guardar!!'">
                 <button (click)="CancelQoutaForm()" class="btn btn-danger btn-block" [disabled]="!editQuotaSearch">
                     Cancelar
                 </button>
@@ -269,7 +270,7 @@
     <p-dialog header="Motivo del cambio" [(visible)]="displayDialog" modal="modal" [responsive]="true" [minY]="70">
         <textarea pInputTextarea [(ngModel)]="reasonForChange" rows="5" cols="34"></textarea>
         <p-footer>
-            <button type="button" pButton icon="pi pi-check" class="" (click)="setQuotaSearch()" label="Guardar" [disabled]="reasonForChange.length < 1"></button>
+            <button type="button" pButton icon="pi pi-check" class="" (click)="setQuotaSearch()" label="Guardar!" [disabled]="reasonForChange.length < 1"></button>
             <button type="button" pButton icon="pi pi-times" class="p-button-danger" (click)="displayDialog = false" label="Cancelar"></button>
         </p-footer>
     </p-dialog>
@@ -314,6 +315,6 @@
 
 <app-modal-dialog width="5" [visible]="boolDiscountForm" (hide)="boolDiscountForm = false">
     <button (click)="selArticle(item)" *ngFor="let item of articleTypes" class="btn btn-block btn-info">
-        {{ item.DESCRIPCION }}
+       id: {{item.ID}} | {{ item.DESCRIPCION }}
     </button>
 </app-modal-dialog>

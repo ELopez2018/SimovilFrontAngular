@@ -7,5 +7,5 @@ export class EntConsolidadoenPesos {
     Compras: number;
     Ventas: number;
     ganancia: number;
-
+    Categoria: number;
   }

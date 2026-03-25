@@ -60,6 +60,8 @@ export class HomeCanastillaAdvaComponent implements OnInit {
         this.widthReport = 120;
         this.params = [];
         this.params.push([Estacion.idEstacion, 'idEstacion']);
+        console.log('%c fecha inicial: '+this.FormatoFecha(Estacion.fechaUltimoRegistro), 'color: blue; font-weight: bold;');
+        console.log('%c fecha final: '+this.FormatoFecha(Estacion.fechaUltimoRegistro), 'color: green; font-weight: bold;');
         this.params.push([this.FormatoFecha(Estacion.fechaUltimoRegistro), 'FechaIncial']);
         this.params.push([this.FormatoFecha(Estacion.fechaUltimoRegistro), 'FechaFinal']);
         this.params.push([null, 'IdProducto']);

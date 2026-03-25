@@ -9,14 +9,33 @@
         <a routerLink="./add" routerLinkActive="active" class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">
             <span class="fas fa-plus fa-fw"></span>&nbsp;
             <span class="nameTab">Crear Planilla</span>
+            <!--esta es la planilla original: quitar solo texto Cusiana-->
         </a>
     </li>
     <li class="nav-item text-center" title="Editar Planilla Diaria">
         <a routerLink="./edit" routerLinkActive="active" class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">
             <span class="fas fa-pencil-alt fa-fw"></span>&nbsp;
             <span class="nameTab">Editar Planilla</span>
+            <!--esta es la planilla original: quitar solo texto Cusiana-->
         </a>
     </li>
+
+    <!--esta es la planilla adaptada para campos manuales-->
+    <!-- <li class="nav-item text-center" title="Planilla Diaria Movilgas">
+        <a routerLink="./addMG" routerLinkActive="active" class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">
+            <span class="fas fa-plus fa-fw"></span>&nbsp;
+            <span class="nameTab">Crear Planilla Movilgas</span>
+        </a>
+    </li> -->
+
+    <!--esta es la planilla adaptada para campos manuales-->
+    <!-- <li class="nav-item text-center" title="Editar Planilla Diaria Movilgas">
+        <a routerLink="./editMG" routerLinkActive="active" class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">
+            <span class="fas fa-pencil-alt fa-fw"></span>&nbsp;
+            <span class="nameTab">Editar Planilla Movilgas</span>
+        </a>
+    </li> -->
+
     <!--
   <li class="nav-item text-center" title="Anticipo a Proveedor">
     <a routerLink="./ReportesCpl" routerLinkActive="active" class="nav-link" id="profile-tab" data-toggle="tab" role="tab"
@@ -26,6 +45,7 @@
     </a>
   </li>
 -->
+
 </ul>
 <main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
     <router-outlet #o="outlet"></router-outlet>

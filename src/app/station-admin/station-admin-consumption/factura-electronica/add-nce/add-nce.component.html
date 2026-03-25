@@ -1,0 +1,111 @@
+<div class="container pt-2" style="background-color: rgb(208, 211, 210); border-radius: 12px; border: 1px solid rgb(4, 190, 247);">
+    <div class="row pt-2 pb-2">
+
+        <div class="col-sm-2 text-right" style="padding: 0px;"><span class="atributo">Factura Electrónica</span></div>
+        <div class="col-sm-3"><input type="text" id="_fe" #input_text_fe (keydown)="digitaFactura($event); validarLongitudInput($event);" class="form-control input_text_fe2" placeholder="prefijo (EDS) + número" [value]="numeroFacturaE | uppercase" [(ngModel)]="numeroFacturaE"
+                maxLength="18" (keyup.enter)="buscarFacturaElectronica();"></div>
+
+        <div class="col-sm-3">
+            <button type="button" class="boton_factura" (click)="buscarFacturaElectronica();">Buscar</button>
+            <button type="button" class="botonLimpiar" (click)="limpiarCajaFactura();">Borrar</button>
+        </div>
+
+    </div>
+</div>
+
+<div *ngIf="booleanFacturaElectronica">
+
+    <div class='container card border-primary mt-2'>
+        <div class="row fila_titulo justify-content-xl-center">
+            Datos de la Factura Electrónica a asignar
+        </div>
+        <div class='row titulo_col'>
+            <div class='col texto texto4'><img src="../../../../../assets/img/fe/registros.png" title="registros"></div>
+            <div class='col texto texto3'> Id </div>
+            <div class='col texto texto3'> Factura </div>
+
+            <!-- <div *ngIf="openInformacion" id="informacion" class="card text-white bg-primary azul"> -->
+            <div *ngIf="openInformacion" id="informacion" class="card azul">
+                <div class="card-header">Información <img src="../../../../../assets/img/fe/info_48.png" height="48" width="48"></div>
+                <div class="card-body">
+                    <p class="card-text mt-0" style="text-align: justify;">En caso de anular la factura electrónica haga click sobre el valor numérico y obsérvese que este pasa a la casilla Total de la nota crédito electrónica.</p>
+                    <img src="../../../../../assets/img/fe/cerrar_info.png" title="Hacer click para cerrar este mensaje de información" width="48" height="48" (click)="closeMsgInfo();" style="cursor: pointer;">
+                </div>
+            </div>
+
+            <div class='col texto texto3'> Valor <i class="fas fa-info-circle" (click)="openMsgInfo();" style="cursor: pointer;"></i>
+            </div>
+            <div class='col texto texto3'> Fecha desde </div>
+            <div class='col texto texto3'> Fecha vence </div>
+            <div class='col texto texto2'> Estado</div>
+        </div>
+        <div *ngFor="let nc of fePorNc; index as contador">
+            <div class="row fila_ciclo" [ngClass]="{'fila_0 ': contador%2===0, 'fila_1 ': contador%2===1 }">
+                <div class='col texto texto4'> {{ contador + 1}} </div>
+                <div class="col texto texto3">{{nc.idFe}}</div>
+                <div class='col texto texto3' style="background-color: lime;"><strong> {{nc.numero}} </strong></div>
+                <div class='col texto texto3 parecer_boton' (click)="deValorToTotal(nc.valor)"> {{nc.valor | currency}} </div>
+                <div class='col texto texto3'> {{nc.fecha | date: 'yyyy/MM/dd' : '+0000'}} </div>
+                <div class='col texto texto3'> {{nc.fechaVence | date: 'yyyy/MM/dd' : '+0000'}} </div>
+                <div class='col texto texto2'> {{nc.estado }} </div>
+            </div>
+            <div class='row titulo_observaciones'>
+                <div class='col texto_observacion'> Observaciones: {{nc.observaciones}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card container mt-2 border-primary" style="background-color: rgb(247, 242, 242);">
+        <div class="row fila_titulo justify-content-xl-center">
+            Datos de la Nota Crédito Electrónica
+        </div>
+
+        <div class="row" style="margin: 2px;">
+            <div class="col ml-1">
+                <div class="row align-items-center">
+                    <div class="col-3">
+                        <span class="atributo">Asignar factura electrónica</span>
+                        <input type="text" class="form-control fe" [(ngModel)]="numeroFacturaE" readonly>
+                    </div>
+                    <div class="col-3">
+                        <span class="atributo">Nota Crédito electrónica</span>
+                        <input type="text" id="_nce" #input_text_nc (keydown)="digitaFactura($event); validarLongitudInput($event);" class="form-control nce" placeholder="prefijo (EDS) + número" maxLength="18" [value]="numeroNotaCreditoE | uppercase" [(ngModel)]="numeroNotaCreditoE">
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="boton_validar_nc" (click)="buscarNotaCreditoE()">Validar</button>
+                        <button type="button" class="botonLimpiar" (click)="limpiarCajaNotaCredito()">Borrar</button>
+                    </div>
+                    <div class="col-2">
+                        <span class="atributo">Fecha Nota Crédito</span>
+                        <input type="date" #name_fecha class="form-control nce" [(ngModel)]="fechaNotaCreditoE">
+                    </div>
+                    <div class="col-2">
+                        <span class="atributo">Fecha vence</span>
+                        <input type="date" #name_fecha_vence class="form-control nce" [(ngModel)]="fechaVenceNotaCreditoE">
+                    </div>
+                </div>
+
+                <div class="row mt-1">
+                    <div class="col-2">
+                        <span class="atributo">Total</span>
+                        <input type="number" #name_valor_total id="input_valor_nce" class="form-control nce" (keydown)="validarLongitudInput($event);" maxLength="12" [(ngModel)]="totalNotaCredito" title="Si es para anular factura pulse click sobre valor que pasa al Total">
+                    </div>
+                    <div class="col">
+                        <span class="atributo">Observación</span>
+                        <textarea class="form-control area_de_texto" id="_text_area" #name_observacion rows="3" cols="70" maxLength="360" (keydown)="validarLongitudInput($event);" placeholder="Observación nota de crédito electrónica" [(ngModel)]="observaciones"></textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt-2 mb-2">
+            <div class="col">
+                <button type="button" class="btn btn-warning btn-lg btn-block" (click)="buscarFacturaElectronica(); saveNotaCreditoE();"><strong>Guardar</strong></button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

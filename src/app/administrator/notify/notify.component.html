@@ -1,0 +1,93 @@
+<div class="cuerpo container-fluid">
+    <div class="row">
+        <div class="col">
+            <p-table #dt [value]="listaUserWebTokens" dataKey="usuario" [rows]="10" [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable p-datatable-sm text-xs line-height-1 shadow" [paginator]="true"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} usuarios" [filterDelay]="0"
+                [globalFilterFields]="['NOMBRE','usuario','DESCRIPCION']" [(selection)]="selectedUsers">
+                <ng-template pTemplate="caption">
+                    <div class="table-header">
+                        WEB TOKENS
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Buscar" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-users let-rowIndex="rowIndex">
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="users"></p-tableCheckbox>
+                        </td>
+                        <td>
+                            {{users.usuario}}
+                        </td>
+                        <td>
+                            {{users.NOMBRE}}
+                        </td>
+                        <td>
+                            {{users.DESCRIPCION}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="3">sin resultados.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <div class="row pt-5 centrar">
+        <div class="col-12">
+            <div class="card text-center w-50">
+                <div class="card-header font-weight-bold">
+                    NOTIFICAR
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="notifyform" (ngSubmit)="enviarNotify()">
+                        <div class="form-row pt-1 justify-content-center">
+                            <div class="form-group w-100">
+                                <span class="p-float-label card-title w-100">
+                                    <input id="float-input" type="text" class="p-inputtext-lg w-100" pInputText formControlName="titulo"> 
+                                    <label for="float-input">Titulo</label>
+                                </span>
+                            </div>
+      
+                        </div>    
+                        <div class="form-row justify-content-center">
+                            <div class="form-group w-100">
+                                <span class="p-float-label card-text w-100">
+                                    <textarea id="float-input" rows="5" cols="30" pInputTextarea autoResize="autoResize" class="w-100"
+                                        formControlName="mensaje"></textarea>
+                                    <label for="float-input">Mensaje</label>
+                                </span>
+                            </div>
+                        </div>   
+                                
+                                
+             
+                        <div class="formgrid grid justify-content-center text-center">
+                            <button pButton pRipple type="submit" icon="pi pi-check" label="Ok" [disabled]="((!notifyform.valid) && (selectedUsers.length > 0))? false:true" 
+                                class="p-button-raised p-button-info p-button-text"></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    hoy
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

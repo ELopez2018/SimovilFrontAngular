@@ -183,6 +183,7 @@ export class ClientAddComponent implements OnInit {
 
     InsertClient(cliente: EntClient): void {
         cliente['pass'] = btoa(Md5.hashAsciiStr(String(cliente.codCliente)).toString());
+        console.log('%c cliente:) '+JSON.stringify(cliente), 'color: green; font-weight:bold;');//b
         this.carteraService.InsertClient(cliente).subscribe(data => {
             this.clientForm.reset();
             this.principalComponent.showMsg('success', 'Éxito', 'Cliente ' + cliente.codCliente + ' registrado correctamente');

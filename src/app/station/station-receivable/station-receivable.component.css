@@ -57,3 +57,85 @@
     color: #fd4b5d !important;
     border-top: 1px solid #dee2e6;
 }
+
+
+/**********************************/
+
+#tabla_cuenta_cobro tr:hover {
+    background-color: rgb(255, 255, 0) !important;
+    color: rgb(1, 1, 29) !important;
+    font-weight: bold !important;
+}
+
+.table-dark td,
+.table-dark th {
+    border: 1px solid #09f1f3;
+    padding: 0px;
+}
+
+
+/* Works on Firefox */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(25, 118, 210) rgb(251, 255, 0);
+}
+
+
+/* Works on Chrome, Edge, and Safari */
+
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #1976d2;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #f1f107;
+    border-radius: 20px;
+    border: 1px solid rgb(46, 250, 6);
+}
+
+
+/* Fix table head */
+
+.tabla_encabezado_fijo {
+    overflow: auto;
+    height: 490px;
+}
+
+.tabla_encabezado_fijo th {
+    position: sticky;
+    top: 0;
+    background-color: rgb(7, 143, 255);
+}
+
+.fila_titulo {
+    background-color: rgb(7, 143, 255);
+    color: black;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+.fila_titulo_1 {
+    background-color: rgb(65, 241, 247);
+    color: black;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #06f0f8;
+    border-color: rgb(4, 190, 247);
+}
+
+.decora_cajas {
+    background-color: rgb(247, 247, 247);
+    border-radius: 12px;
+    border: 1px solid rgb(4, 190, 247);
+    font-weight: bold;
+    color: rgb(1, 8, 27);
+}

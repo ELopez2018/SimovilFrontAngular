@@ -1,0 +1,77 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <h5 class='mt-2 mb-2 titulo'>
+            Actualizar placa del vehículo
+        </h5>
+    </div>
+</div>
+
+<div class='card color_tabla'>
+    <div class='card-header'>
+        <div class='row mt-2'>
+            <div class='col-md-1'></div>
+            <div class='col-md-2'>
+                <span style='font-family: cursive; font-weight: bold;'>id consumo:<img src='../../../assets/img/alerta7.gif'></span>
+            </div>
+            <div class='col-md-2'>
+                <input type='text' class='form-control' placeholder='{{ idConsumo }}' readonly>
+            </div>
+            <div class='col-md-2'>
+                <span style='font-family: cursive; font-weight: bold;'>placa: <img *ngIf='!placaAutomotor' src='../../../assets/img/alerta2.gif'> <img *ngIf='placaAutomotor' src='../../../assets/img/alerta7.gif'></span>
+            </div>
+            <div class='col-md-2'>
+                <input type='text' class='form-control' placeholder='{{ placaAutomotor }}' readonly required>
+            </div>
+            <div class='col-md-2'>
+                <button type='button' class='boton' (click)="updatePlacaCarro(idConsumo, placaAutomotor)">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class='card color_tabla'>
+    <div class='card-header'>
+        <div class='row mt-0 mb-2 margenes_contenido_tabla'>
+            <div class='col-md-2'></div>
+            <div class='col-md-2'>
+                <span style='font-family: cursive; font-weight: bold;'>ingrese la placa:</span>
+            </div>
+            <div class='col-md-4'>
+                <input type='text' [(ngModel)]='placaABuscar' (keydown.enter)="getPlacaCarro()" class='form-control' placeholder='Placa'>
+            </div>
+            <div class='col-md-2'>
+                <button type='button' class='boton' (click)="getPlacaCarro()">Buscar</button>
+            </div>
+            <div class='col-md-2'></div>
+        </div>
+    </div>
+</div>
+
+<div class='card marco_tabla'>
+    <div class='card-header'>
+        <div class='row encabezado_tabla'>
+            <div class='col-md-1'> # </div>
+            <div class='col-md-2'> Cliente </div>
+            <div class='col-md-2'> Placa </div>
+            <div class='col-md-2'> Marca </div>
+            <div class='col-md-1'> Año </div>
+            <div class='col-md-2'> Identificador </div>
+            <div class='col-md-2'> Acción </div>
+        </div>
+        <div *ngFor="let carro of carros; index as contador">
+            <div class="row margenes_contenido_tabla" [ngClass]="{' fila_0 ': contador%2===0, 'fila_1 ': contador%2===1}">
+                <div class='col-md-1'> {{ contador + 1 }} </div>
+                <div class='col-md-2'> {{ carro.cliente }} </div>
+                <div class='col-md-2'> {{ carro.placa }} </div>
+                <div class='col-md-2'> {{ carro.marca }} </div>
+                <div class='col-md-1'> {{ carro.anyo }} </div>
+                <div class='col-md-2'> {{ carro.identificador }} </div>
+                <div class='col-md-2'>
+                    <button type='button' class='boton' (click)='setPlacaCarro(carro.placa)'>
+        seleccionar
+        </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

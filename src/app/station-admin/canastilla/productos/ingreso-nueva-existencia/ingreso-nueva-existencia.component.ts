@@ -18,7 +18,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class IngresoNuevaExistenciaComponent implements OnInit {
     stationsAll: EntStation[] =[];
     stationSel: EntStation= new EntStation();
-;   stationCode: number = null;
+    stationCode: number = null;
     productos: EntProductos[];
     fecha: Date;
     es: any;
@@ -26,6 +26,8 @@ export class IngresoNuevaExistenciaComponent implements OnInit {
     IdProducto: any[] = [];
     CompraProdutos: EntCompraProductos = new EntCompraProductos;
     cargando = false;
+
+
     constructor(private nominaService: NominaService,
         private title: Title,
         private storageService: StorageService,
@@ -70,7 +72,7 @@ export class IngresoNuevaExistenciaComponent implements OnInit {
         );
     }
     AgregarInventario(forma: EntProductos) {
-        // console.log(forma);
+        console.log(forma);
         if (forma.CantidadCompra <= 0 || forma.CantidadCompra === null || forma.CantidadCompra === undefined) {
             this.principalComponent.showMsg('warn', 'Cantidad Inválida', 'La Cantidad debe ser mayor a 0');
             return;
@@ -85,14 +87,17 @@ export class IngresoNuevaExistenciaComponent implements OnInit {
         }
         const Porcentaje = ((forma.PrecioVenta - forma.PrecioCompra) / forma.PrecioCompra) * 100;
 
-        if (!forma.Mileniumgas) {
-            if (Porcentaje >= 20 && Porcentaje <= 40) {
+        if(forma.Mileniumgas == false){
+                if(forma.utilidadMin == null || forma.utilidadMax == null){
+                    this.principalComponent.showMsg('error', 'Info', 'la utilidad min registrada es: '+forma.utilidadMin+', y la max registrada es: '+forma.utilidadMax);
+                }
 
-            } else {
-                this.principalComponent.showMsg('warn', 'Utilidad Inválida', 'El margen que esta ingresando es de ' + Porcentaje + '% de utilidad y debe ser entre el 20 y 40%');
+            if((Porcentaje < forma.utilidadMin || Porcentaje > forma.utilidadMax) && (forma.utilidadMin != null || forma.utilidadMax != null)){
+                this.principalComponent.showMsg('warn', 'Utilidad Inválida', 'El margen que está ingresando es del ' + Porcentaje + '% y debe ser entre ['+forma.utilidadMin+'% y '+forma.utilidadMax+'%]');
                 return;
             }
         }
+
         this.CompraProdutos.FechaCompra = this.fecha;
         this.CompraProdutos.IdEstacion = this.stationCode;
         this.CompraProdutos.IdProducto = forma.id;
@@ -100,9 +105,8 @@ export class IngresoNuevaExistenciaComponent implements OnInit {
         this.CompraProdutos.PrecioCompra = forma.PrecioCompra;
         this.CompraProdutos.PrecioVenta = forma.PrecioVenta;
         this.CompraProdutos.Documento = forma.detalles;
-        // console.log(this.CompraProdutos);
         this.nominaService.InserExistenciaInvEstacion(this.CompraProdutos).subscribe(data => {
-            this.principalComponent.showMsg('success', 'Éxito', 'Se Guardo correctamente.');
+            this.principalComponent.showMsg('success', 'Éxito', 'Se Guardó correctamente.');
         }, error => this.principalComponent.showMsg('error', 'Advertencia', error.error.message));
     }
     filterItems(query: any) {
@@ -129,7 +133,6 @@ export class IngresoNuevaExistenciaComponent implements OnInit {
         this.utilService.loader(true);
         this.nominaService.GetProductos(estacion, null, this.fecha).subscribe(data => {
             this.productos = data;
-            // console.log(this.productos);
             this.cargando = false;
             this.utilService.loader(false);
         }, error => {

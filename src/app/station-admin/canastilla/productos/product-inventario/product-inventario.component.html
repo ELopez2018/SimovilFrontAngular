@@ -1,6 +1,6 @@
 <!-- INVENTARIO INICIAL -->
 <div class="row text-center">
-    <div class="col-sm-12 "> <span class="h2 text-center">INVENTARIO  INICIAL</span></div>
+    <div class="col-sm-12 "> <span class="h2 text-center">INVENTARIO INICIAL! {{nombreEstacion}}</span></div>
 </div>
 
 <!-- <span class="mb-2 float-right"><input type="text" #Query placeholder="buscar " class="from-control" >
@@ -17,16 +17,17 @@
     </div>
 </div>
 <div class="col-sm-6 titulo">
-    <p-calendar [(ngModel)]="fecha" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy"
-        class="float-left">
+    <p-calendar [(ngModel)]="fecha" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy" class="float-left">
     </p-calendar>
 </div>
 <!-- <form  (ngSubmit)="GuardarVenta(forma)" #forma="ngForm"novalidate="novalidate"> -->
 <table class="table table-sm table-responsive-sm">
+    <!-- <table class="table"> -->
     <thead class="thead-dark">
         <tr>
-            <th scope="col"class="text-center">Id</th>
-            <th scope="col" class="text-center">Código</th>
+            <th scope="col" class="text-center">Id</th>
+            <th scope="col" class="text-center">Código 1</th>
+            <th scope="col" class="text-center">Código 2</th>
             <th scope="col" class="text-center">Descripción</th>
             <th scope="col" class="text-center">Presentación</th>
             <th scope="col" class="text-center">Un.</th>
@@ -37,11 +38,24 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let producto of productos;">
+        <tr *ngFor="let producto of productos; index as idCont" [ngClass]="{'fila_0': idCont%2===0, 'fila_1': idCont%2===1}">
+            <!-- <div class="row margenes_contenido_tabla" > -->
             <th scope="row" class="text-center">
-            {{ producto.id }}
-        </th>
-            <td class="text-center">{{ producto.codContable }}</td>
+                {{ producto.id }}
+            </th>
+            <td class="text-left">
+                <div class="radio-toolbar">
+                    <input type="radio" name="inlineRadioOptions" id="{{ producto.codContable }}" value="{{producto.codContable}}" (click)="asignarCodigo1(producto.codContable)">
+                    <label for="{{ producto.codContable }}">{{ producto.codContable }}</label>
+                </div>
+
+            </td>
+            <td class="text-left">
+                <div class="radio-toolbar">
+                    <input type="radio" name="inlineRadioOptions" id="{{ idCont}}" value="{{producto.cod2}}" (click)="asignarCodigo2(producto.cod2)">
+                    <label for="{{ idCont }}">{{ producto.cod2 }}</label>
+                </div>
+            </td>
             <td>{{ producto.descripcion }}</td>
             <td class="text-center"> {{ producto.UnMedida }}</td>
             <td class="text-center"> {{ producto.tamano | number:'.2-2' }}</td>
@@ -59,7 +73,7 @@
                 <input type="number" class="form-control text-center tamano" placeholder="0" [(ngModel)]="producto.PrecioVenta" (click)="Evaluar(producto)">
             </td>
             <td class="text-center botones">
-                <button type="button" class="btn btn-primary mr-1" (click)="AgregarInventario(producto)">
+                <button type="button" class="btn btn-primary mr-1" (click)="AgregarInventario(producto)" title="agregar producto al inventario estación {{nombreEstacion}}">
                         <i class="fas fa-plus"></i>
                 </button>
                 <button type="button" class="btn btn-warning mr-1">
@@ -70,6 +84,7 @@
                 </button>
 
             </td>
+            <!-- </div> -->
         </tr>
     </tbody>
 </table>

@@ -25,6 +25,7 @@ import { MessageModule } from 'primeng/message';
 import { DropdownModule } from 'primeng/dropdown';
 import { CarteraRoutes } from './cartera.routing';
 import { ButtonModule } from 'primeng/button';
+import { FechaPagoComponent } from './payment/fecha/fecha-pago.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { ButtonModule } from 'primeng/button';
     PaymentSearchComponent,
     ClientInfoComponent,
     ClientSaldosIncialesComponent,
+    FechaPagoComponent,
   ],
   imports: [
     CommonModule,

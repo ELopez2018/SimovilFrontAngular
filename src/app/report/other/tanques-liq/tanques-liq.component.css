@@ -1,0 +1,283 @@
+.titulo {
+    background: black;
+    color: white;
+}
+
+.marco_tabla {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /* border: 3px solid #212121; */
+}
+
+.linea_borde {
+    border: 3px solid #212121;
+}
+
+.container {
+    margin-top: 10px;
+}
+
+.fila_0 {
+    background-color: #E3F2FD;
+}
+
+.fila_0:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+    color: blue;
+}
+
+.fila_1 {
+    background-color: #82B1FF;
+}
+
+.fila_1:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+    color: blue;
+}
+
+.progress-bar-vertical {
+    width: 70px;
+    min-height: 100px;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 40px;
+    float: left;
+}
+
+.progress-bar-vertical .progress-bar {
+    width: 100%;
+    height: 0;
+    -webkit-transition: height 0.6s ease;
+    -o-transition: height 0.6s ease;
+    transition: height 0.6s ease;
+}
+
+.encabezado_tabla {
+    background-color: #1565C0;
+    color: #E3F2FD;
+    font-weight: bold;
+    text-align: left;
+    font-size: smaller;
+}
+
+@media (min-width: 768px) {
+    .margenes_filas {
+        text-align: left;
+        border: silver 1px solid;
+        height: 27px;
+        font-size: smaller;
+        font-weight: bold;
+    }
+}
+
+.margenes_columnas {
+    border: silver 1px solid;
+    height: 27px;
+    padding-left: 3px;
+}
+
+.margenes_columnas_nodo {
+    border: silver 1px solid;
+    height: 50px;
+    padding-left: 3px;
+}
+
+.area_relleno {
+    padding: 0px 0px 0px 0px;
+}
+
+.ondas {
+    width: 42px;
+    height: 42px;
+    background-color: rgb(24, 131, 202);
+    border-radius: 50%;
+    border: 0px;
+    position: relative;
+    animation: animate 3s linear infinite
+}
+
+@keyframes animate {
+    0% {
+        box-shadow: 0 0 0 0 rgba(74, 137, 255, 0.7), 0 0 0 0 rgb(74, 137, 255, 0.7)
+    }
+    40% {
+        box-shadow: 0 0 0 50px rgb(74, 137, 255, 0), 0 0 0 0 rgb(74, 137, 255, 0.7)
+    }
+    80% {
+        box-shadow: 0 0 0 50px rgb(74, 137, 255, 0), 0 0 0 30px rgb(74, 137, 255, 0)
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgb(74, 137, 255, 0), 0 0 0 30px rgb(74, 137, 255, 0)
+    }
+}
+
+.ondas_green {
+    width: 32px;
+    height: 32px;
+    background-color: rgb(0, 128, 0);
+    border-radius: 50%;
+    border: 0px;
+    position: relative;
+    animation: animate_green 3s linear infinite
+}
+
+@keyframes animate_green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 128, 0, 0.7), 0 0 0 0 rgb(0, 128, 0, 0.7)
+    }
+    80% {
+        box-shadow: 0 0 0 50px rgb(0, 128, 0, 0), 0 0 0 0 rgb(0, 128, 0, 0.7)
+    }
+    160% {
+        box-shadow: 0 0 0 50px rgb(0, 128, 0, 0), 0 0 0 30px rgb(0, 128, 0, 0)
+    }
+    200% {
+        box-shadow: 0 0 0 0 rgb(0, 128, 0, 0), 0 0 0 30px rgb(0, 128, 0, 0)
+    }
+}
+
+.ondas_red {
+    width: 32px;
+    height: 32px;
+    background-color: rgb(255, 0, 0);
+    border-radius: 50%;
+    border: 0px;
+    position: relative;
+    animation: animate_red 3s linear infinite
+}
+
+@keyframes animate_red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7), 0 0 0 0 rgb(255, 0, 0, 0.7)
+    }
+    40% {
+        box-shadow: 0 0 0 50px rgb(255, 0, 0, 0), 0 0 0 0 rgb(255, 0, 0, 0.7)
+    }
+    80% {
+        box-shadow: 0 0 0 50px rgb(255, 0, 0, 0), 0 0 0 30px rgb(255, 0, 0, 0)
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgb(255, 0, 0, 0), 0 0 0 30px rgb(255, 0, 0, 0)
+    }
+}
+
+.ondas_yellow {
+    width: 32px;
+    height: 32px;
+    background-color: rgb(255, 255, 0);
+    border-radius: 50%;
+    border: 0px;
+    position: relative;
+    animation: animate_yellow 3s linear infinite
+}
+
+@keyframes animate_yellow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 0, 0.7), 0 0 0 0 rgb(255, 255, 0, 0.7)
+    }
+    80% {
+        box-shadow: 0 0 0 50px rgb(255, 255, 0, 0), 0 0 0 0 rgb(255, 255, 0, 0.7)
+    }
+    160% {
+        box-shadow: 0 0 0 50px rgb(255, 255, 0, 0), 0 0 0 30px rgb(255, 255, 0, 0)
+    }
+    200% {
+        box-shadow: 0 0 0 0 rgb(255, 255, 0, 0), 0 0 0 30px rgb(255, 255, 0, 0)
+    }
+}
+
+.texto_bandera {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    white-space: nowrap;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+    top: -48px;
+}
+
+.ondas_plata {
+    width: 32px;
+    height: 32px;
+    background-color: rgb(192, 192, 192);
+    border-radius: 50%;
+    border: 0px;
+    position: relative;
+}
+
+.ondas_silver {
+    width: 32px;
+    height: 32px;
+    background-color: rgb(192, 192, 192);
+    border-radius: 50%;
+    border: 0px;
+    position: relative;
+    animation: animate_silver 3s linear infinite
+}
+
+@keyframes animate_silver {
+    0% {
+        box-shadow: 0 0 0 0 rgba(192, 192, 192, 0.7), 0 0 0 0 rgb(192, 192, 192, 0.7)
+    }
+    80% {
+        box-shadow: 0 0 0 50px rgb(192, 192, 192, 0), 0 0 0 0 rgb(192, 192, 192, 0.7)
+    }
+    160% {
+        box-shadow: 0 0 0 50px rgb(192, 192, 192, 0), 0 0 0 30px rgb(192, 192, 192, 0)
+    }
+    300% {
+        box-shadow: 0 0 0 0 rgb(192, 192, 192, 0), 0 0 0 30px rgb(192, 192, 192, 0)
+    }
+}
+
+
+/*****************************************************************************************/
+
+.card-elegant {
+    background-color: #FAFAFA;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+    border: none;
+}
+
+.card-elegant .card-block {
+    padding: 2rem 0 2.5rem 0;
+    text-align: center;
+}
+
+.card-elegant .card-title {
+    font-weight: normal;
+    letter-spacing: .20rem;
+    margin: 2.9rem 0;
+    font-size: 1.2rem;
+    color: #8B9185;
+}
+
+.card-elegant .card-title small {
+    color: #999;
+    display: inline-block;
+    font-size: .85rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+.card-elegant .card-text {
+    border-bottom: .15rem solid #C7C7C5;
+    color: #AAA7A0;
+    font-size: .8rem;
+    padding-bottom: 2.5rem;
+    margin: 0 auto 2.4rem;
+    max-width: 9.375rem;
+}
+
+.card-elegant .btn-link {
+    color: #8B9185;
+    font-size: .8rem;
+    letter-spacing: .34rem;
+    text-decoration: none;
+}
+
+.card-elegant .btn-link:hover,
+.card-elegant .btn-link:focus {
+    color: #666;
+}

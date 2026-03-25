@@ -1,11 +1,13 @@
 body {
     overflow-x: hidden;
 }
+
 #nombreEstacion {
     background: transparent;
     color: white;
     font-size: small;
 }
+
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -81,6 +83,7 @@ body {
 #wrapper.toggled .menu-item-title {
     display: inline;
 }
+
 
 /* Sidebar Styles */
 
@@ -307,7 +310,7 @@ body {
     line-height: 3.5rem;
 }
 
-.itemsel{
+.itemsel {
     color: #fff;
 }
 
@@ -315,17 +318,26 @@ body {
     width: 0.5rem;
 }
 
+
 /* Track */
+
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
+
 /* Handle */
+
 ::-webkit-scrollbar-thumb {
     background: #888;
 }
 
+
 /* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+
+/*efecto de nieve en navidad*/

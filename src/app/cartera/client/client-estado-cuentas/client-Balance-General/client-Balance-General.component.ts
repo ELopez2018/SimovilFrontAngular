@@ -1,13 +1,14 @@
+import { EntQuota } from './../../../../Class/EntQuota';
+import { PrincipalComponent } from './../../../../principal/principal.component';
+import { CarteraService } from './../../../../services/cartera.service';
 import { Component, OnInit } from '@angular/core';
 import { EntClient } from '../../../../Class/EntClient';
 import { NominaService } from '../../../../services/nomina.service';
 import { StorageService } from '../../../../services/storage.service';
 import { UtilService } from '../../../../services/util.service';
 import { EntStation } from '../../../../Class/EntStation';
-import { PrincipalComponent } from '../../../../principal/principal.component';
 import { focusById, rangedate, dateToISOString } from '../../../../util/util-lib';
 import { Title } from '@angular/platform-browser';
-
 
 @Component({
     selector: 'app-client-Balance-General',
@@ -38,6 +39,9 @@ export class ClientBalanceGeneralComponent implements OnInit {
     dateL: Date[];
     dateIni: string;
     dateEnd: string;
+    tipoCupo: EntQuota[];
+    tipoCupoAnticipo: boolean = false;
+    tipoCupoCredito: boolean = false;
 
     msgsConsumo = [{ severity: 'info', summary: '', detail: 'NO EXISTEN CONSUMOS' }];
     msgsPagos = [{ severity: 'info', summary: '', detail: 'NO EXISTEN PAGOS' }];
@@ -49,8 +53,8 @@ export class ClientBalanceGeneralComponent implements OnInit {
         public _storaService: StorageService,
         public _utilService: UtilService,
         public _toast: PrincipalComponent,
-        private title: Title
-
+        private title: Title,
+        private carteraService: CarteraService
     ) { }
 
     ngOnInit() {
@@ -87,7 +91,7 @@ export class ClientBalanceGeneralComponent implements OnInit {
                 this.pagos = resp[0].PAGOS || [];
                 this.descuentos = resp[0].DESCUENTOS || [];
                 this.saldoInicial = resp[0].SALDOINICIAL || 0;
-                
+
                 if (this.consumos.length > 0) {
                     this.consumos.forEach(item => {
                         this.totalValorConsumo += item.valor;
@@ -123,6 +127,7 @@ export class ClientBalanceGeneralComponent implements OnInit {
         const info = string[0].split('-');
         return info[0] + '-' + info[1] + '-' + info[2];
     }
+
     basicData() {
         this._utilService.loader();
         this.nominaService.GetStations().subscribe(
@@ -163,5 +168,20 @@ export class ClientBalanceGeneralComponent implements OnInit {
             this.searchConsumoFechaIni,
             this.searchConsumoFechaFin
         );
+        this.carteraService.getQuota(this.cliente.codCliente).subscribe(cupo => {
+              this.tipoCupo = cupo;
+              console.log('ver cupo: '+JSON.stringify(this.tipoCupo[0].tipoCupo));
+              if (cupo && cupo.length > 1){
+              this._toast.showMsg('info', 'Buscando tipo cupo', 'existe mas de 1 registro, favor comunicar al administrador de la BD.');
+              }
+              if(this.tipoCupo[0].tipoCupo == 1){
+                this.tipoCupoCredito = true;
+                this._toast.showMsg('warn', 'Tipo de cliente', 'Credito');
+              }
+              if(this.tipoCupo[0].tipoCupo == 2){
+                this.tipoCupoAnticipo = true;
+                this._toast.showMsg('success', 'tipo de cliente', 'Anticipo');
+              }
+          }, error => console.log(error));
     }
 }

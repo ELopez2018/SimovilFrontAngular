@@ -35,7 +35,7 @@ export class PpalCanastillaComponent implements OnInit {
         this.getProductos(this.stationCode);
         //this.idDeEstacion = this.stationCode;
         this.dataService.idEstacion = this.stationCode;
-        console.log('%c id de estación en ngOnInit ppal canastilla: '+this.stationCode, 'color: blue; font-weight: bold;');
+        //console.log('%c id de estación en ngOnInit ppal canastilla: '+this.stationCode, 'color: blue; font-weight: bold;');
     }
     GetEstaciones() {
         this.stationCode = this.storageService.getCurrentStation();

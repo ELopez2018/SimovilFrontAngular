@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { EntStation } from './../../Class/EntStation';
+import { EntRole } from './../../Class/EntRole';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { EntReceivable } from '../../Class/EntReceivable';
 import { EntClient } from '../../Class/EntClient';
 import { CarteraService } from '../../services/cartera.service';
@@ -18,6 +20,8 @@ import {
     ObjToCSV,
 } from '../../util/util-lib';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import * as XLSX from 'xlsx';
+import { showMessage } from 'igniteui-angular/lib/core/deprecateDecorators';
 
 @Component({
     selector: 'app-station-receivable',
@@ -26,8 +30,12 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
     animations: [fadeTransition()],
 })
 export class StationReceivableComponent implements OnInit {
+
+    @ViewChild('tabla_de_cuentas_de_cobro') tabla_de_cuentas_de_cobro: ElementRef;
     searchReceivable: EntReceivable[];
     codEstation;
+    stationCode: number = null;
+    stationSel: EntStation = new EntStation();
     client: EntClient;
     searchFechaIni;
     searchFechaFin;
@@ -36,6 +44,12 @@ export class StationReceivableComponent implements OnInit {
     stationsAll;
     DiaSemaforo = [7, 16];
     booleanClient = false;
+    rolSistemas: boolean = false;
+    rol: EntRole;
+    cuentaRoja: boolean = false;
+    cuentaVerde: boolean = false;
+    cuentaAmarilla: boolean = false;
+    cuentaBlanca: boolean = false;
 
     constructor(
         private nominaService: NominaService,
@@ -47,22 +61,18 @@ export class StationReceivableComponent implements OnInit {
         private printService: PrintService,
         private utilService: UtilService
     ) {
-        this.codEstation = this.storageService.getCurrentStation();
+        this.stationCode = this.storageService.getCurrentStation();
     }
 
     ngOnInit() {
+        this.GetEstaciones();
         const fechas = rangedate(dateToISOString(new Date()), 1);
         this.searchFechaIni = dateToISOString(fechas[0]);
         this.searchFechaFin = dateToISOString(fechas[1]);
         this.client = new EntClient();
-        this.nominaService.GetStations().subscribe(
-            (data) => {
-                this.stationsAll = data;
-            },
-            (error) => console.log(error)
-        );
         this.GetParam();
         focusById('btnSearch');
+        this.getRolAdmin();
     }
 
     GetParam() {
@@ -72,6 +82,7 @@ export class StationReceivableComponent implements OnInit {
             this.searchByParam(id);
         }
     }
+
     Eliminar(CuentaCobro, i) {
         Swal.fire({
             title: '¿ESTA SEGURO?',
@@ -85,14 +96,8 @@ export class StationReceivableComponent implements OnInit {
             confirmButtonText: 'Si',
         }).then((result) => {
             if (result.value) {
-                this.carteraService
-                    .DeleteRecievable(CuentaCobro)
-                    .subscribe((resp) => {
-                        this.principal.showMsg(
-                            'success',
-                            'CUENTA COBRO ELIMINADA',
-                            resp[0].resp
-                        );
+                this.carteraService.DeleteRecievable(CuentaCobro).subscribe((resp) => {
+                        this.principal.showMsg('success', 'CUENTA COBRO ELIMINADA', resp[0].resp);
                         this.searchReceivable.splice(i, 1);
                     });
             } else {
@@ -100,6 +105,7 @@ export class StationReceivableComponent implements OnInit {
             }
         });
     }
+
     searchByParam(id) {
         this.carteraService.GetClient(id).subscribe(
             (client) => {
@@ -122,11 +128,7 @@ export class StationReceivableComponent implements OnInit {
                 if (client.length != 0) {
                     this.client = client[0];
                 } else {
-                    this.principal.showMsg(
-                        'info',
-                        'Información',
-                        'Cliente no encontrado.'
-                    );
+                    this.principal.showMsg('info', 'Información', 'Cliente no encontrado.');
                 }
             },
             (error) => {
@@ -139,28 +141,30 @@ export class StationReceivableComponent implements OnInit {
     getReceivableSearch() {
         this.searchReceivable=[];
         this.utilService.loader(true);
-        this.carteraService
-            .getReceivable(
-                this.client.codCliente,
-                this.searchStatus,
-                this.searchFechaIni,
-                this.searchFechaFin,
-                null,
-                this.codEstation
-            )
-            .subscribe(
-                (receivable) => (this.searchReceivable = receivable),
+        this.carteraService.getReceivable(this.client.codCliente, this.searchStatus, this.searchFechaIni, this.searchFechaFin, null, this.stationSel.idEstacion).subscribe(
+                receivable => {this.searchReceivable = receivable;
+                               if(this.searchReceivable.length == 0){
+                                   this.principal.showMsg('warn', 'No hay registros', 'correspondientes entre la estación: '+this.stationSel.nombreEstacion+', y el cliente: '+this.client.nombre+', por favor verifique sus datos de consulta');
+                                   return;
+                               }
+                              },
                 (error) => {
                     console.log(error);
                     this.utilService.loader(false);
-                    this.principal.showMsg(
-                        'error',
-                        'Error',
-                        error.error.message
-                    );
+                    this.principal.showMsg('error', 'Error', error.error.message);
                 },
                 () => this.utilService.loader(false)
             );
+    }
+
+    GetEstaciones() {
+        this.nominaService.GetStations().subscribe(data => {
+                this.stationsAll = data;
+                if (this.stationCode) {
+                    this.stationSel = this.stationsAll.find(e => e.idEstacion == this.stationCode);
+                }
+            }, (error) => console.error(error.error.message)
+        );
     }
 
     sumReceivables() {
@@ -183,11 +187,7 @@ export class StationReceivableComponent implements OnInit {
     printReceivableSearch(): void {
         let printContents, popupWin;
         printContents = document.getElementById('print-receivables').innerHTML;
-        popupWin = window.open(
-            '',
-            '_blank',
-            'top=0,left=0,height=100%,width=auto'
-        );
+        popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
         popupWin.document.open();
         popupWin.document.write(`
       <html>
@@ -230,24 +230,11 @@ export class StationReceivableComponent implements OnInit {
     printReceivable(receivable: EntReceivable, preView: boolean= false ) {
         this.utilService.loader(true);
         var consumosC: EntConsumptionClient[];
-        this.carteraService
-            .getConsumption(
-                receivable.codCliente,
-                null,
-                null,
-                receivable.id,
-                null
-            )
-            .subscribe(
+        this.carteraService.getConsumption(receivable.codCliente, null, null, receivable.id, receivable.idEstacion).subscribe(
                 (consumos) => {
                     consumosC = consumos;
-                    // console.log('receivable', consumos);
-                    this.printService.printReceivable(
-                        receivable,
-                        consumosC,
-                        this.stationsAll.find(
-                            (e) => e.idEstacion == receivable.idEstacion
-                        ),
+                    // console.log('receivable', consumos);                    
+                    this.printService.printReceivable(receivable, consumosC, this.stationsAll.find((e) => e.idEstacion == receivable.idEstacion),                        
                         (result) => {
                             this.utilService.loader(false);
                         },
@@ -265,14 +252,20 @@ export class StationReceivableComponent implements OnInit {
         let fechamod = new Date(receivable.fecha);
         var actual = new Date();
         var diff = actual.getTime() - fechamod.getTime();
-        console.log(this.DiaSemaforo[0]);
+        /* console.log('dia semaforo'+this.DiaSemaforo[0]);
         console.log(diff);
-        console.log(receivable.num);
+        console.log(receivable.num); */
         if (diff / (1000 * 60 * 60 * 24) < this.DiaSemaforo[0]) {
+            this.cuentaRoja = false;
+            this.cuentaVerde = true;
             return 'tb sem1';
         } else if (diff / (1000 * 60 * 60 * 24) < this.DiaSemaforo[1]) {
+            this.cuentaRoja = false;
+            this.cuentaVerde = false;
             return 'tb sem2';
         } else {
+            this.cuentaRoja = true;
+            this.cuentaVerde = false;
             return 'tb sem3';
         }
     }
@@ -334,5 +327,24 @@ export class StationReceivableComponent implements OnInit {
             ObjToCSV(item, title, titleB),
             'cuenta_cobro'
         );
+    }
+
+    getRolAdmin(){
+        this.carteraService.getRolAdmin().subscribe(data => {
+            this.rol = data[0];
+               if((this.rol.ID == this.storageService.getCurrentUserDecode().idRol) && (this.rol.ID_AREA == this.storageService.getCurrentUserDecode().Area))
+                    {
+                    this.rolSistemas = true;
+                    console.log('hola sistemas:)');
+                    }
+        }, error => console.log(error));
+    }
+
+    exportarCuentaCobroToExcel(){
+        console.log('¡Exportando, exportando!');
+        const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.tabla_de_cuentas_de_cobro.nativeElement, {dateNF: 'yyyy/mm/dd;@', cellDates: true, raw: true});
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        XLSX.writeFile(wb, 'Cuentas_de_cobro_de_Cartera.xlsx');
     }
 }

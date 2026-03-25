@@ -4,12 +4,11 @@
     </div>
 </div>
 
-<div class="container-fluid my-4" >
+<div class="container-fluid my-4">
     <div class="row justify-content-center">
         <div class="col-sm-2">
             <div class="input-group">
-                <select class="form-control form-control-sm " (change)="CambiaEstacion()" [disabled]="stationCode"
-                    [(ngModel)]="stationSel">
+                <select class="form-control form-control-sm " (change)="CambiaEstacion()" [disabled]="stationCode" [(ngModel)]="stationSel">
                     <option *ngFor="let item of stationsAll" [ngValue]="item">{{
                         item.nombreEstacion
                     }}</option>
@@ -18,8 +17,7 @@
         </div>
 
         <div class="col-sm-3 justify-content-center">
-            <p-calendar [(ngModel)]="Fecha" (onSelect)="Agregar()" [showIcon]="true" [locale]="es"
-                dateFormat="dd/mm/yy">
+            <p-calendar [(ngModel)]="Fecha" (onSelect)="Agregar()" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy">
             </p-calendar>
         </div>
 
@@ -66,29 +64,30 @@
                 <tbody>
                     <tr *ngFor="let lectura of LecturasIniciales; index as i">
                         <td class="text-center">{{ i+1 }}</td>
-                        <td class="text-center">{{  TurnoSel.id }}</td>
+                        <td class="text-center">{{ TurnoSel.id }}</td>
                         <td class="text-center"> {{ lectura.DET_ISL }}</td>
                         <td class="text-center"> {{ lectura.DET_SUR }}</td>
-                        <td class="text-center"> {{ lectura.DETALLE_MAG  }}</td>
+                        <td class="text-center"> {{ lectura.DETALLE_MAG }}</td>
                         <td> {{ lectura.DESCRIPCIO_ART }}</td>
-                        <td class="text-center"> {{ lectura.LEC_INI | number: '.2-3' }}</td>
+                        <!-- <td class="text-center"> {{ lectura.LEC_INI | number: '.2-3' }}</td> -->
+                        <td class="text-center"> {{ lectura.LEC_INI | number }}</td>
                         <td class="text-center">
-                            <input type="number"
-                                [class]="lectura.CANTIDAD < 0 ? 'form-control text-center form-control-sm tamano bg-danger text-light' :  'form-control text-center form-control-sm tamano'"
-                                placeholder="0" [(ngModel)]="lectura.LEC_FIN" required (keyup.enter)="Onkey($event)"
-                                (change)='lectura.CANTIDAD = lectura.LEC_FIN - lectura.LEC_INI; lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO; sumarTotales();'
-                                [title]="lectura.CANTIDAD < 0 ? 'La Lectura Final es inferior a la Lectura Inicial ':' Galonaje total'">
+                            <input type="number" [class]="lectura.CANTIDAD < 0 ? 'form-control text-center form-control-sm tamano bg-danger text-light' :  'form-control text-center form-control-sm tamano'" placeholder="0" [(ngModel)]="lectura.LEC_FIN" required (keyup.enter)="Onkey($event)"
+                                (change)='lectura.CANTIDAD = lectura.LEC_FIN - lectura.LEC_INI; lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO; sumarTotales();' [title]="lectura.CANTIDAD < 0 ? 'La Lectura Final es inferior a la Lectura Inicial ':' Galonaje total'">
                         </td>
 
                         <td [class]="lectura.CANTIDAD < 0 ? 'text-center text-danger' : 'text-center'">
                             <!-- <input type="number" [(ngModel)]="lectura.CANTIDAD"
                                 (change)='lectura.TOTAL = lectura.CANTIDAD * lectura.PRECIO' readonly
                                 class="form-control text-center tamano" placeholder="0" > -->
-                            {{ lectura.CANTIDAD  | number:'.2-3' }}
+                            <!-- {{ lectura.CANTIDAD  | number:'.2-3' }} -->
+                            {{ lectura.CANTIDAD | number }}
                         </td>
-                        <td class="text-center"> {{ lectura.PRECIO   | number:'.2-3' }}</td>
+                        <!-- <td class="text-center"> {{ lectura.PRECIO   | number:'.2-3' }}</td> -->
+                        <td class="text-center"> {{ lectura.PRECIO | number }}</td>
                         <td class="text-right">
-                            {{ lectura.TOTAL   | number:'.0-3' }}
+                            <!-- {{ lectura.TOTAL   | number:'.0-3' }} -->
+                            {{ lectura.TOTAL | number }}
                             <!-- <input type="number" readonly class="form-control text-center tamano" placeholder="0"
                                 [(ngModel)]="lectura.TOTAL" > -->
 
@@ -104,9 +103,9 @@
                     <th scope="col" class="text-center"></th>
                     <th scope="col" class="text-center"></th>-->
                     <th scope="col" class="text-right"> Galones = </th>
-                    <th scope="col"  class="text-center"> {{ totalGalones | number }} </th>
-                    <th scope="col" class="text-right"> Pesos =  </th>
-                    <th scope="col"colspan=""  class="text-center">{{ totalPesos | currency }}</th>
+                    <th scope="col" class="text-center"> {{ totalGalones | number }} </th>
+                    <th scope="col" class="text-right"> Pesos = </th>
+                    <th scope="col" colspan="" class="text-center">{{ totalPesos | currency }}</th>
                 </TFoot>
             </table>
 

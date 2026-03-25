@@ -42,7 +42,7 @@ import { EntSaldosIniciales } from '../Class/EntSaldosIniciales';
 import { EstadoDeCuentasModel } from '../Class/EstadoDeCuentas.Model';
 import { EntCodigoContable } from '../Class/EntCodigosContables';
 import { EntClasificacionInvoice } from '../Class/EntClasificacionInvoice';
-
+import { EntConsumoFLM } from '../Class/EntConsumoFLM';
 
 @Injectable()
 export class NominaService {
@@ -60,6 +60,10 @@ export class NominaService {
     // tslint:disable-next-line: member-ordering
     private httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.storageService.getCurrentToken() })
+    };
+
+    private httpOptions2 = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
     // APIS PARA EL CPL
@@ -155,16 +159,31 @@ export class NominaService {
             tap(data => console.log('GetClientCredit Realizado con éxito')));
     }
 
-   /* public getClientesConSaldosIniciales(codCliente?: number, nombre?: string): Observable<EntClient[]>{
-        const query = '/api/getClientesConSaldosIniciales';
-        const parameters = [
-            [codCliente, 'codCliente'],
-            [nombre, 'nombre']
-        ];
-        const consulta = OrderParametersToGet(query, parameters);
-        return this.http.get<EntClient[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions).pipe(
-            tap(data => console.log('getClientesConSaldosIniciales realizado con éxito')));
-    }*/
+   public getINivelTanque(idEstacion: number): Observable<any[]> {
+       const query = '/api/getNivelTanque';
+       const parameters = [
+       [idEstacion, 'idEstacion'],
+       ];
+       const consulta = OrderParametersToGet(query, parameters);
+       return this.http
+       .get<any[]>(
+       Parametros.GetParametros().servidorLocal + consulta,
+       this.httpOptions
+       )
+       .pipe(tap((data) => console.log('Obtener búsqueda niveles de tanque ha sido realizado con éxito')));
+   }
+
+   public getInventarioCombustible(): Observable<any[]> {
+       const query = '/api/getInventarioCombustible';
+       const parameters = [];
+       const consulta = OrderParametersToGet(query, parameters);
+       return this.http
+       .get<any[]>(
+       Parametros.GetParametros().servidorLocal + consulta,
+       this.httpOptions
+       )
+       .pipe(tap((data) => console.log('Obtener búsqueda control inventario de combustible ha sido realizado con éxito')));
+   }
 
     public GetStations(station?: number, name?: string): Observable<EntStation[]> {
         const query = '/api/station';
@@ -438,10 +457,16 @@ export class NominaService {
         return this.http.get<any[]>(Parametros.GetParametros().servidorLocal + consulta, this.httpOptions);
     }
 
+    // Insertando consumos de clientes: Piloto flota la Macarena
+    public insertConsumoClientes(Consumos: EntConsumoFLM): Observable<any> {
+    console.log('insertConsumoClientesFLM:...'+JSON.stringify(Consumos));//b
+    return this.http.post<any>(Parametros.GetParametros().servidorLocal + '/api/insertConsumoClientes', JSON.stringify(Consumos), this.httpOptions).pipe(
+        tap(educationLevel => console.log('InsertConsumoClientesFLM Realizado con éxito')));
+    }
 
     // Insertando Ventas
     public InserVentas(Venta: EntVentasProductos): Observable<EntVentasProductos> {
-        console.log('Venta:...'+JSON.stringify(Venta));
+        //console.log('Venta:...'+JSON.stringify(Venta));
         return this.http.post<EntVentasProductos>(Parametros.GetParametros().servidorLocal + '/api/InsertVentaProdutosInventario', JSON.stringify(Venta), this.httpOptions).pipe(
             tap(educationLevel => console.log('InserVentas Realizado con éxito'))
             // catchError(this.handleError<EntEmployee>('GetUsuario'))
@@ -454,6 +479,14 @@ export class NominaService {
             tap(_ => console.log('Actualizado Correctamente'))
         );
     }
+
+// Actualizando Ventas2
+    public UpdateSalesProd2(VentaEditada: EntVentasEdit): Observable<any> {
+        return this.http.put(Parametros.GetParametros().servidorLocal + '/api/updSlesProd', JSON.stringify(VentaEditada), this.httpOptions).pipe(
+            tap(_ => console.log('Actualizado Correctamente'))
+        );
+    }
+
     // Borrando Una Venta
     public DeleteVenta(idVenta: number): Observable<any> {
         return this.http.delete(Parametros.GetParametros().servidorLocal + '/api/productoVenta/' + idVenta, this.httpOptions).pipe(
@@ -934,4 +967,26 @@ export class NominaService {
             // tap(data => console.log('clasificaciones de Facturas'))
         );
     }
+
+    public guartarTokenNotifi(token: any,user:any): Observable<any> {
+        const body = ({'user':user, 'token':JSON.stringify(token)});        
+        return this.http.post<any>(Parametros.GetParametros().servidorLocal + '/api/guardarTokenNotifi', body, this.httpOptions)   
+    }
+
+    public consultarUsersWebToken(): Observable<any> {
+        return this.http.get<any>(Parametros.GetParametros().servidorLocal + '/api/userWebToken', this.httpOptions).pipe(
+            map(resp => {
+                resp.map((e: any) => {
+                    e.webToken != null ? e.webToken = JSON.parse(String(e.webToken)) : null;
+                });
+                return resp;
+            })
+            );
+    }
+
+    public enviarNotificacion(data:any): Observable<any> {
+        const body = (JSON.stringify(data));        
+        return this.http.post<any>(Parametros.GetParametros().servidorLocal + '/api/enviarNotificacion', body, this.httpOptions2)   
+    }
+
 }

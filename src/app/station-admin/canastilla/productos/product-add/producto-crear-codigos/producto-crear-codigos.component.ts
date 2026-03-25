@@ -113,12 +113,14 @@ export class ProductoCrearCodigosComponent implements OnInit, OnChanges {
 
     }
     Guardar() {
-
-
         this.nominaService.InsertCodigoConta(this.nuevosCodigosConta).subscribe(resp => {
             console.log(resp);
-        })
-
+        });
+        Swal.fire({
+            title: 'CODIGO CONTABLE CREADO',
+            icon: 'success',
+            text: 'Agregado con éxito'
+        });
     }
 
     BuscarsiExiste(codigo: string): boolean {

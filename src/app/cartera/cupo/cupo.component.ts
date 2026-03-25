@@ -1,3 +1,4 @@
+import { browser } from 'protractor';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 import { CarteraService } from '../../services/cartera.service';
@@ -40,7 +41,7 @@ export class CupoComponent implements OnInit {
     private principalComponent: PrincipalComponent,
     private route: ActivatedRoute,
     private location: Location,
-    private title: Title
+    private title: Title,
   ) {
     this.buildForm();
     this.title.setTitle('Cupos - Simovil');
@@ -82,8 +83,10 @@ export class CupoComponent implements OnInit {
     this.quota.editable = true;
     let desc: EntDiscount[] = [];
     let rv = this.listDiscount.getRawValue();
+    /* console.log('rv: '+rv);//b
+    return; */
     for (let num = 0; num < rv.length; num++) {
-      desc.push({ COD_CLIENTE: this.quota.codCliente, TIPO_ARTICULO: rv[num].articletype, VALOR: rv[num].valor });
+      desc.push({ COD_CLIENTE: this.quota.codCliente, TIPO_ARTICULO: rv[num].articletype, VALOR: rv[num].valor, nombreEstacion: rv[num].nombreEstacion });
     }
     this.quota.descuento = desc;
     this.InsertQuota(this.quota);

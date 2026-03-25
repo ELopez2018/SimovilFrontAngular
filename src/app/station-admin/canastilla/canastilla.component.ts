@@ -91,7 +91,7 @@ export class CanastillaComponent implements OnInit {
                 if (this.stationCode) {
                     this.getEstacionActual(this.stationCode);
                     this.dataService.idEstacion=this.stationCode;
-                    alert('Canastilla Component: id de la estación: '+this.dataService.idEstacion);
+                    //alert('Canastilla Component: id de la estación: '+this.dataService.idEstacion);//b
                     this.nameStation = this.stationsAll.find((f) => f.idEstacion == this.stationCode).nombreEstacion;
                 }
             },
@@ -460,6 +460,7 @@ export class CanastillaComponent implements OnInit {
                     return;
                 } else {
                     const rawData = this.list.value;
+                    /* console.log('productos vendidos: '+JSON.stringify(rawData)); *///b
                     for (const index in rawData) {
                         this.ProductosVendidos.FechaV = this.date3;
                         this.ProductosVendidos.IdEstacionV = this.stationCode;

@@ -55,7 +55,8 @@ export class StationAdminCalibrationComponent implements OnInit {
 
               ID: e.ID,
               DESCRIPCION: e.DESCRIPCION,
-              CANTIDAD: [{value: e.DESCRIPCION, disabled: true}, [Validators.required, Validators.min(0)]]
+              //CANTIDAD: [{value: e.DESCRIPCION, disabled: true}, [Validators.required, Validators.min(0)]]
+              CANTIDAD: [{value: 0, disabled: true}, [Validators.required, Validators.min(0)]]
             }));
             //this.ocultarInput = true;
         }
@@ -98,6 +99,7 @@ export class StationAdminCalibrationComponent implements OnInit {
 
   submiterForm() {
     let form = this.calibrationForm.getRawValue();
+    //console.log('%c datos a guardar de calibración prueba calle13: '+JSON.stringify(form), 'color: blue; font-weight: bold;');
     if (this.stationCode == null) {
       this.principalComponent.showMsg('error', 'Error', 'No es un usuario de estación.')
     } else {

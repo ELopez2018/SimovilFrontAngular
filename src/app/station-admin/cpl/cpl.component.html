@@ -13,6 +13,13 @@
             <span class="nameTab">Ingreso Lecturas</span>
         </a>
     </li>
+    <li class="nav-item text-center" aria-selected="true" *ngIf="Area == 1 || Area == 11">
+        <a title="Registrar Lecturas" routerLink="./ingresoAutomatico" class="nav-link" routerLinkActive="active"
+            id="regVentasAuto-tab" data-toggle="tab" role="tab" aria-controls="regVentasAuto" aria-selected="true">
+             <span class="fas fa-gas-pump fa-fw"></span><span class="fas fa-plus fa-fw"></span>&nbsp;
+            <span class="nameTab">Ingreso Automatico</span>
+        </a>
+    </li>
     <li class="nav-item text-center" aria-selected="true" *ngIf=" Area == 11">
         <a title="Editar Lecturas" routerLink="./EditLecturas" class="nav-link" routerLinkActive="active"
             id="EditLecturas-tab" data-toggle="tab" role="tab" aria-controls="EditLecturas" aria-selected="true">

@@ -1,3 +1,4 @@
+import { DataTipoCupoService } from './../../services/data-tipo-cupo.service';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { CarteraService } from '../../services/cartera.service';
 import {
@@ -28,7 +29,8 @@ export class StationAdminReceivableComponent implements OnInit {
         private principal: PrincipalComponent,
         private storageService: StorageService,
         private utilService: UtilService,
-        private printService: PrintService
+        private printService: PrintService,
+        public dataTipoCupo: DataTipoCupoService,
     ) {
         this.codStation = this.storageService.getCurrentStation();
         //console.log(this.storageService.getCurrentStation());
@@ -43,6 +45,11 @@ export class StationAdminReceivableComponent implements OnInit {
     boolCreateRec = false;
     clientSel: EntBasicClient;
     usuario: string;
+    cargando: boolean = true;
+    show: boolean = false;
+    rol: number;
+    areaRol: number;
+
     ngOnInit() {
         this.fecha = dateToISOString(new Date());
         this.getclientsPending();
@@ -53,7 +60,19 @@ export class StationAdminReceivableComponent implements OnInit {
         ];
         this.setTab(this.tabs);
         this.usuario = this.storageService.getCurrentUserDecode().Usuario;
-        console.log(this.usuario);
+        this.rol = this.storageService.getCurrentUserDecode().idRol;
+        this.areaRol = this.storageService.getCurrentUserDecode().Area
+        this.mostrarTabla();
+    }
+
+    mostrarTabla() {
+        let roles = [4, 1]
+        let areas = [7, 11]
+        if (roles.includes(this.rol) && areas.includes(this.areaRol)) {
+            this.show = true;
+        } else {
+            this.show = false;
+        }
     }
 
     autoCreate() {
@@ -103,6 +122,8 @@ export class StationAdminReceivableComponent implements OnInit {
             (r) => {
                 this.utilService.loader(false);
                 this.clients = r;
+                this.cargando = false;
+                console.log(JSON.stringify(this.clients))
             },
             (error) => {
                 console.log(error);
@@ -113,6 +134,7 @@ export class StationAdminReceivableComponent implements OnInit {
     }
 
     SelectClient(val: EntBasicClient) {
+        this.dataTipoCupo.detalleTipoCupo = JSON.stringify(val.detalleTipoCupo);
         this.boolCreateRec = true;
         this.clientSel = val;
         this.fechaCliIni = dateToISOString(val['FECHA_MIN']);
@@ -126,53 +148,106 @@ export class StationAdminReceivableComponent implements OnInit {
         if (!event$) {
             this.boolCreateRec = false;
             return;
-        }
-          if (!this.codStation) {
-            this.principal.showMsg('error','Acceso Restringido', 'No se puede crear la cuenta de cobro porque debe tener permisos de Administrador de Estacion');
-            return;
-          }
-        let consumos = [];
-        event$.consumos.forEach((element) => {
-            consumos.push({ id: element.id });
-        });
-        console.log(event$.retenciones);
-        event$.consumos = consumos;
-        this.boolCreateRec = false;
-        this.utilService.confirm(
-            '¿Desea crear la cuenta de cobro del cliente ' +
+        }        
+
+        let roles = [4, 1]
+        let areas = [7, 11]
+        if (roles.includes(this.rol) && areas.includes(this.areaRol)) {
+            let consumos = [];
+            event$.consumos.forEach((element) => {
+                consumos.push({ id: element.id });
+            });
+
+            event$.consumos = consumos;
+            this.boolCreateRec = false;
+            this.utilService.confirm(
+                '¿Desea crear la cuenta de cobro del cliente ' +
                 this.clientSel.nombre +
                 ' a corte del ' +
                 isoDateToLocalString(this.fechaCliFin) +
                 '?',
-            (res) => {
-                if (res) {
-                    this.utilService.loader();
-                    this.carteraService
-                        .MakeReceivable(
-                            this.clientSel.codCliente,
-                            this.codStation,
-                            event$.consumos,
-                            event$.retenciones,
-                            event$.fechaIni,
-                            event$.fechaFin,
-                            this.usuario
-                        )
-                        .subscribe( r => {
-                    this.utilService.loader(false);
-                    // this.carteraService.createReceivableByClient(this.fechaCliIni, this.fechaCliFin, this.clientSel.codCliente, this.codStation).subscribe(r => {
-                        this.principal.showMsg('success', 'Éxito', 'Cuenta de Cobro Creada');
-                        this.utilService.loader(false)
-                      this.getclientsPending();
-                      this.printRec(r[0].ID);
+                (res) => {
+                    if (res) {
+                        this.utilService.loader();
+                        this.carteraService
+                            .MakeReceivable(
+                                this.clientSel.codCliente,
+                                this.clientSel.idEstacion,
+                                event$.consumos,
+                                event$.retenciones,
+                                event$.fechaIni,
+                                event$.fechaFin,
+                                this.usuario
+                            )
+                            .subscribe(r => {
+                                this.utilService.loader(false);
+                                // this.carteraService.createReceivableByClient(this.fechaCliIni, this.fechaCliFin, this.clientSel.codCliente, this.codStation).subscribe(r => {
+                                this.principal.showMsg('success', 'Éxito', 'Cuenta de Cobro Creada');
+                                this.utilService.loader(false)
+                                this.getclientsPending();
+                                this.printRec(r.ID);
 
-                    }, error => {
-                    this.utilService.loader(false);
-                      console.log(error);
-                      this.principal.showMsg('error', 'Error', error.error.message);
-                    });
+                            }, error => {
+                                this.utilService.loader(false);
+                                console.log(error);
+                                this.principal.showMsg('error', 'Error', error.error.message);
+                            });
+                    }
                 }
+            );
+        } else {
+
+            if (!this.codStation) {
+                this.principal.showMsg('error', 'Acceso Restringido', 'No se puede crear la cuenta de cobro porque debe tener permisos de Administrador de Estacion');
+                return;
             }
-        );
+
+            let consumos = [];
+            event$.consumos.forEach((element) => {
+                consumos.push({ id: element.id });
+            });
+
+            event$.consumos = consumos;
+            this.boolCreateRec = false;
+            this.utilService.confirm(
+                '¿Desea crear la cuenta de cobro del cliente ' +
+                this.clientSel.nombre +
+                ' a corte del ' +
+                isoDateToLocalString(this.fechaCliFin) +
+                '?',
+                (res) => {
+                    if (res) {
+                        this.utilService.loader();
+                        this.carteraService
+                            .MakeReceivable(
+                                this.clientSel.codCliente,
+                                this.codStation,
+                                event$.consumos,
+                                event$.retenciones,
+                                event$.fechaIni,
+                                event$.fechaFin,
+                                this.usuario
+                            )
+                            .subscribe(r => {
+                                this.utilService.loader(false);
+                                // this.carteraService.createReceivableByClient(this.fechaCliIni, this.fechaCliFin, this.clientSel.codCliente, this.codStation).subscribe(r => {
+                                this.principal.showMsg('success', 'Éxito', 'Cuenta de Cobro Creada');
+                                this.utilService.loader(false)
+                                this.getclientsPending();
+                                this.printRec(r.ID);
+
+                            }, error => {
+                                this.utilService.loader(false);
+                                console.log(error);
+                                this.principal.showMsg('error', 'Error', error.error.message);
+                            });
+                    }
+                }
+            );
+        }
+
+
+
     }
 
     printRec(id) {
@@ -198,8 +273,7 @@ export class StationAdminReceivableComponent implements OnInit {
                             null
                         )
                     ).subscribe(
-                        ([res1, res2]) => {
-                            console.log(res1, res2);
+                        ([res1, res2]) => {                           
                             this.nominaService
                                 .GetStations(res1[0].estacion)
                                 .subscribe(
@@ -269,5 +343,15 @@ export class StationAdminReceivableComponent implements OnInit {
             this.fechaCliFin
             ? true
             : false;
+    }
+
+    getSeverity(status: boolean) {
+        switch (status) {
+            case false:
+                return 'inactivo';
+
+            case true:
+                return 'activo';
+        }
     }
 }

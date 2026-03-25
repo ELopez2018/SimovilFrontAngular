@@ -6,6 +6,7 @@ import { HomeCPLComponent } from './home-cpl/home-cpl.component';
 import { IngresoLecturasComponent } from './ingreso-lecturas/ingreso-lecturas.component';
 import { ReportLecturasComponent } from './report-lecturas/report-lecturas.component';
 import { CplComponent } from './cpl.component';
+import { IngresoAutomaticoComponent } from './ingreso-automatico/ingreso-automatico.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { CplComponent } from './cpl.component';
         // HomeCPLComponent,
         // IngresoLecturasComponent,
         // ReportLecturasComponent
+        //IngresoAutomaticoComponent
     ]
 })
 export class CplModule { }

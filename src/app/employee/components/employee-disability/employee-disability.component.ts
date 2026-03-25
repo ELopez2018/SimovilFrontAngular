@@ -61,12 +61,12 @@ export class EmployeeDisabilityComponent implements OnInit {
     let administradora: EntAdministrator = this.noveltyForm.get('administradora').value;
     if (administradora && administradora.tipoAdministradora == 4) {
       this.noveltyForm.get('diasCobrar').setValue(diff || 0);
-      valorDia = (877803 / 30) * (diff || 0);
+      valorDia = (908526 / 30) * (diff || 0);
     }
     if (administradora && administradora.tipoAdministradora == 1) {
       let diaAdmin = (diff || 0) - 2 < 0 ? 0 : diff - 2;
       this.noveltyForm.get('diasCobrar').setValue(diaAdmin);
-      valorDia = (877803 / 30) * diaAdmin;
+      valorDia = (908526 / 30) * diaAdmin;
     }
     this.noveltyForm.get('valor').setValue(valorDia);
   }

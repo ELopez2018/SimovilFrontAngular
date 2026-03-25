@@ -19,4 +19,7 @@ export class EntPayment {
     tipoRetencion: any;
     montoRentencion: number;
     detalles: string;
+    descuento: number;
+    fechaDePago: string;
+    retenciones: any;
 }

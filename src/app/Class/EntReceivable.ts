@@ -18,4 +18,5 @@ export class EntReceivable {
     periodoIni: string;
     periodoFin: string;
     idEstacion: number;
+    idFacturaE: number;
 }

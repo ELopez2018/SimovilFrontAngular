@@ -5,6 +5,7 @@ import { AnticipoAProveedoresComponent } from './anticipo-a-proveedores/anticipo
 import { SheetDailyAddComponent } from './sheet-daily-add/sheet-daily-add.component';
 import { SheetDailyEditComponent } from './sheet-daily-edit/sheet-daily-edit.component';
 import { SheetDailySearchComponent } from './sheet-daily-search/sheet-daily-search.component';
+import { SheetDailyAddMGComponent } from './sheet-daily-add-mg/sheet-daily-add-mg.component';
 
 @NgModule({
     imports: [
@@ -16,6 +17,8 @@ import { SheetDailySearchComponent } from './sheet-daily-search/sheet-daily-sear
         // SheetDailyAddComponent,
         // SheetDailyEditComponent,
         // SheetDailySearchComponent
+    //SheetDailyEditMGComponent,
+        //SheetDailyAddMGComponent
     ]
 })
 export class StationAdminSheetDailyModule { }

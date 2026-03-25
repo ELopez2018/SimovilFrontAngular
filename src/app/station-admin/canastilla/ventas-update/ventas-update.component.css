@@ -18,3 +18,81 @@
     width: 100px;
     margin: auto;
 }
+
+/* nuevo */
+
+.titulo {
+    text-align: center;
+    background: #353b41;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+.cuerpo {
+    border: 1px solid #dee2e6;
+}
+.center {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    /* align-self: center; */
+    padding: 1px;
+    border: 1px solid #dee2e6;
+}
+
+.fila_par {
+    background: #F2F2F2;
+}
+
+.fila_impar {
+    background: #FFFFFF;
+}
+
+.fila_par:hover, .fila_impar:hover {
+    background: springgreen;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: [x1] 2rem 1fr 1fr 5fr 1fr 1fr 2fr;
+    grid-template-rows: [y1] 1fr;
+}
+
+.saltodeLinea {
+    width: 0%;
+}
+
+.text-center:disabled {
+    cursor: not-allowed;
+}
+
+@media (max-width: 800px) {
+    .respon {
+      display: inline-flex !important;
+    }
+    .responCol {
+        display: inline-flex !important;
+        flex-flow: column !important;
+        border: 0px !important;
+        padding: 1px;
+        justify-content: center;
+        text-align: center;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: 1rem 1fr 2fr 3fr 2fr 2fr 1fr;
+        grid-template-rows: 1fr;
+    }
+    .saltodeLinea {
+        width: 100%!important;
+    }
+
+    #acciones {
+        content: "Acc";
+    }
+}
+
+
+
+       

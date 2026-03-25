@@ -107,6 +107,7 @@ export class ClientSelfComponent implements OnInit {
     this.homeClient = new EntHomeClient();
     this.hoy = new Date();
     this.codClient = this.storageService.getCurrentUserDecode().Usuario;
+    console.log('código del cliente: '+this.codClient);//b
     this.getHomeClient();
     this.getConsumption();
     this.tabs = [
@@ -190,7 +191,7 @@ export class ClientSelfComponent implements OnInit {
       estado: ['']
     });
 
-    // edit vehicles 
+    // edit vehicles
     this.vehicleEditForm = this.fb.group({
       placa: ['', Validators.compose([Validators.required])],
       marca: ['', Validators.compose([Validators.required])],
@@ -561,7 +562,7 @@ export class ClientSelfComponent implements OnInit {
           orderDetail.push(item);
         });
       }
-      // fin insert controlado  
+      // fin insert controlado
     }
     this.insertOrder(order, orderDetail, stationList);
   }
@@ -647,6 +648,7 @@ export class ClientSelfComponent implements OnInit {
     this.vehicle.combustible = this.vehicleForm.get('fuelType').value ? this.vehicleForm.get('fuelType').value.ID : null;
     this.vehicle.estado = Boolean(this.vehicleForm.get('estado').value);
     this.InsertVehicle(this.vehicle);
+    console.log('%c data vehiculo a registrar:) '+JSON.stringify(this.vehicle), 'color: green; font-weight: bold;');
   }
 
   InsertVehicle(vehicle: EntVehicle) {

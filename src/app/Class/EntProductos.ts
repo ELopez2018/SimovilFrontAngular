@@ -1,6 +1,7 @@
 export class EntProductos {
     id: number;
-    codContable?: number;
+    /* codContable?: number; */
+    codContable?: string;
     descripcion?: string;
     existencia?: number;
     ventas?: number;
@@ -22,6 +23,8 @@ export class EntProductos {
     IdCategoria?: number;
     empresa?: number;
     idCC?: number;
+    utilidadMin?: number;
+    utilidadMax?: number;
     constructor() {
 
     }

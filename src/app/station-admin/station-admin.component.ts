@@ -1,3 +1,6 @@
+import { CuposConsumidosComponent } from './station-admin-consumption/cupos-consumidos/cupos-consumidos.component';
+import { PrincipalComponent } from './../principal/principal.component';
+import { DataCupoService } from './../services/data-cupo.service';
 import { Component, OnInit } from '@angular/core';
 import { fadeAnimation } from '../animations';
 
@@ -9,7 +12,7 @@ import { fadeAnimation } from '../animations';
 })
 export class StationAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dataCupoService: DataCupoService) { }
 
   ngOnInit() {
   }

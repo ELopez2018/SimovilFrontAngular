@@ -1,10 +1,10 @@
 <div class="cabecera text-center">
-    <span>EDICCION DE PRODUCTOS</span>
+    <span>EDICIÓN DE PRODUCTOS</span>
 </div>
 
 <div class="row justify-content-between mt-2">
     <div class="col-sm-2">
-        <button class="btn btn-outline-dark" [routerLink]="['/ppalCanastilla/ListaTodosProd']" routerLinkActive="router-link-active"  ><i class="fas fa-arrow-left"></i> Volver</button>
+        <button class="btn btn-outline-dark" [routerLink]="['/ppalCanastilla/ListaTodosProd']" routerLinkActive="router-link-active"><i class="fas fa-arrow-left"></i> Volver</button>
     </div>
     <div class="col-sm-2"></div>
 </div>
@@ -22,15 +22,14 @@
                 </div>
 
                 <div class="ui-g-12 ui-md-12">
-                    <p-dropdown [options]="centroCostos" formControlName="empresa" name="empresa"  ></p-dropdown>
+                    <p-dropdown [options]="centroCostos" formControlName="empresa" name="empresa"></p-dropdown>
                 </div>
 
                 <div class="ui-g-6 ui-md-6">
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i class="fas fa-barcode"> </i>
                         </span>
-                        <input type="text" pInputText placeholder="Código Contable" formControlName="CodContable"
-                            style="text-align:center" class="prue" />
+                        <input type="text" pInputText placeholder="Código Contable" formControlName="CodContable" style="text-align:center" class="prue" />
                     </div>
 
                     <div *ngIf="
@@ -53,8 +52,7 @@
                 <div class="ui-g-6 ui-md-6">
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i class="fas fa-barcode"></i></span>
-                        <input type="text" pInputText placeholder="Código de Barras" formControlName="BarCode"
-                            style="text-align:center" class="prue" />
+                        <input type="text" pInputText placeholder="Código de Barras" formControlName="BarCode" style="text-align:center" class="prue" />
                     </div>
                 </div>
                 <!-- </div> este -->
@@ -62,8 +60,7 @@
                 <div class="ui-g-12 ui-md-12">
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i class="fas fa-file-signature"></i></span>
-                        <input type="text" pInputText placeholder="Descripcion" formControlName="Descripcion"
-                            class="prue" />
+                        <input type="text" pInputText placeholder="Descripcion" formControlName="Descripcion" class="prue" />
                     </div>
                     <div *ngIf="
                             forma.controls['Descripcion'].errors?.required &&
@@ -90,8 +87,7 @@
                 <div class="ui-g-12 ui-md-12">
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i class="fas fa-box-open"></i></span>
-                        <input type="text" pInputText placeholder="Mililitros/Litros/Libras"
-                            formControlName="Presentacion" class="prue" />
+                        <input type="text" pInputText placeholder="Mililitros/Litros/Libras" formControlName="Presentacion" class="prue" />
                     </div>
                     <div *ngIf="
                             forma.controls['Presentacion'].errors?.required &&
@@ -138,8 +134,7 @@
                 <div class="ui-g-6 ui-md-6">
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i class="fas fa-question"></i></span>
-                        <input type="number" pInputText placeholder="Existencia Mínima" formControlName="tope"
-                            class="prue" />
+                        <input type="number" pInputText placeholder="Existencia Mínima" formControlName="tope" class="prue" />
                     </div>
 
                     <div *ngIf="
@@ -151,8 +146,7 @@
                 </div>
                 <div class="ui-g-6 ui-md-6">
                     <div class="ui-inputgroup">
-                        <button pButton type="button" style="font-size: 1em" (click)="CambiarValor()"
-                            [icon]="Si ? 'pi pi-check' : 'pi pi-times'" [class]="
+                        <button pButton type="button" style="font-size: 1em" (click)="CambiarValor()" [icon]="Si ? 'pi pi-check' : 'pi pi-times'" [class]="
                                     Si
                                         ? 'ui-button-success iu-button ui-widget ui-corner-all ui-button-icon-only ui-button ui-state-default'
                                         : 'ui-button-danger iu-button ui-widget ui-corner-all ui-button-icon-only ui-button ui-state-default'

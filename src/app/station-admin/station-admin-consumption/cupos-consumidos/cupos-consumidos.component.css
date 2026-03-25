@@ -1,0 +1,144 @@
+/* https://htmlcolorcodes.com/es/tabla-de-colores/tabla-de-colores-diseno-de-materiales/ */
+
+.titulo {
+    background-color: #343a40;
+    color: #E3F2FD;
+    text-align: center;
+    font-family: cursive;
+    font-size: calc(1em + 1vw);
+}
+
+.encabezado_tabla {
+    background-color: #1565C0;
+    color: #E3F2FD;
+    font-weight: bold;
+    text-align: left;
+    font-size: smaller;
+}
+
+.fila_0 {
+    background-color: #E3F2FD;
+}
+
+.fila_0:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+    color: blue;
+}
+
+.fila_1 {
+    background-color: #82B1FF;
+}
+
+.fila_1:hover {
+    background-color: #7cf8b0;
+    font-weight: bold;
+    color: blue;
+}
+
+.fila_ppal {
+    background-color: #f0f87c;
+}
+
+.pie_tabla {
+    background-color: #1976D2;
+}
+
+.boton {
+    color: #fff;
+    background-color: #1154a0;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+}
+
+.boton:hover {
+    color: #fff;
+    background-color: #0c3869;
+}
+
+.boton_in_fila {
+    color: #fff;
+    background-color: #1154a0;
+    border-radius: 3px;
+    border: 1px solid #969ed8;
+    height: 21px;
+    font-weight: bold;
+    line-height: normal;
+    padding: 0;
+}
+
+.boton_in_fila:hover {
+    color: #fff;
+    background-color: #0c3869;
+}
+
+@media (min-width: 768px) {
+    .margenes_filas {
+        text-align: left;
+        border: silver 1px solid;
+        height: 27px;
+        font-size: smaller;
+        font-weight: bold;
+    }
+}
+
+.margenes_columnas {
+    border: silver 1px solid;
+    height: 27px;
+    padding-left: 3px;
+}
+
+.marco_tabla {
+    border: 3px solid #212121;
+    padding: 0px;
+}
+
+.color_tabla {
+    background-color: #E3F2FD;
+}
+
+.envoltura {
+    overflow-y: scroll;
+    height: 430px;
+    padding: 1rem;
+}
+
+
+/* Works on Firefox */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: blue orange;
+}
+
+
+/* Works on Chrome, Edge, and Safari */
+
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #1976D2;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #7cf8b0;
+    border-radius: 20px;
+    border: 3px solid #f3f36e;
+}
+
+.colorTexto {
+    color: black;
+}
+
+
+/**********************/
+
+progress {
+    -webkit-appearance: none;
+}
+
+ ::-webkit-progress-bar {
+    background-color: orange;
+}

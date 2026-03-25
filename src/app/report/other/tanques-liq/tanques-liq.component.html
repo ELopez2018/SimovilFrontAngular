@@ -1,0 +1,331 @@
+<div class="row titulo text-center">
+    <div class="col-12 h4 strong">
+        Mapa de tanques de combustible liquido. <span style="color: rgb(0, 255, 85);">Clic sobre el circulo para más información. </span> <span style="color: yellow;">Favor ver bajo el mapa la interpretación</span>
+    </div>
+</div>
+
+<div class="container card">
+    <div class="row area_relleno">
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Catama</b>
+        </div>
+        <div *ngFor="let nodo of tanqueCatama">
+
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueCatama)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Cusiana</b>
+        </div>
+        <div *ngFor="let nodo of tanqueCusiana">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueCusiana)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+    </div>
+    <!--end primera fila-->
+    <div class="row">
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Jordán</b>
+        </div>
+        <div *ngFor="let nodo of tanqueJordan">
+
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueJordan)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">PGanadero</b>
+        </div>
+        <div *ngFor="let nodo of tanquePasoGanadero; index as conta_gana">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanquePasoGanadero)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+
+            <div class="col">
+                <div *ngIf="conta_gana == 3">
+                    <button type="button" [ngClass]="{'ondas_plata': 0 == 0 }">
+                </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Pavitos</b>
+        </div>
+        <div *ngFor="let nodo of tanquePavitos">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanquePavitos)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+    </div>
+    <!--end segunda fila-->
+    <div class="row">
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Col/bia</b>
+        </div>
+        <div *ngFor="let nodo of tanqueColombia">
+
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueColombia)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Sra V/cio</b>
+        </div>
+        <div *ngFor="let nodo of tanqueSraVillavicencio">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueSraVillavicencio)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Molienda</b>
+        </div>
+        <div *ngFor="let nodo of tanqueLaMolienda">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueLaMolienda)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+    </div>
+    <!--end tercera fila-->
+    <div class="row area_relleno">
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Galarza</b>
+        </div>
+        <div *ngFor="let nodo of tanqueGalarza; index as conta_gala">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueGalarza)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+
+            <div class="col">
+                <div *ngIf="conta_gala == 3">
+                    <button type="button" [ngClass]="{'ondas_plata': 0 == 0 }">
+                </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Jardín</b>
+        </div>
+        <div *ngFor="let nodo of tanqueJardin">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueJardin)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Carmen</b>
+        </div>
+        <div *ngFor="let nodo of tanqueElCarmen">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueElCarmen)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+    </div>
+    <!--end cuarta fila-->
+    <div class="row area_relleno">
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Victoria</b>
+        </div>
+        <div *ngFor="let nodo of tanqueLaVictoria">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueLaVictoria)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Calle 13</b>
+        </div>
+        <div *ngFor="let nodo of tanqueCalle13">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueCalle13)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Cra 5TA</b>
+        </div>
+        <div *ngFor="let nodo of tanqueCra5Ta">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueCra5Ta)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <img src="../../../../assets/img/bandera_a_cuadros32.png">
+            <b class="texto_bandera">Gasollanos</b>
+        </div>
+        <div *ngFor="let nodo of tanqueGasollanos">
+            <div class="col">
+                <button type="button" [ngClass]="{'ondas_red': nodo.porcentaje<=50, 'ondas_yellow': nodo.porcentaje>50 && nodo.porcentaje<=69, 'ondas_green': nodo.porcentaje>=70, 'ondas_silver': nodo.porcentaje == null }" (click)="verTanquesEds(tanqueGasollanos)">
+                        <b>{{nodo.tanque}}</b>
+                    </button>
+            </div>
+        </div>
+
+    </div>
+    <!--end quinta fila-->
+</div>
+
+<!-- <div class="container card">
+    <div class="row">
+        <button type="button" class="ondas_red"></button>
+        <p class="card-text text-justify">
+            El color rojo del tanque quiere decir que el combustible disponible para la venta se encuentra menor o igual al 50%
+        </p>
+    </div>
+
+    <div class="row">
+        <button type="button" class="ondas_yellow"></button>
+        <p class="card-text text-justify">
+            El color amarillo del tanque quiere decir que el combustible disponible para la venta está entre (mayor al 50% y menor o igual al 69%]
+        </p>
+    </div>
+
+    <div class="row">
+        <button type="button" class="ondas_green"></button>
+        <p class="card-text text-justify">
+            El color verde del tanque quiere decir que el combustible disponible para la venta se encuentra mayor o igual al 70%
+        </p>
+    </div>
+
+    <div class="row">
+        <button type="button" class="ondas_silver"></button>
+        <p class="card-text text-justify">
+            El color plateado del tanque quiere decir que no se ha diligenciado la información diaria del inventario fisico del tanque; en simovil se hace por inventarios > Lecturas de combustible > ingresar lecturas manuales...
+        </p>
+    </div>
+
+</div> -->
+
+<div class="row">
+
+    <div class="col">
+        <div class="container">
+            <div class="row">
+                <!-- <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4"> -->
+                <div class="col">
+                    <div class="card card-elegant">
+                        <div class="card-block">
+                            <button type="button" class="ondas_red"></button>
+                            <h5 class="card-title text-uppercase"><small>Tanque</small> <br>El Color Rojo</h5>
+                            <p class="card-text text-justify">El color rojo del tanque quiere decir que el combustible disponible para la venta se encuentra menor o igual al 50%
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card card-elegant">
+                        <div class="card-block">
+                            <button type="button" class="ondas_yellow"></button>
+                            <h5 class="card-title text-uppercase"><small>Tanque</small> <br>El Color Amarillo</h5>
+                            <p class="card-text text-justify">El color amarillo del tanque quiere decir que el combustible disponible para la venta está entre: (mayor al 50% y menor o igual al 69%]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card card-elegant">
+                        <div class="card-block">
+                            <button type="button" class="ondas_green"></button>
+                            <h5 class="card-title text-uppercase"><small>Tanque</small> <br>El Color Verde</h5>
+                            <p class="card-text text-justify">El color verde del tanque quiere decir que el combustible disponible para la venta se encuentra mayor o igual al 70%
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card card-elegant">
+                        <div class="card-block">
+                            <button type="button" class="ondas_silver"></button>
+                            <h5 class="card-title text-uppercase"><small>Tanque</small> <br>El Color Plateado</h5>
+                            <p class="card-text text-justify">El color plateado del tanque quiere decir que no se ha diligenciado la información diaria del inventario fisico del tanque; en simovil se hace por inventarios > Lecturas de combustible > ingresar lecturas manuales...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- <button class="btn btn-success" (click)="getTanques();"></button> -->
+
+<app-modal-dialog [visible]="booleanTanquesEds" (hide)="booleanTanquesEds = false">
+    <app-tanques-eds [dataTanqueEds]="tanqueGenerico"></app-tanques-eds>
+</app-modal-dialog>

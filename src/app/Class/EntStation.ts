@@ -21,6 +21,7 @@ export class EntStation {
     public nom_cont: string;
     public nombreCiudad?: string;
     public num_caja : number;
+    public num_caja2 : number;
     public islas : EntIsland[];
     public planta : number;
 }

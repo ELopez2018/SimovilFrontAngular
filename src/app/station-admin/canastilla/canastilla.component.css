@@ -9,12 +9,38 @@
 }
 
 
-/*#Botonplus {*/
+.input_venta_normal {
+    background-color: silver;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+    width: 86px;
+}
 
+.input_venta_credito {
+    background-color: lightseagreen;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+    width: 86px;
+}
 
-/* position: absolute;
-    right: 120px;
-    z-index: 10; */
+.input_venta_facturado {
+    background-color: mediumspringgreen;
+    border-radius: 7px;
+    border: 1px solid #969ed8;
+    width: 86px;
+}
 
+.input_venta_normal:hover {
+    color: #fff;
+    background-color: rgb(131, 129, 129)
+}
 
-/*}*/
+.input_venta_credito:hover {
+    color: #fff;
+    background-color: rgb(30, 155, 149)
+}
+
+.input_venta_facturado:hover {
+    color: #fff;
+    background-color: rgb(3, 177, 110)
+}

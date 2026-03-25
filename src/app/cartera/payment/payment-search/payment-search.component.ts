@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { NominaService } from './../../../services/nomina.service';
+import { EntStation } from './../../../Class/EntStation';
+import { StorageService } from './../../../services/storage.service';
+import { EntRole } from './../../../Class/EntRole';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { EntClient } from '../../../Class/EntClient';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { CarteraService } from '../../../services/cartera.service';
@@ -8,6 +12,8 @@ import { PAYMENTMETHODS } from '../../../Class/PAYMENTMETHODS';
 import { EntPayment } from '../../../Class/EntPayment';
 import { fadeTransition } from '../../../routerAnimation';
 import { focusById } from '../../../util/util-lib';
+import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-payment-search',
@@ -17,6 +23,7 @@ import { focusById } from '../../../util/util-lib';
 })
 export class PaymentSearchComponent implements OnInit {
 
+  @ViewChild('tabla_de_pagos') tabla_de_pagos: ElementRef;
   searchPayments: EntPayment[];
   client: EntClient;
   searchPagoFechaIni;
@@ -25,22 +32,55 @@ export class PaymentSearchComponent implements OnInit {
   formasPago: any[];
   formasPagoAll: any[];
   boolSearchClient;
+  rolSistemas: boolean = false;
+  rol: EntRole;
+  anticipo_boolean: boolean = false;
+  stationCod;
+  stationSel: EntStation;
+  stations: EntStation[];
+  typeSel: any;
+  types = [{ id: 0, text: 'Estaciones' }];
+  consultada;
+  opcionEnBlanco;
+  formulario: boolean = false;
+  booleanFecha: boolean = false;
+  id_pago: number = 0;
 
   constructor(
     private carteraService: CarteraService,
     private principalComponent: PrincipalComponent,
     private title: Title,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private storageService: StorageService,
+    private nominaService: NominaService
   ) {
     this.title.setTitle('Pagos - Simovil');
+    this.basicData();
   }
 
   ngOnInit() {
     this.client = new EntClient();
     this.formasPagoAll = Object.create(PAYMENTMETHODS);
-    this.formasPago = this.formasPagoAll.filter(e => e.id < 3);
+    this.formasPago = this.formasPagoAll.filter(e => e.id < 3 || e.id === 5 || e.id === 6 || e.id === 8);
     focusById('btnBoolClient');
+    this.getRolAdmin();
   }
+
+  basicData() {
+    this.utilService.loader();
+    this.nominaService.GetStations().subscribe(res => {
+        this.utilService.loader(false);
+        this.stations = res;
+        if (this.stationCod) {
+            this.stationSel = res.find(e => e.idEstacion == this.stationCod);
+        }
+    }, error => {
+        this.utilService.loader(false);
+        console.log(error);
+        this.principalComponent.showMsg('error', 'Error', error.error.message);
+    });
+    this.typeSel = this.types[0];
+}
 
   getFormaPago(value) {
     if (value != null) {
@@ -50,8 +90,22 @@ export class PaymentSearchComponent implements OnInit {
 
   getPaymentSearch() {
     this.utilService.loader(true);
-    this.carteraService.getPayment2(this.client.codCliente, this.searchPagoFechaIni, this.searchPagoFechaFin, this.searchPagoEstado).subscribe(payments => {
+    if(this.stationSel == undefined){
+        this.consultada = null;
+    }else{
+            this.consultada = this.stationSel.idEstacion
+            }
+
+    this.carteraService.getPayment2(this.client.codCliente, this.searchPagoFechaIni, this.searchPagoFechaFin, this.searchPagoEstado, null, null, this.consultada).subscribe(payments => {
       this.searchPayments = payments;
+      if(this.searchPayments.length == 0 && this.client.nombre != null)
+      {
+       this.principalComponent.showMsg('warn', 'Atención', 'No hay registros para esta consulta, favor verifique que los datos correspondan entre estación: '+this.stationSel.nombreEstacion+' y cliente: '+this.client.nombre);
+      }
+      if(this.searchPayments.length == 0 && this.stationSel != undefined)
+      {
+       this.principalComponent.showMsg('info', 'Atención', 'No hay registros para esta consulta');
+      }
     },
       error => {
         console.log(error);
@@ -66,6 +120,8 @@ export class PaymentSearchComponent implements OnInit {
     this.searchPagoFechaFin = null;
     this.searchPayments = null;
     this.client.codCliente = null;
+    this.client.nombre = null;
+    this.opcionEnBlanco = null;
   }
 
   printPaymentSearch(): void {
@@ -123,4 +179,61 @@ export class PaymentSearchComponent implements OnInit {
     this.boolSearchClient = false;
     focusById('btnSearchPayment', true);
   }
+
+  getRolAdmin(){
+    this.carteraService.getRolAdmin().subscribe(data => {
+        this.rol = data[0];
+           if((this.rol.ID == this.storageService.getCurrentUserDecode().idRol) && (this.rol.ID_AREA == this.storageService.getCurrentUserDecode().Area))
+                {
+                this.rolSistemas = true;
+                console.log('hola sistemas:)');
+                }
+    }, error => console.log(error));
+ }
+
+ borrarPagoCartera(idPago){
+     Swal.fire({
+         title: '¿Está seguro?',
+         text: `Está a punto de eliminar el pago de id N° ${idPago}. ¿Desea Continuar?`,
+         icon: 'question',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         cancelButtonText: 'No',
+         confirmButtonText: 'Sí'
+     }).then(result =>{
+         if(result.value){
+            this.carteraService.eliminarPagoCartera(idPago).subscribe(result => {
+                this.principalComponent.showMsg('success', 'Éxito', 'ct: Pago de cartera ha sido borrado con éxito. '+JSON.stringify(result));
+                //here borrar de la pila too
+                }, error => {
+                this.principalComponent.showMsg('error', 'Error', error.error.message);
+                });
+         }else{
+             return;
+         }
+     });
+ }
+
+ exportarToExcel(){
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.tabla_de_pagos.nativeElement, {dateNF: 'yyyy/mm/dd;@', cellDates: true, raw: true});
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      XLSX.writeFile(wb, 'Pagos_de_Cartera.xlsx');
+ }
+
+ visitarElementoPadre(){
+        this.formulario = true;
+ }
+
+ leaveElementoPadre(){
+     this.formulario = false;
+ }
+
+ updateFechaPago(id_pago: any){
+     console.log('%c actualizar fecha del pago', 'color: yellow; background: purple');//b
+     this.booleanFecha = true;
+     this.id_pago = id_pago;
+ }
+
 }

@@ -16,3 +16,93 @@ legend {
     top: 0;
     width: 100%;
 }
+
+.estado-inactivo {
+    background-color: #FFCDD2;
+    color: #C63737;
+    border-radius: 2px;
+    padding: 0.25em 0.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
+.estado-activo {
+    background-color: #C8E6C9;
+    color: #256029;
+    border-radius: 2px;
+    padding: 0.25em 0.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
+.iconColor {
+    color: #007ad9 !important;
+}
+
+/* PARA MODO STRIPPED EN TABLA*/
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:nth-child(even) {
+    background: #c8fbffa4;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+    background: #ffffff;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:nth-child(even):hover {
+    box-shadow: #93ffb0 inset 0px 0px 20px 5px;
+    background: whitesmoke;
+    text-shadow: -1px 1px 0px white, 1px -1px 0px white,-1px -1px 0px white,1px 1px 0px white;
+    font-size: 15px;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+    box-shadow: #93ffb0 inset 0px 0px 20px 5px;
+    background: whitesmoke;
+    text-shadow: -1px 1px 0px white, 1px -1px 0px white,-1px -1px 0px white,1px 1px 0px white;
+    font-size: 15px;
+}
+/* PARA MODO STRIPPED EN TABLA*/
+
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    position: -webkit-sticky;
+    position: sticky;
+    text-align: center;
+    top: 0px;
+    backdrop-filter: blur(5px) !important;
+    background: #00808054 !important;
+    z-index: 1;
+    box-shadow: teal inset 0px 0px 2px 1px;
+    text-shadow: -1px 1px 0px white, 1px -1px 0px white,-1px -1px 0px white,1px 1px 0px white;
+}
+
+@media screen and (max-width: 64em) {
+    :host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+        top: 0px;
+        text-align: center;
+    }
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    text-align: center;
+    border: 1px solid #c8c8c8;
+    border-width: 1px;
+    padding: 0px;
+    font-weight: 500;
+    font-size: 13px;
+    font-family: monospace;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:hover > td {
+    text-align: center;
+    border: 1px solid #c8c8c8;
+    border-width: 1px;
+    padding: 0px;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: monospace;
+}

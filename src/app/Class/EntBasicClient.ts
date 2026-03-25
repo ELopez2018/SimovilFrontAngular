@@ -19,4 +19,6 @@ export class EntBasicClient {
     tipoPeriodoCobro: boolean;
     periodoDiaCobro: number;
     retenedor: boolean;
+    estacionConsumo: string;
+    idEstacion: number;
 }

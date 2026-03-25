@@ -412,7 +412,7 @@ export class InvoiceAddComponent implements OnInit {
             }
             this.utilService.loader(true);
             this.carteraService
-                .getProvider(varpro)
+                .getProvider(varpro,null,true)
                 .subscribe(
                     (data) => {
                         this.utilService.loader(false);

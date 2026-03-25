@@ -4,6 +4,7 @@
     background-color: #ffffff;
     border-radius: 5px;
     z-index: 2;
+    box-shadow: 0 0 20px rgb(241, 239, 100);
 }
 
 #overlay {
@@ -28,6 +29,9 @@
     max-height: 90%;
     max-width: 90%;
     overflow: auto;
+    /*** *   *   *  ***/
+    padding: 1rem;
+    /*** *   *   *  ***/
     position: absolute;
     top: 50%;
     left: 50%;
@@ -40,4 +44,32 @@
     .formDialog-right {
         min-width: 20rem;
     }
+}
+
+
+/*** nuevo  ***/
+
+
+/* Works on Firefox */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: blue orange;
+}
+
+
+/* Works on Chrome, Edge, and Safari */
+
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #1976D2;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #7cf8b0;
+    border-radius: 20px;
+    border: 1px solid #e8f805;
 }

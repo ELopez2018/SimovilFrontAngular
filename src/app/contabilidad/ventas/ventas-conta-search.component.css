@@ -1,0 +1,126 @@
+#tabla_ventas tr:hover {
+    background-color: rgb(255, 255, 0);
+    color: rgb(1, 1, 29);
+    font-weight: bold;
+}
+
+#tabla_ventas th {
+    background-color: rgb(3, 77, 20);
+    color: black;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+    border: 1px solid rgb(3, 252, 61);
+    padding: 0px;
+    height: 32px;
+}
+
+
+/* #tabla_ventas th {
+    border: 1px solid rgb(3, 252, 61);
+    padding: 0px;
+    height: 32px;
+} */
+
+#tabla_ventas td {
+    border: 1px solid rgb(3, 77, 20);
+    padding: 0px;
+    height: 32px;
+}
+
+.listado_estaciones {
+    border-color: 1px solid #6bb99c;
+}
+
+.fila_titulo {
+    /* background-color: rgb(7, 143, 255); */
+    background-color: rgb(174, 247, 132);
+    border: rgb(84, 243, 84);
+    color: rgb(1, 29, 1);
+    font-weight: bold;
+    /* text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+/* Fix table head */
+
+.tabla_encabezado_fijo {
+    overflow: auto;
+    height: 500px;
+    border: 2px solid rgb(1, 44, 11) !important;
+}
+
+.tabla_encabezado_fijo th {
+    position: sticky;
+    top: 0;
+    border: 1px solid rgb(3, 252, 61) !important;
+}
+
+
+/* ************* */
+
+
+/* Works on Firefox */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(4, 253, 62) rgb(251, 255, 0);
+}
+
+
+/* Works on Chrome, Edge, and Safari */
+
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgb(3, 77, 20);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #f1f107;
+    border-radius: 20px;
+    border: 1px solid rgb(46, 250, 6);
+}
+
+.decora_cajas {
+    background-color: rgb(247, 247, 247);
+    border-radius: 12px;
+    border: 1px solid rgb(4, 190, 247);
+    font-weight: bold;
+    color: rgb(1, 8, 27);
+}
+
+.btn-outline-secondary {
+    color: rgb(53, 75, 88);
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #06f0f8;
+    border-color: rgb(4, 190, 247);
+}
+
+.fila_0 {
+    background-color: #51f377;
+}
+
+.fila_1 {
+    background-color: #2abb4c;
+}
+
+.fila_pie {
+    background-color: rgb(3, 77, 20);
+    border: 1px solid rgb(3, 252, 61) !important;
+    color: rgb(2, 1, 54);
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+
+.formulario {
+    background-color: #768796 !important;
+    color: #fff;
+}

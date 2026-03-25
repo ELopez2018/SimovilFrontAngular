@@ -26,6 +26,8 @@ export class EntDailySheet {
     OI_PREMIO: number;
     OI_APROV_DET: string;
     OI_APROV: number;
+    OI_APROV2_DET: string;
+    OI_APROV2: number;
     OI_PRESTAMO_LIQ: number;
     OI_CUSIANA: number;
     OI_PAG_CAR_CLI: number;
@@ -40,11 +42,17 @@ export class EntDailySheet {
     FP_BONO_PUNTO: number;
     FP_BONO_CUMPLE: number;
     FP_BONO_SOAT: number;
+    FP_CANTBONO_SOAT: number;
+    FP_CANTBONOSAUTOPUNTOS: Number;
+    FP_CANTBONOSCUMPLE: Number;
     FP_CALIBRACION: number;
     FP_CLI_CRE: number;
     FP_CLI_ANT: number;
     FP_DATAFONO: number;
+    // se agrego
+    FP_CANTDATAFONO: number;
     FP_DESC: number;
+    FP_CANTDESC: number;
     FP_DEV: number;
     FP_DONACION: number;
     FP_MANT: number;
@@ -57,6 +65,8 @@ export class EntDailySheet {
     DE_PROV: number; // Variable que acumula los pagos
     DE_REEM_CAJ_MEN_NUM: number;
     DE_REEM_CAJ_MEN: number;
+    DE_REEM_CAJ_MEN_NUM2: number;
+    DE_REEM_CAJ_MEN2: number;
     DE_SERV_PUB_DET: string;
     DE_SERV_PUB: number;
     DE_OTRO_DET: string;
@@ -87,6 +97,16 @@ export class EntDailySheet {
     PLA_DIA_PAG_PRO: EntDailySheetPagPro[];
     PLA_DIA_PAG_CLI: EntDailySheetPagCli[];
     PLA_DIA_VEN_CLI: EntDailySheetVenCli[];
+// se agrego
+    CantidadVentasAnticipo: number;
+    CantidadVentasCredito: number;
+    AcumValorViveTerpel: number;
+    PuntosTerpel: number;
+    AcumValorPuntosColombia: number;
+    PuntosColombia: number;
+    AcumValorPuntosSodexo: number;
+    PuntosSodexo: number;
+// lo de arrriba
     PLA_DIA_PAG_CLI_DET?: EntDailySheetPagCli[];
     PLA_DIA_VEN_CLI_DET?: EntDailySheetVenCli[];
     CPL: EntCPL;

@@ -6,6 +6,7 @@ export class EntConsumptionClient {
     fechaConsumo: Date;
     horaConsumo: Time;
     cantidad: number;
+    descuento: number;
     valor: number;
     estacionConsumo: number;
     ConsecutivoEstacion: number;
@@ -13,6 +14,7 @@ export class EntConsumptionClient {
     numCuentaCobro: number;
     romIdentificador: string;
     placa: string;
+    Kilometraje: number;
     codCliente: number;
     estacionCliente: number;
     nombreCliente: string;

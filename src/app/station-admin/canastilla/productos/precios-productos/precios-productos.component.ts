@@ -20,6 +20,8 @@ export class PreciosProductosComponent implements OnInit {
     Fecha: Date = new Date();
     es;
     Usuario;
+    esMileniumGas: boolean = false;
+
     constructor(
         private _storageService: StorageService,
         private _NominaService: NominaService
@@ -89,16 +91,17 @@ export class PreciosProductosComponent implements OnInit {
         if (Campo === 'precio') {
             if (precio) {
                 if (Articulo.Mileniumgas) {
+                    this.esMileniumGas = true;
                     Articulo.precio = precio;
                     objeto.classList.remove('bg-danger');
                     objeto.classList.remove('text-white');
                     return;
                 }
                 Porcentaje = ((precio - Articulo.PrecioCompra) / Articulo.PrecioCompra);
-                if (Porcentaje < 0.2 || Porcentaje > 0.4) {
+                if (Porcentaje < (Articulo.utilidadMin/100) || Porcentaje > (Articulo.utilidadMax/100)) {
                     Swal.fire(
                         'LA UTILIDAD ES DE ' + (Porcentaje * 100) + '%',
-                        'La utilidad permitida esta entre el 20 y el 40%',
+                        'La utilidad permitida está entre el' +Articulo.utilidadMin +' y el '+ Articulo.utilidadMax,
                         'error'
                     );
                     objeto.classList.add('bg-danger');
@@ -126,14 +129,17 @@ export class PreciosProductosComponent implements OnInit {
         }
         const Porcentaje = ((Precio.precio - Precio.PrecioCompra) / Precio.PrecioCompra) * 100;
 
-        if (!Precio.Mileniumgas) {
-            if (Porcentaje >= 20 && Porcentaje <= 40) {
+                if(Precio.utilidadMin == null || Precio.utilidadMax == null){
+                    this.MostrarModal('Información', 'la utilidad min registrada es: '+Precio.utilidadMin+', y la max registrada es: '+Precio.utilidadMax, 'error', );
+                }
 
-            } else {
-                this.MostrarModal('Utilidad Inválida', 'El margen que esta ingresando es de ' + Porcentaje + '% de utilidad y debe ser entre el 20 y 40%', 'error');
+            if(!Precio.Mileniumgas){
+            if((Porcentaje < Precio.utilidadMin || Porcentaje > Precio.utilidadMax) && (Precio.utilidadMin != null || Precio.utilidadMax != null)){
+                this.MostrarModal('Utilidad Inválida', 'El margen que está ingresando es del ' + Porcentaje + '% y debe ser entre ['+Precio.utilidadMin+'% y '+Precio.utilidadMax+'%]', 'error');
                 return;
             }
         }
+
         Swal.fire({
             title: '¿ESTA SEGURO?',
             text: 'Al Aceptar cambiara los Precios a Partir de la fecha actual, ¿Desea Continuar?',

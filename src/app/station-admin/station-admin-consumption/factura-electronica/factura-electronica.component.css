@@ -1,0 +1,11 @@
+a#nc-tab.nav-link.active {
+    background-color: #f5e907 !important;
+    color: rgb(7, 0, 31);
+    font-weight: bold;
+}
+
+a#fe-tab.nav-link.active {
+    background-color: #5beb6e !important;
+    color: rgb(7, 0, 31);
+    font-weight: bold;
+}

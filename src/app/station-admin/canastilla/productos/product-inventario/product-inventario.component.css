@@ -1,3 +1,51 @@
 .botones {
     width: 180px;
 }
+
+thead tr th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #007bff;
+}
+
+.table-responsive {
+    height: 200px;
+    overflow: scroll;
+}
+
+.fila_0 {
+    background-color: rgb(78, 76, 76);
+    color: #fff;
+}
+
+.fila_1 {
+    background-color: rgb(46, 45, 45);
+    color: #fff;
+}
+
+.radio-toolbar input[type="radio"] {
+    display: none;
+}
+
+.radio-toolbar label {
+    display: inline-block;
+    background: #ddd;
+    color: #000;
+    padding: 4px 11px;
+    font-family: Arial;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 5px;
+}
+
+.radio-toolbar input[type="radio"]:checked+label {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    box-shadow: 0 0 20px rgb(241, 239, 100);
+}
+
+
+/************************************************/
