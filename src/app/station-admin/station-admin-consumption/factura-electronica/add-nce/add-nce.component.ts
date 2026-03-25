@@ -10,9 +10,10 @@ import { EntClient } from './../../../../Class/EntClient';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
-  selector: 'app-add-nce',
-  templateUrl: './add-nce.component.html',
-  styleUrls: ['./add-nce.component.css']
+    selector: 'app-add-nce',
+    templateUrl: './add-nce.component.html',
+    styleUrls: ['./add-nce.component.css'],
+    standalone: false
 })
 export class AddNCEComponent implements OnInit {
 

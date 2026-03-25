@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-fieldset',
-  templateUrl: './fieldset.component.html',
-  styleUrls: ['./fieldset.component.css']
+    selector: 'app-fieldset',
+    templateUrl: './fieldset.component.html',
+    styleUrls: ['./fieldset.component.css'],
+    standalone: false
 })
 export class FieldsetComponent implements OnInit {
   @Input() show: boolean = false;

@@ -10,7 +10,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
     selector: 'app-ingreso-lecturas',
     templateUrl: './ingreso-lecturas.component.html',
-    styleUrls: ['./ingreso-lecturas.component.css']
+    styleUrls: ['./ingreso-lecturas.component.css'],
+    standalone: false
 })
 export class IngresoLecturasComponent implements OnInit {
     es;

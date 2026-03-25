@@ -13,7 +13,8 @@ import { EntProductosSoliciBaja } from '../../../../Class/EntProductosSoliciBaja
 @Component({
     selector: 'app-desincorporaciones-exitencia',
     templateUrl: './desincorporaciones-exitencia.component.html',
-    styleUrls: ['./desincorporaciones-exitencia.component.css']
+    styleUrls: ['./desincorporaciones-exitencia.component.css'],
+    standalone: false
 })
 export class DesincorporacionesExitenciaComponent implements OnInit {
     stationsAll: EntStation[];

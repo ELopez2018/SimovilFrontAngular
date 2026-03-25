@@ -9,7 +9,8 @@ import { EntStation } from '../../Class/EntStation';
     selector: 'app-cpl',
     templateUrl: './cpl.component.html',
     styleUrls: ['./cpl.component.css'],
-    animations: [fadeAnimation, fadeTransition()]
+    animations: [fadeAnimation, fadeTransition()],
+    standalone: false
 })
 export class CplComponent implements OnInit {
     stationCode;

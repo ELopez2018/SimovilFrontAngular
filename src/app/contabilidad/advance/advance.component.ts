@@ -3,10 +3,11 @@ import { fadeTransition } from '../../routerAnimation';
 import { fadeAnimation } from '../../animations';
 
 @Component({
-  selector: 'app-advance',
-  templateUrl: './advance.component.html',
-  styleUrls: ['./advance.component.css'],
-  animations: [fadeAnimation, fadeTransition()]
+    selector: 'app-advance',
+    templateUrl: './advance.component.html',
+    styleUrls: ['./advance.component.css'],
+    animations: [fadeAnimation, fadeTransition()],
+    standalone: false
 })
 export class AdvanceComponent implements OnInit {
 

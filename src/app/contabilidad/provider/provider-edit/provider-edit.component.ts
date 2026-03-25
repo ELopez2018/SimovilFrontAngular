@@ -17,10 +17,11 @@ import { PROVIDERTYPE, PROVIDERTYPE2 } from '../../../Class/PROVIDERTYPE';
 import { focusById } from '../../../util/util-lib';
 
 @Component({
-  selector: 'app-provider-edit',
-  templateUrl: './provider-edit.component.html',
-  styleUrls: ['./provider-edit.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-provider-edit',
+    templateUrl: './provider-edit.component.html',
+    styleUrls: ['./provider-edit.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class ProviderEditComponent implements OnInit {
 

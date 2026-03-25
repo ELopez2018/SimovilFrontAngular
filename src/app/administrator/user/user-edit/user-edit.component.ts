@@ -11,10 +11,11 @@ import { UtilService } from '../../../services/util.service';
 import { EntRole } from '../../../Class/EntRole';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-user-edit',
+    templateUrl: './user-edit.component.html',
+    styleUrls: ['./user-edit.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class UserEditComponent implements OnInit {
   roles: EntRole[];

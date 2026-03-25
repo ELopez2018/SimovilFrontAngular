@@ -3,9 +3,10 @@ import { PrincipalComponent } from './../../../principal/principal.component';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-fecha-pago',
-  templateUrl: './fecha-pago.component.html',
-  styleUrls: ['./fecha-pago.component.css']
+    selector: 'app-fecha-pago',
+    templateUrl: './fecha-pago.component.html',
+    styleUrls: ['./fecha-pago.component.css'],
+    standalone: false
 })
 export class FechaPagoComponent implements OnInit {
 

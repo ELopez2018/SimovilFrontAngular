@@ -18,7 +18,8 @@ import { NominaService } from '../services/nomina.service';
     selector: 'app-principal',
     templateUrl: './principal.component.html',
     styleUrls: ['./principal.component.css'],
-    animations: [fadeAnimation, fadeTransition()]
+    animations: [fadeAnimation, fadeTransition()],
+    standalone: false
 })
 @Injectable()
 export class PrincipalComponent implements OnInit {

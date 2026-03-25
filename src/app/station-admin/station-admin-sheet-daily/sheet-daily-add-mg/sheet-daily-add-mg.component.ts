@@ -33,8 +33,9 @@ import { EntOtrosPagos } from '../../../Class/EntOtrosPagos';
 @Component({
     selector: 'app-sheet-daily-add-mg',
     templateUrl: './sheet-daily-add-mg.component.html',
-    styleUrls: ['./sheet-daily-add-mg.component.css']
-  })
+    styleUrls: ['./sheet-daily-add-mg.component.css'],
+    standalone: false
+})
   export class SheetDailyAddMGComponent extends ComponentCanDeactivate implements OnInit {
     canDeactivate(): boolean {
         let val: boolean;

@@ -10,7 +10,8 @@ import { iTableConfig } from '../../../Class/TABLES_CONFIG';
 @Component({
     selector: 'app-comp-search-client',
     templateUrl: './comp-search-client.component.html',
-    styleUrls: ['./comp-search-client.component.css']
+    styleUrls: ['./comp-search-client.component.css'],
+    standalone: false
 })
 export class CompSearchClientComponent implements OnInit {
     @Output() submiter = new EventEmitter<EntBasicClient>();

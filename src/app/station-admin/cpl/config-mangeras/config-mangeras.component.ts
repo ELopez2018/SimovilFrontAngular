@@ -9,7 +9,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
     selector: 'app-config-mangeras',
     templateUrl: './config-mangeras.component.html',
-    styleUrls: ['./config-mangeras.component.css']
+    styleUrls: ['./config-mangeras.component.css'],
+    standalone: false
 })
 export class ConfigMangerasComponent implements OnInit {
     stationSel;

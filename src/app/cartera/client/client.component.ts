@@ -4,10 +4,11 @@ import { fadeAnimation } from '../../animations';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-client',
-  templateUrl: './client.component.html',
-  styleUrls: ['./client.component.css'],
-  animations: [fadeTransition(), fadeAnimation]
+    selector: 'app-client',
+    templateUrl: './client.component.html',
+    styleUrls: ['./client.component.css'],
+    animations: [fadeTransition(), fadeAnimation],
+    standalone: false
 })
 export class ClientComponent implements OnInit {
 

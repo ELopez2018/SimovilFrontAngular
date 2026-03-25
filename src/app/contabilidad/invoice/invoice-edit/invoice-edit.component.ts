@@ -19,10 +19,11 @@ import { EntPlant } from '../../../Class/EntPlant';
 import { EntArticleType } from '../../../Class/EntArticleType';
 
 @Component({
-  selector: 'app-invoice-edit',
-  templateUrl: './invoice-edit.component.html',
-  styleUrls: ['./invoice-edit.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-invoice-edit',
+    templateUrl: './invoice-edit.component.html',
+    styleUrls: ['./invoice-edit.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class InvoiceEditComponent implements OnInit {
   notdecimal = currencyNotDecimal();

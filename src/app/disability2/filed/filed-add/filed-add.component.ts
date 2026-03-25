@@ -10,10 +10,11 @@ import { DISABILITNOVELTYTYPES } from '../../../Class/DISABILITYNOVELTYTYPES';
 import { fadeTransition } from '../../../routerAnimation';
 
 @Component({
-  selector: 'app-filed-add',
-  templateUrl: './filed-add.component.html',
-  styleUrls: ['./filed-add.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-filed-add',
+    templateUrl: './filed-add.component.html',
+    styleUrls: ['./filed-add.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class FiledAddComponent implements OnInit {
 

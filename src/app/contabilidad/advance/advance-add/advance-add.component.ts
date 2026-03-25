@@ -17,7 +17,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
     selector: 'app-advance-add',
     templateUrl: './advance-add.component.html',
     styleUrls: ['./advance-add.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class AdvanceAddComponent implements OnInit {
     advanceForm: UntypedFormGroup;

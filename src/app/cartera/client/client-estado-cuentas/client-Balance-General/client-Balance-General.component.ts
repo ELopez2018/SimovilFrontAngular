@@ -14,6 +14,7 @@ import { Title } from '@angular/platform-browser';
     selector: 'app-client-Balance-General',
     templateUrl: './client-Balance-General.component.html',
     styleUrls: ['./client-Balance-General.component.css'],
+    standalone: false
 })
 export class ClientBalanceGeneralComponent implements OnInit {
     booleanClient: boolean = false;

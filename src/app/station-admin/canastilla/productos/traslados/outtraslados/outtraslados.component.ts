@@ -19,7 +19,8 @@ import { IngresoNuevaExistenciaComponent } from '../../ingreso-nueva-existencia/
     selector: 'app-outtraslados',
     templateUrl: './outtraslados.component.html',
     styleUrls: ['./outtraslados.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class OuttrasladosComponent implements OnInit {
     stationsAll: EntStation[];

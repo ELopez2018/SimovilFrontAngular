@@ -10,7 +10,8 @@ import { Title } from '@angular/platform-browser';
 @Component({
     selector: 'app-home-canastilla-adva',
     templateUrl: './home-canastilla-adva.component.html',
-    styleUrls: ['./home-canastilla-adva.component.css']
+    styleUrls: ['./home-canastilla-adva.component.css'],
+    standalone: false
 })
 export class HomeCanastillaAdvaComponent implements OnInit {
     FILAS: Number;

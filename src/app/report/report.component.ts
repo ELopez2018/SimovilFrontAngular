@@ -8,10 +8,11 @@ import { fadeTransition } from '../routerAnimation';
 import { fadeAnimation } from '../animations';
 
 @Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.css'],
-  animations: [fadeTransition(), fadeAnimation]
+    selector: 'app-report',
+    templateUrl: './report.component.html',
+    styleUrls: ['./report.component.css'],
+    animations: [fadeTransition(), fadeAnimation],
+    standalone: false
 })
 export class ReportComponent implements OnInit {
 

@@ -13,7 +13,8 @@ registerLocaleData(localePy, 'es');
 @Component({
     selector: 'app-solicitud-baja-productos',
     templateUrl: './solicitud-baja-productos.component.html',
-    styleUrls: ['./solicitud-baja-productos.component.css']
+    styleUrls: ['./solicitud-baja-productos.component.css'],
+    standalone: false
 })
 
 export class SolicitudBajaProductosComponent implements OnInit {    

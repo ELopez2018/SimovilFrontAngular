@@ -5,9 +5,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
-  selector: 'app-placa-carro',
-  templateUrl: './placa-carro.component.html',
-  styleUrls: ['./placa-carro.component.css']
+    selector: 'app-placa-carro',
+    templateUrl: './placa-carro.component.html',
+    styleUrls: ['./placa-carro.component.css'],
+    standalone: false
 })
 export class PlacaCarroComponent implements OnInit {
 

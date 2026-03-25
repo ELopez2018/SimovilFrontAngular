@@ -2,9 +2,10 @@ import { PrincipalComponent } from './../../principal/principal.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-informes-rh',
-  templateUrl: './informes-rh.component.html',
-  styleUrls: ['./informes-rh.component.css']
+    selector: 'app-informes-rh',
+    templateUrl: './informes-rh.component.html',
+    styleUrls: ['./informes-rh.component.css'],
+    standalone: false
 })
 export class InformesRHComponent implements OnInit {
 

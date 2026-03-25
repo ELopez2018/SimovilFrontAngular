@@ -35,7 +35,8 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
     selector: 'app-sheet-daily-edit',
     templateUrl: './sheet-daily-edit.component.html',
     styleUrls: ['./sheet-daily-edit.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class SheetDailyEditComponent extends ComponentCanDeactivate implements OnInit {
     notdecimal = currencyNotDecimal();

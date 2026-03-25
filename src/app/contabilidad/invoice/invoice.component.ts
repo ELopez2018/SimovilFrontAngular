@@ -3,10 +3,11 @@ import { fadeTransition } from '../../routerAnimation';
 import { fadeAnimation } from '../../animations';
 
 @Component({
-  selector: 'app-invoice',
-  templateUrl: './invoice.component.html',
-  styleUrls: ['./invoice.component.css'],
-  animations: [fadeAnimation, fadeTransition()]
+    selector: 'app-invoice',
+    templateUrl: './invoice.component.html',
+    styleUrls: ['./invoice.component.css'],
+    animations: [fadeAnimation, fadeTransition()],
+    standalone: false
 })
 export class InvoiceComponent implements OnInit {
 

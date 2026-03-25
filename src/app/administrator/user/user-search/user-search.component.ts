@@ -11,10 +11,11 @@ import { UtilService } from '../../../services/util.service';
 import { EntRole } from '../../../Class/EntRole';
 
 @Component({
-  selector: 'app-user-search',
-  templateUrl: './user-search.component.html',
-  styleUrls: ['./user-search.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-user-search',
+    templateUrl: './user-search.component.html',
+    styleUrls: ['./user-search.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class UserSearchComponent implements OnInit {
   users: EntUserDB[];

@@ -6,9 +6,10 @@ import { EntClient } from './../../../../Class/EntClient';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-clientes-saldo-historico',
-  templateUrl: './clientes-saldo-historico.component.html',
-  styleUrls: ['./clientes-saldo-historico.component.css']
+    selector: 'app-clientes-saldo-historico',
+    templateUrl: './clientes-saldo-historico.component.html',
+    styleUrls: ['./clientes-saldo-historico.component.css'],
+    standalone: false
 })
 export class ClientesSaldoHistoricoComponent implements OnInit {
     @Input() codigoDeEstacion: any;

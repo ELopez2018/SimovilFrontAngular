@@ -36,6 +36,7 @@ import { EntDiscount } from '../../../Class/EntDiscount';
     templateUrl: './client-edit.component.html',
     styleUrls: ['./client-edit.component.css'],
     animations: [fadeTransition()],
+    standalone: false
 })
 export class ClientEditComponent implements OnInit {
     id: any;

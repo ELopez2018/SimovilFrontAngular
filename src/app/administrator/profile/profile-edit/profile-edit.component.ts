@@ -8,9 +8,10 @@ import { PrincipalComponent } from '../../../principal/principal.component';
 import { StorageService } from '../../../services/storage.service';
 
 @Component({
-  selector: 'app-profile-edit',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.css']
+    selector: 'app-profile-edit',
+    templateUrl: './profile-edit.component.html',
+    styleUrls: ['./profile-edit.component.css'],
+    standalone: false
 })
 export class ProfileEditComponent implements OnInit {
   @Input() profile: EntProfile;

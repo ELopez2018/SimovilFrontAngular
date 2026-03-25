@@ -4,9 +4,10 @@ import { ADVANCENOVELTYTYPES } from '../../../Class/ADVANCENOVELTYTYPES';
 import { INoveltyTypes } from '../../../Class/inovelty-types';
 
 @Component({
-  selector: 'app-advance-history',
-  templateUrl: './advance-history.component.html',
-  styleUrls: ['./advance-history.component.css']
+    selector: 'app-advance-history',
+    templateUrl: './advance-history.component.html',
+    styleUrls: ['./advance-history.component.css'],
+    standalone: false
 })
 export class AdvanceHistoryComponent implements OnInit {
 

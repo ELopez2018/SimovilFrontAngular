@@ -11,10 +11,11 @@ import { UtilService } from '../../services/util.service';
 import { focusById } from '../../util/util-lib';
 
 @Component({
-  selector: 'app-station-client',
-  templateUrl: './station-client.component.html',
-  styleUrls: ['./station-client.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-station-client',
+    templateUrl: './station-client.component.html',
+    styleUrls: ['./station-client.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class StationClientComponent implements OnInit {
   clients: EntBasicClient[];

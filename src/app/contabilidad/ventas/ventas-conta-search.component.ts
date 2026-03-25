@@ -12,9 +12,10 @@ import { rangedate, dateToISOString, focusById, ObjToCSV} from '../../util/util-
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-ventas-conta-search',
-  templateUrl: './ventas-conta-search.component.html',
-  styleUrls: ['./ventas-conta-search.component.css']
+    selector: 'app-ventas-conta-search',
+    templateUrl: './ventas-conta-search.component.html',
+    styleUrls: ['./ventas-conta-search.component.css'],
+    standalone: false
 })
 export class VentasContaSearchComponent implements OnInit {
 

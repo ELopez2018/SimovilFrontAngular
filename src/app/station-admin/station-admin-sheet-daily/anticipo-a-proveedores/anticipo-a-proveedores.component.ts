@@ -5,7 +5,8 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 @Component({
     selector: 'app-anticipo-a-proveedores',
     templateUrl: './anticipo-a-proveedores.component.html',
-    styleUrls: ['./anticipo-a-proveedores.component.css']
+    styleUrls: ['./anticipo-a-proveedores.component.css'],
+    standalone: false
 })
 export class AnticipoAProveedoresComponent implements OnInit {
     boolProvider: boolean = false;

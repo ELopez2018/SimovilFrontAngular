@@ -12,7 +12,8 @@ import { Title } from '@angular/platform-browser';
 @Component({
     selector: 'app-client-saldosInciales',
     templateUrl: './client-saldosInciales.component.html',
-    styleUrls: ['./client-saldosInciales.component.css']
+    styleUrls: ['./client-saldosInciales.component.css'],
+    standalone: false
 })
 export class ClientSaldosIncialesComponent implements OnInit {
     @Input() codCliente: number;

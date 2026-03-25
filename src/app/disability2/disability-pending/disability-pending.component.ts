@@ -13,10 +13,11 @@ import { PrincipalComponent } from '../../principal/principal.component';
 import { BasicDataService } from '../../services/basic-data.service';
 
 @Component({
-  selector: 'app-disability-pending',
-  templateUrl: './disability-pending.component.html',
-  styleUrls: ['./disability-pending.component.css'],
-  animations: [fadeAnimation, fadeTransition()]
+    selector: 'app-disability-pending',
+    templateUrl: './disability-pending.component.html',
+    styleUrls: ['./disability-pending.component.css'],
+    animations: [fadeAnimation, fadeTransition()],
+    standalone: false
 })
 export class DisabilityPendingComponent implements OnInit {
   disabilities: EntDisability[];

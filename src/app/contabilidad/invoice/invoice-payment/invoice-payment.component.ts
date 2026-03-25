@@ -8,10 +8,11 @@ import { PrincipalComponent } from '../../../principal/principal.component';
 import { fadeTransition } from '../../../routerAnimation';
 
 @Component({
-  selector: 'app-invoice-payment',
-  templateUrl: './invoice-payment.component.html',
-  styleUrls: ['./invoice-payment.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-invoice-payment',
+    templateUrl: './invoice-payment.component.html',
+    styleUrls: ['./invoice-payment.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class InvoicePaymentComponent implements OnInit {
   invoiceForm: UntypedFormGroup;

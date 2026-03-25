@@ -11,10 +11,11 @@ import { UtilService } from '../../../services/util.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
 
 @Component({
-  selector: 'app-employee-novelty-search',
-  templateUrl: './employee-novelty-search.component.html',
-  styleUrls: ['./employee-novelty-search.component.css'],
-  animations: [fadeAnimation, fadeTransition()]
+    selector: 'app-employee-novelty-search',
+    templateUrl: './employee-novelty-search.component.html',
+    styleUrls: ['./employee-novelty-search.component.css'],
+    animations: [fadeAnimation, fadeTransition()],
+    standalone: false
 })
 export class EmployeeNoveltySearchComponent implements OnInit {
 

@@ -26,6 +26,7 @@ import {
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
     animations: [fadeTransition()],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
     version;

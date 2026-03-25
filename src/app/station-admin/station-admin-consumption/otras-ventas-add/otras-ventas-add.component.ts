@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-otras-ventas-add',
-  templateUrl: './otras-ventas-add.component.html',
-  styleUrls: ['./otras-ventas-add.component.css']
+    selector: 'app-otras-ventas-add',
+    templateUrl: './otras-ventas-add.component.html',
+    styleUrls: ['./otras-ventas-add.component.css'],
+    standalone: false
 })
 export class OtrasVentasAddComponent implements OnInit {
     boolSearchClient: boolean = false;

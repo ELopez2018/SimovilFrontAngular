@@ -11,7 +11,8 @@ import { NominaService } from '../../../../services/nomina.service';
 @Component({
     selector: 'app-lista-clientes',
     templateUrl: './lista-clientes.component.html',
-    styleUrls: ['./lista-clientes.component.css']
+    styleUrls: ['./lista-clientes.component.css'],
+    standalone: false
 })
 export class ListaClientesComponent implements OnInit {
     @Output() submiter = new EventEmitter<EntClient>();

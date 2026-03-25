@@ -6,7 +6,8 @@ import { StorageService } from '../../../services/storage.service';
 @Component({
     selector: 'app-home-canatilla',
     templateUrl: './home-canatilla.component.html',
-    styleUrls: ['./home-canatilla.component.css']
+    styleUrls: ['./home-canatilla.component.css'],
+    standalone: false
 })
 export class HomeCanatillaComponent implements OnInit {
     data: any;

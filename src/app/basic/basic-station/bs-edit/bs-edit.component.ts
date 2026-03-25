@@ -14,9 +14,10 @@ import { NominaService } from '../../../services/nomina.service';
 import { EntPlant } from '../../../Class/EntPlant';
 
 @Component({
-  selector: 'app-bs-edit',
-  templateUrl: './bs-edit.component.html',
-  styleUrls: ['./bs-edit.component.css']
+    selector: 'app-bs-edit',
+    templateUrl: './bs-edit.component.html',
+    styleUrls: ['./bs-edit.component.css'],
+    standalone: false
 })
 export class BsEditComponent implements OnInit {
   @Input() station: EntStation;

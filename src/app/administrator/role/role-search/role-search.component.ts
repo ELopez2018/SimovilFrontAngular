@@ -6,9 +6,10 @@ import { Title } from '@angular/platform-browser';
 import { UtilService } from '../../../services/util.service';
 
 @Component({
-  selector: 'app-role-search',
-  templateUrl: './role-search.component.html',
-  styleUrls: ['./role-search.component.css']
+    selector: 'app-role-search',
+    templateUrl: './role-search.component.html',
+    styleUrls: ['./role-search.component.css'],
+    standalone: false
 })
 export class RoleSearchComponent implements OnInit {
   searchString: string = '';

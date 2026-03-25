@@ -11,9 +11,10 @@ import { EntDisabilityNovelty } from '../../Class/EntDisabilityNovelty';
 import { NominaService } from '../../services/nomina.service';
 
 @Component({
-  selector: 'app-disability-novelty',
-  templateUrl: './disability-novelty.component.html',
-  styleUrls: ['./disability-novelty.component.css']
+    selector: 'app-disability-novelty',
+    templateUrl: './disability-novelty.component.html',
+    styleUrls: ['./disability-novelty.component.css'],
+    standalone: false
 })
 export class DisabilityNoveltyComponent implements OnInit {
   @Input() disability: EntDisability;

@@ -17,10 +17,11 @@ import { UtilService } from '../../services/util.service';
 import { EntAdministrator } from '../../Class/EntAdministrator';
 import { fadeAnimation } from '../../animations';
 @Component({
-  selector: 'app-roster',
-  templateUrl: './roster.component.html',
-  styleUrls: ['./roster.component.css'],
-  animations: [fadeTransition(), fadeAnimation]
+    selector: 'app-roster',
+    templateUrl: './roster.component.html',
+    styleUrls: ['./roster.component.css'],
+    animations: [fadeTransition(), fadeAnimation],
+    standalone: false
 })
 
 

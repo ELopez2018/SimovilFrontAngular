@@ -7,10 +7,11 @@ import { PrincipalComponent } from '../../../principal/principal.component';
 import { EntClient } from '../../../Class/EntClient';
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'app-client-Configuracion',
-  templateUrl: './client-Configuracion.component.html',
-  styleUrls: ['./client-Configuracion.component.css']
+    // tslint:disable-next-line: component-selector
+    selector: 'app-client-Configuracion',
+    templateUrl: './client-Configuracion.component.html',
+    styleUrls: ['./client-Configuracion.component.css'],
+    standalone: false
 })
 export class ClientConfiguracionComponent implements OnInit {
     idUsuario;

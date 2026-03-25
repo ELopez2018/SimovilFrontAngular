@@ -13,7 +13,8 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
     selector: 'app-ingreso-nueva-existencia',
     templateUrl: './ingreso-nueva-existencia.component.html',
-    styleUrls: ['./ingreso-nueva-existencia.component.css']
+    styleUrls: ['./ingreso-nueva-existencia.component.css'],
+    standalone: false
 })
 export class IngresoNuevaExistenciaComponent implements OnInit {
     stationsAll: EntStation[] =[];

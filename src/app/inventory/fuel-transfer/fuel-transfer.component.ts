@@ -12,10 +12,11 @@ import { NominaService } from '../../services/nomina.service';
 import { EntFuelTransfer } from '../../Class/EntFuelTransfer';
 
 @Component({
-  selector: 'app-fuel-transfer',
-  templateUrl: './fuel-transfer.component.html',
-  styleUrls: ['./fuel-transfer.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-fuel-transfer',
+    templateUrl: './fuel-transfer.component.html',
+    styleUrls: ['./fuel-transfer.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class FuelTransferComponent implements OnInit {
 

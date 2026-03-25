@@ -3,10 +3,11 @@ import { fadeTransition } from '../../../../routerAnimation';
 
 
 @Component({
-  selector: 'app-inventario-menu',
-  templateUrl: './inventario-menu.component.html',
-  styleUrls: ['./inventario-menu.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-inventario-menu',
+    templateUrl: './inventario-menu.component.html',
+    styleUrls: ['./inventario-menu.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class InventarioMenuComponent implements OnInit {
   tabs;

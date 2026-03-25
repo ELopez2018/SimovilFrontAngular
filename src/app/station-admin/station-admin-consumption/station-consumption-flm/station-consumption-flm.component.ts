@@ -15,6 +15,7 @@ import * as XLSX from 'xlsx'
     selector: 'app-station-consumption-flota-macarena',
     templateUrl: './station-consumption-flm.component.html',
     styleUrls: ['./station-consumption-flm.component.css'],
+    standalone: false
 })
 export class StationConsumptionFLMComponent implements OnInit {
     @Output() submiter = new EventEmitter<EntConsumoFLM>();

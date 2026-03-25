@@ -7,9 +7,10 @@ import { UtilService } from '../../../services/util.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
 
 @Component({
-  selector: 'app-option-edit',
-  templateUrl: './option-edit.component.html',
-  styleUrls: ['./option-edit.component.css']
+    selector: 'app-option-edit',
+    templateUrl: './option-edit.component.html',
+    styleUrls: ['./option-edit.component.css'],
+    standalone: false
 })
 export class OptionEditComponent implements OnInit {
   @Input() options: EntOption[];

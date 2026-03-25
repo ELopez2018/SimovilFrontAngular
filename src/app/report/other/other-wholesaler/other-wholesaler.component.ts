@@ -11,10 +11,11 @@ import { PrintService } from '../../../services/print.service';
 import { rangedate, dateToISOString } from '../../../util/util-lib';
 
 @Component({
-  selector: 'app-other-wholesaler',
-  templateUrl: './other-wholesaler.component.html',
-  styleUrls: ['./other-wholesaler.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-other-wholesaler',
+    templateUrl: './other-wholesaler.component.html',
+    styleUrls: ['./other-wholesaler.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class OtherWholesalerComponent implements OnInit {
 

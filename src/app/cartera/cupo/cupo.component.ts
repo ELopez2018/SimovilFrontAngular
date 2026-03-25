@@ -15,10 +15,11 @@ import { forkJoin } from 'rxjs';
 import { focusById, currencyNotDecimal } from '../../util/util-lib';
 
 @Component({
-  selector: 'app-cupo',
-  templateUrl: './cupo.component.html',
-  styleUrls: ['./cupo.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-cupo',
+    templateUrl: './cupo.component.html',
+    styleUrls: ['./cupo.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class CupoComponent implements OnInit {
   quotaForm: UntypedFormGroup;

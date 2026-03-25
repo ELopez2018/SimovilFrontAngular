@@ -12,10 +12,11 @@ import { PrincipalComponent } from '../../principal/principal.component';
 import { BasicDataService } from '../../services/basic-data.service';
 
 @Component({
-  selector: 'app-disability-search',
-  templateUrl: './disability-search.component.html',
-  styleUrls: ['./disability-search.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-disability-search',
+    templateUrl: './disability-search.component.html',
+    styleUrls: ['./disability-search.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class DisabilitySearchComponent implements OnInit {
   disabilities: EntDisability[];

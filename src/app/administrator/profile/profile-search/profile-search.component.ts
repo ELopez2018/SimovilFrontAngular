@@ -6,9 +6,10 @@ import { Title } from '@angular/platform-browser';
 import { UtilService } from '../../../services/util.service';
 
 @Component({
-  selector: 'app-profile-search',
-  templateUrl: './profile-search.component.html',
-  styleUrls: ['./profile-search.component.css']
+    selector: 'app-profile-search',
+    templateUrl: './profile-search.component.html',
+    styleUrls: ['./profile-search.component.css'],
+    standalone: false
 })
 export class ProfileSearchComponent implements OnInit {
   searchString: string = '';

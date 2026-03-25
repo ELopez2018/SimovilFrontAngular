@@ -6,7 +6,8 @@ import { EntStation } from '../../../Class/EntStation';
 @Component({
     selector: 'app-report-lecturas',
     templateUrl: './report-lecturas.component.html',
-    styleUrls: ['./report-lecturas.component.css']
+    styleUrls: ['./report-lecturas.component.css'],
+    standalone: false
 })
 export class ReportLecturasComponent implements OnInit {
     es;

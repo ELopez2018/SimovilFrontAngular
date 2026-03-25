@@ -4,9 +4,10 @@ import { NominaService } from './../../../services/nomina.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-tanques-liq',
-  templateUrl: './tanques-liq.component.html',
-  styleUrls: ['./tanques-liq.component.css']
+    selector: 'app-tanques-liq',
+    templateUrl: './tanques-liq.component.html',
+    styleUrls: ['./tanques-liq.component.css'],
+    standalone: false
 })
 export class TanquesLiqComponent implements OnInit {
 

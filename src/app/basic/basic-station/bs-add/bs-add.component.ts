@@ -16,10 +16,11 @@ import { NominaService } from '../../../services/nomina.service';
 import { EntPlant } from '../../../Class/EntPlant';
 
 @Component({
-  selector: 'app-bs-add',
-  templateUrl: './bs-add.component.html',
-  styleUrls: ['./bs-add.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-bs-add',
+    templateUrl: './bs-add.component.html',
+    styleUrls: ['./bs-add.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class BsAddComponent implements OnInit {
   cities: EntCityStation[];

@@ -6,9 +6,10 @@ import { CarteraService } from '../../../services/cartera.service';
 import { UtilService } from '../../../services/util.service';
 
 @Component({
-  selector: 'app-invoice-history',
-  templateUrl: './invoice-history.component.html',
-  styleUrls: ['./invoice-history.component.css']
+    selector: 'app-invoice-history',
+    templateUrl: './invoice-history.component.html',
+    styleUrls: ['./invoice-history.component.css'],
+    standalone: false
 })
 export class InvoiceHistoryComponent implements OnInit {
   @Input() invoice: EntInvoice;

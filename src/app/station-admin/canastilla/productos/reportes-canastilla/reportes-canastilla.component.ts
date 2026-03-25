@@ -11,7 +11,8 @@ import { meses } from '../../../../util/util-lib';
 @Component({
     selector: 'app-reportes-canastilla',
     templateUrl: './reportes-canastilla.component.html',
-    styleUrls: ['./reportes-canastilla.component.css']
+    styleUrls: ['./reportes-canastilla.component.css'],
+    standalone: false
 })
 export class ReportesCanastillaComponent implements OnInit {
     types = [{ id: 0, text: 'Estaciones' }];

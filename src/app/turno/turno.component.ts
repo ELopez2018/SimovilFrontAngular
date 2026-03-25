@@ -3,10 +3,11 @@ import { Title } from '@angular/platform-browser';
 import { fadeTransition } from '../routerAnimation';
 
 @Component({
-  selector: 'app-turno',
-  templateUrl: './turno.component.html',
-  styleUrls: ['./turno.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-turno',
+    templateUrl: './turno.component.html',
+    styleUrls: ['./turno.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class TurnoComponent implements OnInit {
 

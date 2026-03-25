@@ -7,7 +7,8 @@ import { BasicDataService } from '../../services/basic-data.service';
     selector: 'app-modal-dialog',
     templateUrl: './modal-dialog.component.html',
     styleUrls: ['./modal-dialog.component.css'],
-    animations: [fadeAnimation, fadeTransition()]
+    animations: [fadeAnimation, fadeTransition()],
+    standalone: false
 })
 export class ModalDialogComponent implements OnInit {
     @Input() visible: boolean;

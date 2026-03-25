@@ -8,9 +8,10 @@ import { UtilService } from '../../../services/util.service';
 import { StorageService } from '../../../services/storage.service';
 
 @Component({
-  selector: 'app-filed-update',
-  templateUrl: './filed-update.component.html',
-  styleUrls: ['./filed-update.component.css']
+    selector: 'app-filed-update',
+    templateUrl: './filed-update.component.html',
+    styleUrls: ['./filed-update.component.css'],
+    standalone: false
 })
 export class FiledUpdateComponent implements OnInit {
 

@@ -7,7 +7,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
     selector: 'app-producto-dsto',
     templateUrl: './producto-dsto.component.html',
-    styleUrls: ['./producto-dsto.component.css']
+    styleUrls: ['./producto-dsto.component.css'],
+    standalone: false
 })
 export class ProductoDstoComponent implements OnInit {
     @Input() Producto: EntProductos;

@@ -5,9 +5,10 @@ import { SsrsService } from '../../services/ssrs.service';
 import { UtilService } from '../../services/util.service';
 
 @Component({
-  selector: 'app-report-ssrs',
-  templateUrl: './report-ssrs.component.html',
-  styleUrls: ['./report-ssrs.component.css']
+    selector: 'app-report-ssrs',
+    templateUrl: './report-ssrs.component.html',
+    styleUrls: ['./report-ssrs.component.css'],
+    standalone: false
 })
 export class ReportSSRSComponent implements OnInit {
   @Input() https = false;

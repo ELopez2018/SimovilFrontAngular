@@ -15,7 +15,8 @@ import { UtilService } from '../../../../services/util.service';
 @Component({
     selector: 'app-list-productos',
     templateUrl: './list-productos.component.html',
-    styleUrls: ['./list-productos.component.css']
+    styleUrls: ['./list-productos.component.css'],
+    standalone: false
 })
 export class ListProductosComponent implements OnInit {
     @Input() date3: Date;

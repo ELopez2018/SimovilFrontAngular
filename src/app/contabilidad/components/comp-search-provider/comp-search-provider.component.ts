@@ -6,9 +6,10 @@ import { PrincipalComponent } from '../../../principal/principal.component';
 import { StorageService } from '../../../services/storage.service';
 
 @Component({
-  selector: 'app-comp-search-provider',
-  templateUrl: './comp-search-provider.component.html',
-  styleUrls: ['./comp-search-provider.component.css']
+    selector: 'app-comp-search-provider',
+    templateUrl: './comp-search-provider.component.html',
+    styleUrls: ['./comp-search-provider.component.css'],
+    standalone: false
 })
 export class CompSearchProviderComponent implements OnInit {
   @Output() submiter = new EventEmitter<EntProvider>();

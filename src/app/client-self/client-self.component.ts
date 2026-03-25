@@ -28,10 +28,11 @@ import { PAYMENTMETHODS } from '../Class/PAYMENTMETHODS';
 import { EntArticleType } from '../Class/EntArticleType';
 
 @Component({
-  selector: 'app-client-self',
-  templateUrl: './client-self.component.html',
-  styleUrls: ['./client-self.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-client-self',
+    templateUrl: './client-self.component.html',
+    styleUrls: ['./client-self.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class ClientSelfComponent implements OnInit {
   notdecimal = currencyNotDecimal();

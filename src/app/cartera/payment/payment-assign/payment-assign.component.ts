@@ -17,7 +17,8 @@ import { NominaService } from '../../../services/nomina.service';
     selector: 'app-payment-assign',
     templateUrl: './payment-assign.component.html',
     styleUrls: ['./payment-assign.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class PaymentAssignComponent implements OnInit {
     stationCode: number;

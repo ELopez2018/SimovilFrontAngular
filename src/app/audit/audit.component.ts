@@ -9,10 +9,11 @@ import { EntBasicClient } from '../Class/EntBasicClient';
 import { fadeTransition } from '../routerAnimation';
 
 @Component({
-  selector: 'app-audit',
-  templateUrl: './audit.component.html',
-  styleUrls: ['./audit.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-audit',
+    templateUrl: './audit.component.html',
+    styleUrls: ['./audit.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class AuditComponent implements OnInit {
   tasks: EntTask[];

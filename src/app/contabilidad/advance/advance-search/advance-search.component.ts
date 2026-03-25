@@ -12,10 +12,11 @@ import { fadeTransition } from '../../../routerAnimation';
 import { INoveltyTypes } from '../../../Class/inovelty-types';
 
 @Component({
-  selector: 'app-advance-search',
-  templateUrl: './advance-search.component.html',
-  styleUrls: ['./advance-search.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-advance-search',
+    templateUrl: './advance-search.component.html',
+    styleUrls: ['./advance-search.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class AdvanceSearchComponent implements OnInit {
 

@@ -28,6 +28,7 @@ import * as XLSX from 'xlsx';
     templateUrl: './station-consumption.component.html',
     styleUrls: ['./station-consumption.component.css'],
     animations: [fadeTransition()],
+    standalone: false
 })
 export class StationConsumptionComponent implements OnInit {
 

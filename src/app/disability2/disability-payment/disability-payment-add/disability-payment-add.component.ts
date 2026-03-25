@@ -13,10 +13,11 @@ import { ActivatedRoute } from '@angular/router';
 import { currencyNotDecimal } from '../../../util/util-lib';
 
 @Component({
-  selector: 'app-disability-payment-add',
-  templateUrl: './disability-payment-add.component.html',
-  styleUrls: ['./disability-payment-add.component.css'],
-  animations: [fadeAnimation, fadeTransition()]
+    selector: 'app-disability-payment-add',
+    templateUrl: './disability-payment-add.component.html',
+    styleUrls: ['./disability-payment-add.component.css'],
+    animations: [fadeAnimation, fadeTransition()],
+    standalone: false
 })
 export class DisabilityPaymentAddComponent implements OnInit {
 

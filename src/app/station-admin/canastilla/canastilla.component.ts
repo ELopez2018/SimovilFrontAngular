@@ -26,6 +26,7 @@ import { ArgumentOutOfRangeError } from 'rxjs';
     templateUrl: './canastilla.component.html',
     styleUrls: ['./canastilla.component.css'],
     animations: [fadeTransition()],
+    standalone: false
 })
 export class CanastillaComponent implements OnInit {
     @Output() submiter = new EventEmitter<EntProductos[]>();

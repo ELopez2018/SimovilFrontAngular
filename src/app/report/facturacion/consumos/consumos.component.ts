@@ -8,9 +8,10 @@ import { dateToISOString, rangedate } from '../../../util/util-lib';
 import { EntClient } from '../../../Class/EntClient';
 
 @Component({
-  selector: 'app-consumos',
-  templateUrl: './consumos.component.html',
-  styleUrls: ['./consumos.component.css']
+    selector: 'app-consumos',
+    templateUrl: './consumos.component.html',
+    styleUrls: ['./consumos.component.css'],
+    standalone: false
 })
 export class ConsumosComponent implements OnInit {
 

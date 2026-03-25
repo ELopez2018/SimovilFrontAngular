@@ -19,7 +19,8 @@ import { focusById } from '../../../util/util-lib';
     selector: 'app-invoice-search',
     templateUrl: './invoice-search.component.html',
     styleUrls: ['./invoice-search.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class InvoiceSearchComponent implements OnInit {
 

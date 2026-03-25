@@ -14,10 +14,11 @@ import { currencyNotDecimal, cleanString } from '../../../util/util-lib';
 // import { C } from '@angular/core/src/render3';
 
 @Component({
-  selector: 'app-invoice-novelty',
-  templateUrl: './invoice-novelty.component.html',
-  styleUrls: ['./invoice-novelty.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-invoice-novelty',
+    templateUrl: './invoice-novelty.component.html',
+    styleUrls: ['./invoice-novelty.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class InvoiceNoveltyComponent implements OnInit {
   @Input() invoice: EntInvoice;

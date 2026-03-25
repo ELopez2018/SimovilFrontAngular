@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-mapa-tanque',
-  templateUrl: './mapa-tanque.component.html',
-  styleUrls: ['./mapa-tanque.component.css']
+    selector: 'app-mapa-tanque',
+    templateUrl: './mapa-tanque.component.html',
+    styleUrls: ['./mapa-tanque.component.css'],
+    standalone: false
 })
 export class MapaTanqueComponent implements OnInit {
 

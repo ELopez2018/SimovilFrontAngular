@@ -6,9 +6,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
-  selector: 'app-cupos-consumidos',
-  templateUrl: './cupos-consumidos.component.html',
-  styleUrls: ['./cupos-consumidos.component.css']
+    selector: 'app-cupos-consumidos',
+    templateUrl: './cupos-consumidos.component.html',
+    styleUrls: ['./cupos-consumidos.component.css'],
+    standalone: false
 })
 export class CuposConsumidosComponent implements OnInit {
 

@@ -5,7 +5,8 @@ import { PrincipalComponent } from '../../../principal/principal.component';
 @Component({
     selector: 'app-disability-payment-edit',
     templateUrl: './disability-payment-edit.component.html',
-    styleUrls: ['./disability-payment-edit.component.css']
+    styleUrls: ['./disability-payment-edit.component.css'],
+    standalone: false
 })
 export class DisabilityPaymentEditComponent implements OnInit {
     Pagos;

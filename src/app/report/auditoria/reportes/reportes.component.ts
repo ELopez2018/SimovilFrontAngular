@@ -7,9 +7,10 @@ import { dateToISOString, rangedate } from '../../../util/util-lib';
 import { EntClient } from '../../../Class/EntClient';
 
 @Component({
-  selector: 'app-reportes',
-  templateUrl: './reportes.component.html',
-  styleUrls: ['./reportes.component.css']
+    selector: 'app-reportes',
+    templateUrl: './reportes.component.html',
+    styleUrls: ['./reportes.component.css'],
+    standalone: false
 })
 export class ReportesComponent implements OnInit {
 

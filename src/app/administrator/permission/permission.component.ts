@@ -9,9 +9,10 @@ import { NominaService } from '../../services/nomina.service';
 import { StorageService } from '../../services/storage.service';
 
 @Component({
-  selector: 'app-permission',
-  templateUrl: './permission.component.html',
-  styleUrls: ['./permission.component.css']
+    selector: 'app-permission',
+    templateUrl: './permission.component.html',
+    styleUrls: ['./permission.component.css'],
+    standalone: false
 })
 export class PermissionComponent implements OnInit {
   @Input() profile: EntProfile;

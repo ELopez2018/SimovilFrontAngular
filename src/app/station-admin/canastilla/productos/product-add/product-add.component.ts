@@ -12,9 +12,10 @@ import { SelectItem } from 'primeng/api';
 
 
 @Component({
-  selector: 'app-product-add',
-  templateUrl: './product-add.component.html',
-  styleUrls: ['./product-add.component.css']
+    selector: 'app-product-add',
+    templateUrl: './product-add.component.html',
+    styleUrls: ['./product-add.component.css'],
+    standalone: false
 })
 
 export class ProductAddComponent implements OnInit {

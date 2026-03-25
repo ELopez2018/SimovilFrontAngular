@@ -13,9 +13,10 @@ import { EntHose } from '../../../Class/EntHose';
 import { cleanString, focusById } from '../../../util/util-lib';
 
 @Component({
-  selector: 'app-bs-config',
-  templateUrl: './bs-config.component.html',
-  styleUrls: ['./bs-config.component.css']
+    selector: 'app-bs-config',
+    templateUrl: './bs-config.component.html',
+    styleUrls: ['./bs-config.component.css'],
+    standalone: false
 })
 export class BsConfigComponent implements OnInit {
   @Input() station: EntStation;

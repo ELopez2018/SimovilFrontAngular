@@ -3,9 +3,10 @@ import { PrincipalComponent } from './../../principal/principal.component';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-listado-consumos',
-  templateUrl: './listado-consumos.component.html',
-  styleUrls: ['./listado-consumos.component.css']
+    selector: 'app-listado-consumos',
+    templateUrl: './listado-consumos.component.html',
+    styleUrls: ['./listado-consumos.component.css'],
+    standalone: false
 })
 export class ListadoConsumosComponent implements OnInit {
 

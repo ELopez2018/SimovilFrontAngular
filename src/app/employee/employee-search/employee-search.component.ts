@@ -11,10 +11,11 @@ import { StorageService } from '../../services/storage.service';
 import { BasicDataService } from '../../services/basic-data.service';
 
 @Component({
-  selector: 'app-employee-search',
-  templateUrl: './employee-search.component.html',
-  styleUrls: ['./employee-search.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-employee-search',
+    templateUrl: './employee-search.component.html',
+    styleUrls: ['./employee-search.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class EmployeeSearchComponent implements OnInit {
   employees: EntEmployee[];

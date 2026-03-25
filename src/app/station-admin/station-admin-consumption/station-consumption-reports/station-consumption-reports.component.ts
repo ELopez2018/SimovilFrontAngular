@@ -9,7 +9,8 @@ import { EntClient } from '../../../Class/EntClient';
 @Component({
     selector: 'app-station-consumption-reports',
     templateUrl: './station-consumption-reports.component.html',
-    styleUrls: ['./station-consumption-reports.component.css']
+    styleUrls: ['./station-consumption-reports.component.css'],
+    standalone: false
 })
 export class StationConsumptionReportsComponent implements OnInit {
     desde: Date = new Date();

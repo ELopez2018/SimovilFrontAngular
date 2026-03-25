@@ -9,9 +9,10 @@ import { count } from 'console';
 import { forEach } from 'jszip';
 
 @Component({
-  selector: 'app-ingreso-automatico',
-  templateUrl: './ingreso-automatico.component.html',
-  styleUrls: ['./ingreso-automatico.component.css']
+    selector: 'app-ingreso-automatico',
+    templateUrl: './ingreso-automatico.component.html',
+    styleUrls: ['./ingreso-automatico.component.css'],
+    standalone: false
 })
 export class IngresoAutomaticoComponent implements OnInit {
   @ViewChild('FileReaderTerpel') ResetFileReaderTerpel: ElementRef;

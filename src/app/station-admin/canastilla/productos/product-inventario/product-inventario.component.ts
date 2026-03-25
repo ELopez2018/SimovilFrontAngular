@@ -14,7 +14,8 @@ import { JsonpClientBackend } from '@angular/common/http';
 @Component({
     selector: 'app-product-inventario',
     templateUrl: './product-inventario.component.html',
-    styleUrls: ['./product-inventario.component.css']
+    styleUrls: ['./product-inventario.component.css'],
+    standalone: false
 })
 export class ProductInventarioComponent implements OnInit {
 

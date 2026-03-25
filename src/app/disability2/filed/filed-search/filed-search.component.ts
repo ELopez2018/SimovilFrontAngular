@@ -11,10 +11,11 @@ import { fadeTransition } from '../../../routerAnimation';
 import { EntDisability } from '../../../Class/EntDisability';
 
 @Component({
-  selector: 'app-filed-search',
-  templateUrl: './filed-search.component.html',
-  styleUrls: ['./filed-search.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-filed-search',
+    templateUrl: './filed-search.component.html',
+    styleUrls: ['./filed-search.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class FiledSearchComponent implements OnInit {
 

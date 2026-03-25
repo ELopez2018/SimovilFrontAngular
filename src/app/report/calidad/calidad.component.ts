@@ -4,9 +4,10 @@ import { EntStation } from './../../Class/EntStation';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-calidad',
-  templateUrl: './calidad.component.html',
-  styleUrls: ['./calidad.component.css']
+    selector: 'app-calidad',
+    templateUrl: './calidad.component.html',
+    styleUrls: ['./calidad.component.css'],
+    standalone: false
 })
 export class CalidadComponent implements OnInit {
 

@@ -19,6 +19,7 @@ import { dateToISOString, rangedate } from '../../../util/util-lib';
     templateUrl: './sheet-daily-search.component.html',
     styleUrls: ['./sheet-daily-search.component.css'],
     animations: [fadeTransition()],
+    standalone: false
 })
 export class SheetDailySearchComponent implements OnInit {
     dailySheets: EntDailySheet[];

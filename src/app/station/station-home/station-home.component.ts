@@ -12,10 +12,11 @@ import { fadeTransition } from '../../routerAnimation';
 import { UtilService } from '../../services/util.service';
 
 @Component({
-  selector: 'app-station-home',
-  templateUrl: './station-home.component.html',
-  styleUrls: ['./station-home.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-station-home',
+    templateUrl: './station-home.component.html',
+    styleUrls: ['./station-home.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class StationHomeComponent implements OnInit {
   user: string;

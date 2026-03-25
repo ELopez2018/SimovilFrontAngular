@@ -16,10 +16,11 @@ import { EntAdministrator } from '../../../Class/EntAdministrator';
 import { EntEmployeeNovelty } from '../../../Class/EntEmployeeNovelty';
 
 @Component({
-  selector: 'app-employee-novelty-add',
-  templateUrl: './employee-novelty-add.component.html',
-  styleUrls: ['./employee-novelty-add.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-employee-novelty-add',
+    templateUrl: './employee-novelty-add.component.html',
+    styleUrls: ['./employee-novelty-add.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class EmployeeNoveltyAddComponent implements OnInit {
 

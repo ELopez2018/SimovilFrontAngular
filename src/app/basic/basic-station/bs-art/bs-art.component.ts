@@ -10,10 +10,11 @@ import { NominaService } from '../../../services/nomina.service';
 import { StorageService } from '../../../services/storage.service';
 
 @Component({
-  selector: 'app-bs-art',
-  templateUrl: './bs-art.component.html',
-  styleUrls: ['./bs-art.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-bs-art',
+    templateUrl: './bs-art.component.html',
+    styleUrls: ['./bs-art.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class BsArtComponent implements OnInit {
   @Input() station: EntStation;

@@ -14,7 +14,8 @@ import { Title } from '@angular/platform-browser';
     selector: 'app-other',
     templateUrl: './other.component.html',
     styleUrls: ['./other.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class OtherComponent implements OnInit {
 

@@ -13,10 +13,11 @@ import { PrintService } from '../../services/print.service';
 import { PAYMENTMETHODS } from '../../Class/PAYMENTMETHODS';
 
 @Component({
-  selector: 'app-station-payment',
-  templateUrl: './station-payment.component.html',
-  styleUrls: ['./station-payment.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-station-payment',
+    templateUrl: './station-payment.component.html',
+    styleUrls: ['./station-payment.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class StationPaymentComponent implements OnInit {
 

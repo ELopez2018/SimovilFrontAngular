@@ -27,6 +27,7 @@ import { EntClasificacionInvoice } from '../../../Class/EntClasificacionInvoice'
     templateUrl: './invoice-add.component.html',
     styleUrls: ['./invoice-add.component.css'],
     animations: [fadeTransition()],
+    standalone: false
 })
 export class InvoiceAddComponent implements OnInit {
     invoiceForm: UntypedFormGroup;

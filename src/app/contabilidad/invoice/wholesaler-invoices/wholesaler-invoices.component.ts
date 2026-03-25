@@ -7,10 +7,11 @@ import { UtilService } from '../../../services/util.service';
 import { fadeTransition } from '../../../routerAnimation';
 
 @Component({
-  selector: 'app-wholesaler-invoices',
-  templateUrl: './wholesaler-invoices.component.html',
-  styleUrls: ['./wholesaler-invoices.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-wholesaler-invoices',
+    templateUrl: './wholesaler-invoices.component.html',
+    styleUrls: ['./wholesaler-invoices.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class WholesalerInvoicesComponent implements OnInit {
   @Input() search = false;

@@ -7,10 +7,11 @@ import { EntDisability } from '../../../Class/EntDisability';
 import { UtilService } from '../../../services/util.service';
 
 @Component({
-  selector: 'app-employee-disability',
-  templateUrl: './employee-disability.component.html',
-  styleUrls: ['./employee-disability.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-employee-disability',
+    templateUrl: './employee-disability.component.html',
+    styleUrls: ['./employee-disability.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class EmployeeDisabilityComponent implements OnInit {
 

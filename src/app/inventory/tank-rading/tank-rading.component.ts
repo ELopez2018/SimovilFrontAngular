@@ -13,10 +13,11 @@ import { EntArticleType } from '../../Class/EntArticleType';
 import { EntGasReading } from '../../Class/EntGasReading';
 
 @Component({
-  selector: 'app-tank-rading',
-  templateUrl: './tank-rading.component.html',
-  styleUrls: ['./tank-rading.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-tank-rading',
+    templateUrl: './tank-rading.component.html',
+    styleUrls: ['./tank-rading.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class TankRadingComponent implements OnInit {
 

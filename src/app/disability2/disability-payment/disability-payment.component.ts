@@ -4,10 +4,11 @@ import { fadeTransition } from '../../routerAnimation';
 import { StorageService } from '../../services/storage.service';
 
 @Component({
-  selector: 'app-disability-payment',
-  templateUrl: './disability-payment.component.html',
-  styleUrls: ['./disability-payment.component.css'],
-  animations: [fadeAnimation, fadeTransition()]
+    selector: 'app-disability-payment',
+    templateUrl: './disability-payment.component.html',
+    styleUrls: ['./disability-payment.component.css'],
+    animations: [fadeAnimation, fadeTransition()],
+    standalone: false
 })
 export class DisabilityPaymentComponent implements OnInit {
     Area;

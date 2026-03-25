@@ -15,7 +15,8 @@ import { formatDate, formatCurrency } from '@angular/common';
     selector: 'app-cartera-planilla',
     templateUrl: './cartera-planilla.component.html',
     styleUrls: ['./cartera-planilla.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class CarteraPlanillaComponent implements OnInit {
     @Input() params: iParamRPTCartera;

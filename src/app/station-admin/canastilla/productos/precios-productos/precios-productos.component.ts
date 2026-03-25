@@ -10,7 +10,8 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
     selector: 'app-precios-productos',
     templateUrl: './precios-productos.component.html',
-    styleUrls: ['./precios-productos.component.css']
+    styleUrls: ['./precios-productos.component.css'],
+    standalone: false
 })
 export class PreciosProductosComponent implements OnInit {
     stationsAll: EntStation[];

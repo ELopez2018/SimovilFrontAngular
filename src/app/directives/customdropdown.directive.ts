@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: '[appCustomdropdown]'
+    selector: '[appCustomdropdown]',
+    standalone: false
 })
 export class CustomdropdownDirective {
   private isOpen: boolean = false;

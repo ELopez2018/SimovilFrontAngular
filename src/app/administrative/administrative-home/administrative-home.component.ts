@@ -12,10 +12,11 @@ import { INVOICENOVELTYTYPES } from '../../Class/INVOICENOVELTYTYPES';
 import { NominaService } from '../../services/nomina.service';
 
 @Component({
-  selector: 'app-administrative-home',
-  templateUrl: './administrative-home.component.html',
-  styleUrls: ['./administrative-home.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-administrative-home',
+    templateUrl: './administrative-home.component.html',
+    styleUrls: ['./administrative-home.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class AdministrativeHomeComponent implements OnInit {
 

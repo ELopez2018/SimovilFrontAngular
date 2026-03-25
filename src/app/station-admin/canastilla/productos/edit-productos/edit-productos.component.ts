@@ -19,7 +19,8 @@ import { ActivatedRoute, Router, Route } from '@angular/router';
 @Component({
     selector: 'app-edit-productos',
     templateUrl: './edit-productos.component.html',
-    styleUrls: ['./edit-productos.component.css']
+    styleUrls: ['./edit-productos.component.css'],
+    standalone: false
 })
 export class EditProductosComponent implements OnInit {
 

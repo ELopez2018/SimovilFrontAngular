@@ -11,10 +11,11 @@ import { fadeTransition } from '../../../routerAnimation';
 import { TABLEADVANCEPENDING, iTableConfig } from '../../../Class/TABLES_CONFIG';
 
 @Component({
-  selector: 'app-pending-advance',
-  templateUrl: './pending-advance.component.html',
-  styleUrls: ['./pending-advance.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-pending-advance',
+    templateUrl: './pending-advance.component.html',
+    styleUrls: ['./pending-advance.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class PendingAdvanceComponent implements OnInit {
 

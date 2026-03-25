@@ -4,9 +4,10 @@ import { NominaService } from '../../services/nomina.service';
 import { StorageService } from '../../services/storage.service';
 
 @Component({
-  selector: 'app-cpl-admon',
-  templateUrl: './cpl-admon.component.html',
-  styleUrls: ['./cpl-admon.component.css']
+    selector: 'app-cpl-admon',
+    templateUrl: './cpl-admon.component.html',
+    styleUrls: ['./cpl-admon.component.css'],
+    standalone: false
 })
 export class CplAdmonComponent implements OnInit {
   stationCode;

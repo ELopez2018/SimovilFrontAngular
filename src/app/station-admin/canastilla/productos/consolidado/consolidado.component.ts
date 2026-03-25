@@ -13,7 +13,8 @@ import { EntConsolidadoenPesos } from '../../../../Class/EntConsolidadoenPesos';
 @Component({
     selector: 'app-consolidado',
     templateUrl: './consolidado.component.html',
-    styleUrls: ['./consolidado.component.css']
+    styleUrls: ['./consolidado.component.css'],
+    standalone: false
 })
 export class ConsolidadoComponent implements OnInit {
     boolNovelty = false;

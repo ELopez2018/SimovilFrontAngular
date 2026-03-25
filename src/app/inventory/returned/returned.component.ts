@@ -8,9 +8,10 @@ import { UtilService } from '../../services/util.service';
 import { PrincipalComponent } from '../../principal/principal.component';
 
 @Component({
-  selector: 'app-returned',
-  templateUrl: './returned.component.html',
-  styleUrls: ['./returned.component.css']
+    selector: 'app-returned',
+    templateUrl: './returned.component.html',
+    styleUrls: ['./returned.component.css'],
+    standalone: false
 })
 export class ReturnedComponent implements OnInit {
   calitrations: EntReturn[];

@@ -4,9 +4,10 @@ import { EntArticle } from './../../Class/EntArticle';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-combustible',
-  templateUrl: './combustible.component.html',
-  styleUrls: ['./combustible.component.css']
+    selector: 'app-combustible',
+    templateUrl: './combustible.component.html',
+    styleUrls: ['./combustible.component.css'],
+    standalone: false
 })
 export class CombustibleComponent implements OnInit {
 

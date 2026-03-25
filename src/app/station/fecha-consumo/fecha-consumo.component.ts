@@ -3,9 +3,10 @@ import { CarteraService } from './../../services/cartera.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-fecha-consumo',
-  templateUrl: './fecha-consumo.component.html',
-  styleUrls: ['./fecha-consumo.component.css']
+    selector: 'app-fecha-consumo',
+    templateUrl: './fecha-consumo.component.html',
+    styleUrls: ['./fecha-consumo.component.css'],
+    standalone: false
 })
 export class FechaConsumoComponent implements OnInit {
 

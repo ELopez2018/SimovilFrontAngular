@@ -11,7 +11,8 @@ import { EntStation } from '../../../Class/EntStation';
     selector: 'app-ppal-canastilla',
     templateUrl: './ppal-canastilla.component.html',
     styleUrls: ['./ppal-canastilla.component.css'],
-    animations: [fadeAnimation, fadeTransition()]
+    animations: [fadeAnimation, fadeTransition()],
+    standalone: false
 })
 export class PpalCanastillaComponent implements OnInit {
     stationSel;

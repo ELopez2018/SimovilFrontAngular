@@ -17,10 +17,11 @@ import { UtilService } from '../../services/util.service';
 import { EntAdministrator } from '../../Class/EntAdministrator';
 
 @Component({
-  selector: 'app-employee-edit',
-  templateUrl: './employee-edit.component.html',
-  styleUrls: ['./employee-edit.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-employee-edit',
+    templateUrl: './employee-edit.component.html',
+    styleUrls: ['./employee-edit.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 
 export class EmployeeEditComponent implements OnInit {

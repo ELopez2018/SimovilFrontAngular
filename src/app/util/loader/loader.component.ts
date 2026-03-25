@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UtilService } from '../../services/util.service';
 
 @Component({
-  selector: 'app-loader',
-  templateUrl: './loader.component.html',
-  styleUrls: ['./loader.component.css']
+    selector: 'app-loader',
+    templateUrl: './loader.component.html',
+    styleUrls: ['./loader.component.css'],
+    standalone: false
 })
 export class LoaderComponent implements OnInit {
 

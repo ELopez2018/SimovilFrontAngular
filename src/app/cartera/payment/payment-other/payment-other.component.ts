@@ -12,10 +12,11 @@ import { PAYMENTMETHODS } from '../../../Class/PAYMENTMETHODS';
 import { EntPayment } from '../../../Class/EntPayment';
 
 @Component({
-  selector: 'app-payment-other',
-  templateUrl: './payment-other.component.html',
-  styleUrls: ['./payment-other.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-payment-other',
+    templateUrl: './payment-other.component.html',
+    styleUrls: ['./payment-other.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class PaymentOtherComponent implements OnInit {
   addPaymentForm: UntypedFormGroup;

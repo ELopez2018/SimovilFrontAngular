@@ -19,7 +19,8 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'app-client-info',
     templateUrl: './client-info.component.html',
-    styleUrls: ['./client-info.component.css']
+    styleUrls: ['./client-info.component.css'],
+    standalone: false
 })
 export class ClientInfoComponent implements OnInit {
     @Input() codCliente: number;

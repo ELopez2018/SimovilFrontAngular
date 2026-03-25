@@ -23,7 +23,8 @@ import { IgxTreeGridHierarchizingPipe } from 'igniteui-angular/lib/grids/tree-gr
     selector: 'app-payment-add',
     templateUrl: './payment-add.component.html',
     styleUrls: ['./payment-add.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class PaymentAddComponent implements OnInit {
     @ViewChild('porcentaje_retencion') porcentaje_retencion: ElementRef;

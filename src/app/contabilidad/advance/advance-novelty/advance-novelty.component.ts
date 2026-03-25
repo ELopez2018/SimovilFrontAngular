@@ -12,10 +12,11 @@ import { fadeTransition } from '../../../routerAnimation';
 import { INoveltyTypes } from '../../../Class/inovelty-types';
 
 @Component({
-  selector: 'app-advance-novelty',
-  templateUrl: './advance-novelty.component.html',
-  styleUrls: ['./advance-novelty.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-advance-novelty',
+    templateUrl: './advance-novelty.component.html',
+    styleUrls: ['./advance-novelty.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class AdvanceNoveltyComponent implements OnInit {
   @Input() advance: EntAdvance;

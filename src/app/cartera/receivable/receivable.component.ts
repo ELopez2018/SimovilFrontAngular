@@ -11,7 +11,8 @@ import { fadeTransition } from '../../routerAnimation';
     selector: 'app-receivable',
     templateUrl: './receivable.component.html',
     styleUrls: ['./receivable.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class ReceivableComponent implements OnInit {
     receivables: EntReceivable[];

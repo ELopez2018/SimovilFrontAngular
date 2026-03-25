@@ -6,9 +6,10 @@ import { UtilService } from '../../../services/util.service';
 import { EntOption } from '../../../Class/EntOption';
 
 @Component({
-  selector: 'app-option-search',
-  templateUrl: './option-search.component.html',
-  styleUrls: ['./option-search.component.css']
+    selector: 'app-option-search',
+    templateUrl: './option-search.component.html',
+    styleUrls: ['./option-search.component.css'],
+    standalone: false
 })
 export class OptionSearchComponent implements OnInit {
   searchString: string = '';

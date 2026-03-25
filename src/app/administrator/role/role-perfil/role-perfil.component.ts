@@ -8,9 +8,10 @@ import { forkJoin } from 'rxjs';
 import { StorageService } from '../../../services/storage.service';
 
 @Component({
-  selector: 'app-role-perfil',
-  templateUrl: './role-perfil.component.html',
-  styleUrls: ['./role-perfil.component.css']
+    selector: 'app-role-perfil',
+    templateUrl: './role-perfil.component.html',
+    styleUrls: ['./role-perfil.component.css'],
+    standalone: false
 })
 export class RolePerfilComponent implements OnInit {
   @Input() role: EntRole;

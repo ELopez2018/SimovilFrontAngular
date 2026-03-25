@@ -14,10 +14,11 @@ import { PROVIDERTYPE, PROVIDERTYPE2 } from '../../../Class/PROVIDERTYPE';
 import { cleanString } from '../../../util/util-lib';
 
 @Component({
-  selector: 'app-provider-add',
-  templateUrl: './provider-add.component.html',
-  styleUrls: ['./provider-add.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-provider-add',
+    templateUrl: './provider-add.component.html',
+    styleUrls: ['./provider-add.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class ProviderAddComponent implements OnInit {
 

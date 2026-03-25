@@ -6,7 +6,8 @@ import { StorageService } from '../../../services/storage.service';
 @Component({
     selector: 'app-home-cpl',
     templateUrl: './home-cpl.component.html',
-    styleUrls: ['./home-cpl.component.css']
+    styleUrls: ['./home-cpl.component.css'],
+    standalone: false
 })
 export class HomeCPLComponent implements OnInit {
     data: any;

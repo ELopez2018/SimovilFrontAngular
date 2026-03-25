@@ -11,10 +11,11 @@ import { fadeTransition } from '../../routerAnimation';
 import { TareaEnvioCorreo } from '../../Class/patrones/comportamiento/comando/tarea-envio-correo';
 
 @Component({
-  selector: 'app-vehicle',
-  templateUrl: './vehicle.component.html',
-  styleUrls: ['./vehicle.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-vehicle',
+    templateUrl: './vehicle.component.html',
+    styleUrls: ['./vehicle.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class VehicleComponent implements OnInit {
   collapsed = [true, true, true];

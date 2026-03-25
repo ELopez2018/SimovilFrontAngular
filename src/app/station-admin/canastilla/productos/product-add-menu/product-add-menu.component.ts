@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-product-add-menu',
-  templateUrl: './product-add-menu.component.html',
-  styleUrls: ['./product-add-menu.component.css']
+    selector: 'app-product-add-menu',
+    templateUrl: './product-add-menu.component.html',
+    styleUrls: ['./product-add-menu.component.css'],
+    standalone: false
 })
 export class ProductAddMenuComponent implements OnInit {
 

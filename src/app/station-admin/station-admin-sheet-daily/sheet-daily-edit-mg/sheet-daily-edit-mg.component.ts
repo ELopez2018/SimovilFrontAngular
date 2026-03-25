@@ -34,8 +34,9 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
 @Component({
     selector: 'app-sheet-daily-edit-mg',
     templateUrl: './sheet-daily-edit-mg.component.html',
-    styleUrls: ['./sheet-daily-edit-mg.component.css']
-  })
+    styleUrls: ['./sheet-daily-edit-mg.component.css'],
+    standalone: false
+})
   export class SheetDailyEditMGComponent extends ComponentCanDeactivate implements OnInit {
     notdecimal = currencyNotDecimal();
     station: EntStation;

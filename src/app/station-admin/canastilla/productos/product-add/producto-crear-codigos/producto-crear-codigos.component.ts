@@ -10,7 +10,8 @@ import { Title } from '@angular/platform-browser';
 @Component({
     selector: 'app-producto-crear-codigos',
     templateUrl: './producto-crear-codigos.component.html',
-    styleUrls: ['./producto-crear-codigos.component.css']
+    styleUrls: ['./producto-crear-codigos.component.css'],
+    standalone: false
 })
 export class ProductoCrearCodigosComponent implements OnInit, OnChanges {
     forma: UntypedFormGroup;

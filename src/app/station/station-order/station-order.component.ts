@@ -14,10 +14,11 @@ import { rangedate, dateToISOString, focusById, ObjToCSV } from '../../util/util
 import { PrintService } from '../../services/print.service';
 
 @Component({
-  selector: 'app-station-order',
-  templateUrl: './station-order.component.html',
-  styleUrls: ['./station-order.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-station-order',
+    templateUrl: './station-order.component.html',
+    styleUrls: ['./station-order.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class StationOrderComponent implements OnInit {
 

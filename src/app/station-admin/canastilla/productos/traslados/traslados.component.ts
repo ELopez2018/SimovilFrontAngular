@@ -19,7 +19,8 @@ import { EntProductosTraslados } from '../../../../Class/EnProductosTraslados';
     selector: 'app-traslados',
     templateUrl: './traslados.component.html',
     styleUrls: ['./traslados.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class TrasladosComponent implements OnInit {
     tabs;

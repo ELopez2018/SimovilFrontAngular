@@ -8,10 +8,11 @@ import { UtilService } from '../../../services/util.service';
 import { fadeTransition } from '../../../routerAnimation';
 
 @Component({
-  selector: 'app-provider-search',
-  templateUrl: './provider-search.component.html',
-  styleUrls: ['./provider-search.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-provider-search',
+    templateUrl: './provider-search.component.html',
+    styleUrls: ['./provider-search.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class ProviderSearchComponent implements OnInit {
   providers: EntProvider[];

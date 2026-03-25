@@ -3,10 +3,11 @@ import { fadeTransition } from '../routerAnimation';
 import { fadeAnimation } from '../animations';
 
 @Component({
-  selector: 'app-administrative',
-  templateUrl: './administrative.component.html',
-  styleUrls: ['./administrative.component.css'],
-  animations: [fadeTransition(), fadeAnimation]
+    selector: 'app-administrative',
+    templateUrl: './administrative.component.html',
+    styleUrls: ['./administrative.component.css'],
+    animations: [fadeTransition(), fadeAnimation],
+    standalone: false
 })
 export class AdministrativeComponent implements OnInit {
 

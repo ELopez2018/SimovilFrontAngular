@@ -16,10 +16,11 @@ import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
-  selector: 'app-payment-search',
-  templateUrl: './payment-search.component.html',
-  styleUrls: ['./payment-search.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-payment-search',
+    templateUrl: './payment-search.component.html',
+    styleUrls: ['./payment-search.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class PaymentSearchComponent implements OnInit {
 

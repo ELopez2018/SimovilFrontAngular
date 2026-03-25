@@ -5,7 +5,8 @@ import { NominaService } from '../../../../../services/nomina.service';
 @Component({
     selector: 'app-product-codigo-edit',
     templateUrl: './product-codigo-edit.component.html',
-    styleUrls: ['./product-codigo-edit.component.css']
+    styleUrls: ['./product-codigo-edit.component.css'],
+    standalone: false
 })
 export class ProductCodigoEditComponent implements OnInit {
     cols: any;

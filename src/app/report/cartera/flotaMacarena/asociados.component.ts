@@ -17,6 +17,7 @@ import { EntAnyos } from '../../../Class/EntAnyos';
     templateUrl: './asociados.component.html',
     styleUrls: ['./asociados.component.css'],
     animations: [fadeTransition()],
+    standalone: false
 })
 export class AsociadosComponent implements OnInit {
     opcSel;

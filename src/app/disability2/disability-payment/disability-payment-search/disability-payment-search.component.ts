@@ -10,10 +10,11 @@ import { fadeTransition } from '../../../routerAnimation';
 import { fadeAnimation } from '../../../animations';
 
 @Component({
-  selector: 'app-disability-payment-search',
-  templateUrl: './disability-payment-search.component.html',
-  styleUrls: ['./disability-payment-search.component.css'],
-  animations: [fadeTransition(), fadeAnimation]
+    selector: 'app-disability-payment-search',
+    templateUrl: './disability-payment-search.component.html',
+    styleUrls: ['./disability-payment-search.component.css'],
+    animations: [fadeTransition(), fadeAnimation],
+    standalone: false
 })
 export class DisabilityPaymentSearchComponent implements OnInit {
 

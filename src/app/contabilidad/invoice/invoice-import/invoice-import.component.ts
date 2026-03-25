@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 @Component({
-  selector: 'app-invoice-import',
-  templateUrl: './invoice-import.component.html',
-  styleUrls: ['./invoice-import.component.css']
+    selector: 'app-invoice-import',
+    templateUrl: './invoice-import.component.html',
+    styleUrls: ['./invoice-import.component.css'],
+    standalone: false
 })
 export class InvoiceImportComponent implements OnInit {
     data;

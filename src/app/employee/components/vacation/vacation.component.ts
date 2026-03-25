@@ -5,10 +5,11 @@ import { EntEmployeeNovelty } from '../../../Class/EntEmployeeNovelty';
 import { fadeTransition } from '../../../routerAnimation';
 
 @Component({
-  selector: 'app-vacation',
-  templateUrl: './vacation.component.html',
-  styleUrls: ['./vacation.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-vacation',
+    templateUrl: './vacation.component.html',
+    styleUrls: ['./vacation.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class VacationComponent implements OnInit {
 

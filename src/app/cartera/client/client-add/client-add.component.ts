@@ -22,7 +22,8 @@ import { TaxesModel } from '../../../Class/Taxes.model';
     selector: 'app-client-add',
     templateUrl: './client-add.component.html',
     styleUrls: ['./client-add.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 
 

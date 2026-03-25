@@ -6,9 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
-  selector: 'app-identificador',
-  templateUrl: './identificador.component.html',
-  styleUrls: ['./identificador.component.css']
+    selector: 'app-identificador',
+    templateUrl: './identificador.component.html',
+    styleUrls: ['./identificador.component.css'],
+    standalone: false
 })
 export class IdentificadorComponent implements OnInit {
 

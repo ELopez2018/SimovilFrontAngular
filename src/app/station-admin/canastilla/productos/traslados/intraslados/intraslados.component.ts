@@ -11,7 +11,8 @@ import { PrincipalComponent } from '../../../../../principal/principal.component
 @Component({
     selector: 'app-intraslados',
     templateUrl: './intraslados.component.html',
-    styleUrls: ['./intraslados.component.css']
+    styleUrls: ['./intraslados.component.css'],
+    standalone: false
 })
 export class IntrasladosComponent implements OnInit {
     productos: EntProductosTraslados[];

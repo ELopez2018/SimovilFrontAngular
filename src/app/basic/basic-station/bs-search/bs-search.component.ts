@@ -14,6 +14,7 @@ import { dateToISOString, rangedate } from '../../../util/util-lib';
     templateUrl: './bs-search.component.html',
     styleUrls: ['./bs-search.component.css'],
     animations: [fadeTransition()],
+    standalone: false
 })
 export class BsSearchComponent implements OnInit {
     stations: EntStation[];

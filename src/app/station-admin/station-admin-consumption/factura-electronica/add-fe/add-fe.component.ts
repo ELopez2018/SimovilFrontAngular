@@ -13,9 +13,10 @@ import { rangedate, dateToISOString, focusById } from '../../../../util/util-lib
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
-  selector: 'app-add-fe',
-  templateUrl: './add-fe.component.html',
-  styleUrls: ['./add-fe.component.css']
+    selector: 'app-add-fe',
+    templateUrl: './add-fe.component.html',
+    styleUrls: ['./add-fe.component.css'],
+    standalone: false
 })
 export class AddFEComponent implements OnInit {
 

@@ -13,7 +13,8 @@ import { SelectItem } from 'primeng/api';
     // tslint:disable-next-line: component-selector
     selector: 'app-listaTodosProductos',
     templateUrl: './listaTodosProductos.component.html',
-    styleUrls: ['./listaTodosProductos.component.css']
+    styleUrls: ['./listaTodosProductos.component.css'],
+    standalone: false
 })
 export class ListaTodosProductosComponent implements OnInit {
     stationsAll: EntStation[];

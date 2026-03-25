@@ -3,10 +3,11 @@ import { fadeTransition } from '../../routerAnimation';
 import { UtilService } from '../../services/util.service';
 
 @Component({
-  selector: 'app-confirm-modal',
-  templateUrl: './confirm-modal.component.html',
-  styleUrls: ['./confirm-modal.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-confirm-modal',
+    templateUrl: './confirm-modal.component.html',
+    styleUrls: ['./confirm-modal.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class ConfirmModalComponent implements OnInit {
 

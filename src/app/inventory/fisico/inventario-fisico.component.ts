@@ -3,9 +3,10 @@ import { TanquesDeCombustible } from './../../Class/tanques-de-combustible';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-inventario-fisico',
-  templateUrl: './inventario-fisico.component.html',
-  styleUrls: ['./inventario-fisico.component.css']
+    selector: 'app-inventario-fisico',
+    templateUrl: './inventario-fisico.component.html',
+    styleUrls: ['./inventario-fisico.component.css'],
+    standalone: false
 })
 export class InventarioFisicoComponent implements OnInit {
 

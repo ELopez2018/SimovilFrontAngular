@@ -14,10 +14,11 @@ import { BasicDataService } from '../../services/basic-data.service';
 import { EntAdministrator } from '../../Class/EntAdministrator';
 
 @Component({
-  selector: 'app-employee-add',
-  templateUrl: './employee-add.component.html',
-  styleUrls: ['./employee-add.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-employee-add',
+    templateUrl: './employee-add.component.html',
+    styleUrls: ['./employee-add.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class EmployeeAddComponent implements OnInit {
 

@@ -9,10 +9,11 @@ import { EntCalibration } from '../../Class/EntCalibration';
 import { StorageService } from '../../services/storage.service';
 
 @Component({
-  selector: 'app-station-admin-calibration',
-  templateUrl: './station-admin-calibration.component.html',
-  styleUrls: ['./station-admin-calibration.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-station-admin-calibration',
+    templateUrl: './station-admin-calibration.component.html',
+    styleUrls: ['./station-admin-calibration.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class StationAdminCalibrationComponent implements OnInit {
   calitrations: EntCalibration[];

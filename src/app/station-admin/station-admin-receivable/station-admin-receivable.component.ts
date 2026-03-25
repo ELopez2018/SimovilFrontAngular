@@ -21,6 +21,7 @@ import { NominaService } from '../../services/nomina.service';
     templateUrl: './station-admin-receivable.component.html',
     styleUrls: ['./station-admin-receivable.component.css'],
     animations: [fadeTransition()],
+    standalone: false
 })
 export class StationAdminReceivableComponent implements OnInit {
     constructor(

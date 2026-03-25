@@ -9,10 +9,11 @@ import { EntBasicClient } from '../../../Class/EntBasicClient';
 import { fadeTransition } from '../../../routerAnimation';
 
 @Component({
-  selector: 'app-client-search',
-  templateUrl: './client-search.component.html',
-  styleUrls: ['./client-search.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-client-search',
+    templateUrl: './client-search.component.html',
+    styleUrls: ['./client-search.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class ClientSearchComponent implements OnInit {
 

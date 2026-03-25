@@ -3,10 +3,11 @@ import { fadeTransition } from '../routerAnimation';
 import { fadeAnimation } from '../animations';
 
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css'],
-  animations: [fadeTransition(), fadeAnimation]
+    selector: 'app-employee',
+    templateUrl: './employee.component.html',
+    styleUrls: ['./employee.component.css'],
+    animations: [fadeTransition(), fadeAnimation],
+    standalone: false
 })
 export class EmployeeComponent implements OnInit {
 

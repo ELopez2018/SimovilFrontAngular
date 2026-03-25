@@ -8,10 +8,11 @@ import { SwPush } from '@angular/service-worker';
 import { NominaService } from '../services/nomina.service'; 
 
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-welcome',
+    templateUrl: './welcome.component.html',
+    styleUrls: ['./welcome.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class WelcomeComponent implements OnInit {
 

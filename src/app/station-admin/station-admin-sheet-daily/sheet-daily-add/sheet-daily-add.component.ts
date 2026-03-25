@@ -34,7 +34,8 @@ import { EntOtrosPagos } from '../../../Class/EntOtrosPagos';
     selector: 'app-sheet-daily-add',
     templateUrl: './sheet-daily-add.component.html',
     styleUrls: ['./sheet-daily-add.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 
 export class SheetDailyAddComponent extends ComponentCanDeactivate implements OnInit {

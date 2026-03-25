@@ -15,10 +15,11 @@ import { TABLEINVOICEPENDING, iTableConfig } from '../../../Class/TABLES_CONFIG'
 import { focusById, cleanString } from '../../../util/util-lib';
 
 @Component({
-  selector: 'app-pending-invoice',
-  templateUrl: './pending-invoice.component.html',
-  styleUrls: ['./pending-invoice.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-pending-invoice',
+    templateUrl: './pending-invoice.component.html',
+    styleUrls: ['./pending-invoice.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 
 export class PendingInvoiceComponent implements OnInit {

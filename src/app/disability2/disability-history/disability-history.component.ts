@@ -6,9 +6,10 @@ import { DISABILITNOVELTYTYPES } from '../../Class/DISABILITYNOVELTYTYPES';
 import { EntDisabilityNovelty } from '../../Class/EntDisabilityNovelty';
 
 @Component({
-  selector: 'app-disability-history',
-  templateUrl: './disability-history.component.html',
-  styleUrls: ['./disability-history.component.css']
+    selector: 'app-disability-history',
+    templateUrl: './disability-history.component.html',
+    styleUrls: ['./disability-history.component.css'],
+    standalone: false
 })
 export class DisabilityHistoryComponent implements OnInit {
 

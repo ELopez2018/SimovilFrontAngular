@@ -2,7 +2,8 @@ import { Directive, ElementRef, HostListener, Output, EventEmitter } from '@angu
 import { NgControl } from '@angular/forms';
 
 @Directive({
-  selector: '[numeric]'
+    selector: '[numeric]',
+    standalone: false
 })
 export class NumericDirective {
   @Output() ngModelChange: EventEmitter<any> = new EventEmitter<any>(false);

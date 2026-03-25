@@ -9,10 +9,11 @@ import { fadeTransition } from '../../../routerAnimation';
 import { EntRole } from '../../../Class/EntRole';
 
 @Component({
-  selector: 'app-user-add',
-  templateUrl: './user-add.component.html',
-  styleUrls: ['./user-add.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-user-add',
+    templateUrl: './user-add.component.html',
+    styleUrls: ['./user-add.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class UserAddComponent implements OnInit {
   roles: EntRole[];

@@ -8,7 +8,8 @@ import { PrincipalComponent } from '../../../principal/principal.component';
 @Component({
     selector: 'app-edit-lecturas',
     templateUrl: './edit-lecturas.component.html',
-    styleUrls: ['./edit-lecturas.component.css']
+    styleUrls: ['./edit-lecturas.component.css'],
+    standalone: false
 })
 export class EditLecturasComponent implements OnInit {
     es;

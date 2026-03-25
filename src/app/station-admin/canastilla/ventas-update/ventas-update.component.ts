@@ -14,7 +14,8 @@ import { EntClient } from '../../../Class/EntClient';
 @Component({
     selector: 'app-ventas-update',
     templateUrl: './ventas-update.component.html',
-    styleUrls: ['./ventas-update.component.css']
+    styleUrls: ['./ventas-update.component.css'],
+    standalone: false
 })
 export class VentasUpdateComponent implements OnInit {
 

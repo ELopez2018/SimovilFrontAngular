@@ -16,6 +16,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
     selector: 'app-receivable-add',
     templateUrl: './receivable-add.component.html',
     styleUrls: ['./receivable-add.component.css'],
+    standalone: false
 })
 export class ReceivableAddComponent implements OnInit {
     @Input() cliente: EntBasicClient = new EntBasicClient();

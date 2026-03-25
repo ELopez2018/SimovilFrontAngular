@@ -8,9 +8,10 @@ import { StorageService } from '../../../services/storage.service';
 import { EntRole } from '../../../Class/EntRole';
 
 @Component({
-  selector: 'app-role-add',
-  templateUrl: './role-add.component.html',
-  styleUrls: ['./role-add.component.css']
+    selector: 'app-role-add',
+    templateUrl: './role-add.component.html',
+    styleUrls: ['./role-add.component.css'],
+    standalone: false
 })
 export class RoleAddComponent implements OnInit {
   roleForm: UntypedFormGroup;

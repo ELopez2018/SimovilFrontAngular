@@ -28,6 +28,7 @@ import { showMessage } from 'igniteui-angular/lib/core/deprecateDecorators';
     templateUrl: './station-receivable.component.html',
     styleUrls: ['./station-receivable.component.css'],
     animations: [fadeTransition()],
+    standalone: false
 })
 export class StationReceivableComponent implements OnInit {
 

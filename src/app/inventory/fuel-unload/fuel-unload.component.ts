@@ -11,10 +11,11 @@ import { EntFuelTransfer } from '../../Class/EntFuelTransfer';
 import { forkJoin } from 'rxjs';
 
 @Component({
-  selector: 'app-fuel-unload',
-  templateUrl: './fuel-unload.component.html',
-  styleUrls: ['./fuel-unload.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-fuel-unload',
+    templateUrl: './fuel-unload.component.html',
+    styleUrls: ['./fuel-unload.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class FuelUnloadComponent implements OnInit {
 

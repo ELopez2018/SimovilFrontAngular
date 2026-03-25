@@ -8,9 +8,10 @@ import { PrincipalComponent } from '../../../principal/principal.component';
 import { StorageService } from '../../../services/storage.service';
 
 @Component({
-  selector: 'app-profile-add',
-  templateUrl: './profile-add.component.html',
-  styleUrls: ['./profile-add.component.css']
+    selector: 'app-profile-add',
+    templateUrl: './profile-add.component.html',
+    styleUrls: ['./profile-add.component.css'],
+    standalone: false
 })
 export class ProfileAddComponent implements OnInit {
   profileForm: UntypedFormGroup;

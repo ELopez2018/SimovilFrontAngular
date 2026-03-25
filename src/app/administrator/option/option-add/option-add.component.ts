@@ -7,9 +7,10 @@ import { EntOption } from '../../../Class/EntOption';
 import { UtilService } from '../../../services/util.service';
 
 @Component({
-  selector: 'app-option-add',
-  templateUrl: './option-add.component.html',
-  styleUrls: ['./option-add.component.css']
+    selector: 'app-option-add',
+    templateUrl: './option-add.component.html',
+    styleUrls: ['./option-add.component.css'],
+    standalone: false
 })
 export class OptionAddComponent implements OnInit {
   optionForm: UntypedFormGroup;

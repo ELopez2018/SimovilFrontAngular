@@ -8,7 +8,8 @@ import { EntProductos } from '../../../../../Class/EntProductos';
 @Component({
     selector: 'app-productos-lista-general',
     templateUrl: './productos-lista-general.component.html',
-    styleUrls: ['./productos-lista-general.component.css']
+    styleUrls: ['./productos-lista-general.component.css'],
+    standalone: false
 })
 export class ProductosListaGeneralComponent implements OnInit {
     cars: any[];

@@ -5,10 +5,11 @@ import { Title } from '@angular/platform-browser';
 import { fadeTransition } from '../routerAnimation';
 
 @Component({
-  selector: 'app-logorder',
-  templateUrl: './logorder.component.html',
-  styleUrls: ['./logorder.component.css'],
-  animations: [fadeTransition()]
+    selector: 'app-logorder',
+    templateUrl: './logorder.component.html',
+    styleUrls: ['./logorder.component.css'],
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class LogorderComponent implements OnInit {
 

@@ -17,7 +17,8 @@ import { EntConsumoServipunto } from '../../../Class/EntConsumoServipunto';
     // tslint:disable-next-line: component-selector
     selector: 'app-stationConsumptionFormapago',
     templateUrl: './stationConsumptionFormapago.component.html',
-    styleUrls: ['./stationConsumptionFormapago.component.css']
+    styleUrls: ['./stationConsumptionFormapago.component.css'],
+    standalone: false
 })
 export class StationConsumptionFormapagoComponent implements OnInit {
     inactivo: boolean = false;

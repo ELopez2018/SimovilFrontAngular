@@ -3,9 +3,10 @@ import { StorageService } from '../../services/storage.service';
 import { iTableConfig, TABLEINVOICEPENDING } from '../../Class/TABLES_CONFIG';
 
 @Component({
-  selector: 'app-table-config',
-  templateUrl: './table-config.component.html',
-  styleUrls: ['./table-config.component.css']
+    selector: 'app-table-config',
+    templateUrl: './table-config.component.html',
+    styleUrls: ['./table-config.component.css'],
+    standalone: false
 })
 export class TableConfigComponent implements OnInit {
   @Input() tableName: string;

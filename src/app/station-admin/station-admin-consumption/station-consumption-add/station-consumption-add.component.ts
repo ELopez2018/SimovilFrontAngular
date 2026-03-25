@@ -16,7 +16,8 @@ import { PrincipalComponent } from '../../../principal/principal.component';
     selector: 'app-station-consumption-add',
     templateUrl: './station-consumption-add.component.html',
     styleUrls: ['./station-consumption-add.component.css'],
-    animations: [fadeTransition()]
+    animations: [fadeTransition()],
+    standalone: false
 })
 export class StationConsumptionAddComponent implements OnInit {
     plantilla: UntypedFormGroup;
