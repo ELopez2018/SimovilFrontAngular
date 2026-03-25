@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { StorageService } from '../services/storage.service';
 import { RBAC } from '../Class/RBAC';
@@ -9,7 +9,7 @@ const rbac = RBAC;
 
 @Injectable()
 
-export class AuthGuard implements CanActivate {
+export class AuthGuard  {
   constructor(
     private storageService: StorageService,
     private router: Router,

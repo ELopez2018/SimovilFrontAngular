@@ -2,7 +2,7 @@ import { VentasContaSearchComponent } from './contabilidad/ventas/ventas-conta-s
 import { CalidadComponent } from './report/calidad/calidad.component';
 import { AuditoriaComponent } from './report/auditoria/auditoria.component';
 import { NgModule, Component } from '@angular/core';
-import { RouterModule, Routes, CanActivate } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { LogorderComponent } from './logorder/logorder.component';
