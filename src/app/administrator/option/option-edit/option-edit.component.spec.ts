@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OptionEditComponent } from './option-edit.component';
 
@@ -6,7 +6,7 @@ describe('OptionEditComponent', () => {
   let component: OptionEditComponent;
   let fixture: ComponentFixture<OptionEditComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ OptionEditComponent ]
     })

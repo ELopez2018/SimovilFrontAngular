@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FieldsetComponent } from './fieldset.component';
 
@@ -6,7 +6,7 @@ describe('FieldsetComponent', () => {
   let component: FieldsetComponent;
   let fixture: ComponentFixture<FieldsetComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FieldsetComponent ]
     })

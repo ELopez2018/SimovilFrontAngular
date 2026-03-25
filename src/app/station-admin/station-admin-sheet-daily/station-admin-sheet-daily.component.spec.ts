@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { StationAdminSheetDailyComponent } from './station-admin-sheet-daily.component';
 
@@ -6,7 +6,7 @@ describe('StationAdminSheetDailyComponent', () => {
   let component: StationAdminSheetDailyComponent;
   let fixture: ComponentFixture<StationAdminSheetDailyComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ StationAdminSheetDailyComponent ]
     })

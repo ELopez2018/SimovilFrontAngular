@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DsCarteraComponent } from './ds-cartera.component';
 
@@ -6,7 +6,7 @@ describe('DsCarteraComponent', () => {
   let component: DsCarteraComponent;
   let fixture: ComponentFixture<DsCarteraComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DsCarteraComponent ]
     })
