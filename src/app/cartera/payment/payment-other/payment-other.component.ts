@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntReceivable } from '../../../Class/EntReceivable';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EntBasicClient } from '../../../Class/EntBasicClient';
 import { currencyNotDecimal, focusById, cleanString } from '../../../util/util-lib';
 import { CarteraService } from '../../../services/cartera.service';
@@ -18,7 +18,7 @@ import { EntPayment } from '../../../Class/EntPayment';
   animations: [fadeTransition()]
 })
 export class PaymentOtherComponent implements OnInit {
-  addPaymentForm: FormGroup;
+  addPaymentForm: UntypedFormGroup;
   displayDialogReceivable = false;
   receivables: EntReceivable[];
   receivableSelected: EntReceivable;
@@ -32,7 +32,7 @@ export class PaymentOtherComponent implements OnInit {
     private carteraService: CarteraService,
     private principalComponent: PrincipalComponent,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private utilService: UtilService
   ) {
     this.title.setTitle('Otros pagos - Simovil');

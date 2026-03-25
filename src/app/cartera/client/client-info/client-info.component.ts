@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 
 
@@ -25,8 +25,8 @@ export class ClientInfoComponent implements OnInit {
     @Input() codCliente: number;
     @Output() cliente = new EventEmitter<EntClient>();
     @Output() estacionElegida = new EventEmitter<EntStation>();
-    clientForm: FormGroup;
-    formCupo: FormGroup;
+    clientForm: UntypedFormGroup;
+    formCupo: UntypedFormGroup;
     documentTypes;
     stationCode: Number;
     stationsAll: EntStation[];
@@ -40,7 +40,7 @@ export class ClientInfoComponent implements OnInit {
     boolClient: Boolean;
     // estacionElegida: EntStation;
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private carteraService: CarteraService,
         private _storaService: StorageService,
         private _utilService: UtilService,
@@ -83,23 +83,23 @@ export class ClientInfoComponent implements OnInit {
         if (id != null) { this.getClientSearch(id); }
     }
     buildForm() {
-        this.clientForm = new FormGroup({
-            searchIdentificacion: new FormControl(['']),
-            searchNombre: new FormControl(['']),
-            searchTipoDocumento: new FormControl(['']),
-            searchDepartamento: new FormControl(['']),
-            searchCiudad: new FormControl(['']),
-            searchDireccion: new FormControl(['']),
-            searchTelefono: new FormControl(['']),
-            searchCorreo: new FormControl(['']),
-            searchEstado: new FormControl(['']),
-            searchEstacion: new FormControl(['']),
+        this.clientForm = new UntypedFormGroup({
+            searchIdentificacion: new UntypedFormControl(['']),
+            searchNombre: new UntypedFormControl(['']),
+            searchTipoDocumento: new UntypedFormControl(['']),
+            searchDepartamento: new UntypedFormControl(['']),
+            searchCiudad: new UntypedFormControl(['']),
+            searchDireccion: new UntypedFormControl(['']),
+            searchTelefono: new UntypedFormControl(['']),
+            searchCorreo: new UntypedFormControl(['']),
+            searchEstado: new UntypedFormControl(['']),
+            searchEstacion: new UntypedFormControl(['']),
         });
-        this.formCupo = new FormGroup({
-            cupoAsignado: new FormControl(null),
-            cupoDisponible: new FormControl(null),
-            detalleTipoCupo: new FormControl(null),
-            estadoCupo: new FormControl(null),
+        this.formCupo = new UntypedFormGroup({
+            cupoAsignado: new UntypedFormControl(null),
+            cupoDisponible: new UntypedFormControl(null),
+            detalleTipoCupo: new UntypedFormControl(null),
+            estadoCupo: new UntypedFormControl(null),
         });
     }
 

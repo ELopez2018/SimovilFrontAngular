@@ -3,7 +3,7 @@ import { EntConsumptionClient } from '../Class/EntConsumptionClient';
 import { CarteraService } from '../services/cartera.service';
 import { PrincipalComponent } from '../principal/principal.component';
 import { Title } from '@angular/platform-browser';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormArray } from '@angular/forms';
 import { EntVehicle } from '../Class/EntVehicle';
 import { NominaService } from '../services/nomina.service';
 import { EntStation } from '../Class/EntStation';
@@ -37,7 +37,7 @@ export class ClientSelfComponent implements OnInit {
   notdecimal = currencyNotDecimal();
   homeClient: EntHomeClient;
   consumos: EntConsumptionClient[];
-  orderForm: FormGroup;
+  orderForm: UntypedFormGroup;
   tabs = [];
   tabsVehicle = [];
   tabsSearch = [];
@@ -54,12 +54,12 @@ export class ClientSelfComponent implements OnInit {
   items: any[] = [];
   codClient = null;
   citiesStations: EntCityStation[];
-  vehicleForm: FormGroup;
-  vehicleEditForm: FormGroup;
+  vehicleForm: UntypedFormGroup;
+  vehicleEditForm: UntypedFormGroup;
   vehicle: EntVehicle;
-  identifierForm: FormGroup;
+  identifierForm: UntypedFormGroup;
   controlShowVehicles: any[] = [];
-  assignForm: FormGroup;
+  assignForm: UntypedFormGroup;
   vehiclesFree: EntVehicle[];
   identifiersFree: EntIdentifier[];
   vehicleFreeSel: EntVehicle;
@@ -94,7 +94,7 @@ export class ClientSelfComponent implements OnInit {
     private nominaService: NominaService,
     private principalComponent: PrincipalComponent,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private scrollService: ScrollService,
     private storageService: StorageService,
     private printService: PrintService,

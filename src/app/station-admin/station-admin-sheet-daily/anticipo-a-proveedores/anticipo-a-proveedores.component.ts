@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { EntAdvance } from '../../../Class/EntAdvance';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-anticipo-a-proveedores',
@@ -10,12 +10,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AnticipoAProveedoresComponent implements OnInit {
     boolProvider: boolean = false;
     anticipos: EntAdvance;
-    formulario: FormGroup;
+    formulario: UntypedFormGroup;
     fecha = new Date();
 
     @Output() submiter = new EventEmitter<EntAdvance>();
     constructor(
-        private formBuilder: FormBuilder
+        private formBuilder: UntypedFormBuilder
     ) {
 
     }

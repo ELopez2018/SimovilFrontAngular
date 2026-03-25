@@ -1,11 +1,11 @@
 import { EntDataDescuento } from './../../../Class/EntDataDescuento';
 import { Component, OnInit } from '@angular/core';
 import {
-    FormBuilder,
-    FormGroup,
+    UntypedFormBuilder,
+    UntypedFormGroup,
     Validators,
     FormControl,
-    FormArray,
+    UntypedFormArray,
 } from '@angular/forms';
 import { EntClient } from '../../../Class/EntClient';
 import { CarteraService } from '../../../services/cartera.service';
@@ -40,8 +40,8 @@ import { EntDiscount } from '../../../Class/EntDiscount';
 export class ClientEditComponent implements OnInit {
     id: any;
     collapsed = [true, true, true];
-    clientSearchForm: FormGroup;
-    quotaSearchForm: FormGroup;
+    clientSearchForm: UntypedFormGroup;
+    quotaSearchForm: UntypedFormGroup;
     editClientSearch = false;
     editClientSearchString = 'Editar';
     editQuotaSearch = false;
@@ -70,7 +70,7 @@ export class ClientEditComponent implements OnInit {
     boolSearchClient = false;
     articleTypes: EntArticleType[];
     discounts: EntDiscount[];
-    listDiscount: FormArray;
+    listDiscount: UntypedFormArray;
     boolDiscountForm = false;
     boolDiscountShow = false;
     indexselDiscount;
@@ -79,7 +79,7 @@ export class ClientEditComponent implements OnInit {
     dataII = [];
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private carteraService: CarteraService,
         private nominaService: NominaService,
         private principalComponent: PrincipalComponent,
@@ -164,7 +164,7 @@ export class ClientEditComponent implements OnInit {
         this.quotaSearchForm.disable();
         this.listDiscount = this.quotaSearchForm.get(
             'listDescuento'
-        ) as FormArray;
+        ) as UntypedFormArray;
     }
 
     updateArrayCitySearch(departament: EntDepartament, edit?: boolean) {
@@ -435,7 +435,7 @@ export class ClientEditComponent implements OnInit {
         let val1 = val == null ? new EntDiscount() : val;
         this.listDiscount = this.quotaSearchForm.get(
             'listDescuento'
-        ) as FormArray;
+        ) as UntypedFormArray;
         let a = this.fb.group({
             articletype: [val1.TIPO_ARTICULO, Validators.required],
             detalle: this.getNameArticleType(val1.TIPO_ARTICULO),
@@ -450,14 +450,14 @@ export class ClientEditComponent implements OnInit {
     removeDiscount() {
         this.listDiscount = this.quotaSearchForm.get(
             'listDescuento'
-        ) as FormArray;
+        ) as UntypedFormArray;
         this.listDiscount.removeAt(this.listDiscount.length - 1);
     }
 
     emptyDiscount() {
         this.listDiscount = this.quotaSearchForm.get(
             'listDescuento'
-        ) as FormArray;
+        ) as UntypedFormArray;
         while (this.listDiscount.length > 0) {
             this.removeDiscount();
         }
@@ -479,7 +479,7 @@ export class ClientEditComponent implements OnInit {
     set enableListDisconunt(val: boolean) {
         this.listDiscount = this.quotaSearchForm.get(
             'listDescuento'
-        ) as FormArray;
+        ) as UntypedFormArray;
         for (let num = 0; num < this.listDiscount.length; num++) {
             if (val) { this.listDiscount.controls[num].enable(); }
             else { this.listDiscount.controls[num].disable(); }

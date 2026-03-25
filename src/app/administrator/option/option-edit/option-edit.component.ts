@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EntOption } from '../../../Class/EntOption';
 import { CarteraService } from '../../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
@@ -15,7 +15,7 @@ export class OptionEditComponent implements OnInit {
   @Input() options: EntOption[];
   @Input() option: EntOption;
   @Output() submiter = new EventEmitter<{ option: EntOption, result: boolean }>();
-  optionForm: FormGroup;
+  optionForm: UntypedFormGroup;
   optionsEdit: EntOption[];
   optionNull = new EntOption();
   sending = false;
@@ -23,7 +23,7 @@ export class OptionEditComponent implements OnInit {
   constructor(
     private carteraService: CarteraService,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private util: UtilService,
     private principalComponent: PrincipalComponent,
   ) {

@@ -5,7 +5,7 @@ import { CarteraService } from '../../services/cartera.service';
 import { PrincipalComponent } from '../../principal/principal.component';
 import { StorageService } from '../../services/storage.service';
 import { UtilService } from '../../services/util.service';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormArray, Validators } from '@angular/forms';
 import { EntTank } from '../../Class/EntTank';
 import { EntTankReading } from '../../Class/EntTankReading';
 import { EntStation } from '../../Class/EntStation';
@@ -26,7 +26,7 @@ export class TankRadingComponent implements OnInit {
     private principal: PrincipalComponent,
     private storageService: StorageService,
     private utilService: UtilService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     this.codStation = this.storageService.getCurrentStation();
   }
@@ -35,8 +35,8 @@ export class TankRadingComponent implements OnInit {
   codStation: number;
   tabs;
   boolCreateRec = false;
-  formInventory: FormGroup;
-  formGas: FormGroup;
+  formInventory: UntypedFormGroup;
+  formGas: UntypedFormGroup;
   gasReadings: EntGasReading[];
   inventoryReadings: EntTankReading[];
   stationSelected: EntStation[] = [];
@@ -45,7 +45,7 @@ export class TankRadingComponent implements OnInit {
   typeArticleSel: EntArticleType;
 
   get list() {
-    return this.formInventory.get('list') as FormArray;
+    return this.formInventory.get('list') as UntypedFormArray;
   }
 
   ngOnInit() {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { fadeTransition } from '../../routerAnimation';
 import { EntEmployeeBiometric } from '../../Class/EntEmployeeBiometric';
 import { EntEmployee } from '../../Class/EntEmployee';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EntStation } from '../../Class/EntStation';
 import { EducationLevel } from '../../Class/EntEducationLevel';
 import { EntRelationship } from '../../Class/EntRelationship';
@@ -23,7 +23,7 @@ export class EmployeeAddComponent implements OnInit {
 
   empleadoBiometric: EntEmployeeBiometric;
   empleado: EntEmployee;
-  employeeForm: FormGroup;
+  employeeForm: UntypedFormGroup;
   estaciones: EntStation[];
   educationlevels: EducationLevel[];
   relationships: EntRelationship[];
@@ -41,7 +41,7 @@ export class EmployeeAddComponent implements OnInit {
 
   constructor(
     private nominaService: NominaService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     title: Title,
     private principalComponent: PrincipalComponent,
     private basicDataService: BasicDataService

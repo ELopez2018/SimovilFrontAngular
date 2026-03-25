@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { EntEmployeeNovelty } from '../../../Class/EntEmployeeNovelty';
 import { fadeTransition } from '../../../routerAnimation';
@@ -12,12 +12,12 @@ import { fadeTransition } from '../../../routerAnimation';
 })
 export class VacationComponent implements OnInit {
 
-  noveltyForm: FormGroup;
+  noveltyForm: UntypedFormGroup;
   @Output() submitVacation = new EventEmitter<any>();
 
   constructor(
     private principalComponent: PrincipalComponent,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     this.buildForm();
   }

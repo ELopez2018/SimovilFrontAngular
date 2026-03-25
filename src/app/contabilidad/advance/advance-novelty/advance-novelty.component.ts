@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EntAdvance } from '../../../Class/EntAdvance';
 import { EntProvider } from '../../../Class/EntProvider';
 import { UtilService } from '../../../services/util.service';
@@ -20,7 +20,7 @@ import { INoveltyTypes } from '../../../Class/inovelty-types';
 export class AdvanceNoveltyComponent implements OnInit {
   @Input() advance: EntAdvance;
   @Output() submiter = new EventEmitter<{ advance: EntAdvance, result: boolean, delete: boolean }>();
-  noveltyForm: FormGroup;
+  noveltyForm: UntypedFormGroup;
   noveltyTypes: INoveltyTypes[];
   noveltyTypeTrue: INoveltyTypes[];
   fileToUp: FileToUpDocument;
@@ -32,7 +32,7 @@ export class AdvanceNoveltyComponent implements OnInit {
     private utilService: UtilService,
     private carteraService: CarteraService,
     private principalComponent: PrincipalComponent,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private storageService: StorageService
   ) {
     this.buildForm();

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { fadeTransition } from '../../../routerAnimation';
 import { CarteraService } from '../../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
@@ -27,14 +27,14 @@ export class BsAddComponent implements OnInit {
   stationType: EntStationType[];
   banks: EntBank[];
   plants: EntPlant[];
-  AddForm: FormGroup;
+  AddForm: UntypedFormGroup;
   sending = false;
 
   constructor(
     private carteraService: CarteraService,
     private nominaService: NominaService,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private principalComponent: PrincipalComponent,
     private utilService: UtilService
   ) {

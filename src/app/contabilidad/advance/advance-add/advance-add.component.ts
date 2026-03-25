@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { fadeTransition } from '../../../routerAnimation';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { CarteraService } from '../../../services/cartera.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { UtilService } from '../../../services/util.service';
@@ -20,7 +20,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
     animations: [fadeTransition()]
 })
 export class AdvanceAddComponent implements OnInit {
-    advanceForm: FormGroup;
+    advanceForm: UntypedFormGroup;
     usuario;
     stationsAll: EntStation[] = [];
     idstationSel: number;
@@ -28,7 +28,7 @@ export class AdvanceAddComponent implements OnInit {
     notdecimal = currencyNotDecimal();
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private carteraService: CarteraService,
         private principalComponent: PrincipalComponent,
         private storageService: StorageService,

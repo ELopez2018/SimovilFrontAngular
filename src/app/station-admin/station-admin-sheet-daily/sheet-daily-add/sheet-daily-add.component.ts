@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormArray } from '@angular/forms';
 import { CarteraService } from '../../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
 import { PrincipalComponent } from '../../../principal/principal.component';
@@ -47,12 +47,12 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     notdecimal = currencyNotDecimal();
     station: EntStation;
     codEstacion: EntStation;
-    paymentForm: FormGroup;
+    paymentForm: UntypedFormGroup;
     // tslint:disable-next-line: member-ordering
-    cashForm: FormGroup;
+    cashForm: UntypedFormGroup;
     // tslint:disable-next-line: member-ordering
-    bankForm: FormGroup;
-    attachedForm: FormGroup;
+    bankForm: UntypedFormGroup;
+    attachedForm: UntypedFormGroup;
     salesTurn: EntSalesTurn;
     salesTurnBefore: EntSalesTurn;
     articles: EntArticle[];
@@ -68,22 +68,22 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     estacionesBono:any = [91,92,51,73,61,65,11,12,96,94,95,102,99,121,131,111,64,98]
     estacionesBonoTaxi:any = [91,92,93]
 
-    proveedorList: FormArray;
+    proveedorList: UntypedFormArray;
 
-    clienteList: FormArray;
-    clienteListVen: FormArray;
+    clienteList: UntypedFormArray;
+    clienteListVen: UntypedFormArray;
 
     showItemProvider = true;
     showItemClient = true;
     showItemClientVen = true;
 
     anticipo: boolean = false;
-    anticProveeForm: FormGroup;
-    OtrosList: FormArray;
-    proveedorAnticipoList: FormArray;
+    anticProveeForm: UntypedFormGroup;
+    OtrosList: UntypedFormArray;
+    proveedorAnticipoList: UntypedFormArray;
     showItemPAnticipo = true;
     showItemOtros = true;
-    otherForm: FormGroup;
+    otherForm: UntypedFormGroup;
 
 
     planilla = null;
@@ -107,7 +107,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     constructor(
         private carteraService: CarteraService,
         private nominaService: NominaService,
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private title: Title,
         private principalComponent: PrincipalComponent,
         private utilService: UtilService,
@@ -801,7 +801,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
 
     AgregarAnticipo($event) {
         this.anticipo = false;
-        this.proveedorAnticipoList = this.cashForm.get('proveedorAnticipoList') as FormArray;
+        this.proveedorAnticipoList = this.cashForm.get('proveedorAnticipoList') as UntypedFormArray;
 
         console.log(this.existAnt($event));
 
@@ -830,7 +830,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     }
 
     addtOtrosList() {
-        this.OtrosList = this.cashForm.get('OtrosList') as FormArray;
+        this.OtrosList = this.cashForm.get('OtrosList') as UntypedFormArray;
         this.OtrosList.push(this.createItemOtros());
     }
 
@@ -850,13 +850,13 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
 
 
     addItemProvider() {
-        this.proveedorList = this.cashForm.get('proveedorList') as FormArray;
+        this.proveedorList = this.cashForm.get('proveedorList') as UntypedFormArray;
         this.proveedorList.push(this.createItemProvider());
         this.boolProvider(this.proveedorList.length - 1);
     }
 
     removeItemProvider() {
-        this.proveedorList = this.cashForm.get('proveedorList') as FormArray;
+        this.proveedorList = this.cashForm.get('proveedorList') as UntypedFormArray;
         this.proveedorList.removeAt(this.proveedorList.length - 1);
     }
 
@@ -886,7 +886,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         this.deleteAllClient();
         // this.deleteAllProvider(); Se comenta para evitar eliminar proveedores insertados
         this.dataDaily = val;
-        this.clienteList = this.otherForm.get('clienteList') as FormArray;
+        this.clienteList = this.otherForm.get('clienteList') as UntypedFormArray;
 
         if (val.PLA_DIA_PAG_CLI && val.PLA_DIA_PAG_CLI.length > 0) {
             val.PLA_DIA_PAG_CLI.forEach(e => {
@@ -919,7 +919,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         if (!(this.bankForm.get('recaudo').value && this.bankForm.get('recaudo').value > 0)) {
             this.bankForm.get('recaudo').setValue(this.pagBank);
         }
-        this.clienteListVen = this.paymentForm.get('clienteList') as FormArray;
+        this.clienteListVen = this.paymentForm.get('clienteList') as UntypedFormArray;
         if (val.PLA_DIA_VEN_CLI && val.PLA_DIA_VEN_CLI.length > 0) {
             val.PLA_DIA_VEN_CLI.forEach(e => {
                 this.clienteListVen.push(
@@ -937,7 +937,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
     removeItemClient(pos: number) {
         this.utilService.confirm('¿Desea eliminar este pago de esta planilla?', res => {
             if (res) {
-                this.clienteList = this.otherForm.get('clienteList') as FormArray;
+                this.clienteList = this.otherForm.get('clienteList') as UntypedFormArray;
                 this.clienteList.removeAt(pos);
             }
         });
@@ -1373,7 +1373,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         // }
 
         if (this.existItem(val) == -1) {
-            const a = this.proveedorList.controls[this.indexselProvider] as FormGroup;
+            const a = this.proveedorList.controls[this.indexselProvider] as UntypedFormGroup;
             a.get('nombre').setValue(val.nombre, this.emitFalse);
             a.get('numero').setValue(val.numero, this.emitFalse);
             a.get('id').setValue(val.id, this.emitFalse);
@@ -1393,7 +1393,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
                 confirmButtonText: 'Si'
             }).then((result) => {
                 if (result.value) {
-                    const a = this.proveedorList.controls[this.indexselProvider] as FormGroup;
+                    const a = this.proveedorList.controls[this.indexselProvider] as UntypedFormGroup;
                     a.get('nombre').setValue(val.nombre, this.emitFalse);
                     a.get('numero').setValue(val.numero, this.emitFalse);
                     a.get('id').setValue(val.id, this.emitFalse);
@@ -1490,7 +1490,7 @@ export class SheetDailyAddComponent extends ComponentCanDeactivate implements On
         itemAttached.get('RUTAVIEW').setValue(null);
     }
 
-    get attachedTypes(): FormArray { return this.attachedForm.get('attachedTypes') as FormArray; }
+    get attachedTypes(): UntypedFormArray { return this.attachedForm.get('attachedTypes') as UntypedFormArray; }
 
     assignAttachedTypes(items: EntDailyAttachedType[]) {
         this.fileToUp = [];

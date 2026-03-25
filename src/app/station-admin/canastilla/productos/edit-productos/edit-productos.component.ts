@@ -8,7 +8,7 @@ import { UtilService } from '../../../../services/util.service';
 import { EntProductos } from '../../../../Class/EntProductos';
 import { EntStation } from '../../../../Class/EntStation';
 import { SelectItem } from 'primeng/api';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { FileImagen } from '../../../../Class/FileImagen';
 import { SubirArchivoService } from '../../../../services/subir-archivo.service';
 import { ActivatedRoute, Router, Route } from '@angular/router';
@@ -31,7 +31,7 @@ export class EditProductosComponent implements OnInit {
     ProductosCategorias: SelectItem[];
     ProductoMileniumgas: boolean;
     Si: boolean = false;
-    forma: FormGroup;
+    forma: UntypedFormGroup;
     Producto: EntProductos = new EntProductos;
     selectedCat: Categoria = { id: 0, descripcion: '' };
     centroCostos: SelectItem[];
@@ -49,21 +49,21 @@ export class EditProductosComponent implements OnInit {
             if (id !== 'nuevo') {
                 this.nominaService.GetProducto(id).subscribe(resp => {
                     this.Producto = resp[0];
-                    this.forma = new FormGroup({
-                        'id': new FormControl(this.Producto.id, [Validators.required, Validators.minLength(4)]),
-                        'CodContable': new FormControl(this.Producto.codContable, [Validators.required, Validators.minLength(4)]),
-                        'Descripcion': new FormControl(this.Producto.descripcion, [Validators.required, Validators.minLength(10)]),
-                        'Marca': new FormControl(this.Producto.marca),
-                        'Presentacion': new FormControl(this.Producto.UnMedida, [Validators.required, Validators.minLength(3)]),
-                        'Tamano': new FormControl(this.Producto.tamano, Validators.required),
-                        'Color': new FormControl(this.Producto.Color),
-                        'Detalles': new FormControl(this.Producto.detalles),
-                        'tope': new FormControl(this.Producto.tope),
-                        'BarCode': new FormControl(this.Producto.BarCode),
-                        'Mileniumgas': new FormControl(this.Producto.Mileniumgas),
-                        'IdCategoria': new FormControl(this.Producto.IdCategoria, [Validators.required]),
-                        'empresa': new FormControl(this.Producto.empresa, [Validators.required]),
-                        'imagen': new FormControl(this.Producto.Imagen)
+                    this.forma = new UntypedFormGroup({
+                        'id': new UntypedFormControl(this.Producto.id, [Validators.required, Validators.minLength(4)]),
+                        'CodContable': new UntypedFormControl(this.Producto.codContable, [Validators.required, Validators.minLength(4)]),
+                        'Descripcion': new UntypedFormControl(this.Producto.descripcion, [Validators.required, Validators.minLength(10)]),
+                        'Marca': new UntypedFormControl(this.Producto.marca),
+                        'Presentacion': new UntypedFormControl(this.Producto.UnMedida, [Validators.required, Validators.minLength(3)]),
+                        'Tamano': new UntypedFormControl(this.Producto.tamano, Validators.required),
+                        'Color': new UntypedFormControl(this.Producto.Color),
+                        'Detalles': new UntypedFormControl(this.Producto.detalles),
+                        'tope': new UntypedFormControl(this.Producto.tope),
+                        'BarCode': new UntypedFormControl(this.Producto.BarCode),
+                        'Mileniumgas': new UntypedFormControl(this.Producto.Mileniumgas),
+                        'IdCategoria': new UntypedFormControl(this.Producto.IdCategoria, [Validators.required]),
+                        'empresa': new UntypedFormControl(this.Producto.empresa, [Validators.required]),
+                        'imagen': new UntypedFormControl(this.Producto.Imagen)
 
                     });
                 });

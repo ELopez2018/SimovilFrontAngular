@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms'
 import { EntClient } from '../../../Class/EntClient';
 import { CarteraService } from '../../../services/cartera.service';
 import { EntDocumentType } from '../../../Class/EntDocumentType';
@@ -29,7 +29,7 @@ import { TaxesModel } from '../../../Class/Taxes.model';
 
 export class ClientAddComponent implements OnInit {
 
-    clientForm: FormGroup;
+    clientForm: UntypedFormGroup;
     display = 'show';
     displayDialog = false;
     displayDialogAudit = false;
@@ -50,7 +50,7 @@ export class ClientAddComponent implements OnInit {
     retenciones: any[] = [];
     retencionesSel: any[] = [];
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private carteraService: CarteraService,
         private nominaService: NominaService,
         private principalComponent: PrincipalComponent,

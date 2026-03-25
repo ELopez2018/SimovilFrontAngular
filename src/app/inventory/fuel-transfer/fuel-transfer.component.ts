@@ -4,7 +4,7 @@ import { CarteraService } from '../../services/cartera.service';
 import { StorageService } from '../../services/storage.service';
 import { UtilService } from '../../services/util.service';
 import { PrincipalComponent } from '../../principal/principal.component';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { dateToISOString, focusById } from '../../util/util-lib';
 import { EntFuelUnload } from '../../Class/EntFuelUnload';
 import { EntStation } from '../../Class/EntStation';
@@ -23,7 +23,7 @@ export class FuelTransferComponent implements OnInit {
   pending: EntFuelUnload[];
   fuelUnloadItem: EntFuelUnload;
   showModal = false;
-  formFuel: FormGroup;
+  formFuel: UntypedFormGroup;
   stations: EntStation[];
 
   constructor(
@@ -32,7 +32,7 @@ export class FuelTransferComponent implements OnInit {
     private utilService: UtilService,
     private principal: PrincipalComponent,
     private nominaService: NominaService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     this.stationCod = this.storageService.getCurrentStation();
     this.nominaService.GetStations().subscribe(res => {

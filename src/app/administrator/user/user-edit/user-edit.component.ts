@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { CarteraService } from '../../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
 import { PrincipalComponent } from '../../../principal/principal.component';
@@ -18,7 +18,7 @@ import { EntRole } from '../../../Class/EntRole';
 })
 export class UserEditComponent implements OnInit {
   roles: EntRole[];
-  userForm: FormGroup;
+  userForm: UntypedFormGroup;
   searchclientid;
   id;
   user: EntUserDB;
@@ -27,7 +27,7 @@ export class UserEditComponent implements OnInit {
   constructor(
     private carteraService: CarteraService,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private principalComponent: PrincipalComponent,
     private route: ActivatedRoute,
     private location: Location,

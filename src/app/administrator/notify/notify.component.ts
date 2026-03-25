@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NominaService } from '../../services/nomina.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,10 +13,10 @@ export class NotifyComponent implements OnInit {
   listaUserWebTokens:[] =  [];
   selectedUsers:[]= [];
 
-  notifyform = new FormGroup({
-    titulo: new FormControl(null, Validators.required),
-    mensaje: new FormControl(null, Validators.required),
-    users: new FormControl(this.selectedUsers, Validators.required)
+  notifyform = new UntypedFormGroup({
+    titulo: new UntypedFormControl(null, Validators.required),
+    mensaje: new UntypedFormControl(null, Validators.required),
+    users: new UntypedFormControl(this.selectedUsers, Validators.required)
   })
 
   constructor(private servicioNomina: NominaService) { }

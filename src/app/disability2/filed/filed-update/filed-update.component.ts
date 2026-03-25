@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { EntFiled } from '../../../Class/EntFiled';
 import { EntAdministrator } from '../../../Class/EntAdministrator';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { NominaService } from '../../../services/nomina.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { UtilService } from '../../../services/util.service';
@@ -17,7 +17,7 @@ export class FiledUpdateComponent implements OnInit {
   @Input() administrator: EntAdministrator[];
   @Input() filed: EntFiled;
   @Output() submiter = new EventEmitter<{ filed: EntFiled, result: boolean }>();
-  updateFiledForm: FormGroup;
+  updateFiledForm: UntypedFormGroup;
   metodos;
   user;
 
@@ -30,7 +30,7 @@ export class FiledUpdateComponent implements OnInit {
     private nominaService: NominaService,
     private principal: PrincipalComponent,
     private utilService: UtilService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private storageService: StorageService
     // private printService: PrintService
   ) {

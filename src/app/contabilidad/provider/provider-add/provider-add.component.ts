@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { UtilService } from '../../../services/util.service';
@@ -21,7 +21,7 @@ import { cleanString } from '../../../util/util-lib';
 })
 export class ProviderAddComponent implements OnInit {
 
-  providerForm: FormGroup;
+  providerForm: UntypedFormGroup;
   cities: EntCity[];
   filteredCities: EntCity[];
   departments: EntDepartament[];
@@ -32,7 +32,7 @@ export class ProviderAddComponent implements OnInit {
 
   constructor(
     private carteraService: CarteraService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private title: Title,
     private principalComponent: PrincipalComponent,
     private utilService: UtilService,

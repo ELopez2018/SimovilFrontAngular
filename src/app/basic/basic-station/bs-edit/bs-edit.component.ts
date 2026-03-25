@@ -3,7 +3,7 @@ import { EntCityStation } from '../../../Class/EntCityStation';
 import { EntCompany } from '../../../Class/EntCompany';
 import { EntStationType } from '../../../Class/EntStationType';
 import { EntBank } from '../../../Class/EntBank';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { CarteraService } from '../../../services/cartera.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { UtilService } from '../../../services/util.service';
@@ -26,13 +26,13 @@ export class BsEditComponent implements OnInit {
   stationType: EntStationType[];
   banks: EntBank[];
   plants: EntPlant[];
-  EditForm: FormGroup;
+  EditForm: UntypedFormGroup;
   sending = false;
 
   constructor(
     private carteraService: CarteraService,
     private nominaService: NominaService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private principalComponent: PrincipalComponent,
     private utilService: UtilService
   ) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { fadeTransition } from '../../routerAnimation';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormArray } from '@angular/forms';
 import { CarteraService } from '../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
 import { PrincipalComponent } from '../../principal/principal.component';
@@ -16,14 +16,14 @@ import { StorageService } from '../../services/storage.service';
 })
 export class StationAdminCalibrationComponent implements OnInit {
   calitrations: EntCalibration[];
-  calibrationForm: FormGroup;
+  calibrationForm: UntypedFormGroup;
   stationCode: number;
   ocultarInput: boolean;
 
   constructor(
     private carteraService: CarteraService,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private principalComponent: PrincipalComponent,
     private utilService: UtilService,
     private storageService: StorageService
@@ -90,7 +90,7 @@ export class StationAdminCalibrationComponent implements OnInit {
   }
 
   get list() {
-    return this.calibrationForm.get('list') as FormArray;
+    return this.calibrationForm.get('list') as UntypedFormArray;
   }
 
   reset() {

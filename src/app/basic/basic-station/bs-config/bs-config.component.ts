@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { EntStation, articulo_estacion } from '../../../Class/EntStation';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { UtilService } from '../../../services/util.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { CarteraService } from '../../../services/cartera.service';
@@ -20,9 +20,9 @@ import { cleanString, focusById } from '../../../util/util-lib';
 export class BsConfigComponent implements OnInit {
   @Input() station: EntStation;
   @Output() submiter = new EventEmitter<{ obj: EntStation, result: boolean }>();
-  islandForm: FormGroup;
-  hoseForm: FormGroup;
-  pumpForm: FormGroup;
+  islandForm: UntypedFormGroup;
+  hoseForm: UntypedFormGroup;
+  pumpForm: UntypedFormGroup;
   articles: EntArticle[];
   articlesBef: EntArticle[];
   index: number;
@@ -51,7 +51,7 @@ export class BsConfigComponent implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private utilService: UtilService,
     private principal: PrincipalComponent,
     private carteraService: CarteraService,

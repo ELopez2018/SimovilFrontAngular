@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthenticationService } from '../services/authentication.service';
 import { EntUser } from '../Class/EntUser';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { PrincipalComponent } from '../principal/principal.component';
 import { Md5 } from 'ts-md5';
 import { fadeTransition } from '../routerAnimation';
@@ -15,11 +15,11 @@ import { focusById } from '../util/util-lib';
   animations: [fadeTransition()]
 })
 export class UpdatePassComponent implements OnInit {
-  updatePassForm: FormGroup;
+  updatePassForm: UntypedFormGroup;
 
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private title: Title,
     private authenticationService: AuthenticationService,
     private principal: PrincipalComponent

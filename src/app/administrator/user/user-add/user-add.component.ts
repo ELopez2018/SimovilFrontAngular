@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EntUserDB } from '../../../Class/EntUserDB';
 import { Title } from '@angular/platform-browser';
 import { CarteraService } from '../../../services/cartera.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { Md5 } from 'ts-md5';
 import { fadeTransition } from '../../../routerAnimation';
@@ -16,13 +16,13 @@ import { EntRole } from '../../../Class/EntRole';
 })
 export class UserAddComponent implements OnInit {
   roles: EntRole[];
-  userAddForm: FormGroup;
+  userAddForm: UntypedFormGroup;
   sending = false;
 
   constructor(
     private carteraService: CarteraService,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private principalComponent: PrincipalComponent
   ) {
     this.title.setTitle('Agregar usuario - Simovil')

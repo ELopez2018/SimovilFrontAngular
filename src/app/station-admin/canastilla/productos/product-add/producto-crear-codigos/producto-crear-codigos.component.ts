@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormArray, UntypedFormBuilder } from '@angular/forms';
 import { EntProductos } from '../../../../../Class/EntProductos';
 import { NominaService } from '../../../../../services/nomina.service';
 import { EntProductoCodigoContable } from '../../../../../Class/EntProductoCodigoContable';
@@ -13,8 +13,8 @@ import { Title } from '@angular/platform-browser';
     styleUrls: ['./producto-crear-codigos.component.css']
 })
 export class ProductoCrearCodigosComponent implements OnInit, OnChanges {
-    forma: FormGroup;
-    Codigos: FormArray;
+    forma: UntypedFormGroup;
+    Codigos: UntypedFormArray;
     displayDialog: boolean = false;
     codigoContables: any[] = [];
     @Input() Articulo: EntProductos = new EntProductos();
@@ -26,7 +26,7 @@ export class ProductoCrearCodigosComponent implements OnInit, OnChanges {
     nuevosCodigosConta: any[] = [];
     TodosCodigosContables: any[];
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private nominaService: NominaService
 
     ) {

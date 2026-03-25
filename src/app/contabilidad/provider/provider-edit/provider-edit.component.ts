@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EntCity } from '../../../Class/EntCity';
 import { EntDepartament } from '../../../Class/EntDepartament';
 import { EntDocumentType } from '../../../Class/EntDocumentType';
@@ -24,7 +24,7 @@ import { focusById } from '../../../util/util-lib';
 })
 export class ProviderEditComponent implements OnInit {
 
-  providerForm: FormGroup;
+  providerForm: UntypedFormGroup;
   cities: EntCity[];
   filteredCities: EntCity[];
   departments: EntDepartament[];
@@ -38,7 +38,7 @@ export class ProviderEditComponent implements OnInit {
 
   constructor(
     private carteraService: CarteraService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private title: Title,
     private principalComponent: PrincipalComponent,
     private utilService: UtilService,

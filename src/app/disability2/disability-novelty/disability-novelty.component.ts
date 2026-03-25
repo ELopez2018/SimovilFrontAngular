@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { UtilService } from '../../services/util.service';
 import { PrincipalComponent } from '../../principal/principal.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { StorageService } from '../../services/storage.service';
 import { EntDisability } from '../../Class/EntDisability';
 import { INoveltyTypes } from '../../Class/inovelty-types';
@@ -23,8 +23,8 @@ export class DisabilityNoveltyComponent implements OnInit {
     this.assingDisability();
   }
 
-  disabilityForm: FormGroup;
-  noveltyForm: FormGroup;
+  disabilityForm: UntypedFormGroup;
+  noveltyForm: UntypedFormGroup;
   noveltyTypes: INoveltyTypes[];
   noveltyTypeTrue: INoveltyTypes[];
   administrators: EntAdministrator;
@@ -34,7 +34,7 @@ export class DisabilityNoveltyComponent implements OnInit {
     private utilService: UtilService,
     private nominaService: NominaService,
     private principalComponent: PrincipalComponent,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private storageService: StorageService
   ) {
     this.buildForm();

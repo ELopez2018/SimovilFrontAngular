@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray } from '@angular/forms';
 import { currencyNotDecimal, dateToISOString, addDays, focusById, cleanNumber, cleanString } from '../../../util/util-lib';
 import { EntArticle } from '../../../Class/EntArticle';
 import { EntClient } from '../../../Class/EntClient';
@@ -19,9 +19,9 @@ import { PrincipalComponent } from '../../../principal/principal.component';
     animations: [fadeTransition()]
 })
 export class StationConsumptionAddComponent implements OnInit {
-    plantilla: FormGroup;
-    consumption: FormGroup;
-    list: FormArray;
+    plantilla: UntypedFormGroup;
+    consumption: UntypedFormGroup;
+    list: UntypedFormArray;
     notdecimal = currencyNotDecimal();
     articles: EntArticle[];
     numitem: number;
@@ -32,7 +32,7 @@ export class StationConsumptionAddComponent implements OnInit {
     codStation: number;
     station: EntStation;
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private carteraService: CarteraService,
         private nominaService: NominaService,
         private storageService: StorageService,
@@ -102,7 +102,7 @@ export class StationConsumptionAddComponent implements OnInit {
     }
 
     add() {
-        this.list = this.consumption.get('lista') as FormArray;
+        this.list = this.consumption.get('lista') as UntypedFormArray;
         this.list.push(this.createItem());
     }
 
@@ -348,7 +348,7 @@ export class StationConsumptionAddComponent implements OnInit {
 
     get visibleArray() {
         try {
-            return (this.consumption.get('lista') as FormArray).length > 0;
+            return (this.consumption.get('lista') as UntypedFormArray).length > 0;
         } catch (error) {
             console.log('Errores ' + error);
             return false;

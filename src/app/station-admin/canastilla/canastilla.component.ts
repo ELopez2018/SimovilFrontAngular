@@ -8,7 +8,7 @@ import { EntProductos } from '../../Class/EntProductos';
 import { EntVentasProductos } from '../../Class/EntVentaProducto';
 import { PrincipalComponent } from '../../principal/principal.component';
 import { UtilService } from '../../services/util.service';
-import { FormGroup, FormArray, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormArray, Validators, UntypedFormBuilder } from '@angular/forms';
 import {
     dateToISOString,
     addDays,
@@ -38,9 +38,9 @@ export class CanastillaComponent implements OnInit {
     date3: Date;
     cargando = false;
     VentaRegistrada = false;
-    ventas: FormGroup;
-    list: FormArray;
-    plantilla: FormGroup;
+    ventas: UntypedFormGroup;
+    list: UntypedFormArray;
+    plantilla: UntypedFormGroup;
     ProductosVendidos: EntVentasProductos = new EntVentasProductos();
     clientSel: EntClient;
     notdecimal = currencyNotDecimal();
@@ -69,7 +69,7 @@ export class CanastillaComponent implements OnInit {
     contador: number = 0;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private nominaService: NominaService,
         private title: Title,
         private storageService: StorageService,
@@ -227,7 +227,7 @@ export class CanastillaComponent implements OnInit {
     }
     get visibleArray() {
         try {
-            return (this.ventas.get('lista') as FormArray).length > 0;
+            return (this.ventas.get('lista') as UntypedFormArray).length > 0;
         } catch (error) {
             return false;
         }
@@ -259,7 +259,7 @@ export class CanastillaComponent implements OnInit {
 
     add($element) {
         if (this.list === undefined) {
-            this.list = this.ventas.get('lista') as FormArray;
+            this.list = this.ventas.get('lista') as UntypedFormArray;
         }
         this.list.push(this.createItem());
 

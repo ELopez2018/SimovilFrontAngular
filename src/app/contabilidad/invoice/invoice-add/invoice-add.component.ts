@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { fadeTransition } from '../../../routerAnimation';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormArray } from '@angular/forms';
 import { EntStation } from '../../../Class/EntStation';
 import { EntInvoice } from '../../../Class/EntInvoice';
 import { CarteraService } from '../../../services/cartera.service';
@@ -29,7 +29,7 @@ import { EntClasificacionInvoice } from '../../../Class/EntClasificacionInvoice'
     animations: [fadeTransition()],
 })
 export class InvoiceAddComponent implements OnInit {
-    invoiceForm: FormGroup;
+    invoiceForm: UntypedFormGroup;
     invoice: EntInvoice;
     advances: EntAdvance[];
     invoiceReturned: EntInvoice;
@@ -52,7 +52,7 @@ export class InvoiceAddComponent implements OnInit {
     clasificacionInvoiceAll: EntClasificacionInvoice[] = [];
     saldo: number = 0;
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private carteraService: CarteraService,
         private nominaService: NominaService,
         private principalComponent: PrincipalComponent,
@@ -172,7 +172,7 @@ export class InvoiceAddComponent implements OnInit {
     }
 
     get list() {
-        return this.invoiceForm.get('listCantArt') as FormArray;
+        return this.invoiceForm.get('listCantArt') as UntypedFormArray;
     }
 
     submit() {

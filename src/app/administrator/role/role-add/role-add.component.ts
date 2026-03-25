@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { CarteraService } from '../../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
 import { UtilService } from '../../../services/util.service';
@@ -13,14 +13,14 @@ import { EntRole } from '../../../Class/EntRole';
   styleUrls: ['./role-add.component.css']
 })
 export class RoleAddComponent implements OnInit {
-  roleForm: FormGroup;
+  roleForm: UntypedFormGroup;
   user;
   sending = false;
 
   constructor(
     private carteraService: CarteraService,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private util: UtilService,
     private principalComponent: PrincipalComponent,
     private storageService: StorageService

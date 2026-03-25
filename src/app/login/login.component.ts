@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 // Servicios
 import { AuthenticationService } from '../services/authentication.service';
@@ -30,14 +30,14 @@ import {
 export class LoginComponent implements OnInit {
     version;
     usuario: EntUser;
-    loginForm: FormGroup;
-    passForm: FormGroup;
+    loginForm: UntypedFormGroup;
+    passForm: UntypedFormGroup;
     errorLogin: boolean = false;
     msjerrorLogin: String;
     passFormBool = false;
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         title: Title,
         private storageService: StorageService,
         private authenticationService: AuthenticationService,

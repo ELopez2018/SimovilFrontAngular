@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms'
 import { EntClient } from '../../Class/EntClient';
 
 import { CarteraService } from '../../services/cartera.service';
@@ -19,7 +19,7 @@ import { TareaEnvioCorreo } from '../../Class/patrones/comportamiento/comando/ta
 export class VehicleComponent implements OnInit {
   collapsed = [true, true, true];
   msgs: Message[] = [];
-  vehicleForm: FormGroup;
+  vehicleForm: UntypedFormGroup;
   vehicle: EntVehicle;
   client: EntClient;
   vehicles: EntVehicle[];
@@ -30,7 +30,7 @@ export class VehicleComponent implements OnInit {
   mensajes: string[]=[];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private carteraService: CarteraService,
     private principalComponent: PrincipalComponent,
     private title: Title

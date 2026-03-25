@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { EntProfile } from '../../../Class/EntProfile';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { CarteraService } from '../../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
 import { UtilService } from '../../../services/util.service';
@@ -15,13 +15,13 @@ import { StorageService } from '../../../services/storage.service';
 export class ProfileEditComponent implements OnInit {
   @Input() profile: EntProfile;
   @Output() submiter = new EventEmitter<{ obj: EntProfile, result: boolean }>();
-  profileForm: FormGroup;
+  profileForm: UntypedFormGroup;
   user;
   sending = false;
 
   constructor(
     private carteraService: CarteraService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private util: UtilService,
     private principalComponent: PrincipalComponent,
     private storageService: StorageService

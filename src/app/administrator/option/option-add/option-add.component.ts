@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { CarteraService } from '../../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
 import { PrincipalComponent } from '../../../principal/principal.component';
@@ -12,14 +12,14 @@ import { UtilService } from '../../../services/util.service';
   styleUrls: ['./option-add.component.css']
 })
 export class OptionAddComponent implements OnInit {
-  optionForm: FormGroup;
+  optionForm: UntypedFormGroup;
   options: EntOption[] = [];
   sending = false;
 
   constructor(
     private carteraService: CarteraService,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private util: UtilService,
     private principalComponent: PrincipalComponent
   ) {

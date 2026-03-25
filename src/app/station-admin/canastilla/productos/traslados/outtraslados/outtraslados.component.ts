@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { fadeTransition } from '../../../../../routerAnimation';
 import { EntStation } from '../../../../../Class/EntStation';
 import { EntProductos } from '../../../../../Class/EntProductos';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormArray, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EntVentasProductos } from '../../../../../Class/EntVentaProducto';
 import { EntClient } from '../../../../../Class/EntClient';
 import { currencyNotDecimal, focusById, dateToISOString, addDays } from '../../../../../util/util-lib';
@@ -29,10 +29,10 @@ export class OuttrasladosComponent implements OnInit {
     es: any;
     cargando = false;
     VentaRegistrada = false;
-    ventas: FormGroup;
-    list: FormArray;
+    ventas: UntypedFormGroup;
+    list: UntypedFormArray;
     ProductosVendidos: EntVentasProductos = new EntVentasProductos;
-    plantilla: FormGroup;
+    plantilla: UntypedFormGroup;
     clientSel: EntClient;
     notdecimal = currencyNotDecimal();
     VerLista = false;
@@ -51,7 +51,7 @@ export class OuttrasladosComponent implements OnInit {
     traslado: EntProductosTraslados = new EntProductosTraslados;
     idUsuario: string;
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private nominaService: NominaService,
         private title: Title,
         private storageService: StorageService,
@@ -142,7 +142,7 @@ export class OuttrasladosComponent implements OnInit {
     }
     get visibleArray() {
         try {
-            return (this.ventas.get('lista') as FormArray).length > 0;
+            return (this.ventas.get('lista') as UntypedFormArray).length > 0;
         } catch (error) {
             return false;
         }
@@ -170,7 +170,7 @@ export class OuttrasladosComponent implements OnInit {
     }
     add($element) {
         if (this.list === undefined) {
-            this.list = this.ventas.get('lista') as FormArray;
+            this.list = this.ventas.get('lista') as UntypedFormArray;
         }
         this.list.push(this.createItem());
         setTimeout(() => {

@@ -5,7 +5,7 @@ import { StorageService } from '../../services/storage.service';
 import { EntFuelUnload } from '../../Class/EntFuelUnload';
 import { UtilService } from '../../services/util.service';
 import { PrincipalComponent } from '../../principal/principal.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { dateToISOString, focusById } from '../../util/util-lib';
 import { EntFuelTransfer } from '../../Class/EntFuelTransfer';
 import { forkJoin } from 'rxjs';
@@ -24,7 +24,7 @@ export class FuelUnloadComponent implements OnInit {
   fuelUnloadItem: EntFuelUnload;
   fuelTransferedUnloadItem: EntFuelTransfer;
   showModal = false;
-  formFuel: FormGroup;
+  formFuel: UntypedFormGroup;
   transfered: boolean = null;
 
   constructor(
@@ -32,7 +32,7 @@ export class FuelUnloadComponent implements OnInit {
     private storageService: StorageService,
     private utilService: UtilService,
     private principal: PrincipalComponent,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     this.stationCod = this.storageService.getCurrentStation();
   }

@@ -1,6 +1,6 @@
 import { browser } from 'protractor';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup, UntypedFormArray } from '@angular/forms';
 import { CarteraService } from '../../services/cartera.service';
 import { EntQuotaType } from '../../Class/EntQuotaType';
 import { EntQuota } from '../../Class/EntQuota';
@@ -21,7 +21,7 @@ import { focusById, currencyNotDecimal } from '../../util/util-lib';
   animations: [fadeTransition()]
 })
 export class CupoComponent implements OnInit {
-  quotaForm: FormGroup;
+  quotaForm: UntypedFormGroup;
   quotaTypes: EntQuotaType[];
   quotas: EntQuota[];
   selectedQuota: EntQuota;
@@ -29,14 +29,14 @@ export class CupoComponent implements OnInit {
   discount: EntDiscount[];
   articleTypes: EntArticleType[];
   discounts: EntDiscount[];
-  listDiscount: FormArray;
+  listDiscount: UntypedFormArray;
   boolDiscountForm = false;
   boolDiscountShow = false;
   indexselDiscount;
   notdecimal = currencyNotDecimal();
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private carteraService: CarteraService,
     private principalComponent: PrincipalComponent,
     private route: ActivatedRoute,
@@ -71,7 +71,7 @@ export class CupoComponent implements OnInit {
     });
     this.quotaForm.controls['nombreCliente'].disable();
     this.quotaForm.controls['codCliente'].disable();
-    this.listDiscount = this.quotaForm.get('listDescuento') as FormArray;
+    this.listDiscount = this.quotaForm.get('listDescuento') as UntypedFormArray;
   }
 
   submiter() {
@@ -155,7 +155,7 @@ export class CupoComponent implements OnInit {
   }
 
   addDiscount() {
-    this.listDiscount = this.quotaForm.get('listDescuento') as FormArray;
+    this.listDiscount = this.quotaForm.get('listDescuento') as UntypedFormArray;
     let a = this.fb.group({
       articletype: [null, Validators.required],
       detalle: { value: null, disabled: true },
@@ -166,12 +166,12 @@ export class CupoComponent implements OnInit {
   }
 
   removeDiscount() {
-    this.listDiscount = this.quotaForm.get('listDescuento') as FormArray;
+    this.listDiscount = this.quotaForm.get('listDescuento') as UntypedFormArray;
     this.listDiscount.removeAt(this.listDiscount.length - 1);
   }
 
   emptyDiscount() {
-    this.listDiscount = this.quotaForm.get('listDescuento') as FormArray;
+    this.listDiscount = this.quotaForm.get('listDescuento') as UntypedFormArray;
     while (this.listDiscount.length > 0) {
       this.removeDiscount();
     }
@@ -191,7 +191,7 @@ export class CupoComponent implements OnInit {
   }
 
   set enableListDiscount(val: boolean) {
-    this.listDiscount = this.quotaForm.get('listDescuento') as FormArray;
+    this.listDiscount = this.quotaForm.get('listDescuento') as UntypedFormArray;
     for (let num = 0; num < this.listDiscount.length; num++) {
       if (val)
         this.listDiscount.controls[num].enable();

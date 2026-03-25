@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { EntProductos } from '../../../../Class/EntProductos';
 import { PrincipalComponent } from '../../../../principal/principal.component';
 import { FileImagen } from '../../../../Class/FileImagen';
@@ -27,7 +27,7 @@ export class ProductAddComponent implements OnInit {
   ProductosCategorias: SelectItem[];
   ProductoMileniumgas: boolean;
   Si: boolean = false;
-  forma: FormGroup;
+  forma: UntypedFormGroup;
   Producto: EntProductos = new EntProductos;
   selectedCat: Categoria = { id: 0, descripcion: '' };
   centroCostos: SelectItem[];
@@ -42,19 +42,19 @@ export class ProductAddComponent implements OnInit {
   ) {
     this.title.setTitle('Crear Productos - Simovil');
     this.imagenTemp = '../../../../../assets/img/sinimagen.jpg';
-    this.forma = new FormGroup({
-      'CodContable': new FormControl(''),
-      'Descripcion': new FormControl('', [Validators.required, Validators.minLength(5)]),
-      'Marca': new FormControl(''),
-      'Presentacion': new FormControl('', [Validators.required, Validators.minLength(3)]),
-      'Tamano': new FormControl('', Validators.required),
-      'Color': new FormControl(''),
-      'Detalles': new FormControl(''),
-      'tope': new FormControl(''),
-      'BarCode': new FormControl(''),
-      'Mileniumgas': new FormControl(true),
-      'IdCategoria': new FormControl(null, [Validators.required]),
-      'empresa': new FormControl(null)
+    this.forma = new UntypedFormGroup({
+      'CodContable': new UntypedFormControl(''),
+      'Descripcion': new UntypedFormControl('', [Validators.required, Validators.minLength(5)]),
+      'Marca': new UntypedFormControl(''),
+      'Presentacion': new UntypedFormControl('', [Validators.required, Validators.minLength(3)]),
+      'Tamano': new UntypedFormControl('', Validators.required),
+      'Color': new UntypedFormControl(''),
+      'Detalles': new UntypedFormControl(''),
+      'tope': new UntypedFormControl(''),
+      'BarCode': new UntypedFormControl(''),
+      'Mileniumgas': new UntypedFormControl(true),
+      'IdCategoria': new UntypedFormControl(null, [Validators.required]),
+      'empresa': new UntypedFormControl(null)
       // #selectedCat1 (onChange)="Funcion(selectedCat1 )"
     });
     this.ProductosCategorias = [{ label: ' SELECCIONE LA CATEGORIA  ', value: null }];

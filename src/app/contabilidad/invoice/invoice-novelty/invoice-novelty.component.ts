@@ -3,7 +3,7 @@ import { UtilService } from '../../../services/util.service';
 import { CarteraService } from '../../../services/cartera.service';
 import { EntInvoice } from '../../../Class/EntInvoice';
 import { PrincipalComponent } from '../../../principal/principal.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { fadeTransition } from '../../../routerAnimation';
 import { StorageService } from '../../../services/storage.service';
 import { INVOICENOVELTYTYPES } from '../../../Class/INVOICENOVELTYTYPES';
@@ -23,7 +23,7 @@ export class InvoiceNoveltyComponent implements OnInit {
   @Input() invoice: EntInvoice;
   @Output() submiter = new EventEmitter<{ invoice: EntInvoice, result: boolean, delete: boolean }>();
   notdecimal = currencyNotDecimal();
-  noveltyForm: FormGroup;
+  noveltyForm: UntypedFormGroup;
   noveltyTypes: INoveltyTypes[];
   noveltyTypeTrue: INoveltyTypes[];
   fileToUp: FileToUpDocument;
@@ -59,7 +59,7 @@ export class InvoiceNoveltyComponent implements OnInit {
     private utilService: UtilService,
     private carteraService: CarteraService,
     private principalComponent: PrincipalComponent,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private storageService: StorageService
   ) {
     this.buildForm();

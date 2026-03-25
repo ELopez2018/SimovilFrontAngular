@@ -5,7 +5,7 @@ import { UtilService } from '../../../services/util.service';
 import { StorageService } from '../../../services/storage.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { currencyNotDecimal } from '../../../util/util-lib';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { CarteraService } from '../../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
 
@@ -23,7 +23,7 @@ export class ClientSaldosIncialesComponent implements OnInit {
     stations: EntStation[];
     fecha = new Date().toISOString();
     notdecimal = currencyNotDecimal();
-    formulario: FormGroup;
+    formulario: UntypedFormGroup;
     SaldosInciales: boolean;
     estacion: any;
     Titulo: string;
@@ -81,12 +81,12 @@ export class ClientSaldosIncialesComponent implements OnInit {
         if (this.codCliente == null) {
             return;
         }
-        this.formulario = new FormGroup({
-            idEstacion: new FormControl(null),
-            fecha: new FormControl(null),
-            valor: new FormControl([null, Validators.required]),
-            detalles: new FormControl(null),
-            observaciones: new FormControl(null)
+        this.formulario = new UntypedFormGroup({
+            idEstacion: new UntypedFormControl(null),
+            fecha: new UntypedFormControl(null),
+            valor: new UntypedFormControl([null, Validators.required]),
+            detalles: new UntypedFormControl(null),
+            observaciones: new UntypedFormControl(null)
 
         });
     }

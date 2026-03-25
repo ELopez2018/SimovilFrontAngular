@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormArray } from '@angular/forms';
 import { CarteraService } from '../../../services/cartera.service';
 import { UtilService } from '../../../services/util.service';
 import { EntInvoice } from '../../../Class/EntInvoice';
@@ -14,12 +14,12 @@ import { fadeTransition } from '../../../routerAnimation';
   animations: [fadeTransition()]
 })
 export class InvoicePaymentComponent implements OnInit {
-  invoiceForm: FormGroup;
+  invoiceForm: UntypedFormGroup;
   boolShow = false;
   notdecimal = currencyNotDecimal();
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private carteraService: CarteraService,
     private utilService: UtilService,
     private principal: PrincipalComponent
@@ -31,7 +31,7 @@ export class InvoicePaymentComponent implements OnInit {
   }
 
   get Lista() {
-    return this.invoiceForm.get('list') as FormArray;
+    return this.invoiceForm.get('list') as UntypedFormArray;
   }
 
   get sumList() {

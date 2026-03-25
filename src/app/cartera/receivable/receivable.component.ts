@@ -3,7 +3,7 @@ import { EntReceivable } from '../../Class/EntReceivable';
 import { CarteraService } from '../../services/cartera.service';
 import { PrincipalComponent } from '../../principal/principal.component';
 import { Title } from '@angular/platform-browser';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { EntQuota } from '../../Class/EntQuota';
 import { fadeTransition } from '../../routerAnimation';
 
@@ -23,7 +23,7 @@ export class ReceivableComponent implements OnInit {
         private carteraService: CarteraService,
         private principalComponent: PrincipalComponent,
         private title: Title,
-        private fb: FormBuilder
+        private fb: UntypedFormBuilder
     ) {
         title.setTitle('Cuentas de cobro - Simovil');
         this.buildForm();

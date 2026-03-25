@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { EntRole } from '../../../Class/EntRole';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { CarteraService } from '../../../services/cartera.service';
 import { UtilService } from '../../../services/util.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
@@ -14,13 +14,13 @@ import { StorageService } from '../../../services/storage.service';
 export class RoleEditComponent implements OnInit {
   @Input() role: EntRole;
   @Output() submiter = new EventEmitter<{ obj: EntRole, result: boolean }>();
-  roleForm: FormGroup;
+  roleForm: UntypedFormGroup;
   user;
   sending = false;
 
   constructor(
     private carteraService: CarteraService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private util: UtilService,
     private principalComponent: PrincipalComponent,
     private storageService: StorageService

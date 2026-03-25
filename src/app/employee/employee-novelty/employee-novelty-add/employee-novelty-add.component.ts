@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BasicDataService } from '../../../services/basic-data.service';
 import { ActivatedRoute } from '../../../../../node_modules/@angular/router';
 import { EntEmployee } from '../../../Class/EntEmployee';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { EntStation } from '../../../Class/EntStation';
 import { NominaService } from '../../../services/nomina.service';
 import { fadeTransition } from '../../../routerAnimation';
@@ -24,7 +24,7 @@ import { EntEmployeeNovelty } from '../../../Class/EntEmployeeNovelty';
 export class EmployeeNoveltyAddComponent implements OnInit {
 
   empleado = new EntEmployee();
-  employeeForm: FormGroup;
+  employeeForm: UntypedFormGroup;
   estaciones: EntStation[];
   administrators: EntAdministrator[];
   employeeNoveltyTypes: EntEmployeeNoveltyType[];
@@ -36,7 +36,7 @@ export class EmployeeNoveltyAddComponent implements OnInit {
 
   constructor(
     private basicDataService: BasicDataService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private nominaService: NominaService,
     private utilService: UtilService,
     private principalComponent: PrincipalComponent,

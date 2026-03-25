@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntReturn } from '../../Class/EntReturn';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormArray } from '@angular/forms';
 import { CarteraService } from '../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
 import { StorageService } from '../../services/storage.service';
@@ -14,13 +14,13 @@ import { PrincipalComponent } from '../../principal/principal.component';
 })
 export class ReturnedComponent implements OnInit {
   calitrations: EntReturn[];
-  returnForm: FormGroup;
+  returnForm: UntypedFormGroup;
   stationCode: number;
 
   constructor(
     private carteraService: CarteraService,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private principalComponent: PrincipalComponent,
     private utilService: UtilService,
     private storageService: StorageService
@@ -69,7 +69,7 @@ export class ReturnedComponent implements OnInit {
   }
 
   get list() {
-    return this.returnForm.get('list') as FormArray;
+    return this.returnForm.get('list') as UntypedFormArray;
   }
 
   reset() {

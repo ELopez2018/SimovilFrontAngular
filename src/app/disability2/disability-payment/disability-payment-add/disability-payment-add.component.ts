@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EntAdministrator } from '../../../Class/EntAdministrator';
 import { UtilService } from '../../../services/util.service';
 import { NominaService } from '../../../services/nomina.service';
@@ -20,7 +20,7 @@ import { currencyNotDecimal } from '../../../util/util-lib';
 })
 export class DisabilityPaymentAddComponent implements OnInit {
 
-  paymentForm: FormGroup;
+  paymentForm: UntypedFormGroup;
   administrators: EntAdministrator[];
   rol;
   boolDisabilities = false;
@@ -36,7 +36,7 @@ export class DisabilityPaymentAddComponent implements OnInit {
     private utilService: UtilService,
     private nominaService: NominaService,
     private principalComponent: PrincipalComponent,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private storageService: StorageService,
     private route: ActivatedRoute
   ) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EntProfile } from '../../../Class/EntProfile';
 import { CarteraService } from '../../../services/cartera.service';
 import { Title } from '@angular/platform-browser';
@@ -13,14 +13,14 @@ import { StorageService } from '../../../services/storage.service';
   styleUrls: ['./profile-add.component.css']
 })
 export class ProfileAddComponent implements OnInit {
-  profileForm: FormGroup;
+  profileForm: UntypedFormGroup;
   user;
   sending = false;
 
   constructor(
     private carteraService: CarteraService,
     private title: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private util: UtilService,
     private principalComponent: PrincipalComponent,
     private storageService: StorageService

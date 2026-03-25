@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormArray } from '@angular/forms';
 import { EntInvoice } from '../../../Class/EntInvoice';
 import { EntAdvance } from '../../../Class/EntAdvance';
 import { EntStation } from '../../../Class/EntStation';
@@ -26,7 +26,7 @@ import { EntArticleType } from '../../../Class/EntArticleType';
 })
 export class InvoiceEditComponent implements OnInit {
   notdecimal = currencyNotDecimal();
-  invoiceForm: FormGroup;
+  invoiceForm: UntypedFormGroup;
   invoice: EntInvoice;
   advances: EntAdvance[];
   invoiceReturned: EntInvoice;
@@ -46,7 +46,7 @@ export class InvoiceEditComponent implements OnInit {
   emitFalse = { emitEvent: false };
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private carteraService: CarteraService,
     private nominaService: NominaService,
     private principalComponent: PrincipalComponent,
@@ -100,7 +100,7 @@ export class InvoiceEditComponent implements OnInit {
   }
 
   get list() {
-    return this.invoiceForm.get('listCantArt') as FormArray;
+    return this.invoiceForm.get('listCantArt') as UntypedFormArray;
   }
 
   submit() {

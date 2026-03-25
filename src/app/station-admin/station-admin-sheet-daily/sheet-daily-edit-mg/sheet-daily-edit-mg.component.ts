@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 
 import { forkJoin } from 'rxjs';
@@ -40,10 +40,10 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
     notdecimal = currencyNotDecimal();
     station: EntStation;
     codEstacion: EntStation;
-    otherForm: FormGroup;
-    paymentForm: FormGroup;
-    cashForm: FormGroup;
-    bankForm: FormGroup;
+    otherForm: UntypedFormGroup;
+    paymentForm: UntypedFormGroup;
+    cashForm: UntypedFormGroup;
+    bankForm: UntypedFormGroup;
     salesTurn: EntSalesTurn;
     salesTurnBefore: EntSalesTurn;
     articles: EntArticle[];
@@ -55,9 +55,9 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
     boolSearchProvider = false;
     indexselProvider;
     show = [false, false, false, false, false];
-    proveedorList: FormArray;
-    clienteList: FormArray;
-    clienteListVen: FormArray;
+    proveedorList: UntypedFormArray;
+    clienteList: UntypedFormArray;
+    clienteListVen: UntypedFormArray;
     showItemProvider = true;
     showItemClient = true;
     showItemClientVen = true;
@@ -78,9 +78,9 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
 
     // Nuevo en la planilla Anticipos y otros
     anticipo: boolean = false;
-    anticProveeForm: FormGroup;
-    OtrosList: FormArray;
-    proveedorAnticipoList: FormArray;
+    anticProveeForm: UntypedFormGroup;
+    OtrosList: UntypedFormArray;
+    proveedorAnticipoList: UntypedFormArray;
     showItemPAnticipo = true;
     showItemOtros = true;
     otrosAEliminar = [];
@@ -101,7 +101,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
     constructor(
         private carteraService: CarteraService,
         private nominaService: NominaService,
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private title: Title,
         private principalComponent: PrincipalComponent,
         private utilService: UtilService,
@@ -130,9 +130,9 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
     assignDailySheet(planilla: EntDailySheet) {
         //console.log(planilla);
         this.pla_bef = planilla;
-        this.proveedorList = this.cashForm.get('proveedorList') as FormArray;
-        this.proveedorAnticipoList = this.cashForm.get('proveedorAnticipoList') as FormArray;
-        this.OtrosList = this.cashForm.get('OtrosList') as FormArray;
+        this.proveedorList = this.cashForm.get('proveedorList') as UntypedFormArray;
+        this.proveedorAnticipoList = this.cashForm.get('proveedorAnticipoList') as UntypedFormArray;
+        this.OtrosList = this.cashForm.get('OtrosList') as UntypedFormArray;
 
         if (planilla.PLA_DIA_PAG_PRO && planilla.PLA_DIA_PAG_PRO.length > 0) {
             planilla.PLA_DIA_PAG_PRO.map(e => {
@@ -183,7 +183,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
             });
         }
 
-        this.clienteList = this.otherForm.get('clienteList') as FormArray;
+        this.clienteList = this.otherForm.get('clienteList') as UntypedFormArray;
         if (planilla.PLA_DIA_PAG_CLI && planilla.PLA_DIA_PAG_CLI.length > 0) {
             planilla.PLA_DIA_PAG_CLI.map(e => {
                 let dat;
@@ -214,7 +214,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
                 );
             });
         }
-        this.clienteListVen = this.paymentForm.get('clienteList') as FormArray;
+        this.clienteListVen = this.paymentForm.get('clienteList') as UntypedFormArray;
         if (planilla.PLA_DIA_VEN_CLI && planilla.PLA_DIA_VEN_CLI.length > 0) {
             planilla.PLA_DIA_VEN_CLI.map(e => {
                 this.clienteListVen.push(
@@ -982,7 +982,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
     }
     AgregarAnticipo($event) {
         this.anticipo = false;
-        this.proveedorAnticipoList = this.cashForm.get('proveedorAnticipoList') as FormArray;
+        this.proveedorAnticipoList = this.cashForm.get('proveedorAnticipoList') as UntypedFormArray;
 
         if (this.existAnt($event) !== -1) {
             Swal.fire({
@@ -1013,7 +1013,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
     }
 
     addtOtrosList() {
-        this.OtrosList = this.cashForm.get('OtrosList') as FormArray;
+        this.OtrosList = this.cashForm.get('OtrosList') as UntypedFormArray;
         this.OtrosList.push(this.createItemOtros());
     }
 
@@ -1031,13 +1031,13 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
     }
 
     addItemProvider() {
-        this.proveedorList = this.cashForm.get('proveedorList') as FormArray;
+        this.proveedorList = this.cashForm.get('proveedorList') as UntypedFormArray;
         this.proveedorList.push(this.createItemProvider());
         this.boolProvider(this.proveedorList.length - 1);
     }
 
     removeItemProvider() {
-        this.proveedorList = this.cashForm.get('proveedorList') as FormArray;
+        this.proveedorList = this.cashForm.get('proveedorList') as UntypedFormArray;
         this.proveedorList.removeAt(this.proveedorList.length - 1);
     }
 
@@ -1047,7 +1047,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
         }
     }
     removeItemAnticipo() {
-        this.proveedorAnticipoList = this.cashForm.get('proveedorAnticipoList') as FormArray;
+        this.proveedorAnticipoList = this.cashForm.get('proveedorAnticipoList') as UntypedFormArray;
         this.proveedorAnticipoList.removeAt(this.proveedorAnticipoList.length - 1);
     }
 
@@ -1057,7 +1057,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
         }
     }
     removeItemOtros() {
-        this.OtrosList = this.cashForm.get('OtrosList') as FormArray;
+        this.OtrosList = this.cashForm.get('OtrosList') as UntypedFormArray;
         this.OtrosList.removeAt(this.OtrosList.length - 1);
     }
 
@@ -1091,7 +1091,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
     removeItemClient(pos: number) {
         this.utilService.confirm('¿Desea eliminar este pago de esta planilla?', res => {
             if (res) {
-                this.clienteList = this.otherForm.get('clienteList') as FormArray;
+                this.clienteList = this.otherForm.get('clienteList') as UntypedFormArray;
                 const codCliForDelete = this.clienteList.controls[pos].get('codCliente').value;
                 this.clienteList.removeAt(pos);
                 if (this.pla_bef.PLA_DIA_PAG_CLI_DET && this.pla_bef.PLA_DIA_PAG_CLI_DET.length > 0) {
@@ -1257,7 +1257,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
     }
 
     assignData(val: EntDailySheet) {
-        this.clienteList = this.otherForm.get('clienteList') as FormArray;
+        this.clienteList = this.otherForm.get('clienteList') as UntypedFormArray;
         if (val.PLA_DIA_PAG_CLI && val.PLA_DIA_PAG_CLI.length > 0) {
             val.PLA_DIA_PAG_CLI.forEach(e => {
                 let ant, dat;
@@ -1283,7 +1283,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
                 );
             });
         }
-        this.clienteListVen = this.paymentForm.get('clienteList') as FormArray;
+        this.clienteListVen = this.paymentForm.get('clienteList') as UntypedFormArray;
         if (val.PLA_DIA_VEN_CLI && val.PLA_DIA_VEN_CLI.length > 0) {
             val.PLA_DIA_VEN_CLI.forEach(e => {
                 this.clienteListVen.push(
@@ -1449,7 +1449,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
         // this.boolSearchProvider = false;
         // this.indexselProvider = null;
         if (this.existItem(val) == -1) {
-            const a = this.proveedorList.controls[this.indexselProvider] as FormGroup;
+            const a = this.proveedorList.controls[this.indexselProvider] as UntypedFormGroup;
             a.get('nombre').setValue(val.nombre, this.emitFalse);
             a.get('numero').setValue(val.numero, this.emitFalse);
             a.get('id').setValue(val.id, this.emitFalse);
@@ -1469,7 +1469,7 @@ import { cleanString, currencyNotDecimal, focusById } from '../../../util/util-l
                 confirmButtonText: 'Si'
             }).then((result) => {
                 if (result.value) {
-                    const a = this.proveedorList.controls[this.indexselProvider] as FormGroup;
+                    const a = this.proveedorList.controls[this.indexselProvider] as UntypedFormGroup;
                     a.get('nombre').setValue(val.nombre, this.emitFalse);
                     a.get('numero').setValue(val.numero, this.emitFalse);
                     a.get('id').setValue(val.id, this.emitFalse);

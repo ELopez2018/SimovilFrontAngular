@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { fadeTransition } from '../../routerAnimation';
 import { EntEmployee } from '../../Class/EntEmployee';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EntStation } from '../../Class/EntStation';
 import { EducationLevel } from '../../Class/EntEducationLevel';
 import { EntRelationship } from '../../Class/EntRelationship';
@@ -27,7 +27,7 @@ export class EmployeeEditComponent implements OnInit {
 
   empleadoBiometric = new EntEmployeeBiometric();
   empleado = new EntEmployee();
-  employeeForm: FormGroup;
+  employeeForm: UntypedFormGroup;
   estaciones: EntStation[];
   educationlevels: EducationLevel[];
   relationships: EntRelationship[];
@@ -46,7 +46,7 @@ export class EmployeeEditComponent implements OnInit {
 
   constructor(
     private nominaService: NominaService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private title: Title,
     private principalComponent: PrincipalComponent,
     private location: Location,

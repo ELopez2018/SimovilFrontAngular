@@ -6,7 +6,7 @@ import { PAYMENTMETHODS } from '../../../Class/PAYMENTMETHODS';
 import { CarteraService } from '../../../services/cartera.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { Title } from '@angular/platform-browser';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { UtilService } from '../../../services/util.service';
 import { EntReceivable } from '../../../Class/EntReceivable';
 import { EntPayment } from '../../../Class/EntPayment';
@@ -27,7 +27,7 @@ import { IgxTreeGridHierarchizingPipe } from 'igniteui-angular/lib/grids/tree-gr
 })
 export class PaymentAddComponent implements OnInit {
     @ViewChild('porcentaje_retencion') porcentaje_retencion: ElementRef;
-    addPaymentForm: FormGroup;
+    addPaymentForm: UntypedFormGroup;
     displayDialogReceivable = false;
     receivables: EntReceivable[];
     receivableSelected: EntReceivable;
@@ -66,7 +66,7 @@ export class PaymentAddComponent implements OnInit {
         private carteraService: CarteraService,
         private principalComponent: PrincipalComponent,
         private title: Title,
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private utilService: UtilService,
         private storageService: StorageService,
         private NominaService: NominaService,        

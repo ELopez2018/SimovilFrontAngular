@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { EntStation, articulo_estacion } from '../../../Class/EntStation';
 import { fadeTransition } from '../../../routerAnimation';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { UtilService } from '../../../services/util.service';
 import { PrincipalComponent } from '../../../principal/principal.component';
 import { EntArticle } from '../../../Class/EntArticle';
@@ -18,7 +18,7 @@ import { StorageService } from '../../../services/storage.service';
 export class BsArtComponent implements OnInit {
   @Input() station: EntStation;
   @Output() submiter = new EventEmitter<{ obj: EntStation, result: boolean }>();
-  form: FormGroup;
+  form: UntypedFormGroup;
   articles: EntArticle[];
   articlesBef: EntArticle[];
   index: number;
@@ -37,7 +37,7 @@ export class BsArtComponent implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private utilService: UtilService,
     private principal: PrincipalComponent,
     private carteraService: CarteraService,
