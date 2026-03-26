@@ -57,7 +57,7 @@ import { SheetDailyAddComponent } from './station-admin-sheet-daily/sheet-daily-
 import { SheetDailyEditComponent } from './station-admin-sheet-daily/sheet-daily-edit/sheet-daily-edit.component';
 import { SheetDailySearchComponent } from './station-admin-sheet-daily/sheet-daily-search/sheet-daily-search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { StationReceivableComponent } from '../station/station-receivable/station-receivable.component';
 import { StationAdminConsumptionComponent } from './station-admin-consumption/station-admin-consumption.component';
 import { OtrasVentasAddComponent } from './station-admin-consumption/otras-ventas-add/otras-ventas-add.component';
@@ -70,11 +70,11 @@ import { StationConsumptionFormapagoComponent } from './station-admin-consumptio
 import { ReceivableComponent } from '../cartera/receivable/receivable.component';
 import { ModalDialogComponent } from '../util/modal-dialog/modal-dialog.component';
 
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { CardModule } from 'primeng/card';
 import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
-import { TabMenuModule } from 'primeng/tabmenu';
+import { MenuModule } from 'primeng/menu';
 import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -99,7 +99,10 @@ import { StationHomeComponent } from '../station/station-home/station-home.compo
 import { StationOrderComponent } from '../station/station-order/station-order.component';
 import { StationPaymentComponent } from '../station/station-payment/station-payment.component';
 import { ProductCodigoEditComponent } from './canastilla/productos/product-add/product-codigo-edit/product-codigo-edit.component';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
 import { ProductosListaGeneralComponent } from './canastilla/productos/product-add/productos-lista-general/productos-lista-general.component';
 import { ReceivableAddComponent } from './station-admin-receivable/receivable-add/receivable-add.component';
 import { ClientesSaldoHistoricoComponent } from './canastilla/productos/clientesSaldoHistorico/clientes-saldo-historico.component';
@@ -109,140 +112,139 @@ import { AddNCEComponent } from './station-admin-consumption/factura-electronica
 import { IngresoAutomaticoComponent } from './cpl/ingreso-automatico/ingreso-automatico.component';
 // import { ReceivableAddComponent } from "./station-admin-receivable/receivable-add/ReceivableAddComponent";
 
-
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
-        StationAdminRoutes,
-        CalendarModule,
-        DropdownModule,
-        CardModule,
-        ChartModule,
-        CurrencyMaskModule,
-        BrowserAnimationsModule,
-        NoopAnimationsModule,
-        TabMenuModule,
-        SliderModule,
-        TableModule,
-        MultiSelectModule,
-        DialogModule,
-        BrowserModule
-        //NgbModule
-    ],
-    declarations: [
-        DsCarteraComponent,
-        StationAdminCalibrationComponent,
-        StationAdminReceivableComponent,
-        ReportSSRSComponent,
-        //// nueva config
-        EstadisticasComponent,
-        ConsolidadoComponent,
-        DesincorporacionesExitenciaComponent,
-        EditProductosComponent,
-        IngresoNuevaExistenciaComponent,
-        InventarioMenuComponent,
-        ListProductosComponent,
-        ListaClientesComponent,
-        ListaTodosProductosComponent,
-        PreciosProductosComponent,
-        ProductoCrearCodigosComponent,
-        ProductAddComponent,
-        ProductAddMenuComponent,
-        ProductInventarioComponent,
-        ProductoDstoComponent,
-        ReportesCanastillaComponent,
-        SolicitudBajaProductosComponent,
-        TrasladosComponent,
-        IntrasladosComponent,
-        OuttrasladosComponent,
-        ProductCodigoEditComponent,
-        /// canastilla
-        HomeCanatillaComponent,
-        PpalCanastillaComponent,
-        VentasUpdateComponent,
-        CanastillaComponent,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    StationAdminRoutes,
+    DatePickerModule,
+    SelectModule,
+    CardModule,
+    ChartModule,
+    CurrencyMaskModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
+    MenuModule,
+    SliderModule,
+    TableModule,
+    MultiSelectModule,
+    DialogModule,
+    BrowserModule,
+    //NgbModule
+  ],
+  declarations: [
+    DsCarteraComponent,
+    StationAdminCalibrationComponent,
+    StationAdminReceivableComponent,
+    ReportSSRSComponent,
+    //// nueva config
+    EstadisticasComponent,
+    ConsolidadoComponent,
+    DesincorporacionesExitenciaComponent,
+    EditProductosComponent,
+    IngresoNuevaExistenciaComponent,
+    InventarioMenuComponent,
+    ListProductosComponent,
+    ListaClientesComponent,
+    ListaTodosProductosComponent,
+    PreciosProductosComponent,
+    ProductoCrearCodigosComponent,
+    ProductAddComponent,
+    ProductAddMenuComponent,
+    ProductInventarioComponent,
+    ProductoDstoComponent,
+    ReportesCanastillaComponent,
+    SolicitudBajaProductosComponent,
+    TrasladosComponent,
+    IntrasladosComponent,
+    OuttrasladosComponent,
+    ProductCodigoEditComponent,
+    /// canastilla
+    HomeCanatillaComponent,
+    PpalCanastillaComponent,
+    VentasUpdateComponent,
+    CanastillaComponent,
 
-        /// Cpl
-        CplComponent,
-        ConfigMangerasComponent,
-        EditLecturasComponent,
-        HomeCPLComponent,
-        IngresoLecturasComponent,
-        ReportLecturasComponent,
-        IngresoAutomaticoComponent,
-        // Admin-Sheet
-        StationAdminSheetDailyComponent,
-        AnticipoAProveedoresComponent,
-        SheetDailyAddComponent,//original
-        SheetDailyEditComponent,//original
-        SheetDailyAddMGComponent,
-        SheetDailyEditMGComponent,
-        SheetDailySearchComponent,
-        ///
-        StationAdminConsumptionComponent,
-        OtrasVentasAddComponent,
-        StationConsumptionAddComponent,
-        StationConsumptionEditComponent,
-        StationConsumptionReportsComponent,
-        StationConsumptionSearchComponent,
-        StationConsumptionFormapagoComponent,
-        StationConsumptionFLMComponent,
-        CuposConsumidosComponent,
-        FacturaElectronicaComponent,
-        AddFEComponent,
-        AddNCEComponent,
-        // Otros
-        StationReceivableComponent,
-        ReceivableComponent,
-        ModalDialogComponent,
-        CompSearchProviderComponent,
-        FieldsetComponent,
-        WholesalerInvoicesComponent,
-        CarteraPlanillaComponent,
-        CompSearchClientComponent,
-        StationConsumptionComponent,
-        // Invetarios
-        TankRadingComponent,
-        FuelUnloadComponent,
-        ReturnedComponent,
-        FuelTransferComponent,
-        InventoryComponent,
-        // Estacion
-        StationComponent,
-        StationHomeComponent,
-        StationClientComponent,
-        StationReceivableComponent,
-        StationOrderComponent,
-        StationPaymentComponent,
-        ProductosListaGeneralComponent,
-        ReceivableAddComponent,
-        ClientesSaldoHistoricoComponent,
-        IdentificadorComponent,
-        PlacaCarroComponent,
-        FechaConsumoComponent,
-        ValorConsumoComponent,
-        ListadoConsumosComponent,
-        CombustibleComponent
-    ],
+    /// Cpl
+    CplComponent,
+    ConfigMangerasComponent,
+    EditLecturasComponent,
+    HomeCPLComponent,
+    IngresoLecturasComponent,
+    ReportLecturasComponent,
+    IngresoAutomaticoComponent,
+    // Admin-Sheet
+    StationAdminSheetDailyComponent,
+    AnticipoAProveedoresComponent,
+    SheetDailyAddComponent, //original
+    SheetDailyEditComponent, //original
+    SheetDailyAddMGComponent,
+    SheetDailyEditMGComponent,
+    SheetDailySearchComponent,
+    ///
+    StationAdminConsumptionComponent,
+    OtrasVentasAddComponent,
+    StationConsumptionAddComponent,
+    StationConsumptionEditComponent,
+    StationConsumptionReportsComponent,
+    StationConsumptionSearchComponent,
+    StationConsumptionFormapagoComponent,
+    StationConsumptionFLMComponent,
+    CuposConsumidosComponent,
+    FacturaElectronicaComponent,
+    AddFEComponent,
+    AddNCEComponent,
+    // Otros
+    StationReceivableComponent,
+    ReceivableComponent,
+    ModalDialogComponent,
+    CompSearchProviderComponent,
+    FieldsetComponent,
+    WholesalerInvoicesComponent,
+    CarteraPlanillaComponent,
+    CompSearchClientComponent,
+    StationConsumptionComponent,
+    // Invetarios
+    TankRadingComponent,
+    FuelUnloadComponent,
+    ReturnedComponent,
+    FuelTransferComponent,
+    InventoryComponent,
+    // Estacion
+    StationComponent,
+    StationHomeComponent,
+    StationClientComponent,
+    StationReceivableComponent,
+    StationOrderComponent,
+    StationPaymentComponent,
+    ProductosListaGeneralComponent,
+    ReceivableAddComponent,
+    ClientesSaldoHistoricoComponent,
+    IdentificadorComponent,
+    PlacaCarroComponent,
+    FechaConsumoComponent,
+    ValorConsumoComponent,
+    ListadoConsumosComponent,
+    CombustibleComponent,
+  ],
 
-    exports: [
-        StationAdminReceivableComponent,
-        ReportSSRSComponent,
-        ReceivableComponent,
-        ModalDialogComponent,
-        CompSearchClientComponent,
-        CompSearchProviderComponent,
-        CarteraPlanillaComponent,
-        WholesalerInvoicesComponent,
-        IdentificadorComponent,
-        PlacaCarroComponent,
-        FechaConsumoComponent,
-        ValorConsumoComponent,
-        ListadoConsumosComponent,
-        CombustibleComponent
-    ]
+  exports: [
+    StationAdminReceivableComponent,
+    ReportSSRSComponent,
+    ReceivableComponent,
+    ModalDialogComponent,
+    CompSearchClientComponent,
+    CompSearchProviderComponent,
+    CarteraPlanillaComponent,
+    WholesalerInvoicesComponent,
+    IdentificadorComponent,
+    PlacaCarroComponent,
+    FechaConsumoComponent,
+    ValorConsumoComponent,
+    ListadoConsumosComponent,
+    CombustibleComponent,
+  ],
 })
-export class StationAdminModule { }
+export class StationAdminModule {}

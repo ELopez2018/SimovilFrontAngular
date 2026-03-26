@@ -7,7 +7,7 @@ export function isJSON(json: any) {
     return true;
 }
 
-export function dateToISOString(date?) {
+export function dateToISOString(date?: any) {
     date = date == null ? new Date() : new Date(date);
     return date.toISOString().split('T')[0];
 }
@@ -32,7 +32,7 @@ export function getNameMonth(monthNum: number) {
     return monthNum >= 1 && monthNum <= 12 ? meses[monthNum - 1] : '';
 }
 
-export function addDays(dateISO, days: number): Date {
+export function addDays(dateISO: any, days: number): any {
     try {
         const da = dateISO == null ? new Date() : new Date(dateISO);
         da.setDate(da.getDate() + days);
@@ -73,7 +73,7 @@ export function isoDateToLocalString(val: string): string {
  * @param date
  * @param period 0 FifteenDays, 1 Month, 2 Year
  */
-export function rangedate(dateISO: string, period): Date[] {
+export function rangedate(dateISO: string, period: any): any {
     try {
         const date = new Date(dateISO);
         let dateIni;
@@ -134,7 +134,7 @@ export function rangedate(dateISO: string, period): Date[] {
  * @param obj Item a enfocar
  * @param force Ignora si es menor a 576px.
  */
-export function focusById(obj, force = false) {
+export function focusById(obj: any, force = false) {
     if (window.innerWidth > 576 || force) {
         let a = document.getElementById(obj);
         a ? a.focus() : null;
@@ -164,7 +164,7 @@ export function OrderParametersToGet(
 
 export function ObjToCSV(
     obj: object[],
-    title: string[] = null,
+    title: string[] | null = null,
     titleB?: string[]
 ): string {
     if (!title) title = Object.keys(obj[1]);
@@ -176,7 +176,7 @@ export function ObjToCSV(
     });
     csv = csv.slice(0, -1);
     csv += '\r\n';
-    obj.map((e) => {
+    obj.map((e: any) => {
         title.map((t) => {
             csv += e[t] + ',';
         });

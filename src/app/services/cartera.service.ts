@@ -437,9 +437,9 @@ Observable<ICarteraConsumosAsociados[]>{
 
     public GetUser(
         idUsuario: string,
-        perfil: number,
-        estado: boolean,
-        exacto: boolean
+        perfil: number | null,
+        estado: boolean | null,
+        exacto: boolean | null
     ): Observable<EntUserDB[]> {
         const query = '/api/user';
         const parameters = [

@@ -254,7 +254,7 @@ export class StationConsumptionComponent implements OnInit {
 
     getNameStation(id: number) {
         if (this.stationsAll == null || id == null) return;
-        return this.stationsAll.find((e) => e.idEstacion == id).nombreEstacion;
+        return this.stationsAll.find((e) => e.idEstacion == id).nombreEstacion ?? 'N/A';
     }
 
     back() {

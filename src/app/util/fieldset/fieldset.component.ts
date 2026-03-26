@@ -8,8 +8,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class FieldsetComponent implements OnInit {
   @Input() show: boolean = false;
-  @Input() cTitle: string;
-  @Input() cTexto: string;
+  @Input() cTitle!: string;
+  @Input() cTexto!: string;
   @Output() showChange = new EventEmitter<boolean>();
 
   constructor() { }

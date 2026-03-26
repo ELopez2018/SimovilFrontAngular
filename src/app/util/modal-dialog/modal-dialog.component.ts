@@ -11,10 +11,10 @@ import { BasicDataService } from '../../services/basic-data.service';
     standalone: false
 })
 export class ModalDialogComponent implements OnInit {
-    @Input() visible: boolean;
+    @Input() visible!: boolean;
     @Input() width = 12;
     @Output() hide = new EventEmitter<boolean>();
-    private numModal: number;
+    private numModal!: number;
 
     constructor(
         private basicDataService: BasicDataService
@@ -38,7 +38,7 @@ export class ModalDialogComponent implements OnInit {
         this.hide.emit(true);
     }
 
-    @HostListener('document:keydown', ['$event']) handleKeyDown(event) {
+    @HostListener('document:keydown', ['$event']) handleKeyDown(event: any) {
         if (event.keyCode === 27 && this.visible && this.numModal == this.basicDataService.currentNumberModal) {
             this.hideF();
         }

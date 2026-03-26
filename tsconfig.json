@@ -1,24 +1,22 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
     "outDir": "./dist/out-tsc",
-    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "bundler",
     "experimentalDecorators": true,
+    "moduleResolution": "bundler",
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "useDefineForClassFields": false
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "useDefineForClassFields": false,
+    "types": [],
+    "noImplicitAny": false,
+    "strictNullChecks": false
   },
   "angularCompilerOptions": {
-    "enableIvy": false,
+    "strictTemplates": false
   }
 }
 

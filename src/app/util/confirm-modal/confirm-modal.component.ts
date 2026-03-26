@@ -31,13 +31,13 @@ export class ConfirmModalComponent implements OnInit {
     });
   }
 
-  response(value: boolean) {
+  response(value: boolean | null) {
     // this.result.emit(value);
     this.utilService.confirmResult(value);
     this.dialog = "";
   }
 
-  @HostListener('document:keyup', ['$event']) handleKeyUp(event) {
+  @HostListener('document:keyup', ['$event']) handleKeyUp(event: any) {
     if (event.keyCode === 27) {
       this.response(null);
     }

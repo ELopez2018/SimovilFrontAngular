@@ -20,13 +20,11 @@ import { StationAdminModule } from '../station-admin/station-admin.module';
 import { ClientInfoComponent } from './client/client-info/client-info.component';
 import { ClientSaldosIncialesComponent } from './client/client-saldosInciales/client-saldosInciales.component';
 import { AccordionModule } from 'primeng/accordion';
-import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { CarteraRoutes } from './cartera.routing';
 import { ButtonModule } from 'primeng/button';
 import { FechaPagoComponent } from './payment/fecha/fecha-pago.component';
-
 
 @NgModule({
   declarations: [
@@ -55,11 +53,10 @@ import { FechaPagoComponent } from './payment/fecha/fecha-pago.component';
     CurrencyMaskModule,
     StationAdminModule,
     AccordionModule,
-    MessagesModule,
     MessageModule,
-    DropdownModule,
+    SelectModule,
     ButtonModule,
     CarteraRoutes,
-  ]
+  ],
 })
-export class CarteraModule { }
+export class CarteraModule {}

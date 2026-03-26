@@ -30,12 +30,11 @@
                             "./src/styles.css",
                             "./node_modules/font-awesome/css/font-awesome.min.css",
                             "./node_modules/primeicons/primeicons.css",
-                            "./node_modules/primeng/resources/themes/nova-alt/theme.css",
-                            "./node_modules/primeng/resources/primeng.min.css",
                             "node_modules/igniteui-angular/styles/igniteui-angular.css"
                         ],
                         "scripts": [
-                            "./node_modules/hammerjs/hammer.min.js"
+                            "./node_modules/hammerjs/hammer.min.js",
+                            "node_modules/pdfmake/build/pdfmake.js", "node_modules/pdfmake/build/vfs_fonts.js"
                         ],
                         "extractLicenses": false,
                         "sourceMap": true,
@@ -91,7 +90,8 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "src/tsconfig.spec.json",
                         "scripts": [
-                            "./node_modules/hammerjs/hammer.min.js"
+                            "./node_modules/hammerjs/hammer.min.js",
+                              "node_modules/pdfmake/build/pdfmake.js", "node_modules/pdfmake/build/vfs_fonts.js"
                         ],
                         "styles": [
                             "node_modules/bootstrap/dist/css/bootstrap.min.css",

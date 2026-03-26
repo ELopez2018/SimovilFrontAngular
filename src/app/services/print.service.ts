@@ -1,7 +1,5 @@
 import { EntIdentifier } from './../Class/EntIdentifier';
 import { Injectable } from '@angular/core';
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { EntReceivable } from '../Class/EntReceivable';
 import { EntConsumptionClient } from '../Class/EntConsumptionClient';
 import { EntStation } from '../Class/EntStation';
@@ -18,6 +16,7 @@ import { EntDailySheetTurnDet } from '../Class/EntDailySheetTurnDet';
 import { forkJoin } from 'rxjs';
 import { UtilService } from './util.service';
 import { NominaService } from './nomina.service';
+declare const pdfMake: any;
 
 @Injectable()
 export class PrintService {
@@ -4226,7 +4225,7 @@ export class PrintService {
             ];
 
             const finalbody = inicio.concat(ingresosObj, medio, final);
-            pdfMake.vfs = pdfFonts.pdfMake.vfs;
+            // pdfMake.vfs = pdfFonts.pdfMake.vfs;
             var dd = {
                 pageSize: 'LETTER',
                 pageMargins: [5, 30, 5, 5],
@@ -7700,7 +7699,7 @@ export class PrintService {
             ];
 
             const finalbody = inicio.concat(ingresosObj, medio, final);
-            pdfMake.vfs = pdfFonts.pdfMake.vfs;
+            // pdfMake.vfs = pdfFonts.pdfMake.vfs;
             var dd = {
                 pageSize: 'LETTER',
                 pageMargins: [5, 30, 5, 5],
@@ -8180,7 +8179,7 @@ export class PrintService {
             },
         };
 
-        pdfMake.vfs = pdfFonts.pdfMake.vfs;
+        // pdfMake.vfs = pdfFonts.pdfMake.vfs;
         var dd = {
             background: function (page) {
                 return [

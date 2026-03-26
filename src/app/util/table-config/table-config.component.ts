@@ -9,9 +9,9 @@ import { iTableConfig, TABLEINVOICEPENDING } from '../../Class/TABLES_CONFIG';
     standalone: false
 })
 export class TableConfigComponent implements OnInit {
-  @Input() tableName: string;
+  @Input() tableName!: string;
   @Output() submiter = new EventEmitter<boolean>();
-  dataTable: iTableConfig[];
+  dataTable!: iTableConfig[];
 
   constructor(
     private storageService: StorageService

@@ -1,7 +1,7 @@
 import { EntIsland } from "./EntIsland";
 
 export class EntStation {
-    public idEstacion: number;
+    public idEstacion: number | null;
     public nombreEstacion: string;
     public ciudadEstacion: number;
     public direccion: string;

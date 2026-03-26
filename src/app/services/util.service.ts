@@ -12,7 +12,7 @@ export class UtilService {
   confirmResult$ = this.confirmResultSource.asObservable();
   loader$ = this.loaderStatus.asObservable();
 
-  confirmResult(response: boolean) {
+  confirmResult(response: boolean ) {
     this.confirmResultSource.next(response);
   }
 
